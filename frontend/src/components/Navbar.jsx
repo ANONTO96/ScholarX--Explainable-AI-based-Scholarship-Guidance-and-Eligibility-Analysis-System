@@ -29,6 +29,18 @@ const Navbar = () => {
       ? "text-sky-600 font-semibold"
       : "text-gray-700 hover:text-sky-600"
   }>Features</NavLink></li>
+                        <li><details>
+                                <summary>Countries</summary>
+                                <ul className="p-2 bg-base-100 w-40 z-1">
+                                    
+                                </ul>
+                            </details></li>
+                        <li><details>
+                                <summary>Courses</summary>
+                                <ul className="p-2 bg-base-100 w-40 z-1">
+                                    
+                                </ul>
+                            </details></li>
                         <li><NavLink to="/pricing" className={({ isActive }) =>
     isActive
       ? "text-sky-600 font-semibold"
@@ -38,16 +50,26 @@ const Navbar = () => {
                             <details>
                                 <summary>Resources</summary>
                                 <ul className="p-2 bg-base-100 w-40 z-1">
-                                    <li><NavLink to="/resources/submenu1" className={({ isActive }) =>
+                                    <li><NavLink to="/blog" className={({ isActive }) =>
         isActive
           ? "text-sky-600 font-semibold"
           : "text-gray-700 hover:text-sky-600"
-      }>Submenu 1</NavLink></li>
-                                    <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+      }>Blog</NavLink></li>
+                                    <li><NavLink to="/FAQ" className={({ isActive }) =>
         isActive
           ? "text-sky-600 font-semibold"
           : "text-gray-700 hover:text-sky-600"
-      }>Submenu 2</NavLink></li>
+      }>FAQ</NavLink></li>
+                                    <li><NavLink to="/support" className={({ isActive }) =>
+        isActive
+          ? "text-sky-600 font-semibold"
+          : "text-gray-700 hover:text-sky-600"
+      }>Support</NavLink></li>
+                                    <li><NavLink to="/contact" className={({ isActive }) =>
+        isActive
+          ? "text-sky-600 font-semibold"
+          : "text-gray-700 hover:text-sky-600"
+      }>Contact</NavLink></li>
                                 </ul>
                             </details>
                         </li>
@@ -110,6 +132,80 @@ const Navbar = () => {
       ? "text-sky-600 font-semibold"
       : "text-gray-700 hover:text-sky-600"
   }>Features</NavLink></li>
+                                <li><NavLink to="/features" className={({ isActive }) =>
+    isActive
+      ? "text-sky-600 font-semibold"
+      : "text-gray-700 hover:text-sky-600"
+  }>Countries</NavLink>
+  <ul className="p-2">
+
+                                        <li><NavLink to="/resources/submenu1" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>Australia</NavLink></li>
+
+                                        <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>Canada</NavLink></li>
+                                        <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>UK</NavLink></li>
+
+                                        <li><NavLink to="/resources/submenu3" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>USA</NavLink></li>
+                                        <li><NavLink to="/resources/submenu3" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-600 font-medium hover:text-sky-600"
+                                        }>View All <img className="w-4 h-5" src="https://img.icons8.com/?size=100&id=XWDoILn3LPrg&format=png&color=000000"></img></NavLink></li>
+
+                                    </ul>
+  </li>
+                                <li><NavLink to="/features" className={({ isActive }) =>
+    isActive
+      ? "text-sky-600 font-semibold"
+      : "text-gray-700 hover:text-sky-600"
+  }>Courses</NavLink>
+  <ul className="p-2">
+
+                                        <li><NavLink to="/resources/submenu1" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>MBA</NavLink></li>
+
+                                        <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>IT</NavLink></li>
+                                        <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>Engineering</NavLink></li>
+
+                                        <li><NavLink to="/resources/submenu3" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>Nursing</NavLink></li>
+                                        <li><NavLink to="/resources/submenu3" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-600 font-medium hover:text-sky-600"
+                                        }>View All <img className="w-4 h-5" src="https://img.icons8.com/?size=100&id=XWDoILn3LPrg&format=png&color=000000"></img></NavLink></li>
+
+                                    </ul>
+  </li>
 
                                 <li><NavLink to="/pricing" className={({ isActive }) =>
     isActive
@@ -131,13 +227,24 @@ const Navbar = () => {
                                             isActive
                                                 ? "text-sky-600 font-semibold"
                                                 : "text-gray-700 hover:text-sky-600"
-                                        }>Submenu 1</NavLink></li>
+                                        }>Blog</NavLink></li>
 
                                         <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
                                             isActive
                                                 ? "text-sky-600 font-semibold"
                                                 : "text-gray-700 hover:text-sky-600"
-                                        }>Submenu 2</NavLink></li>
+                                        }>FAQ</NavLink></li>
+                                        <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>Support</NavLink></li>
+
+                                        <li><NavLink to="/resources/submenu3" className={({ isActive }) =>
+                                            isActive
+                                                ? "text-sky-600 font-semibold"
+                                                : "text-gray-700 hover:text-sky-600"
+                                        }>Contact</NavLink></li>
 
                                     </ul>
 
