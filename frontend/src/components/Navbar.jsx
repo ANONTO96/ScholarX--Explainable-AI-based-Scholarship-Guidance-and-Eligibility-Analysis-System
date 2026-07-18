@@ -7,18 +7,18 @@ const Navbar = () => {
     // state for mobile dropdown icon
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div>
-            <div className="navbar bg-base-100">
+        <>
+            <div className="flex py-2 items-center justify-between">
                 {/* logo and name */}
-                <div className="navbar-start">
+                <div className="">
                     <NavLink to="/" className="btn btn-ghost font-semibold text-2xl">
                         <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000" alt="logo" />
                         ScholarX
                     </NavLink>
                 </div>
                 {/*desktop center navigation */}
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                <div className=" hidden lg:flex">
+                    <ul className="menu menu-horizontal">
                         <li><NavLink to="/" className={({ isActive }) =>
     isActive
       ? "text-sky-600 font-semibold"
@@ -76,7 +76,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 {/* user actions */}
-                <div className="navbar-end gap-1">
+                <div className="flex items-center gap-1">
                     <a
     className="px-3 py-1 sm:px-5 sm:py-2 shrink-0 text-lg rounded-xl
                bg-gray-100 text-black
@@ -255,7 +255,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

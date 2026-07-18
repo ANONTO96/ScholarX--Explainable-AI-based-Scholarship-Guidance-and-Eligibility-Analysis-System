@@ -3,8 +3,8 @@ import { NavLink } from "react-router";
 
 const Footer = () => {
     return (
-        <>
-        <footer className="footer sm:footer-horizontal bg-base-100 text-base-content p-10">
+        <div className="bg-white">
+        <footer className="footer sm:footer-horizontal text-base-content w-[90%] mx-auto py-14">
   <nav>
     <h6 className="footer-title opacity-80">Platform</h6>
     <NavLink className="link link-hover text-gray-500">Home</NavLink>
@@ -55,7 +55,7 @@ const Footer = () => {
   </form>
 </footer>
 <hr className="text-gray-300" />
-<div className="footer sm:footer-horizontal bg-base text-base-content items-center p-4">
+<div className="footer sm:footer-horizontal text-base-content items-center w-[90%] mx-auto pt-6 pb-10">
     <aside className="grid-flow-col items-center">
     <img className="w-10 h-10" src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000" alt="logo" />
     <p className="text-gray-600">Copyright © {new Date().getFullYear()} -ScholarX. All rights reserved.</p>
@@ -75,7 +75,7 @@ const Footer = () => {
     </a>
   </nav>
   </div>
-  </>
+  </div>
     );
 };
 
