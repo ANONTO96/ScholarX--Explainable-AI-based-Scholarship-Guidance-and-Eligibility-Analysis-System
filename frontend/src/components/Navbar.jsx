@@ -8,7 +8,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <>
-            <div className="flex py-2 items-center justify-between">
+            <div className="flex w-full lg:w-[90%] mx-auto py-2 items-center justify-between">
                 {/* logo and name */}
                 <div className="">
                     <NavLink to="/" className="btn btn-ghost font-semibold text-2xl">

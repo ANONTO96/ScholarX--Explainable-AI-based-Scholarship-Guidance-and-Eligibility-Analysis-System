@@ -2,7 +2,7 @@ import heroImg1 from "../assets/hero1.png"
 
 const Hero = () => {
     return (
-        <div className="my-26">
+        <div className="my-26 w-[90%] mx-auto">
         <div className=" flex flex-col gap-5 items-start justify-center w-[96%] max-w-210 text-center mx-auto px-5 sm:px-10 lg:px-20">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold">Find the scholarship that fits your future</h1>
             <p className="text-gray-600">We aggregate global opportunities from Erasmus+ to DAAD and analyze your profile against them. Then we build your personal roadmap to a funded education.</p>

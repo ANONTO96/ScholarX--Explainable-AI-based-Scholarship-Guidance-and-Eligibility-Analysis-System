@@ -60,7 +60,7 @@ const Footer = () => {
     <img className="w-10 h-10" src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000" alt="logo" />
     <p className="text-gray-600">Copyright © {new Date().getFullYear()} -ScholarX. All rights reserved.</p>
   </aside>
-  <nav className="grid-flow-col gap-2 md:place-self-center md:justify-self-end">
+  <nav className="grid-flow-col gap-2 place-self-center md:justify-self-end">
     <a>
       <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=59780&format=png&color=000000" alt="Facebook" />
     </a>

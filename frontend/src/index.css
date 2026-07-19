@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* for fonts */
 body {
   font-family: "Inter", sans-serif;
 }
@@ -12,4 +13,29 @@ h4,
 h5,
 h6 {
   font-family: "Outfit", sans-serif;
+}
+
+/* for marquee */
+.marquee-content {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-content.reverse {
+  animation-direction: reverse;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
