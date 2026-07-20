@@ -1,5 +1,6 @@
 import { ArrowRight, Globe2, Timer, Database } from "lucide-react";
 import heroImg2 from "../assets/hero2.png"; // Change to your image path
+import { NavLink } from "react-router";
 
 const ScholarshipSearchSection = () => {
   return (
@@ -17,7 +18,7 @@ const ScholarshipSearchSection = () => {
 
           {/* Right Content */}
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-3">
+            <p className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">
               Aggregate
             </p>
 
@@ -25,7 +26,7 @@ const ScholarshipSearchSection = () => {
               One system to search every scholarship that matters
             </h2>
 
-            <p className="mt-3 text-gray-600 leading-8">
+            <p className="mt-3 text-gray-600 max-w-lg leading-8">
               We pull thousands of opportunities from Erasmus+, DAAD,
               government portals, and hundreds of trusted scholarship
               providers into one intelligent search experience.
@@ -61,7 +62,8 @@ const ScholarshipSearchSection = () => {
 
             {/* Buttons */}
             <div className="mt-5 flex flex-wrap items-center gap-5">
-              <a
+              <NavLink
+                    to="/ScholarshipSearch"
                         className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 text-lg rounded-lg
                bg-gray-100 text-black
                border border-[#3A2C2C]
@@ -71,12 +73,15 @@ const ScholarshipSearchSection = () => {
                hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
                     >
                         Explore
-                    </a>
+                    </NavLink>
 
-              <button className="group flex items-center gap-2 font-semibold text-gray-800 hover:text-blue-400 transition">
+              <NavLink
+                    to="/learn-more-about-scholarship-search"
+                        className="group flex items-center gap-2 font-semibold text-gray-900 hover:text-blue-500 transition"
+                    >
                 Learn More
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              </NavLink>
             </div>
           </div>
         </div>
