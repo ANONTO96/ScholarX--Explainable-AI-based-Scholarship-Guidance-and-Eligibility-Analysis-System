@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 const Footer = () => {
     return (
         <div className="bg-white">
-        <footer className="footer sm:footer-horizontal text-base-content w-[90%] mx-auto py-14">
+        <footer className="footer sm:footer-horizontal text-base-content w-[98%] mx-auto py-20">
   <nav>
     <h6 className="footer-title opacity-80">Platform</h6>
     <NavLink className="link link-hover text-gray-500">Home</NavLink>
@@ -55,7 +55,7 @@ const Footer = () => {
   </form>
 </footer>
 <hr className="text-gray-300" />
-<div className="footer sm:footer-horizontal text-base-content items-center w-[90%] mx-auto pt-6 pb-10">
+<div className="footer place-items-center sm:place-items-start sm:footer-horizontal text-base-content items-center w-[98%] mx-auto pt-6 pb-6 sm:pb-10">
     <aside className="grid-flow-col items-center">
     <img className="w-10 h-10" src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000" alt="logo" />
     <p className="text-gray-600">Copyright © {new Date().getFullYear()} -ScholarX. All rights reserved.</p>

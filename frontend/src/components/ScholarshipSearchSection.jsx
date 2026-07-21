@@ -26,7 +26,7 @@ const ScholarshipSearchSection = () => {
               One system to search every scholarship that matters
             </h2>
 
-            <p className="mt-3 text-gray-600 max-w-lg leading-8">
+            <p className="mt-3 text-gray-600 max-w-xl leading-8">
               We pull thousands of opportunities from Erasmus+, DAAD,
               government portals, and hundreds of trusted scholarship
               providers into one intelligent search experience.

@@ -21,12 +21,12 @@ const EligibilityAnalysis = () => {
               single word
             </h2>
 
-            <p className="mt-3 text-gray-600 leading-8 max-w-lg">
+            <p className="mt-3 text-gray-600 leading-8 max-w-xl">
               Our engine reads your profile and instantly cross-references it
               against every scholarship in the system. You get a clear match
               probability, not a vague hope.
             </p>
-
+            {/* Buttons */}
             <div className="mt-5 flex items-center gap-5">
               <NavLink to="/EligibilityAnalysis"
                 className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
