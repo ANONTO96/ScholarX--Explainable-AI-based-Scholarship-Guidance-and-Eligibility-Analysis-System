@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import RoadmapSection from "../components/RoadmapSection";
 import ScholarshipSearchSection from "../components/ScholarshipSearchSection";
 import SubMarquee from "../components/SubMarquee";
+import TimelineSection from "../components/TimelineSection";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
         <ScholarshipSearchSection></ScholarshipSearchSection>
         <EligibilityAnalysis></EligibilityAnalysis>
         <RoadmapSection></RoadmapSection>
+        <TimelineSection></TimelineSection>
         </div>
     );
 };

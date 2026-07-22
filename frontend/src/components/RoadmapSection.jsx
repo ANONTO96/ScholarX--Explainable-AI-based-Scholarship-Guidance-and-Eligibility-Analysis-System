@@ -56,7 +56,7 @@ const RoadmapSection = () => {
               Plan
             </span>
 
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[2px] w-8 bg-black rounded-full" />
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 h-0.5 w-8 bg-black rounded-full" />
           </div>
 
           <span>Track</span>
