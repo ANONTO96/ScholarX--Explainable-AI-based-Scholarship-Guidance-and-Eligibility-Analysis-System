@@ -32,7 +32,7 @@ const EligibilityAnalysis = () => {
                 className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
                            bg-gray-100
                            border border-[#3A2C2C]
-                           shadow-[1px_2px_0px_0px_#3A2C2C]
+                           shadow-[2px_3px_0px_0px_#3A2C2C]
                            transition-all duration-200
                            hover:translate-y-0.5
                            hover:shadow-[1px_2px_0px_0px_#3A2C2C]"

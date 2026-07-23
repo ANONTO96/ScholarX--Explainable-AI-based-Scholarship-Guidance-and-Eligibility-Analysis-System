@@ -46,7 +46,7 @@ const SubMarquee = () => {
 
     return (
         <section className="py-10 sm:py-20 bg-white space-y-5 sm:space-y-7">
-            <h1 className="text-xl sm:text-2xl xl:text-3xl text-center w-[90%] md:w-[65%] xl:w-[40%] mx-auto">
+            <h1 className="text-2xl sm:text-3xl xl:text-4xl text-center w-[90%] md:w-[70%] xl:w-[50%] mx-auto">
                 Trusted by the applicants targeting the world's best programs at the best universities.
             </h1>
             <MarqueeRow items={firstRowItems} />

@@ -1,7 +1,9 @@
+import CTASection from "../components/CTASection";
 import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import Hero from "../components/Hero";
 import RoadmapSection from "../components/RoadmapSection";
 import ScholarshipSearchSection from "../components/ScholarshipSearchSection";
+import StudentStories from "../components/StudentStories";
 import SubMarquee from "../components/SubMarquee";
 import TimelineSection from "../components/TimelineSection";
 
@@ -14,6 +16,8 @@ const Home = () => {
         <EligibilityAnalysis></EligibilityAnalysis>
         <RoadmapSection></RoadmapSection>
         <TimelineSection></TimelineSection>
+        <StudentStories></StudentStories>
+        <CTASection></CTASection>
         </div>
     );
 };
