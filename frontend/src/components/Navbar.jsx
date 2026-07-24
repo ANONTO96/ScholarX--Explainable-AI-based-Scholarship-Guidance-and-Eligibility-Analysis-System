@@ -99,6 +99,7 @@ const Navbar = () => {
                 ? "text-sky-600 font-semibold"
                 : "text-gray-700 hover:text-sky-600"
             }>Features</NavLink></li>
+            {/* countries */}
             <li className="relative group">
               <button className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-sky-600">
                 Countries
@@ -132,7 +133,7 @@ const Navbar = () => {
                       className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-sky-50 transition"
                     >
                       {/* country flag */}
-                      <div className="w-7 h-7 rounded-full overflow-hidden flex items-center justify-center">
+                      <div className="w-7 h-7 rounded-full shadow-xl border border-gray-100 overflow-hidden flex items-center justify-center">
                         <ReactCountryFlag
                           countryCode={country.code}
                           svg
@@ -150,6 +151,7 @@ const Navbar = () => {
                 </div>
               </div>
             </li>
+            {/* courses */}
             <li className="relative group">
               <button className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-sky-600">
                 Courses
@@ -289,43 +291,60 @@ const Navbar = () => {
                     ? "text-sky-600 font-semibold"
                     : "text-gray-700 hover:text-sky-600"
                 }>Features</NavLink></li>
+                {/* countries */}
                 <li><NavLink to="/countries" className={({ isActive }) =>
                   isActive
                     ? "text-sky-600 font-semibold"
                     : "text-gray-700 hover:text-sky-600"
                 }>Countries</NavLink>
                   <ul className="p-2">
+  {countries.slice(0, 4).map((country) => (
+    <li key={country.slug}>
+      <NavLink
+        to={`/countries/${country.slug}`}
+        className={({ isActive }) =>
+          `flex items-center gap-3 ${
+            isActive
+              ? "text-sky-600 font-semibold"
+              : "text-gray-700 hover:text-sky-600"
+          }`
+        }
+      >
+        <div className="w-6 h-6 rounded-full border shadow-xl border-gray-200 overflow-hidden shrink-0">
+          <ReactCountryFlag
+            countryCode={country.code}
+            svg
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </div>
 
-                    <li><NavLink to="/countries/australia" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Australia</NavLink></li>
+        <span>{country.name}</span>
+      </NavLink>
+    </li>
+  ))}
 
-                    <li><NavLink to="/countries/canada" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Canada</NavLink></li>
-                    <li><NavLink to="/countries/uk" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>UK</NavLink></li>
-
-                    <li><NavLink to="/countries/usa" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>USA</NavLink></li>
-                    <li><NavLink to="/countries" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold group flex items-center gap-2 transition"
-                        : "text-gray-800 font-medium group flex items-center gap-2 transition hover:text-sky-600"
-                    }>View All <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></NavLink></li>
-
-                  </ul>
+  <li>
+    <NavLink
+      to="/countries"
+      className={({ isActive }) =>
+        `group flex items-center gap-2 transition ${
+          isActive
+            ? "text-sky-600 font-semibold"
+            : "text-gray-800 font-medium hover:text-sky-600"
+        }`
+      }
+    >
+      View All
+      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+    </NavLink>
+  </li>
+</ul>
                 </li>
+                {/* courses */}
                 <li><NavLink to="/courses" className={({ isActive }) =>
                   isActive
                     ? "text-sky-600 font-semibold"

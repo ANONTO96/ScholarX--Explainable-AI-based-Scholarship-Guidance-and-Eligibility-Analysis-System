@@ -48,23 +48,6 @@ const RoadmapSection = () => {
               </NavLink>
         </div>
 
-        {/* Timeline */}
-        <div className="mt-14 flex justify-center gap-10 text-sm text-gray-500">
-
-          <div className="relative pb-2">
-            <span className="text-black font-medium">
-              Plan
-            </span>
-
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 h-0.5 w-8 bg-black rounded-full" />
-          </div>
-
-          <span>Track</span>
-
-          <span>Submit</span>
-
-        </div>
-
       </div>
     </section>
   );

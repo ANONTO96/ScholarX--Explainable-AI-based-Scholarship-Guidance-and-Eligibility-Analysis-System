@@ -1,24 +1,94 @@
 import { NavLink } from "react-router";
-import { ArrowRight } from "lucide-react";
-import heroImg4 from "../assets/hero4.png";
+import { CalendarDays,
+  ChartNoAxesColumn,
+  FileCheck, ArrowRight } from "lucide-react";
+import plan from "../assets/plan.jpg";
+import track from "../assets/track.jpg";
+import submit from "../assets/submit.jpg";
+import { useState } from "react";
 
 const TimelineSection = () => {
+  // state for cards
+const [current, setCurrent] = useState(0);
+
+const steps = [
+  {
+    title: "Plan",
+    icon: CalendarDays,
+  },
+  {
+    title: "Track",
+    icon: ChartNoAxesColumn,
+  },
+  {
+    title: "Submit",
+    icon: FileCheck,
+  },
+];
+
+const timelineCards = [
+  {
+    tag: "Plan",
+    title: "A personalized timeline built from your best matches",
+    description:
+      "The system sequences your applications by deadline and probability. You always know exactly what to work on next.",
+    image: plan,
+  },
+  {
+    tag: "Track",
+    title: "Track every scholarship in one organized dashboard",
+    description:
+      "Monitor deadlines, document status, interview schedules, and application progress without missing anything.",
+    image: track,
+  },
+  {
+    tag: "Submit",
+    title: "Submit confidently with an AI-powered checklist",
+    description:
+      "ScholarX verifies your documents, highlights missing requirements, and helps maximize your success rate.",
+    image: submit,
+  },
+];
+
+
+const card = timelineCards[current];
+
     return (
         <section className="pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10 ">
+        <div className="flex justify-center gap-10 mb-12">
+  {steps.map((step, index) => {
+    const Icon = step.icon;
+
+    return (
+      <button
+        key={step.title}
+        onClick={() => setCurrent(index)}
+        className={`flex items-center gap-2 pb-3 border-b-2 transition ${
+          current === index
+            ? "border-black text-black"
+            : "border-transparent text-gray-500 hover:text-black"
+        }`}
+      >
+        <Icon size={18} />
+        {step.title}
+      </button>
+    );
+  })}
+</div>
         <div className="grid lg:grid-cols-2 items-center gap-14 xl:gap-22 bg-zinc-100 rounded-lg shadow-lg">
           {/* Left Content */}
           <div className="order-2 p-4 lg:p-0">
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500 mb-4">
-              Plan
+              {card.tag}
             </p>
 
             <h2 className="text-4xl lg:text-5xl font-semibold leading-tight text-gray-900">
-              A personalized timeline built from your best matches
+              {card.title}
             </h2>
 
             <p className="mt-3 text-gray-600 leading-8 max-w-xl">
-              The system sequences your applications by deadline and probability. You always know exactly what to work on next.
+              {card.description}
             </p>
             {/* Buttons */}
             <div className="mt-5 flex items-center gap-5">
@@ -47,7 +117,7 @@ const TimelineSection = () => {
           {/* Right Image */}
           <div className="order-1">
             <img
-              src={heroImg4}
+              src={card.image}
               alt="Students checking scholarship eligibility"
               className="w-full h-90 sm:h-100 lg:h-125 object-cover rounded-t-lg lg:rounded-t-none lg:rounded-l-lg shadow-xl"
             />
