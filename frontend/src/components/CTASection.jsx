@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 
 export default function CTASection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="pt-20 pb-10 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="bg-neutral-100 shadow-lg rounded-lg py-24 px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-semibold text-gray-900">

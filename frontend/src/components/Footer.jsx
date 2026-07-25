@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <div className="bg-white">
           {/* top */}
-            <div className="place-items-center">
+            <div className="place-items-center pt-10">
   <img
     src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000"
     alt="ScholarX"

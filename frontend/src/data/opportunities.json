@@ -1,0 +1,668 @@
+[
+  {
+    "id": 1,
+    "slug": "daad-scholarship-2027",
+    "title": "DAAD Scholarship 2027",
+    "category": "Scholarship",
+    "provider": "DAAD",
+    "country": "Germany",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": [
+      "Master",
+      "PhD"
+    ],
+    "deadline": "2027-10-15",
+    "applicationFee": "Free",
+    "ielts": "6.5+",
+    "benefits": [
+      "Full Tuition",
+      "Monthly Stipend",
+      "Health Insurance",
+      "Travel Allowance"
+    ],
+    "eligibility": [
+      "International Students",
+      "Bachelor's Degree",
+      "Strong Academic Record"
+    ],
+    "website": "https://www.daad.de",
+    "image": "/images/opportunities/daad.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "Germany",
+      "Scholarship",
+      "Master",
+      "PhD"
+    ],
+    "description": "One of the world's most prestigious fully funded scholarships for international students."
+  },
+  {
+    "id": 2,
+    "slug": "chevening-scholarship",
+    "title": "Chevening Scholarship",
+    "category": "Scholarship",
+    "provider": "UK Government",
+    "country": "United Kingdom",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": [
+      "Master"
+    ],
+    "deadline": "2027-11-02",
+    "applicationFee": "Free",
+    "ielts": "6.5+",
+    "benefits": [
+      "Tuition Fees",
+      "Living Expenses",
+      "Airfare",
+      "Visa Cost"
+    ],
+    "eligibility": [
+      "Leadership Experience",
+      "Bachelor Degree",
+      "Work Experience"
+    ],
+    "website": "https://www.chevening.org",
+    "image": "/images/opportunities/chevening.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "UK",
+      "Government",
+      "Scholarship"
+    ],
+    "description": "Fully funded UK Government scholarship for future global leaders."
+  },
+  {
+    "id": 3,
+    "slug": "erasmus-plus",
+    "title": "Erasmus+ Exchange Program",
+    "category": "Exchange Program",
+    "provider": "European Union",
+    "country": "Europe",
+    "city": "Multiple",
+    "funding": "Partially Funded",
+    "degree": [
+      "Bachelor",
+      "Master"
+    ],
+    "deadline": "2027-05-30",
+    "applicationFee": "Free",
+    "ielts": "Depends on University",
+    "benefits": [
+      "Travel Grant",
+      "Living Allowance",
+      "Academic Credits"
+    ],
+    "eligibility": [
+      "Partner University Student"
+    ],
+    "website": "https://erasmus-plus.ec.europa.eu",
+    "image": "/images/opportunities/erasmus.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "Exchange",
+      "Europe"
+    ],
+    "description": "Study abroad in Europe while earning credits at your home university."
+  },
+  {
+    "id": 4,
+    "slug": "google-step-internship",
+    "title": "Google STEP Internship",
+    "category": "Internship",
+    "provider": "Google",
+    "country": "United States",
+    "city": "Mountain View",
+    "funding": "Paid Internship",
+    "degree": [
+      "Bachelor"
+    ],
+    "deadline": "2027-01-20",
+    "applicationFee": "Free",
+    "ielts": "Not Required",
+    "benefits": [
+      "Competitive Salary",
+      "Mentorship",
+      "Housing Support"
+    ],
+    "eligibility": [
+      "Computer Science Student",
+      "Sophomore or Junior"
+    ],
+    "website": "https://careers.google.com",
+    "image": "/images/opportunities/google-step.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "Internship",
+      "Google",
+      "Software"
+    ],
+    "description": "Paid internship program for undergraduate computer science students."
+  },
+  {
+    "id": 5,
+    "slug": "mext-scholarship",
+    "title": "MEXT Scholarship",
+    "category": "Scholarship",
+    "provider": "Government of Japan",
+    "country": "Japan",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "deadline": "2027-06-15",
+    "applicationFee": "Free",
+    "ielts": "Optional",
+    "benefits": [
+      "Tuition",
+      "Monthly Allowance",
+      "Airfare"
+    ],
+    "eligibility": [
+      "International Students"
+    ],
+    "website": "https://www.studyinjapan.go.jp",
+    "image": "/images/opportunities/mext.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "Japan",
+      "Scholarship"
+    ],
+    "description": "Prestigious Japanese Government scholarship for international students."
+  },
+  {
+    "id": 6,
+    "slug": "microsoft-imagine-cup",
+    "title": "Microsoft Imagine Cup",
+    "category": "Competition",
+    "provider": "Microsoft",
+    "country": "Global",
+    "city": "Online",
+    "funding": "Prize Competition",
+    "degree": [
+      "Bachelor",
+      "Master"
+    ],
+    "deadline": "2027-02-28",
+    "applicationFee": "Free",
+    "ielts": "Not Required",
+    "benefits": [
+      "$100,000 Prize",
+      "Mentorship",
+      "Microsoft Credits"
+    ],
+    "eligibility": [
+      "Student Team",
+      "Innovation Project"
+    ],
+    "website": "https://imaginecup.microsoft.com",
+    "image": "/images/opportunities/imagine-cup.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "Competition",
+      "Microsoft",
+      "AI"
+    ],
+    "description": "Global student technology competition organized by Microsoft."
+  }
+  ,
+{
+  "id": 7,
+  "slug": "fulbright-foreign-student-program",
+  "title": "Fulbright Foreign Student Program",
+  "category": "Scholarship",
+  "provider": "U.S. Department of State",
+  "country": "United States",
+  "city": "Multiple",
+  "funding": "Fully Funded",
+  "degree": ["Master", "PhD"],
+  "deadline": "2027-09-30",
+  "applicationFee": "Free",
+  "ielts": "6.5+",
+  "benefits": [
+    "Full Tuition",
+    "Monthly Stipend",
+    "Health Insurance",
+    "Travel Costs"
+  ],
+  "eligibility": [
+    "International Students",
+    "Bachelor Degree"
+  ],
+  "website": "https://foreign.fulbrightonline.org",
+  "image": "/images/opportunities/fulbright.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": ["USA", "Scholarship"],
+  "description": "Prestigious U.S. government scholarship for graduate study."
+},
+{
+  "id": 8,
+  "slug": "australia-awards-scholarships",
+  "title": "Australia Awards Scholarship",
+  "category": "Scholarship",
+  "provider": "Australian Government",
+  "country": "Australia",
+  "city": "Multiple",
+  "funding": "Fully Funded",
+  "degree": ["Bachelor", "Master"],
+  "deadline": "2027-04-30",
+  "applicationFee": "Free",
+  "ielts": "6.5",
+  "benefits": [
+    "Tuition",
+    "Living Expenses",
+    "Return Airfare",
+    "Medical Insurance"
+  ],
+  "eligibility": [
+    "Citizens of Eligible Countries"
+  ],
+  "website": "https://www.australiaawards.gov.au",
+  "image": "/images/opportunities/australia-awards.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": ["Australia", "Scholarship"],
+  "description": "Government-funded scholarship for students from developing nations."
+},
+{
+  "id": 9,
+  "slug": "commonwealth-scholarship",
+  "title": "Commonwealth Master's Scholarship",
+  "category": "Scholarship",
+  "provider": "Commonwealth Scholarship Commission",
+  "country": "United Kingdom",
+  "city": "Multiple",
+  "funding": "Fully Funded",
+  "degree": ["Master"],
+  "deadline": "2027-10-18",
+  "applicationFee": "Free",
+  "ielts": "6.5+",
+  "benefits": [
+    "Full Tuition",
+    "Living Allowance",
+    "Airfare"
+  ],
+  "eligibility": [
+    "Commonwealth Citizens"
+  ],
+  "website": "https://cscuk.fcdo.gov.uk",
+  "image": "/images/opportunities/commonwealth.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": ["UK", "Scholarship"],
+  "description": "Scholarship supporting talented students from Commonwealth countries."
+},
+{
+  "id": 10,
+  "slug": "amazon-sde-internship",
+  "title": "Amazon Software Development Internship",
+  "category": "Internship",
+  "provider": "Amazon",
+  "country": "United States",
+  "city": "Seattle",
+  "funding": "Paid Internship",
+  "degree": ["Bachelor", "Master"],
+  "deadline": "2027-02-15",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "Competitive Salary",
+    "Housing",
+    "Mentorship"
+  ],
+  "eligibility": [
+    "Computer Science Students"
+  ],
+  "website": "https://www.amazon.jobs",
+  "image": "/images/opportunities/amazon.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": ["Amazon", "Internship"],
+  "description": "Internship for aspiring software engineers at Amazon."
+},
+{
+  "id": 11,
+  "slug": "meta-university-program",
+  "title": "Meta University Program",
+  "category": "Internship",
+  "provider": "Meta",
+  "country": "United States",
+  "city": "Menlo Park",
+  "funding": "Paid Internship",
+  "degree": ["Bachelor"],
+  "deadline": "2027-03-10",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "Salary",
+    "Mentorship",
+    "Networking"
+  ],
+  "eligibility": [
+    "Undergraduate Students"
+  ],
+  "website": "https://www.metacareers.com",
+  "image": "/images/opportunities/meta.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": ["Meta", "Internship"],
+  "description": "Early career internship for future software engineers."
+},
+{
+  "id": 12,
+  "slug": "google-solution-challenge",
+  "title": "Google Solution Challenge",
+  "category": "Competition",
+  "provider": "Google",
+  "country": "Global",
+  "city": "Online",
+  "funding": "Prize Competition",
+  "degree": ["Bachelor", "Master"],
+  "deadline": "2027-03-31",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "Global Recognition",
+    "Mentorship",
+    "Google Swag"
+  ],
+  "eligibility": [
+    "Google Developer Student Clubs"
+  ],
+  "website": "https://developers.google.com/community/gdsc-solution-challenge",
+  "image": "/images/opportunities/google-solution.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": ["Google", "Competition"],
+  "description": "Build innovative solutions aligned with the UN Sustainable Development Goals."
+},
+{
+  "id": 13,
+  "slug": "huawei-ict-competition",
+  "title": "Huawei ICT Competition",
+  "category": "Competition",
+  "provider": "Huawei",
+  "country": "Global",
+  "city": "Online",
+  "funding": "Prize Competition",
+  "degree": ["Bachelor"],
+  "deadline": "2027-04-15",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "Cash Prize",
+    "Huawei Certification",
+    "Employment Opportunities"
+  ],
+  "eligibility": [
+    "ICT Students"
+  ],
+  "website": "https://e.huawei.com",
+  "image": "/images/opportunities/huawei.jpg",
+  "featured": false,
+  "status": "Open",
+  "tags": ["Huawei", "Competition"],
+  "description": "International ICT skills competition for university students."
+}
+,
+{
+  "id": 14,
+  "slug": "rhodes-scholarship",
+  "title": "Rhodes Scholarship",
+  "category": "Scholarship",
+  "provider": "Rhodes Trust",
+  "country": "United Kingdom",
+  "city": "Oxford",
+  "funding": "Fully Funded",
+  "degree": [
+    "Master",
+    "PhD"
+  ],
+  "deadline": "2027-08-31",
+  "applicationFee": "Free",
+  "ielts": "7.0+",
+  "benefits": [
+    "Full Tuition",
+    "Annual Stipend",
+    "Travel Costs",
+    "Health Coverage"
+  ],
+  "eligibility": [
+    "Outstanding Academic Achievement",
+    "Leadership",
+    "Community Service"
+  ],
+  "website": "https://www.rhodeshouse.ox.ac.uk",
+  "image": "/images/opportunities/rhodes.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": [
+    "Oxford",
+    "Scholarship",
+    "Leadership"
+  ],
+  "description": "One of the world's oldest and most prestigious international scholarships."
+},
+{
+  "id": 15,
+  "slug": "gates-cambridge-scholarship",
+  "title": "Gates Cambridge Scholarship",
+  "category": "Scholarship",
+  "provider": "University of Cambridge",
+  "country": "United Kingdom",
+  "city": "Cambridge",
+  "funding": "Fully Funded",
+  "degree": [
+    "Master",
+    "PhD"
+  ],
+  "deadline": "2027-12-05",
+  "applicationFee": "Free",
+  "ielts": "7.5",
+  "benefits": [
+    "Full Tuition",
+    "Living Allowance",
+    "Airfare",
+    "Research Funding"
+  ],
+  "eligibility": [
+    "International Students",
+    "Admission to Cambridge"
+  ],
+  "website": "https://www.gatescambridge.org",
+  "image": "/images/opportunities/gates-cambridge.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": [
+    "Cambridge",
+    "Scholarship"
+  ],
+  "description": "Highly competitive scholarship funded by the Bill & Melinda Gates Foundation."
+},
+{
+  "id": 16,
+  "slug": "vanier-canada-graduate-scholarship",
+  "title": "Vanier Canada Graduate Scholarship",
+  "category": "Scholarship",
+  "provider": "Government of Canada",
+  "country": "Canada",
+  "city": "Multiple",
+  "funding": "Fully Funded",
+  "degree": [
+    "PhD"
+  ],
+  "deadline": "2027-11-01",
+  "applicationFee": "Free",
+  "ielts": "6.5+",
+  "benefits": [
+    "$50,000 Annual Funding",
+    "Research Support"
+  ],
+  "eligibility": [
+    "Doctoral Students",
+    "Outstanding Academic Record"
+  ],
+  "website": "https://vanier.gc.ca",
+  "image": "/images/opportunities/vanier.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": [
+    "Canada",
+    "Research"
+  ],
+  "description": "Canada's flagship doctoral scholarship supporting world-class researchers."
+},
+{
+  "id": 17,
+  "slug": "schwarzman-scholars",
+  "title": "Schwarzman Scholars",
+  "category": "Fellowship",
+  "provider": "Tsinghua University",
+  "country": "China",
+  "city": "Beijing",
+  "funding": "Fully Funded",
+  "degree": [
+    "Master"
+  ],
+  "deadline": "2027-09-20",
+  "applicationFee": "Free",
+  "ielts": "7.0",
+  "benefits": [
+    "Full Tuition",
+    "Accommodation",
+    "Travel",
+    "Leadership Training"
+  ],
+  "eligibility": [
+    "Bachelor Degree",
+    "Leadership Potential"
+  ],
+  "website": "https://www.schwarzmanscholars.org",
+  "image": "/images/opportunities/schwarzman.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": [
+    "China",
+    "Leadership",
+    "Fellowship"
+  ],
+  "description": "International leadership fellowship at Tsinghua University."
+},
+{
+  "id": 18,
+  "slug": "one-young-world-summit",
+  "title": "One Young World Summit",
+  "category": "Conference",
+  "provider": "One Young World",
+  "country": "Global",
+  "city": "Rotating Host City",
+  "funding": "Fully Funded",
+  "degree": [
+    "Bachelor",
+    "Master",
+    "Professional"
+  ],
+  "deadline": "2027-06-30",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "Conference Access",
+    "Accommodation",
+    "Meals",
+    "Networking"
+  ],
+  "eligibility": [
+    "Young Leaders",
+    "Age 18-35"
+  ],
+  "website": "https://www.oneyoungworld.com",
+  "image": "/images/opportunities/one-young-world.jpg",
+  "featured": false,
+  "status": "Open",
+  "tags": [
+    "Conference",
+    "Leadership"
+  ],
+  "description": "Global summit connecting young leaders to solve international challenges."
+},
+{
+  "id": 19,
+  "slug": "icpc-world-finals",
+  "title": "ICPC World Finals",
+  "category": "Competition",
+  "provider": "ICPC Foundation",
+  "country": "Global",
+  "city": "Varies",
+  "funding": "Competition",
+  "degree": [
+    "Bachelor"
+  ],
+  "deadline": "2027-05-10",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "World Recognition",
+    "Career Opportunities",
+    "Prize Awards"
+  ],
+  "eligibility": [
+    "Qualified University Teams"
+  ],
+  "website": "https://icpc.global",
+  "image": "/images/opportunities/icpc.jpg",
+  "featured": false,
+  "status": "Open",
+  "tags": [
+    "Programming",
+    "Competition"
+  ],
+  "description": "The world's most prestigious collegiate programming competition."
+},
+{
+  "id": 20,
+  "slug": "nasa-space-apps-challenge",
+  "title": "NASA Space Apps Challenge",
+  "category": "Hackathon",
+  "provider": "NASA",
+  "country": "Global",
+  "city": "Online & Local Events",
+  "funding": "Competition",
+  "degree": [
+    "Student",
+    "Professional"
+  ],
+  "deadline": "2027-09-15",
+  "applicationFee": "Free",
+  "ielts": "Not Required",
+  "benefits": [
+    "Global Recognition",
+    "NASA Certificates",
+    "Networking",
+    "Innovation Awards"
+  ],
+  "eligibility": [
+    "Open to Everyone"
+  ],
+  "website": "https://www.spaceappschallenge.org",
+  "image": "/images/opportunities/nasa-space-apps.jpg",
+  "featured": true,
+  "status": "Open",
+  "tags": [
+    "NASA",
+    "Hackathon",
+    "Space"
+  ],
+  "description": "Annual global hackathon where participants solve real-world challenges using NASA's open data."
+}
+]

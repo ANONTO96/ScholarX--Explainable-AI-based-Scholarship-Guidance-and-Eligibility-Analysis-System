@@ -7,6 +7,8 @@ import ReactCountryFlag from "react-country-flag";
 const Navbar = () => {
   // state for mobile dropdown icon
   const [isOpen, setIsOpen] = useState(false);
+  // for closing dropdown menu
+
 
   const countries = [
     { name: "United States", code: "US", slug: "usa" },
@@ -278,7 +280,8 @@ const Navbar = () => {
 
             {isOpen && (
 
-              <ul className="absolute right-0 mt-2 menu bg-base-100 rounded-box shadow w-52">
+              <ul className="absolute right-0 mt-2 menu bg-base-100 rounded-box shadow w-52"
+              onClick={() => setIsOpen(false)}>
 
                 <li><NavLink to="/" className={({ isActive }) =>
                   isActive
