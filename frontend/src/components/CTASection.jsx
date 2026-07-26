@@ -16,7 +16,7 @@ export default function CTASection() {
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-4">
-            <NavLink to="/start" className="px-3 py-1 sm:px-4 sm:py-2 rounded-xl bg-sky-100 border border-[#3A2C2C] shadow-[2px_3px_0px_0px_#3A2C2C] font-medium hover:translate-y-0.5 hover:shadow-[1px_2px_0px_0px_#3A2C2C] transition-all">
+            <NavLink to="/courses" className="px-3 py-1 sm:px-4 sm:py-2 rounded-xl bg-sky-100 border border-[#3A2C2C] shadow-[2px_3px_0px_0px_#3A2C2C] font-medium hover:translate-y-0.5 hover:shadow-[1px_2px_0px_0px_#3A2C2C] transition-all">
               Start
             </NavLink>
 
