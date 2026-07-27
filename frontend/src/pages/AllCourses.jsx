@@ -3,9 +3,9 @@ import { Search } from "lucide-react";
 import programs from "../data/courses.json"
 import universities from "../data/universities.json";
 import opportunities from "../data/opportunities.json";
-import ProgramCard from "../components/discover/ProgramCard";
-import UniversityCard from "../components/discover/UniversityCard";
-import OpportunityCard from "../components/discover/OpportunityCard";
+import ProgramCard from "../components/ReusableComp/discover/ProgramCard";
+import UniversityCard from "../components/ReusableComp/discover/UniversityCard";
+import OpportunityCard from "../components/ReusableComp/discover/OpportunityCard";
 
 const AllCourses = () => {
   const [activeTab, setActiveTab] = useState("programs");

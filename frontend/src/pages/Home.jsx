@@ -1,6 +1,7 @@
 import CTASection from "../components/CTASection";
 import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import Hero from "../components/Hero";
+import PopularDestinations from "../components/PopularDestinantions";
 import RoadmapSection from "../components/RoadmapSection";
 import ScholarshipSearchSection from "../components/ScholarshipSearchSection";
 import StudentStories from "../components/StudentStories";
@@ -16,6 +17,7 @@ const Home = () => {
         <EligibilityAnalysis></EligibilityAnalysis>
         <RoadmapSection></RoadmapSection>
         <TimelineSection></TimelineSection>
+        <PopularDestinations></PopularDestinations>
         <StudentStories></StudentStories>
         <CTASection></CTASection>
         </div>

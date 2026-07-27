@@ -78,7 +78,7 @@ const card = timelineCards[current];
 </div>
         <div className="grid lg:grid-cols-2 items-center gap-14 xl:gap-22 bg-zinc-100 rounded-lg shadow-lg">
           {/* Left Content */}
-          <div className="order-2 p-4 lg:p-0">
+          <div className="order-2 px-4 pb-20 lg:p-0">
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500 mb-4">
               {card.tag}
             </p>
