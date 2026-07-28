@@ -19,7 +19,7 @@ h6 {
 .marquee-content {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
 .marquee-content.reverse {

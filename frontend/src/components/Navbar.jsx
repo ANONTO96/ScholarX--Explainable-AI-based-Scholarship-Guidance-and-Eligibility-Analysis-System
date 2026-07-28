@@ -80,7 +80,7 @@ const Navbar = () => {
   ];
   return (
     <>
-      <div className="flex w-full lg:w-[90%] mx-auto py-2 items-center justify-between">
+      <div className="flex w-full xl:w-[90%] mx-auto py-2 items-center justify-between">
         {/* logo and name */}
         <div className="">
           <NavLink to="/" className="btn btn-ghost font-semibold text-2xl">
@@ -110,7 +110,7 @@ const Navbar = () => {
 
               <div
                 className="
-      absolute left-1/2 top-full
+      absolute flex flex-col left-1/2 top-full
       -translate-x-1/2 mt-4
       w-fit
       min-w-100
@@ -151,6 +151,17 @@ const Navbar = () => {
                     </NavLink>
                   ))}
                 </div>
+                <NavLink
+                                    to="countries"
+                                    className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
+                                >
+                                    Explore All
+
+                                    <ArrowRight
+                                        size={18}
+                                        className="transition-transform duration-300 group-hover:translate-x-1"
+                                    />
+                                </NavLink>
               </div>
             </li>
             {/* courses */}
@@ -164,7 +175,7 @@ const Navbar = () => {
                 className="
       absolute left-1/2 top-full
       -translate-x-1/2 mt-4
-      w-fit
+      w-fit flex flex-col
       min-w-100
       rounded-2xl
       bg-white
@@ -200,6 +211,17 @@ const Navbar = () => {
                     </div>
                   ))}
                 </div>
+                <NavLink
+                                    to="courses"
+                                    className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
+                                >
+                                    Explore All
+
+                                    <ArrowRight
+                                        size={18}
+                                        className="transition-transform duration-300 group-hover:translate-x-1"
+                                    />
+                                </NavLink>
               </div>
             </li>
             <li><NavLink to="/pricing" className={({ isActive }) =>
@@ -239,7 +261,7 @@ const Navbar = () => {
         {/* user actions */}
         <div className="flex items-center gap-1">
           <NavLink to="/login"
-            className="px-3 py-1 sm:px-5 sm:py-2 shrink-0 text-lg rounded-xl
+            className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 text-lg rounded-xl
                bg-gray-100 text-black
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]
@@ -251,7 +273,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink to="/signup"
-            className="px-3 py-1 sm:px-5 sm:py-2 shrink-0 text-lg rounded-xl
+            className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 text-lg rounded-xl
                bg-[#DCEEFF] text-black
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]
@@ -280,7 +302,7 @@ const Navbar = () => {
 
             {isOpen && (
 
-              <ul className="absolute right-0 mt-2 menu bg-base-100 rounded-box shadow w-52"
+              <ul className="absolute right-0 mt-2 menu bg-base-100 rounded-box shadow w-52 z-100"
               onClick={() => setIsOpen(false)}>
 
                 <li><NavLink to="/" className={({ isActive }) =>
