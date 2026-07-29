@@ -1,0 +1,227 @@
+import {
+  Sparkles,
+  GraduationCap,
+  BadgeDollarSign,
+  FileCheck2,
+  Plane,
+  Users,
+  Check,
+} from "lucide-react";
+
+const features = [
+  {
+    icon: Sparkles,
+    title: "AI Eligibility Checker",
+    description:
+      "Instantly discover which universities and scholarships match your academic profile.",
+    items: [
+      "Instant eligibility analysis",
+      "Scholarship prediction",
+      "Requirement gap detection",
+    ],
+  },
+  {
+    icon: GraduationCap,
+    title: "Smart University Matching",
+    description:
+      "Receive personalized university recommendations based on your goals, budget, and grades.",
+    items: [
+      "2000+ universities",
+      "Budget-friendly options",
+      "Country comparison",
+    ],
+  },
+  {
+    icon: BadgeDollarSign,
+    title: "Scholarship Finder",
+    description:
+      "Search thousands of scholarships and discover funding opportunities tailored for you.",
+    items: [
+      "Merit scholarships",
+      "Need-based funding",
+      "Deadline reminders",
+    ],
+  },
+  {
+    icon: FileCheck2,
+    title: "Document Review",
+    description:
+      "Improve your SOP, CV, and application documents before submission.",
+    items: [
+      "SOP review",
+      "Resume optimization",
+      "Document verification",
+    ],
+  },
+  {
+    icon: Plane,
+    title: "Visa Assistance",
+    description:
+      "Professional guidance from visa preparation to interview support.",
+    items: [
+      "Visa checklist",
+      "Interview preparation",
+      "Application support",
+    ],
+  },
+  {
+    icon: Users,
+    title: "Expert Consultation",
+    description:
+      "Connect with experienced education consultants for one-on-one guidance.",
+    items: [
+      "Personal consultation",
+      "Country-specific advice",
+      "Fast response",
+    ],
+  },
+];
+
+const Features = () => {
+  return (
+    <section className="bg-slate-50 py-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+
+        {/* Badge */}
+        <div className="flex justify-center">
+          <span className="rounded-full bg-blue-100 text-sky-600 px-4 py-2 text-sm font-semibold">
+            ✨ Why Students Choose ScholarX
+          </span>
+        </div>
+
+        {/* Heading */}
+        <div className="text-center mt-6 max-w-3xl mx-auto">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900">
+            Everything You Need to Study Abroad
+          </h2>
+
+          <p className="mt-5 text-lg text-gray-600 leading-relaxed">
+            Your complete study abroad platform powered by AI and supported by
+            expert consultants. Discover universities, scholarships, visa
+            guidance, and everything needed for your journey.
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+
+            return (
+              <div
+                key={index}
+                className="
+group
+relative
+overflow-hidden
+rounded-3xl
+border
+border-slate-200/80
+bg-white
+p-8
+shadow-sm
+transition-all
+duration-500
+hover:-translate-y-2
+hover:shadow-2xl
+hover:border-sky-200
+"
+              >
+                
+                {/* Icon */}
+                <div className="
+flex
+h-16
+w-16
+items-center
+justify-center
+rounded-2xl
+bg-blue-50 text-sky-600
+group-hover:bg-sky-500 group-hover:text-white
+shadow-sm
+transition-all
+duration-500
+group-hover:scale-110
+group-hover:rotate-3
+group-hover:shadow-lg
+">
+                  <Icon size={30} />
+                </div>
+
+                {/* Title */}
+                <h3 className="mt-6 text-2xl font-bold text-slate-900">
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="mt-4 text-slate-600 leading-7">
+                  {feature.description}
+                </p>
+
+                {/* Divider */}
+                <div className="my-6 h-px bg-slate-200"></div>
+
+                {/* Feature List */}
+                <ul className="space-y-4">
+                  {feature.items.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3 text-slate-700"
+                    >
+                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-green-600">
+                        <Check size={16} />
+                      </div>
+
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Stats */}
+        <div className="mt-20 rounded-3xl text-white bg-linear-to-r from-sky-500 to-indigo-600 p-10">
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+
+            <div>
+              <h3 className="text-4xl font-bold">10K+</h3>
+              <p className="mt-2 text-blue-100">
+                Students Guided
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-4xl font-bold">15+</h3>
+              <p className="mt-2 text-blue-100">
+                Study Destinations
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-4xl font-bold">1K+</h3>
+              <p className="mt-2 text-blue-100">
+                Universities
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-4xl font-bold">3K+</h3>
+              <p className="mt-2 text-blue-100">
+                Scholarships
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default Features;
