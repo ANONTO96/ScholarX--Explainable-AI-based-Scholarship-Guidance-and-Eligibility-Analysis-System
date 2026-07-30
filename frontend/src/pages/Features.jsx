@@ -84,7 +84,7 @@ const Features = () => {
 
         {/* Badge */}
         <div className="flex justify-center">
-          <span className="rounded-full bg-blue-100 text-sky-600 px-4 py-2 text-sm font-semibold">
+          <span className="rounded-full border border-blue-200 bg-blue-100 text-sky-600 px-4 py-2 text-sm font-semibold">
             ✨ Why Students Choose ScholarX
           </span>
         </div>
