@@ -338,7 +338,7 @@ export default function AllCountries() {
 
                 {/* Cards */}
 
-                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-16">
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
                     {filtered.map((country) => (
                         <div
                             key={country.id}
@@ -487,7 +487,7 @@ export default function AllCountries() {
 
                 {/* help section */}
 
-                <div className="mt-24">
+                <div className="mt-14">
   <div className="relative overflow-hidden rounded-4xl bg-linear-to-r from-indigo-50 via-sky-50 to-violet-50 border border-indigo-100 p-8 lg:p-12">
 
     {/* background circles */}
@@ -516,7 +516,7 @@ export default function AllCountries() {
 
       <div className="grid md:grid-cols-3 gap-5 mt-10">
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
+        <div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg">
           <div className="flex gap-2">
             <GraduationCap className="text-primary mb-2" size={28}/>
           <h3 className="font-bold">
@@ -528,7 +528,7 @@ export default function AllCountries() {
           </p>
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
+        <div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-lg">
           <div className="flex gap-2">
             <BadgeDollarSign className="text-amber-500 mb-2" size={28}/>
           <h3 className="font-bold">
@@ -540,7 +540,7 @@ export default function AllCountries() {
           </p>
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
+        <div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-lg">
           <div className="flex gap-2">
             <Plane className="text-sky-500 mb-2" size={28}/>
           <h3 className="font-bold">
@@ -558,7 +558,7 @@ export default function AllCountries() {
 
       <div className="flex flex-wrap justify-center gap-4 mt-10">
         {/* for call */}
-        <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 shadow-sm">
+        <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg">
           <PhoneCall className="text-primary" size={20}/>
           <div>
             <p className="text-xs text-slate-500">Call Us</p>
@@ -566,7 +566,7 @@ export default function AllCountries() {
           </div>
         </div>
         {/* for whatsapp */}
-        <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 shadow-sm">
+        <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-lg">
           <MessageCircleMore className="text-green-600" size={20}/>
           <div>
             <p className="text-xs text-slate-500">WhatsApp</p>
@@ -574,7 +574,7 @@ export default function AllCountries() {
           </div>
         </div>
         {/* for mail */}
-        <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 shadow-sm">
+        <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
           <Mail className="text-red-500" size={20}/>
           <div>
             <p className="text-xs text-slate-500">Email</p>

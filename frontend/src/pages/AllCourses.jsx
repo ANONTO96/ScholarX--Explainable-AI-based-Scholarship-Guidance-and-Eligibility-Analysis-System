@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { CalendarCheck, MessageSquareText, Search, Sparkles } from "lucide-react";
 import programs from "../data/courses.json"
 import universities from "../data/universities.json";
 import opportunities from "../data/opportunities.json";
@@ -35,8 +35,8 @@ const AllCourses = () => {
   });
 
   return (
-    <section className="bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-5 py-10">
+    <section className="bg-slate-50">
+      <div className="max-w-7xl mx-auto px-5 py-20">
 
         {/* Hero */}
         <div className="text-center">
@@ -71,7 +71,7 @@ const AllCourses = () => {
         </div>
 
         {/* Stats */}
-        <div className="flex justify-center gap-4 mt-8">
+        <div className="flex justify-center gap-4 mt-14">
 
           <button
             onClick={() => setActiveTab("programs")}
@@ -106,8 +106,7 @@ const AllCourses = () => {
         </div>
 
         {/* Cards */}
-
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-7">
 
           {/* for program card */}
           {activeTab === "programs" &&
@@ -126,6 +125,49 @@ const AllCourses = () => {
             ))}
 
         </div>
+
+        {/* CTA Banner */}
+                <div className="relative mt-14 overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-10 text-white shadow-2xl">
+
+                    <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+                    <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
+
+                    <div className="relative flex flex-col items-center justify-between gap-8 lg:flex-row">
+
+                        <div className="max-w-2xl">
+                            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm backdrop-blur">
+                                <Sparkles size={16} />
+                                ScholarX Support
+                            </div>
+
+                            <h2 className="text-4xl font-bold">
+                                Need Help Planning Your Study Abroad Journey?
+                            </h2>
+
+                            <p className="mt-4 text-blue-100 leading-relaxed">
+                                Whether you're choosing a university, applying for scholarships,
+                                or preparing your visa documents, our consultants are here to
+                                guide you every step of the way.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-4">
+                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:scale-104">
+                                <span className="flex items-center gap-2">
+                                    <CalendarCheck size={18} />
+                                    Book Consultation
+                                </span>
+                            </button>
+
+                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur transition hover:scale-104">
+                                <span className="flex items-center gap-2">
+                                    <MessageSquareText size={18} />
+                                    Chat with AI
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
       </div>
     </section>

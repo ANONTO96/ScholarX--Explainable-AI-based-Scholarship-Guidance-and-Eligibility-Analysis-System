@@ -424,24 +424,24 @@ const Navbar = () => {
 
                   <ul className="p-2">
 
-                    <li><NavLink to="/resources/submenu1" className={({ isActive }) =>
+                    <li><NavLink to="/blog" className={({ isActive }) =>
                       isActive
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>Blog</NavLink></li>
 
-                    <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                    <li><NavLink to="/FAQ" className={({ isActive }) =>
                       isActive
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>FAQ</NavLink></li>
-                    <li><NavLink to="/resources/submenu2" className={({ isActive }) =>
+                    <li><NavLink to="/support" className={({ isActive }) =>
                       isActive
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>Support</NavLink></li>
 
-                    <li><NavLink to="/resources/submenu3" className={({ isActive }) =>
+                    <li><NavLink to="/contact" className={({ isActive }) =>
                       isActive
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"

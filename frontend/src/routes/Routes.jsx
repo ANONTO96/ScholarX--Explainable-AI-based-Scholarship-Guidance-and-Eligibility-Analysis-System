@@ -6,6 +6,7 @@ import AllCourses from "../pages/AllCourses";
 import AllCountries from "../pages/AllCountries";
 import Features from "../pages/Features";
 import Pricing from "../pages/Pricing";
+import Contact from "../pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ export const router = createBrowserRouter([
        {path: "features", Component: Features},
        { path: "courses", Component: AllCourses },
        { path: "countries", Component: AllCountries},
-       {path: "pricing", Component: Pricing} 
+       {path: "pricing", Component: Pricing},
+       {path: "contact", Component: Contact},
     ],
   },
 ]);

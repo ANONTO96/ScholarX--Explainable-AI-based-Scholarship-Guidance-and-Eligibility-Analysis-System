@@ -7,6 +7,8 @@ import {
   ArrowRight,
   ChevronDown,
   ChevronUp,
+  CalendarCheck,
+  MessageSquareText,
 } from "lucide-react";
 import { NavLink } from "react-router";
 import { useState } from "react";
@@ -264,7 +266,7 @@ const renderCell = (value) => {
 export default function Pricing() {
   const [openCategory, setOpenCategory] = useState("explore");
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-24">
+    <section className="relative overflow-hidden bg-gray-50 py-20">
 
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
@@ -323,7 +325,7 @@ export default function Pricing() {
 
         {/* Cards */}
 
-        <div className="mt-20 grid gap-10 lg:gap-8 sm:w-[75%] lg:w-full mx-auto lg:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-14 grid gap-10 lg:gap-8 sm:w-[75%] lg:w-full mx-auto lg:grid-cols-2 xl:grid-cols-3">
 
           {plans.map((plan) => {
             const Icon = plan.icon;
@@ -464,7 +466,7 @@ group-hover:shadow-lg ${plan.featured
 
       {/* plan comparison table section */}
 
-      <div className="max-w-7xl mx-auto px-6 py-20 ">
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12 ">
 
         <div className="text-center max-w-3xl mx-auto">
 
@@ -490,7 +492,7 @@ group-hover:shadow-lg ${plan.featured
 
         {/* table on desktop*/}
 
-        <div className="hidden lg:block mt-16 bg-white overflow-x-auto rounded-3xl border border-gray-300 shadow-2xl">
+        <div className="hidden lg:block mt-12 bg-white overflow-x-auto rounded-3xl border border-gray-300 shadow-2xl">
 
           <table className="w-full min-w-225">
 
@@ -685,6 +687,51 @@ group-hover:shadow-lg ${plan.featured
         </div>
 
 
+      </div>
+
+      {/* CTA Banner */}
+      <div className="max-w-7xl mx-auto px-6 ">
+                <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-10 text-white shadow-2xl">
+
+                    <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+                    <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
+
+                    <div className="relative flex flex-col items-center justify-between gap-8 lg:flex-row">
+
+                        <div className="max-w-2xl">
+                            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm backdrop-blur">
+                                <Sparkles size={16} />
+                                ScholarX Support
+                            </div>
+
+                            <h2 className="text-4xl font-bold">
+                                Need Help Planning Your Study Abroad Journey?
+                            </h2>
+
+                            <p className="mt-4 text-blue-100 leading-relaxed">
+                                Whether you're choosing a university, applying for scholarships,
+                                or preparing your visa documents, our consultants are here to
+                                guide you every step of the way.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-4">
+                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:scale-104">
+                                <span className="flex items-center gap-2">
+                                    <CalendarCheck size={18} />
+                                    Book Consultation
+                                </span>
+                            </button>
+
+                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur transition hover:scale-104">
+                                <span className="flex items-center gap-2">
+                                    <MessageSquareText size={18} />
+                                    Chat with AI
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
       </div>
     </section>
   );
