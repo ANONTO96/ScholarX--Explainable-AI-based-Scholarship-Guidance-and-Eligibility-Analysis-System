@@ -34,7 +34,7 @@ const testimonials = [
 export default function StudentStories() {
   return (
     <section className="bg-zinc-100 py-20">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
         {/* Heading */}
         <div className="max-w-md mb-10">
           <h2 className="text-4xl lg:text-5xl font-semibold text-gray-900">
@@ -52,7 +52,7 @@ export default function StudentStories() {
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-lg hover:scale-101 transition-all border border-gray-200 flex flex-col justify-between min-h-90"
+              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:scale-103 transition-all border border-gray-200 hover:border-sky-100 flex flex-col justify-between min-h-90"
             >
               {/* Logo */}
               <div className="mb-8">

@@ -140,7 +140,7 @@ const PopularDestinations = () => {
   }
   return (
     <section className="pb-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
 
         {/* Heading */}
         <div className="text-center mb-14">
@@ -184,7 +184,7 @@ const PopularDestinations = () => {
           </div>
           <NavLink
             to="/countries"
-            className="group flex items-center gap-2 font-semibold rounded-4xl border border-gray-300 px-5 py-3 text-gray-900 hover:scale-102 hover:border-gray-400 hover:text-blue-500 transition"
+            className="group flex items-center gap-2 font-semibold rounded-4xl border border-gray-300 px-5 py-3 text-gray-900 hover:scale-104 hover:border-gray-300 hover:text-blue-500 transition"
           >
             Show All
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

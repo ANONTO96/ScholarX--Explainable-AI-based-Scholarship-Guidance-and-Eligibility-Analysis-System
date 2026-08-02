@@ -87,7 +87,7 @@ const Contact = () => {
                                     <input
                                         type="text"
                                         placeholder="Full Name"
-                                        className="w-full rounded-xl border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-blue-600"
+                                        className="w-full rounded-xl border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-sky-600"
                                     />
                                 </div>
 
@@ -99,7 +99,7 @@ const Contact = () => {
                                     <input
                                         type="email"
                                         placeholder="Email Address"
-                                        className="w-full rounded-xl border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-blue-600"
+                                        className="w-full rounded-xl border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-sky-600"
                                     />
                                 </div>
                             </div>
@@ -107,13 +107,13 @@ const Contact = () => {
                             <input
                                 type="text"
                                 placeholder="Subject"
-                                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-600"
+                                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-sky-600"
                             />
 
                             <textarea
                                 rows="6"
                                 placeholder="Tell us how we can help..."
-                                className="w-full rounded-xl border border-slate-300 p-4 outline-none transition focus:border-blue-600"
+                                className="w-full rounded-xl border border-slate-300 p-4 outline-none transition focus:border-sky-600"
                             ></textarea>
 
                             <button className="inline-flex group items-center gap-2 rounded-xl bg-blue-600 px-7 py-3 font-semibold text-white transition hover:scale-104 hover:bg-blue-700">

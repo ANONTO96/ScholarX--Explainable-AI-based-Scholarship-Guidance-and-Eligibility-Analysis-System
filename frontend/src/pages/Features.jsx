@@ -185,7 +185,7 @@ group-hover:shadow-lg
         </div>
 
         {/* Bottom Stats */}
-        <div className="mt-14 rounded-3xl text-white bg-linear-to-r from-sky-500 to-indigo-600 p-10">
+        <div className="mt-14 rounded-3xl text-white bg-linear-to-r from-blue-600 to-indigo-700 p-10">
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
 

@@ -333,7 +333,7 @@ export default function Pricing() {
             return (
               <div
                 key={plan.name}
-                className={`group relative flex flex-col rounded-3xl border bg-white p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${plan.featured
+                className={`group relative flex flex-col rounded-3xl border bg-white p-8 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl ${plan.featured
                   ? "scale-[1.03] border-sky-600 shadow-2xl"
                   : plan.premium
                     ? "border-purple-300"
