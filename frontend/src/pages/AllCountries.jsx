@@ -245,6 +245,12 @@ export default function AllCountries() {
     return (
         <section className="bg-gray-50">
 
+            {/* Background */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
+      </div>
+
             {/* HERO */}
 
             <div
@@ -310,7 +316,7 @@ export default function AllCountries() {
                         Popular Study Destinations
                     </h2>
 
-                    <p className="mt-5 text-gray-600 text-lg leading-8">
+                    <p className="mt-4 text-gray-600 text-lg leading-8">
                         Search your preferred country and discover top
                         universities, scholarships, and academic programs
                         tailored to your future.
@@ -320,7 +326,7 @@ export default function AllCountries() {
 
                 {/* Search */}
 
-                <div className="max-w-xl mx-auto mt-10 relative">
+                <div className="max-w-xl mx-auto mt-8 relative">
 
                     <Search
                         className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
@@ -583,6 +589,22 @@ export default function AllCountries() {
         </div>
 
       </div>
+
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
+
+    <div className="flex items-center gap-2">
+        ✓ Free Consultation
+    </div>
+
+    <div className="flex items-center gap-2">
+        ✓ Response within 24 hours
+    </div>
+
+    <div className="flex items-center gap-2">
+        ✓ Trusted by Students
+    </div>
+
+</div>
 
     </div>
 

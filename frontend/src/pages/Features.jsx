@@ -82,6 +82,12 @@ const features = [
 const Features = () => {
   return (
     <section className="bg-slate-50 py-20">
+      {/* Background */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* Badge */}
@@ -97,7 +103,7 @@ const Features = () => {
             Everything You Need to Study Abroad
           </h2>
 
-          <p className="mt-5 text-lg text-gray-600 leading-relaxed">
+          <p className="mt-4 text-lg text-gray-600 leading-relaxed">
             Your complete study abroad platform powered by AI and supported by
             expert consultants. Discover universities, scholarships, visa
             guidance, and everything needed for your journey.
@@ -246,15 +252,39 @@ group-hover:shadow-lg
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-4">
-                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:scale-104">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-blue-100">
+
+    <div className="flex items-center gap-2">
+        ✓ Free Consultation
+    </div>
+
+    <div className="flex items-center gap-2">
+        ✓ Response within 24 hours
+    </div>
+
+    <div className="flex items-center gap-2">
+        ✓ Trusted by Students
+    </div>
+
+</div>
+
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
                                 <span className="flex items-center gap-2">
                                     <CalendarCheck size={18} />
                                     Book Consultation
                                 </span>
                             </button>
 
-                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur transition hover:scale-104">
+                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
                                 <span className="flex items-center gap-2">
                                     <MessageSquareText size={18} />
                                     Chat with AI

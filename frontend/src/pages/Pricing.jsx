@@ -292,7 +292,7 @@ export default function Pricing() {
 
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mt-4 text-lg leading-8 text-gray-600">
 
             Whether you're just exploring universities or preparing your
             applications, ScholarX has a plan designed for every stage of
@@ -300,7 +300,7 @@ export default function Pricing() {
 
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+          <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
 
             <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow">
 
@@ -715,15 +715,39 @@ group-hover:shadow-lg ${plan.featured
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-4">
-                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:scale-104">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-blue-100">
+
+    <div className="flex items-center gap-2">
+        ✓ Free Consultation
+    </div>
+
+    <div className="flex items-center gap-2">
+        ✓ Response within 24 hours
+    </div>
+
+    <div className="flex items-center gap-2">
+        ✓ Trusted by Students
+    </div>
+
+</div>
+
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
                                 <span className="flex items-center gap-2">
                                     <CalendarCheck size={18} />
                                     Book Consultation
                                 </span>
                             </button>
 
-                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur transition hover:scale-104">
+                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
                                 <span className="flex items-center gap-2">
                                     <MessageSquareText size={18} />
                                     Chat with AI

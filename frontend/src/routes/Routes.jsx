@@ -7,6 +7,7 @@ import AllCountries from "../pages/AllCountries";
 import Features from "../pages/Features";
 import Pricing from "../pages/Pricing";
 import Contact from "../pages/Contact";
+import FAQ from "../pages/FAQ";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
        { path: "courses", Component: AllCourses },
        { path: "countries", Component: AllCountries},
        {path: "pricing", Component: Pricing},
+       {path: "FAQ", Component: FAQ},
        {path: "contact", Component: Contact},
     ],
   },
