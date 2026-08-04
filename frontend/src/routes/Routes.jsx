@@ -8,6 +8,7 @@ import Features from "../pages/Features";
 import Pricing from "../pages/Pricing";
 import Contact from "../pages/Contact";
 import FAQ from "../pages/FAQ";
+import Support from "../pages/Support";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
        { path: "countries", Component: AllCountries},
        {path: "pricing", Component: Pricing},
        {path: "FAQ", Component: FAQ},
+       {path: "support", Component: Support},
        {path: "contact", Component: Contact},
     ],
   },

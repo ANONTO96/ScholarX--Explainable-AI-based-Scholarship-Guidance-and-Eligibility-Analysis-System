@@ -1,0 +1,598 @@
+import {
+  Search,
+  BookOpen,
+  MessageCircleMore,
+  CalendarCheck,
+  Bug,
+  GraduationCap,
+  BadgeDollarSign,
+ Plane,
+  Bot,
+  UserRoundCog,
+  ArrowRight,
+  Sparkles,
+  Clock3,
+  Headphones,
+  ShieldCheck,
+  Mail,
+  UserRound,
+} from "lucide-react";
+
+const stats = [
+  {
+    title: "Average Response",
+    value: "< 5 min",
+    icon: Clock3,
+  },
+  {
+    title: "Students Helped",
+    value: "5,000+",
+    icon: Headphones,
+  },
+  {
+    title: "Satisfaction",
+    value: "98%",
+    icon: ShieldCheck,
+  },
+];
+
+const actions = [
+  {
+    title: "Chat on WhatsApp",
+    desc: "Fastest way to reach us",
+    icon: MessageCircleMore,
+    color: "bg-green-500",
+  },
+  {
+    title: "Email Support",
+    desc: "Detailed questions & documents",
+    icon: Mail,
+    color: "bg-blue-500",
+  },
+  {
+    title: "Book Consultation",
+    desc: "Meet an education expert consultant",
+    icon: CalendarCheck,
+    color: "bg-violet-500",
+  },
+];
+
+
+const quickActions = [
+  {
+    title: "Live Chat",
+    description: "Talk to our support team on WhatsApp",
+    icon: MessageCircleMore,
+    color: "from-cyan-500 to-sky-600",
+  },
+  {
+    title: "Book Consultation",
+    description: "Meet an education expert consultant",
+    icon: CalendarCheck,
+    color: "from-violet-500 to-purple-600",
+  },
+  {
+    title: "Help Center",
+    description: "Browse articles, guides & FAQs",
+    icon: BookOpen,
+    color: "from-blue-500 to-indigo-600",
+  },
+  {
+    title: "Report an Issue",
+    description: "Found a problem? Let us know",
+    icon: Bug,
+    color: "from-rose-500 to-red-600",
+  },
+];
+
+const categories = [
+  {
+    title: "Admissions",
+    description:
+      "Applications, entry requirements, deadlines and offers.",
+    icon: GraduationCap,
+    color: "bg-blue-50 text-blue-600",
+  },
+  {
+    title: "Scholarships",
+    description:
+      "Funding opportunities, eligibility and application tips.",
+    icon: BadgeDollarSign,
+    color: "bg-emerald-50 text-emerald-600",
+  },
+  {
+    title: "ScholarX AI",
+    description:
+      "Eligibility Checker, recommendations and profile analysis.",
+    icon: Bot,
+    color: "bg-violet-50 text-violet-600",
+  },
+  {
+    title: "Student Visa",
+    description:
+      "Visa documents, interviews and financial requirements.",
+    icon: Plane,
+    color: "bg-orange-50 text-orange-600",
+  },
+  {
+    title: "Account & Billing",
+    description:
+      "Login issues, subscriptions and account settings.",
+    icon: UserRoundCog,
+    color: "bg-sky-50 text-sky-600",
+  },
+  {
+    title: "General Support",
+    description:
+      "Need help? Our team is always ready to assist you.",
+    icon: MessageCircleMore,
+    color: "bg-pink-50 text-pink-600",
+  },
+];
+
+const Support = () => {
+  return (
+    <section className="bg-linear-to-b from-slate-50 via-white to-white py-20">
+      <div className="mx-auto max-w-7xl px-5">
+
+        {/* ---------------- HERO ---------------- */}
+
+        <div className="relative overflow-hidden rounded-[36px] border border-slate-200 bg-linear-to-br from-blue-600 via-indigo-600 to-violet-700 px-8 py-16 text-white shadow-2xl lg:px-16">
+
+          <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 h-56 w-56 rounded-full bg-cyan-400/20 blur-3xl"></div>
+
+          <div className="relative mx-auto max-w-3xl text-center">
+
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur">
+
+              <Sparkles size={18} />
+
+              <span className="text-sm font-medium">
+                ScholarX Support Center
+              </span>
+
+            </div>
+
+            <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
+              How can we
+              <span className="block text-orange-300">
+                help you today?
+              </span>
+            </h1>
+
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100">
+              Search our knowledge base, browse popular topics,
+              or connect with one of our education consultants.
+            </p>
+
+            {/* Search */}
+
+            <div className="mx-auto mt-10 flex max-w-2xl overflow-hidden rounded-2xl bg-white p-2 shadow-xl">
+
+              <div className="flex flex-1 items-center gap-3 px-4">
+
+                <Search
+                  size={20}
+                  className="text-slate-400"
+                />
+
+                <input
+                  type="text"
+                  placeholder="Search help articles..."
+                  className="w-full bg-transparent outline-none text-slate-700 placeholder:text-slate-400"
+                />
+
+              </div>
+
+              <button className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">
+                Search
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ---------------- QUICK ACTIONS ---------------- */}
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
+          {quickActions.map((item) => {
+
+            const Icon = item.icon;
+
+            return (
+              <div
+                key={item.title}
+                className="group cursor-pointer rounded-3xl border border-slate-200 bg-white p-6 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              >
+
+                <div
+                  className={`mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br ${item.color} text-white shadow-lg`}
+                >
+                  <Icon size={30} />
+                </div>
+
+                <h3 className="text-xl font-bold">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-500">
+                  {item.description}
+                </p>
+
+                <div className="mt-6 flex items-center gap-2 font-semibold text-blue-600">
+
+                  Learn More
+
+                  <ArrowRight
+                    size={18}
+                    className="transition group-hover:translate-x-1"
+                  />
+
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ---------------- CATEGORIES ---------------- */}
+
+        <div className="mt-20">
+
+          <div className="text-center">
+
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600">
+              Browse Categories
+            </span>
+
+            <h2 className="mt-6 text-4xl font-bold">
+              Find Help by Topic
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl text-slate-500">
+              Everything you need—from finding scholarships
+              to getting your student visa—is organized into
+              easy-to-browse categories.
+            </p>
+
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+            {categories.map((item) => {
+
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.title}
+                  className="group cursor-pointer rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
+                >
+
+                  <div
+                    className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ${item.color}`}
+                  >
+                    <Icon size={30} />
+                  </div>
+
+                  <h3 className="text-2xl font-bold">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 leading-7 text-slate-500">
+                    {item.description}
+                  </p>
+
+                  <div className="mt-8 flex items-center gap-2 font-semibold text-blue-600">
+
+                    Get Help
+
+                    <ArrowRight
+                      size={18}
+                      className="transition group-hover:translate-x-1"
+                    />
+
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </div>
+
+        {/* ---------------- SUPPORT BANNER ---------------- */}
+        <div className="mt-20">
+            <div className="mx-auto max-w-7xl">
+
+        <div className="mb-14 text-center">
+
+          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600">
+            Instant Support
+          </span>
+
+          <h2 className="mt-6 text-4xl font-extrabold">
+            Get Help Whenever You Need It
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl text-slate-500">
+            Whether you have questions about universities, scholarships,
+            visas or your ScholarX account, our consultants and AI assistant
+            are always ready to help.
+          </p>
+
+        </div>
+
+        <div className="relative overflow-hidden rounded-[36px] bg-linear-to-br from-blue-600 via-indigo-600 to-violet-700 p-8 shadow-2xl lg:p-14">
+
+          {/* Glow */}
+
+          <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="absolute -left-24 bottom-0 h-60 w-60 rounded-full bg-cyan-300/10 blur-3xl"></div>
+
+          <div className="relative grid gap-10 lg:grid-cols-2">
+
+            {/* LEFT */}
+
+            <div>
+
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white backdrop-blur">
+
+                <Sparkles size={18} />
+
+                Always Here For You
+
+              </div>
+
+              <h3 className="mt-6 text-4xl font-bold leading-tight text-white">
+
+                Need immediate assistance?
+
+              </h3>
+
+              <p className="mt-4 max-w-lg leading-8 text-blue-100">
+
+                Our education consultants help students every day with
+                admissions, scholarships, university selection, visa guidance
+                and much more.
+
+              </p>
+
+              <div className="mt-10 space-y-5">
+
+                {actions.map((item) => {
+
+                  const Icon = item.icon;
+
+                  return (
+
+                    <button
+                      key={item.title}
+                      className="group flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-5 text-left text-white backdrop-blur transition hover:bg-white/20"
+                    >
+
+                      <div className="flex items-center gap-5">
+
+                        <div className={`${item.color} rounded-xl p-3 text-white`}>
+
+                          <Icon size={24} />
+
+                        </div>
+
+                        <div>
+
+                          <h4 className="font-semibold">
+
+                            {item.title}
+
+                          </h4>
+
+                          <p className="text-sm text-blue-100">
+
+                            {item.desc}
+
+                          </p>
+
+                        </div>
+
+                      </div>
+
+                      <ArrowRight
+                        size={20}
+                        className="transition group-hover:translate-x-1"
+                      />
+
+                    </button>
+
+                  );
+
+                })}
+
+              </div>
+
+            </div>
+
+            {/* RIGHT */}
+
+            <div className="flex flex-col gap-6">
+
+              {/* Consultant */}
+
+              <div className="rounded-3xl border border-white/20 bg-white/10 p-7 backdrop-blur">
+
+                <div className="flex items-center justify-between">
+
+                  <div className="flex items-center gap-4">
+
+                    <div className="relative">
+
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600">
+
+                        <UserRound size={32} />
+
+                      </div>
+
+                      <span className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-500"></span>
+
+                    </div>
+
+                    <div>
+
+                      <h4 className="text-xl font-bold text-white">
+
+                        Education Consultant
+
+                      </h4>
+
+                      <p className="text-blue-100">
+
+                        Available Now
+
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                  <div className="rounded-full inline-flex gap-1 bg-green-500/20 px-3 py-1 text-sm font-medium text-green-300">
+
+                    ● <span>Online</span>
+
+                  </div>
+
+                </div>
+
+                <div className="mt-7 rounded-2xl bg-white/10 p-5">
+
+                  <p className="leading-7 text-blue-50">
+
+                    👋 Hello! Looking for the perfect university or scholarship?
+                    Our consultants usually reply within a few minutes.
+
+                  </p>
+                </div>
+
+                <button className="mt-6 w-full rounded-2xl bg-white py-4 font-semibold text-blue-700 transition hover:scale-[1.02]">
+
+                  Start Conversation
+
+                </button>
+
+              </div>
+
+              {/* AI */}
+
+              <div className="rounded-3xl border border-cyan-300/30 bg-linear-to-r from-cyan-400/20 to-blue-500/20 p-7 backdrop-blur">
+
+                <div className="flex items-center gap-4">
+
+                  <div className="rounded-2xl bg-sky-400 p-3 text-white">
+
+                    <Bot size={28} />
+
+                  </div>
+
+                  <div>
+
+                    <h4 className="text-xl font-bold text-white">
+
+                      ScholarX AI Assistant
+
+                    </h4>
+
+                    <p className="text-blue-100">
+
+                      Available 24/7
+
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <p className="mt-6 leading-7 text-blue-50">
+
+                  Get instant answers about eligibility, scholarships,
+                  universities and application requirements anytime.
+
+                </p>
+
+                <button className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:bg-sky-300">
+
+                  Ask AI Assistant
+
+                  <ArrowRight size={18} />
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Bottom Stats */}
+
+          <div className="relative mt-12 grid gap-5 border-t border-white/15 pt-10 md:grid-cols-3">
+
+            {stats.map((item) => {
+
+              const Icon = item.icon;
+
+              return (
+
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-gray-400"
+                >
+
+                  <div className="flex items-center gap-4">
+
+                    <div className="rounded-xl bg-white/15 p-3 text-white">
+
+                      <Icon size={24} />
+
+                    </div>
+
+                    <div>
+
+                      <p className="text-sm text-blue-100">
+
+                        {item.title}
+
+                      </p>
+
+                      <h4 className="mt-1 text-3xl font-bold text-white">
+
+                        {item.value}
+
+                      </h4>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              );
+
+            })}
+
+          </div>
+
+        </div>
+
+      </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default Support;
