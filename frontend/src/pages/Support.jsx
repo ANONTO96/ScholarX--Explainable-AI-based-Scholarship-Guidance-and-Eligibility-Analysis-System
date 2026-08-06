@@ -1,5 +1,4 @@
 import {
-  Search,
   BookOpen,
   MessageCircleMore,
   CalendarCheck,
@@ -21,7 +20,7 @@ import {
 const stats = [
   {
     title: "Average Response",
-    value: "< 5 min",
+    value: "< 10 min",
     icon: Clock3,
   },
   {
@@ -85,7 +84,7 @@ const quickActions = [
   },
 ];
 
-const categories = [
+const categoriesActions = [
   {
     title: "Admissions",
     description:
@@ -133,7 +132,7 @@ const categories = [
 const Support = () => {
   return (
     <section className="bg-linear-to-b from-slate-50 via-white to-white py-20">
-      <div className="mx-auto max-w-7xl px-5">
+      <div className="mx-auto max-w-7xl px-6">
 
         {/* ---------------- HERO ---------------- */}
 
@@ -165,31 +164,6 @@ const Support = () => {
               Search our knowledge base, browse popular topics,
               or connect with one of our education consultants.
             </p>
-
-            {/* Search */}
-
-            <div className="mx-auto mt-10 flex max-w-2xl overflow-hidden rounded-2xl bg-white p-2 shadow-xl">
-
-              <div className="flex flex-1 items-center gap-3 px-4">
-
-                <Search
-                  size={20}
-                  className="text-slate-400"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Search help articles..."
-                  className="w-full bg-transparent outline-none text-slate-700 placeholder:text-slate-400"
-                />
-
-              </div>
-
-              <button className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">
-                Search
-              </button>
-
-            </div>
 
           </div>
 
@@ -263,7 +237,7 @@ const Support = () => {
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
 
-            {categories.map((item) => {
+            {categoriesActions.map((item) => {
 
               const Icon = item.icon;
 
@@ -328,7 +302,7 @@ const Support = () => {
 
         </div>
 
-        <div className="relative overflow-hidden rounded-[36px] bg-linear-to-br from-blue-600 via-indigo-600 to-violet-700 p-8 shadow-2xl lg:p-14">
+        <div className="relative overflow-hidden rounded-[36px] bg-linear-to-br from-blue-600 via-indigo-600 to-violet-700 p-7 shadow-2xl lg:p-14">
 
           {/* Glow */}
 
@@ -358,7 +332,7 @@ const Support = () => {
               <p className="mt-4 max-w-lg leading-8 text-blue-100">
 
                 Our education consultants help students every day with
-                admissions, scholarships, university selection, visa guidance
+                admissions, university selection, scholarships, visa guidance
                 and much more.
 
               </p>
@@ -477,7 +451,7 @@ const Support = () => {
                   </p>
                 </div>
 
-                <button className="mt-6 w-full rounded-2xl bg-white py-4 font-semibold text-blue-700 transition hover:scale-[1.02]">
+                <button className="mt-6 w-full rounded-2xl bg-white py-4 font-semibold text-blue-700 transition hover:scale-102">
 
                   Start Conversation
 
@@ -522,7 +496,7 @@ const Support = () => {
 
                 </p>
 
-                <button className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:bg-sky-300">
+                <button className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
 
                   Ask AI Assistant
 
@@ -535,6 +509,60 @@ const Support = () => {
             </div>
 
           </div>
+
+          {/* Service Cards */}
+
+                                    <div className="mt-10 grid gap-4 sm:grid-cols-3">
+
+                                        <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-blue-300/40 hover:bg-white/10">
+
+                                            <div className="mb-4 inline-flex rounded-xl bg-blue-500/20 p-3 text-cyan-300">
+                                                <GraduationCap size={24} />
+                                            </div>
+
+                                            <h4 className="font-semibold text-white">
+                                                University Selection
+                                            </h4>
+
+                                            <p className="mt-2 text-sm leading-6 text-blue-100">
+                                                Find universities that perfectly match your profile and future goals.
+                                            </p>
+
+                                        </div>
+
+                                        <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/40 hover:bg-white/10">
+
+                                            <div className="mb-4 inline-flex rounded-xl bg-amber-500/20 p-3 text-amber-300">
+                                                <BadgeDollarSign size={24} />
+                                            </div>
+
+                                            <h4 className="font-semibold text-white">
+                                                Scholarship Guidance
+                                            </h4>
+
+                                            <p className="mt-2 text-sm leading-6 text-blue-100">
+                                                Explore scholarships and funding opportunities to reduce tuition costs.
+                                            </p>
+
+                                        </div>
+
+                                        <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/40 hover:bg-white/10">
+
+                                            <div className="mb-4 inline-flex rounded-xl bg-cyan-500/20 p-3 text-cyan-300">
+                                                <Plane size={24} />
+                                            </div>
+
+                                            <h4 className="font-semibold text-white">
+                                                Visa Assistance
+                                            </h4>
+
+                                            <p className="mt-2 text-sm leading-6 text-blue-100">
+                                                Complete support for documentation, interviews and visa preparation.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
 
           {/* Bottom Stats */}
 

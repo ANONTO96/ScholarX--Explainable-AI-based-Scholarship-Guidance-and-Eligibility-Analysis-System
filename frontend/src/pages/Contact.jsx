@@ -186,7 +186,7 @@ duration-300">
                                         </h4>
 
                                         <p className="mt-2 text-sm text-slate-500">
-                                            Sat - Thu • 9:00 AM - 8:00 PM
+                                            Sun - Thu • 9:00 AM - 6:00 PM
                                         </p>
                                     </div>
 
@@ -287,8 +287,8 @@ duration-300">
                                 </p>
                             </div>
 
-                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-primary transition hover:scale-104">
-                                Book Free Consultation
+                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-600 transition hover:scale-104">
+                                Book Consultation
                             </button>
 
                         </div>

@@ -13,6 +13,7 @@ import {
   UserCircle2,
   BadgeCheck,
 } from "lucide-react";
+import { useState } from "react";
 
 const popularSearches = [
   "Australia",
@@ -48,36 +49,113 @@ const stats = [
   },
 ];
 
-const featuredArticle = {
-  title: "The Complete Guide to Studying in Australia (2027)",
-  description:
-    "Discover everything you need to know before studying in Australia—from choosing the right university and finding scholarships to understanding tuition fees, visas, part-time jobs, and PR pathways.",
-
-  category: "Australia Guide",
-  author: "ScholarX Editorial Team",
-  date: "August 05, 2026",
-  readTime: "12 min read",
-  views: "6.2K",
-  image:
-    "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=1600&q=80",
-};
-
-const articles = [
+const featuredArticles = [
   {
-    title: "Top 20 Scholarships in Canada",
-    read: "6 min read",
+    id: 1,
+    title: "The Complete Guide to Studying in Australia (2027)",
+    description:
+      "Discover everything you need to know before studying in Australia—from choosing the right university and finding scholarships to understanding tuition fees, visas, part-time jobs, and PR pathways.",
+    category: "Australia Guide",
+    author: "ScholarX Editorial Team",
+    date: "August 05, 2026",
+    readTime: "12 min read",
+    views: "6.2K",
+    image:
+      "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=1600&q=80",
   },
+
   {
-    title: "UK Student Visa Checklist",
-    read: "5 min read",
+    id: 2,
+    title: "Study in Canada: Universities, Scholarships & Student Visa Guide",
+    description:
+      "Everything international students need to know about studying in Canada, including top universities, tuition fees, scholarships, work opportunities and the student visa process.",
+    category: "Canada Guide",
+    author: "ScholarX Editorial Team",
+    date: "August 12, 2026",
+    readTime: "11 min read",
+    views: "5.8K",
+    image:
+      "https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=1600&q=80",
   },
+
   {
-    title: "Best Computer Science Universities",
-    read: "8 min read",
+    id: 3,
+    title: "Top Fully Funded Scholarships for International Students in 2027",
+    description:
+      "Explore the world's best fully funded scholarships including government, university and private funding opportunities for undergraduate and postgraduate students.",
+    category: "Scholarships",
+    author: "ScholarX Editorial Team",
+    date: "August 18, 2026",
+    readTime: "10 min read",
+    views: "7.9K",
+    image:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80",
+  },
+
+  {
+    id: 4,
+    title: "How to Choose the Right University for Your Career Goals",
+    description:
+      "Learn how to compare universities based on rankings, tuition fees, employability, scholarships, campus life and graduate outcomes before making your final decision.",
+    category: "University Guide",
+    author: "ScholarX Editorial Team",
+    date: "August 22, 2026",
+    readTime: "9 min read",
+    views: "4.6K",
+    image:
+      "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80",
+  },
+
+  {
+    id: 5,
+    title: "Student Visa Checklist: Documents You Should Never Miss",
+    description:
+      "Avoid common visa mistakes with this complete checklist covering financial documents, language requirements, medical tests and interview preparation.",
+    category: "Visa Guide",
+    author: "ScholarX Editorial Team",
+    date: "August 27, 2026",
+    readTime: "8 min read",
+    views: "6.5K",
+    image:
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=80",
+  },
+
+  {
+    id: 6,
+    title: "Best Computer Science Universities Around the World",
+    description:
+      "Compare the world's leading universities for Computer Science based on research excellence, tuition fees, scholarships and graduate employability.",
+    category: "Computer Science",
+    author: "ScholarX Editorial Team",
+    date: "September 02, 2026",
+    readTime: "9 min read",
+    views: "5.4K",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80",
   },
 ];
 
 const Blog = () => {
+  const [search, setSearch] = useState("");
+  const filteredArticles = featuredArticles.filter((article) => {
+  const keyword = search.toLowerCase();
+
+  return (
+    article.title.toLowerCase().includes(keyword) ||
+    article.category.toLowerCase().includes(keyword) ||
+    article.description.toLowerCase().includes(keyword)
+  );
+});
+
+const articlesToShow =
+  search.trim() === ""
+    ? featuredArticles
+    : filteredArticles;
+
+const featuredArticle = articlesToShow[0];
+
+const smallArticles = articlesToShow.slice(1);
+
   return (
     <section className="relative overflow-hidden bg-linear-to-b from-blue-50 via-white to-slate-50 py-20">
       {/* Background */}
@@ -157,6 +235,8 @@ const Blog = () => {
 
                   <input
                     type="text"
+                    value={search}
+  onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search scholarships, countries, universities..."
                     className="h-16 w-full bg-transparent outline-none placeholder:text-slate-400"
                   />
@@ -349,154 +429,333 @@ group-hover:shadow-lg group-hover:bg-sky-600">
 
         {/* Featured Card */}
 
-        <div className="group overflow-hidden rounded-[34px] border border-slate-200 bg-white shadow-xl transition-all duration-500 hover:shadow-2xl">
+        {featuredArticle ? (
+
+  <div className="group overflow-hidden rounded-[34px] border border-slate-200 bg-white shadow-xl transition-all duration-500 hover:shadow-2xl">
+
           <div className="grid lg:grid-cols-[1.2fr_1fr]">
+
             {/* IMAGE */}
 
             <div className="relative overflow-hidden">
+
               <img
+
                 src={featuredArticle.image}
+
                 alt={featuredArticle.title}
-                className="h-full min-h-130 w-full object-cover transition duration-700 group-hover:scale-105"
+
+                className="h-100 lg:h-full w-full object-cover transition duration-700 group-hover:scale-105"
+
               />
+
+
 
               {/* Overlay */}
 
+
+
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+
+
 
               {/* Category */}
 
+
+
               <div className="absolute left-6 top-6">
+
                 <span className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white">
+
                   {featuredArticle.category}
+
                 </span>
+
               </div>
+
+
 
               {/* Bottom Info */}
 
+
+
               <div className="absolute bottom-6 left-6 right-6">
+
                 <div className="rounded-3xl border border-white/20 bg-white/15 p-5 backdrop-blur-xl">
+
                   <div className="grid grid-cols-3 gap-4 text-white">
+
                     <div>
+
                       <p className="text-2xl font-black">4.9★</p>
+
                       <span className="text-sm text-white/80">
+
                         Reader Rating
+
                       </span>
+
                     </div>
 
+
+
                     <div>
+
                       <p className="text-2xl font-black">1.8K</p>
+
                       <span className="text-sm text-white/80">
+
                         Bookmarked
+
                       </span>
+
                     </div>
 
+
+
                     <div>
+
                       <p className="text-2xl font-black">250+</p>
+
                       <span className="text-sm text-white/80">
+
                         Comments
+
                       </span>
+
                     </div>
+
                   </div>
+
                 </div>
+
               </div>
+
             </div>
 
             {/* CONTENT */}
 
             <div className="flex flex-col justify-center p-8 lg:p-12">
+
               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-green-200 bg-green-100 px-5 py-2 text-sm font-semibold text-green-700">
+
                 <BadgeCheck size={16} />
+
                 Featured Guide
+
               </div>
 
+
+
               <h2 className="mt-6 text-4xl font-black leading-tight text-slate-900 transition group-hover:text-sky-700">
+
                 {featuredArticle.title}
+
               </h2>
 
+
+
               <p className="mt-4 leading-8 text-slate-600">
+
                 {featuredArticle.description}
+
               </p>
+
+
 
               {/* Metadata */}
 
+
+
               <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-500">
+
                 <div className="flex items-center gap-2">
+
                   <UserCircle2 size={18} />
+
                   {featuredArticle.author}
+
                 </div>
 
+
+
                 <div className="flex items-center gap-2">
+
                   <CalendarDays size={18} />
+
                   {featuredArticle.date}
+
                 </div>
 
+
+
                 <div className="flex items-center gap-2">
+
                   <Clock3 size={18} />
+
                   {featuredArticle.readTime}
+
                 </div>
 
+
+
                 <div className="flex items-center gap-2">
+
                   <Eye size={18} />
+
                   {featuredArticle.views} Views
+
                 </div>
+
               </div>
+
+
 
               {/* CTA */}
 
+
+
               <div className="mt-6 flex flex-wrap gap-4">
+
                 <button className="flex items-center gap-2 rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 px-8 py-4 font-semibold text-white hover:-translate-y-1
+
 hover:shadow-xl
+
 active:translate-y-0
+
 transition-all
+
 duration-300">
+
                   Read Full Article
+
                   <ArrowRight size={18} />
+
                 </button>
 
+
+
                 <button className="flex items-center gap-2 rounded-2xl border border-slate-200 px-7 py-4 font-semibold text-slate-700 hover:-translate-y-1
+
 hover:shadow-xl
+
 active:translate-y-0
+
 transition-all
+
 duration-300 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-500">
+
                   <Bookmark size={18} />
+
                   Save for Later
+
                 </button>
+
               </div>
+
+
 
               {/* Bottom Tags */}
 
+
+
               <div className="mt-8 flex flex-wrap gap-3">
+
                 {[
+
                   "Scholarships",
+
                   "Visa Guide",
+
                   "PR Pathway",
+
                   "Universities",
+
                   "Student Life",
+
                 ].map((tag) => (
+
                   <span
+
                     key={tag}
+
                     className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-600 hover:text-white"
+
                   >
+
                     #{tag}
+
                   </span>
+
                 ))}
+
               </div>
+
             </div>
+
           </div>
-        </div>
+
+        </div> 
+
+) : (
+
+  <div className="flex min-h-105 flex-col items-center justify-center rounded-[34px] border border-dashed border-slate-300 bg-slate-50 text-center">
+
+
+
+    <Search size={60} className="text-slate-300" />
+
+
+
+    <h2 className="mt-6 text-3xl font-bold text-slate-800">
+
+      No Articles Found
+
+    </h2>
+
+
+
+    <p className="mt-3 max-w-md text-slate-500">
+
+      We couldn't find any articles matching "
+
+      <span className="font-semibold">{search}</span>".
+
+      Try another keyword.
+
+    </p>
+
+
+
+    <button
+
+      onClick={() => setSearch("")}
+
+      className="mt-8 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+
+    >
+
+      Clear Search
+
+    </button>
+
+
+
+  </div>
+
+)}
 
         {/* Small Featured Cards */}
 
         <div className="flex flex-col gap-6 items-center">
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {articles.map((article, index) => (
+            {smallArticles.map((article) => (
               <div
-                key={index}
+                key={article.id}
                 className="group rounded-3xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-2 hover:border-blue-100 hover:shadow-xl"
               >
                 <span className="rounded-full border border-blue-200 bg-blue-100 px-3 py-1 text-xs font-semibold text-sky-600">
-                  Trending
+                  {article.category}
                 </span>
 
                 <h3 className="mt-5 text-xl font-bold text-slate-900 transition group-hover:text-blue-600">
@@ -505,7 +764,7 @@ duration-300 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-500">
 
                 <div className="mt-6 flex items-center justify-between">
                   <span className="text-sm text-slate-500">
-                    {article.read}
+                    {article.readTime}
                   </span>
 
                   <button className="flex items-center gap-2 font-semibold text-blue-600 transition hover:gap-3">
