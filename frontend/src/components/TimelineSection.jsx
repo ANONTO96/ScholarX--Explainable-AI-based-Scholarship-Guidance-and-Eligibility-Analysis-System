@@ -33,6 +33,7 @@ const timelineCards = [
     description:
       "The system sequences your applications by deadline and probability. You always know exactly what to work on next.",
     image: plan,
+    link: "/eligibilityAnalysis",
   },
   {
     tag: "Track",
@@ -40,13 +41,15 @@ const timelineCards = [
     description:
       "Monitor deadlines, document status, interview schedules, and application progress without missing anything.",
     image: track,
+    link: "/dashboard",
   },
   {
-    tag: "Submit",
+    tag: "submit",
     title: "Submit confidently with an AI-powered checklist",
     description:
       "ScholarX verifies your documents, highlights missing requirements, and helps maximize your success rate.",
     image: submit,
+    link: "/aiChatBot",
   },
 ];
 
@@ -92,7 +95,7 @@ const card = timelineCards[current];
             </p>
             {/* Buttons */}
             <div className="mt-5 flex items-center gap-5">
-              <NavLink to="/TimelineSection"
+              <NavLink to={card.link}
                 className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
                            bg-gray-100
                            border border-[#3A2C2C]
