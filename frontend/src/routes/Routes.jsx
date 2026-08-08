@@ -10,6 +10,7 @@ import Contact from "../pages/Contact";
 import FAQ from "../pages/FAQ";
 import Support from "../pages/Support";
 import Blog from "../pages/Blog";
+import CountryDetails from "../pages/CountryDetails";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
        { index: true, Component: Home },
        {path: "features", Component: Features},
        { path: "courses", Component: AllCourses },
+       {path: "/countries/:slug", Component: CountryDetails},
        { path: "countries", Component: AllCountries},
        {path: "pricing", Component: Pricing},
        {path: "blog", Component: Blog},
