@@ -10,7 +10,8 @@ import {
     UserRound,
     Bot,
     Sparkles,
-    Plane
+    Plane,
+    Globe2,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router";
@@ -74,7 +75,7 @@ export default function AllCountries() {
             {/* HERO */}
 
             <div
-                className="relative h-115 xl:h-125 bg-cover bg-center"
+                className="relative h-full w-full bg-cover bg-center"
                 style={{
                     backgroundImage:
                         "url(https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2000&auto=format&fit=crop)",
@@ -82,7 +83,7 @@ export default function AllCountries() {
             >
                 <div className="absolute inset-0 bg-linear-to-r from-[#0F172A]/85 via-[#1E3A8A]/60 to-[#2563EB]/40" />
 
-                <div className="relative max-w-7xl mx-auto h-full flex items-center px-6">
+                <div className="relative max-w-7xl mx-auto h-full flex items-center px-6 py-20 lg:py-25">
                     <div className="max-w-3xl text-white">
 
                         <span className="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur border border-white/20 mb-4">
@@ -123,6 +124,109 @@ export default function AllCountries() {
                     </div>
                 </div>
             </div>
+            {/* FACT BAR */}
+            <section className="relative z-20 mx-auto -mt-12 max-w-7xl px-6">
+
+                <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
+
+                    {/* Fact 1 */}
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-blue-50/50 md:border-b-0 md:border-r">
+
+                        <div className="flex items-center gap-4">
+
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
+                                <Globe2 size={21} />
+                            </div>
+
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    Globally Recognized
+                                </p>
+
+                                <p className="text-sm text-slate-500">
+                                    World-class education systems
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* Fact 2 */}
+                   <div className="group border-b border-slate-100 p-6 transition hover:bg-emerald-50/50 md:border-b-0 md:border-r">
+
+                        <div className="flex items-center gap-4">
+
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
+                                <BadgeDollarSign size={21} />
+                            </div>
+
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    Flexible Budgets
+                                </p>
+
+                                <p className="text-sm text-slate-500">
+                                    Options for every budget
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* Fact 3 */}
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-violet-50/50 md:border-b-0 md:border-r">
+
+                        <div className="flex items-center gap-4">
+
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 transition group-hover:bg-violet-600 group-hover:text-white">
+                                <BriefcaseBusiness size={21} />
+                            </div>
+
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    Career Opportunities
+                                </p>
+
+                                <p className="text-sm text-slate-500">
+                                    Build your global career
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* Fact 4 */}
+                    <div className="group p-6 transition hover:bg-amber-50/50">
+
+                        <div className="flex items-center gap-4">
+
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 transition group-hover:bg-amber-500 group-hover:text-white">
+                                <GraduationCap size={21} />
+                            </div>
+
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    Post-Study Options
+                                </p>
+
+                                <p className="text-sm text-slate-500">
+                                    Explore life after graduation
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
 
             {/* CONTENT */}
 
@@ -542,57 +646,57 @@ export default function AllCountries() {
 
                             {/* Service Cards */}
 
-                                    <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                            <div className="mt-10 grid gap-4 sm:grid-cols-3">
 
-                                        <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-blue-300/40 hover:bg-white/10">
+                                <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-blue-300/40 hover:bg-white/10">
 
-                                            <div className="mb-4 inline-flex rounded-xl bg-blue-500/20 p-3 text-cyan-300">
-                                                <GraduationCap size={24} />
-                                            </div>
-
-                                            <h4 className="font-semibold text-white">
-                                                University Selection
-                                            </h4>
-
-                                            <p className="mt-2 text-sm leading-6 text-blue-100">
-                                                Find universities that perfectly match your profile and future goals.
-                                            </p>
-
-                                        </div>
-
-                                        <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/40 hover:bg-white/10">
-
-                                            <div className="mb-4 inline-flex rounded-xl bg-amber-500/20 p-3 text-amber-300">
-                                                <BadgeDollarSign size={24} />
-                                            </div>
-
-                                            <h4 className="font-semibold text-white">
-                                                Scholarship Guidance
-                                            </h4>
-
-                                            <p className="mt-2 text-sm leading-6 text-blue-100">
-                                                Explore scholarships and funding opportunities to reduce tuition costs.
-                                            </p>
-
-                                        </div>
-
-                                        <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/40 hover:bg-white/10">
-
-                                            <div className="mb-4 inline-flex rounded-xl bg-cyan-500/20 p-3 text-cyan-300">
-                                                <Plane size={24} />
-                                            </div>
-
-                                            <h4 className="font-semibold text-white">
-                                                Visa Assistance
-                                            </h4>
-
-                                            <p className="mt-2 text-sm leading-6 text-blue-100">
-                                                Complete support for documentation, interviews and visa preparation.
-                                            </p>
-
-                                        </div>
-
+                                    <div className="mb-4 inline-flex rounded-xl bg-blue-500/20 p-3 text-cyan-300">
+                                        <GraduationCap size={24} />
                                     </div>
+
+                                    <h4 className="font-semibold text-white">
+                                        University Selection
+                                    </h4>
+
+                                    <p className="mt-2 text-sm leading-6 text-blue-100">
+                                        Find universities that perfectly match your profile and future goals.
+                                    </p>
+
+                                </div>
+
+                                <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/40 hover:bg-white/10">
+
+                                    <div className="mb-4 inline-flex rounded-xl bg-amber-500/20 p-3 text-amber-300">
+                                        <BadgeDollarSign size={24} />
+                                    </div>
+
+                                    <h4 className="font-semibold text-white">
+                                        Scholarship Guidance
+                                    </h4>
+
+                                    <p className="mt-2 text-sm leading-6 text-blue-100">
+                                        Explore scholarships and funding opportunities to reduce tuition costs.
+                                    </p>
+
+                                </div>
+
+                                <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/40 hover:bg-white/10">
+
+                                    <div className="mb-4 inline-flex rounded-xl bg-cyan-500/20 p-3 text-cyan-300">
+                                        <Plane size={24} />
+                                    </div>
+
+                                    <h4 className="font-semibold text-white">
+                                        Visa Assistance
+                                    </h4>
+
+                                    <p className="mt-2 text-sm leading-6 text-blue-100">
+                                        Complete support for documentation, interviews and visa preparation.
+                                    </p>
+
+                                </div>
+
+                            </div>
 
                             {/* Bottom Stats */}
 
