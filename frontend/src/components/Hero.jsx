@@ -46,7 +46,7 @@ const Hero = () => {
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold">Find the scholarship that fits your future</h1>
             <p className="text-gray-600">We aggregate global opportunities from Erasmus+ to DAAD and analyze your profile against them. Then we build your personal roadmap to a funded education.</p>
             <div className="flex gap-2 sm:gap-5 items-center justify-center w-full">
-                <NavLink to="/courses"
+                <NavLink to="/programs"
                         className="px-3 py-1 sm:px-4 shrink-0 text-lg rounded-lg
                bg-[#DCEEFF] text-black
                border border-[#3A2C2C]

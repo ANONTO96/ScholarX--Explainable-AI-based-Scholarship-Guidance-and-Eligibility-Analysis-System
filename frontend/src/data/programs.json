@@ -1,0 +1,3399 @@
+[
+  {
+    "id": 1,
+    "slug": "computer-science",
+    "name": "Computer Science",
+    "category": "Technology",
+    "description": "Study software development, algorithms, artificial intelligence, cybersecurity, cloud computing and data structures.",
+    "image": "/images/programs/computer-science.jpg",
+    "icon": "Laptop",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Computer Science focuses on computing, software development, algorithms, data systems and emerging technologies. Students develop the technical and analytical skills needed to design software, solve complex problems and build digital solutions across a wide range of industries.",
+    "studyAreas": [
+      "Programming",
+      "Data Structures & Algorithms",
+      "Artificial Intelligence",
+      "Database Systems",
+      "Software Engineering",
+      "Cybersecurity",
+      "Cloud Computing"
+    ],
+    "skills": [
+      "Programming",
+      "Problem Solving",
+      "Algorithm Design",
+      "Software Development",
+      "System Design",
+      "Data Analysis"
+    ],
+    "topCountries": [
+      "United States",
+      "Canada",
+      "United Kingdom",
+      "Australia",
+      "Germany"
+    ],
+    "topUniversities": [
+      "MIT",
+      "Stanford University",
+      "University of Toronto",
+      "University of Melbourne",
+      "ETH Zurich"
+    ],
+    "universitiesCount": 1320,
+    "scholarshipsCount": 842,
+    "averageTuition": "$28,000-$65,000/year",
+    "averageSalary": "$95,000/year",
+    "jobGrowth": "Very High",
+    "costs": {
+      "tuition": "$28,000-$65,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Accommodation",
+        "Books & study materials",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "A strong academic background is generally expected. Mathematics or science subjects may be required depending on the university and degree level.",
+      "english": "IELTS 6.5+ is commonly expected, although requirements vary by university and program.",
+      "prerequisites": [
+        "Strong mathematics background",
+        "Academic qualification relevant to the chosen degree",
+        "Basic computing knowledge is beneficial"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Computer Science graduates can pursue careers across software, technology, data and emerging digital industries.",
+      "roles": [
+        "Software Engineer",
+        "Web Developer",
+        "Data Scientist",
+        "AI Engineer",
+        "Cybersecurity Analyst",
+        "Cloud Engineer",
+        "Systems Analyst"
+      ],
+      "averageSalary": "$95,000/year",
+      "jobGrowth": "Very High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Students may find university, government, merit-based and research scholarships depending on their academic profile and chosen destination.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong global demand for technology professionals",
+      "Wide range of career paths",
+      "Opportunities to specialize in emerging technologies",
+      "Strong international employment potential",
+      "Applicable across almost every major industry"
+    ],
+    "considerations": [
+      "Requires continuous technical learning",
+      "Programming and mathematics can be challenging initially",
+      "Competition for top technology roles can be high",
+      "Advanced positions may require postgraduate study"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "AI",
+      "Software",
+      "Cyber Security",
+      "Programming"
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "data-science",
+    "name": "Data Science",
+    "category": "Technology",
+    "description": "Analyze big data using machine learning, statistics and visualization.",
+    "image": "/images/programs/data-science.jpg",
+    "icon": "ChartColumn",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years"
+    },
+    "overview": "Data Science combines statistics, programming, mathematics and machine learning to transform large and complex datasets into useful insights. Students learn how to collect, analyze, visualize and model data to support better decisions.",
+    "studyAreas": [
+      "Statistics",
+      "Data Analysis",
+      "Machine Learning",
+      "Data Visualization",
+      "Python Programming",
+      "Database Systems",
+      "Artificial Intelligence"
+    ],
+    "skills": [
+      "Statistical Analysis",
+      "Python Programming",
+      "Machine Learning",
+      "Data Visualization",
+      "Predictive Modeling",
+      "Critical Thinking"
+    ],
+    "topCountries": [
+      "USA",
+      "Canada",
+      "UK",
+      "Australia",
+      "Netherlands"
+    ],
+    "topUniversities": [
+      "Harvard",
+      "MIT",
+      "Imperial College London",
+      "University of Melbourne"
+    ],
+    "universitiesCount": 640,
+    "scholarshipsCount": 386,
+    "averageTuition": "$25,000-$55,000/year",
+    "averageSalary": "$110,000/year",
+    "jobGrowth": "Extremely High",
+    "costs": {
+      "tuition": "$25,000-$55,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Laptop and computing equipment",
+        "Books & study materials",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants typically need a strong academic background with mathematics, statistics, computer science or another quantitative subject.",
+      "english": "IELTS 6.5+ is commonly expected, although individual university requirements may differ.",
+      "prerequisites": [
+        "Mathematics or statistics background",
+        "Basic programming knowledge is beneficial",
+        "Relevant academic qualification"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Data Science graduates are increasingly employed across technology, finance, healthcare, consulting, retail and other data-driven industries.",
+      "roles": [
+        "Data Scientist",
+        "Data Analyst",
+        "Machine Learning Engineer",
+        "Business Intelligence Analyst",
+        "Data Engineer",
+        "Research Analyst"
+      ],
+      "averageSalary": "$110,000/year",
+      "jobGrowth": "Extremely High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Scholarship opportunities are available through universities, governments and research institutions, particularly for strong academic and research profiles.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Very strong demand across industries",
+      "Excellent career growth potential",
+      "Combines technology with business decision-making",
+      "Wide range of specialization options",
+      "Strong opportunities in AI and machine learning"
+    ],
+    "considerations": [
+      "Requires strong analytical and mathematical skills",
+      "Programming is an important part of the field",
+      "Tools and technologies change rapidly",
+      "Advanced positions may require postgraduate education"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Machine Learning",
+      "Analytics",
+      "Python",
+      "AI"
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "artificial-intelligence",
+    "name": "Artificial Intelligence",
+    "category": "Technology",
+    "description": "Build intelligent systems using deep learning, robotics and neural networks.",
+    "image": "/images/programs/artificial-intelligence.jpg",
+    "icon": "Brain",
+    "degrees": [
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "master": "2 Years",
+      "phd": "4 Years"
+    },
+    "overview": "Artificial Intelligence focuses on creating systems that can learn, reason, recognize patterns and perform tasks that traditionally require human intelligence. Students explore machine learning, deep learning, computer vision, natural language processing and intelligent systems.",
+    "studyAreas": [
+      "Machine Learning",
+      "Deep Learning",
+      "Neural Networks",
+      "Computer Vision",
+      "Natural Language Processing",
+      "Robotics",
+      "Generative AI"
+    ],
+    "skills": [
+      "Machine Learning",
+      "Python Programming",
+      "Deep Learning",
+      "Neural Network Design",
+      "Data Analysis",
+      "AI Model Development"
+    ],
+    "topCountries": [
+      "USA",
+      "Canada",
+      "UK",
+      "Germany",
+      "Singapore"
+    ],
+    "topUniversities": [
+      "Carnegie Mellon",
+      "Oxford",
+      "MIT",
+      "ETH Zurich"
+    ],
+    "universitiesCount": 410,
+    "scholarshipsCount": 290,
+    "averageTuition": "$30,000-$70,000/year",
+    "averageSalary": "$125,000/year",
+    "jobGrowth": "Extremely High",
+    "costs": {
+      "tuition": "$30,000-$70,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Computing equipment",
+        "Research materials",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong background in computer science, mathematics, engineering, statistics or a related technical field.",
+      "english": "IELTS 7.0+ is commonly expected for many advanced AI programs.",
+      "prerequisites": [
+        "Strong mathematics background",
+        "Programming experience",
+        "Computer science or related technical background",
+        "Knowledge of statistics is beneficial"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume",
+        "Research Proposal where applicable"
+      ]
+    },
+    "career": {
+      "summary": "AI graduates can work in technology, robotics, healthcare, finance, autonomous systems, research and other industries adopting intelligent technologies.",
+      "roles": [
+        "AI Engineer",
+        "Machine Learning Engineer",
+        "Research Scientist",
+        "Computer Vision Engineer",
+        "NLP Engineer",
+        "Robotics Engineer",
+        "AI Researcher"
+      ],
+      "averageSalary": "$125,000/year",
+      "jobGrowth": "Extremely High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "AI students may qualify for university, government and research scholarships, particularly at master's and PhD level.",
+      "types": [
+        "Research Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Merit-based Scholarships"
+      ]
+    },
+    "pros": [
+      "One of the fastest-growing technology fields",
+      "Strong demand for advanced AI skills",
+      "Excellent research opportunities",
+      "High earning potential",
+      "Opportunities across many industries"
+    ],
+    "considerations": [
+      "Strong mathematics and programming skills are important",
+      "The field changes rapidly",
+      "Advanced roles often require postgraduate education",
+      "Research-oriented programs can be academically demanding"
+    ],
+    "ielts": "7.0+",
+    "intake": [
+      "Fall"
+    ],
+    "tags": [
+      "Deep Learning",
+      "LLM",
+      "Computer Vision"
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "business-administration",
+    "name": "Business Administration (MBA)",
+    "category": "Business",
+    "description": "Leadership, finance, marketing and business strategy.",
+    "image": "/images/programs/mba.jpg",
+    "icon": "Briefcase",
+    "degrees": [
+      "MBA",
+      "Executive MBA"
+    ],
+    "duration": {
+      "mba": "2 Years"
+    },
+    "overview": "Business Administration develops leadership, management and strategic decision-making skills across areas such as finance, marketing, operations and entrepreneurship. An MBA is particularly suited to professionals seeking management, leadership or business development roles.",
+    "studyAreas": [
+      "Business Strategy",
+      "Finance",
+      "Marketing",
+      "Leadership",
+      "Operations Management",
+      "Entrepreneurship",
+      "Business Analytics"
+    ],
+    "skills": [
+      "Leadership",
+      "Strategic Thinking",
+      "Financial Analysis",
+      "Business Communication",
+      "Project Management",
+      "Decision Making"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "France",
+      "Australia"
+    ],
+    "topUniversities": [
+      "Harvard",
+      "INSEAD",
+      "Wharton",
+      "London Business School"
+    ],
+    "universitiesCount": 720,
+    "scholarshipsCount": 350,
+    "averageTuition": "$40,000-$120,000",
+    "averageSalary": "$130,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$40,000-$120,000",
+      "livingCost": "$1,200-$3,000/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Accommodation",
+        "Books & course materials",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "A recognized bachelor's degree is generally required. Many MBA programs also value professional work experience.",
+      "english": "IELTS 6.5+ is commonly expected, depending on the institution.",
+      "prerequisites": [
+        "Bachelor's degree",
+        "Professional experience may be preferred",
+        "GMAT or GRE may be required by some universities",
+        "Strong academic or professional profile"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume",
+        "Professional Experience Documents"
+      ]
+    },
+    "career": {
+      "summary": "MBA graduates can pursue management and leadership careers across finance, consulting, technology, marketing, operations and entrepreneurship.",
+      "roles": [
+        "Business Manager",
+        "Management Consultant",
+        "Financial Manager",
+        "Marketing Manager",
+        "Product Manager",
+        "Operations Manager",
+        "Business Development Manager"
+      ],
+      "averageSalary": "$130,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate to High",
+      "description": "Business schools offer merit-based, leadership, diversity and need-based funding opportunities, while external organizations may also provide scholarships.",
+      "types": [
+        "Merit-based Scholarships",
+        "Leadership Scholarships",
+        "University Scholarships",
+        "Need-based Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong pathway to management positions",
+      "Useful across many industries",
+      "Excellent networking opportunities",
+      "Supports entrepreneurship and business leadership",
+      "Can accelerate career progression"
+    ],
+    "considerations": [
+      "Tuition can be significantly higher than many other programs",
+      "Professional experience is preferred by many leading MBA programs",
+      "Top business schools can be highly competitive",
+      "Return on investment depends heavily on university, location and career goals"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Finance",
+      "Management",
+      "Leadership"
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "mechanical-engineering",
+    "name": "Mechanical Engineering",
+    "category": "Engineering",
+    "description": "Design, manufacturing and automation systems.",
+    "image": "/images/programs/mechanical.jpg",
+    "icon": "Cog",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Mechanical Engineering focuses on the design, analysis, manufacturing and operation of machines and mechanical systems. Students combine mathematics, physics, engineering principles and modern technologies to develop solutions for manufacturing, automation, energy and transportation.",
+    "studyAreas": [
+      "Thermodynamics",
+      "Fluid Mechanics",
+      "Machine Design",
+      "Manufacturing",
+      "Robotics",
+      "Automation",
+      "Computer-Aided Design"
+    ],
+    "skills": [
+      "Engineering Design",
+      "CAD",
+      "Problem Solving",
+      "Manufacturing",
+      "Systems Analysis",
+      "Project Management"
+    ],
+    "topCountries": [
+      "Germany",
+      "USA",
+      "Canada",
+      "Australia"
+    ],
+    "topUniversities": [
+      "TU Munich",
+      "MIT",
+      "University of Toronto"
+    ],
+    "universitiesCount": 930,
+    "scholarshipsCount": 460,
+    "averageTuition": "$20,000-$50,000/year",
+    "averageSalary": "$82,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$50,000/year",
+      "livingCost": "$900-$2,300/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Engineering software and materials",
+        "Laboratory expenses",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong background in mathematics and physics. Specific subject requirements vary by university.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Mathematics",
+        "Physics",
+        "Relevant science or engineering background",
+        "Strong analytical skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Mechanical Engineering graduates can work in manufacturing, automotive, aerospace, energy, robotics, construction and industrial technology.",
+      "roles": [
+        "Mechanical Engineer",
+        "Design Engineer",
+        "Manufacturing Engineer",
+        "Automotive Engineer",
+        "Robotics Engineer",
+        "Aerospace Engineer",
+        "Project Engineer"
+      ],
+      "averageSalary": "$82,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Engineering students can find university, government, industry and research scholarships, particularly for strong academic and technical profiles.",
+      "types": [
+        "Merit-based Scholarships",
+        "Engineering Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Broad range of engineering career paths",
+      "Strong demand in manufacturing and technology",
+      "Excellent opportunities in automation and robotics",
+      "Practical and technically focused education",
+      "Transferable engineering skills"
+    ],
+    "considerations": [
+      "Requires strong mathematics and physics",
+      "Engineering programs can involve demanding laboratory work",
+      "Some specialized careers require postgraduate study",
+      "Professional licensing may be required for certain roles"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Manufacturing",
+      "CAD",
+      "Automation"
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "civil-engineering",
+    "name": "Civil Engineering",
+    "category": "Engineering",
+    "description": "Infrastructure, transportation and sustainable construction.",
+    "image": "/images/programs/civil.jpg",
+    "icon": "Building2",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years"
+    },
+    "overview": "Civil Engineering focuses on the planning, design, construction and maintenance of infrastructure such as buildings, bridges, roads, transportation systems and water networks. Students combine engineering principles, mathematics and practical design to create safe, efficient and sustainable infrastructure.",
+    "studyAreas": [
+      "Structural Engineering",
+      "Transportation Engineering",
+      "Geotechnical Engineering",
+      "Environmental Engineering",
+      "Construction Management",
+      "Water Resources",
+      "Urban Infrastructure"
+    ],
+    "skills": [
+      "Engineering Design",
+      "Structural Analysis",
+      "Project Management",
+      "CAD",
+      "Problem Solving",
+      "Construction Planning"
+    ],
+    "topCountries": [
+      "Australia",
+      "Canada",
+      "UK",
+      "USA"
+    ],
+    "topUniversities": [
+      "UNSW",
+      "Imperial College London",
+      "University of Toronto"
+    ],
+    "universitiesCount": 760,
+    "scholarshipsCount": 320,
+    "averageTuition": "$20,000-$45,000/year",
+    "averageSalary": "$78,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$45,000/year",
+      "livingCost": "$900-$2,300/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Engineering software",
+        "Laboratory and project materials",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong academic background in mathematics and physics. Specific subject requirements depend on the university and degree level.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Mathematics",
+        "Physics",
+        "Relevant science background",
+        "Strong analytical skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Civil Engineering graduates can work across construction, infrastructure, transportation, environmental services, urban development and project management.",
+      "roles": [
+        "Civil Engineer",
+        "Structural Engineer",
+        "Construction Engineer",
+        "Transportation Engineer",
+        "Geotechnical Engineer",
+        "Environmental Engineer",
+        "Project Engineer"
+      ],
+      "averageSalary": "$78,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Civil Engineering students may find university, government, industry and research scholarships based on academic performance and destination.",
+      "types": [
+        "Merit-based Scholarships",
+        "Engineering Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong demand for infrastructure professionals",
+      "Wide range of engineering specializations",
+      "Opportunities in both public and private sectors",
+      "Strong international career potential",
+      "Relevant to sustainable development and urban growth"
+    ],
+    "considerations": [
+      "Requires strong mathematics and physics",
+      "Some careers involve field and construction-site work",
+      "Professional licensing may be required in some countries",
+      "Large infrastructure projects can involve demanding schedules"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Construction",
+      "Transportation",
+      "Structures"
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "nursing",
+    "name": "Nursing",
+    "category": "Health",
+    "description": "Healthcare, patient care and clinical practice.",
+    "image": "/images/programs/nursing.jpg",
+    "icon": "HeartPulse",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years"
+    },
+    "overview": "Nursing prepares students to provide safe, evidence-based and compassionate healthcare across hospitals, clinics, community settings and specialized healthcare environments. The field combines medical knowledge, clinical practice, patient communication and professional healthcare skills.",
+    "studyAreas": [
+      "Human Anatomy",
+      "Patient Care",
+      "Clinical Practice",
+      "Pharmacology",
+      "Health Assessment",
+      "Community Health",
+      "Nursing Research"
+    ],
+    "skills": [
+      "Patient Care",
+      "Clinical Assessment",
+      "Healthcare Communication",
+      "Medication Management",
+      "Critical Thinking",
+      "Teamwork"
+    ],
+    "topCountries": [
+      "Canada",
+      "Australia",
+      "USA",
+      "UK"
+    ],
+    "topUniversities": [
+      "University of Sydney",
+      "Monash University",
+      "University of Toronto"
+    ],
+    "universitiesCount": 510,
+    "scholarshipsCount": 220,
+    "averageTuition": "$18,000-$40,000/year",
+    "averageSalary": "$83,000/year",
+    "jobGrowth": "Very High",
+    "costs": {
+      "tuition": "$18,000-$40,000/year",
+      "livingCost": "$900-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Clinical equipment",
+        "Uniform and placement expenses",
+        "Registration or licensing fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a relevant secondary or undergraduate qualification with science subjects such as biology or chemistry depending on the program.",
+      "english": "IELTS 7.0 is commonly expected for nursing programs, although individual requirements vary and some institutions may require minimum scores in each component.",
+      "prerequisites": [
+        "Biology or relevant science subjects",
+        "Strong academic background",
+        "Health and clinical suitability",
+        "English language proficiency"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume",
+        "Health or Immunization Records where required"
+      ]
+    },
+    "career": {
+      "summary": "Nursing graduates can work in hospitals, clinics, aged care, community healthcare, mental health and specialized clinical environments.",
+      "roles": [
+        "Registered Nurse",
+        "Clinical Nurse",
+        "Community Health Nurse",
+        "Mental Health Nurse",
+        "Pediatric Nurse",
+        "Nurse Educator",
+        "Nurse Manager"
+      ],
+      "averageSalary": "$83,000/year",
+      "jobGrowth": "Very High"
+    },
+    "scholarships": {
+      "availability": "Moderate to High",
+      "description": "Healthcare institutions, universities and governments may offer scholarships and financial support for nursing students, particularly in destinations experiencing healthcare workforce demand.",
+      "types": [
+        "University Scholarships",
+        "Merit-based Scholarships",
+        "Government Scholarships",
+        "Healthcare Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong global demand for qualified nurses",
+      "Wide range of healthcare specializations",
+      "Meaningful patient-focused career",
+      "Strong employment opportunities in many countries",
+      "Opportunities for career progression"
+    ],
+    "considerations": [
+      "Clinical placements are an important part of many programs",
+      "Healthcare work can involve demanding schedules",
+      "Professional registration is required to practice",
+      "English and licensing requirements can be strict"
+    ],
+    "ielts": "7.0",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Healthcare",
+      "Clinical",
+      "Medicine"
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "medicine",
+    "name": "Medicine",
+    "category": "Health",
+    "description": "Medical sciences, surgery and clinical diagnosis.",
+    "image": "/images/programs/medicine.jpg",
+    "icon": "Stethoscope",
+    "degrees": [
+      "MD",
+      "MBBS"
+    ],
+    "duration": {
+      "medical": "5-6 Years"
+    },
+    "overview": "Medicine focuses on understanding human health, disease prevention, diagnosis, treatment and patient care. Medical education combines scientific study with extensive clinical training to prepare students for professional healthcare practice.",
+    "studyAreas": [
+      "Human Anatomy",
+      "Physiology",
+      "Pathology",
+      "Pharmacology",
+      "Clinical Medicine",
+      "Surgery",
+      "Medical Ethics"
+    ],
+    "skills": [
+      "Clinical Assessment",
+      "Diagnosis",
+      "Patient Communication",
+      "Medical Decision Making",
+      "Critical Thinking",
+      "Clinical Research"
+    ],
+    "topCountries": [
+      "UK",
+      "Australia",
+      "Ireland",
+      "Canada"
+    ],
+    "topUniversities": [
+      "Oxford",
+      "Cambridge",
+      "University of Melbourne"
+    ],
+    "universitiesCount": 340,
+    "scholarshipsCount": 140,
+    "averageTuition": "$35,000-$80,000/year",
+    "averageSalary": "$180,000/year",
+    "jobGrowth": "Very High",
+    "costs": {
+      "tuition": "$35,000-$80,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Clinical equipment",
+        "Laboratory expenses",
+        "Professional registration and examination fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Medicine typically requires a strong academic background in science subjects. Entry requirements vary substantially by country, university and degree pathway.",
+      "english": "IELTS 7.0+ is commonly expected for international medical applicants, although individual universities and professional bodies may set different requirements.",
+      "prerequisites": [
+        "Biology",
+        "Chemistry",
+        "Physics or Mathematics where required",
+        "Strong academic performance",
+        "Medical entrance examination where applicable"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume",
+        "Medical or Immunization Records where required"
+      ]
+    },
+    "career": {
+      "summary": "Medicine provides pathways into clinical practice and a wide range of medical specialties after completing the required education, examinations and professional registration.",
+      "roles": [
+        "Medical Doctor",
+        "General Practitioner",
+        "Surgeon",
+        "Medical Researcher",
+        "Clinical Specialist",
+        "Emergency Physician",
+        "Medical Consultant"
+      ],
+      "averageSalary": "$180,000/year",
+      "jobGrowth": "Very High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Medical scholarships are available through universities, governments and external organizations, although funding can be highly competitive.",
+      "types": [
+        "University Scholarships",
+        "Government Scholarships",
+        "Merit-based Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong long-term professional demand",
+      "Wide range of medical specializations",
+      "High potential for professional progression",
+      "Globally respected profession",
+      "Opportunity to make a significant impact on patient health"
+    ],
+    "considerations": [
+      "Medical education is academically demanding",
+      "Programs can take many years to complete",
+      "Clinical training is intensive",
+      "Licensing requirements vary by country",
+      "Admission can be highly competitive"
+    ],
+    "ielts": "7.0+",
+    "intake": [
+      "Fall"
+    ],
+    "tags": [
+      "Doctor",
+      "Healthcare",
+      "Surgery"
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "finance",
+    "name": "Finance",
+    "category": "Business",
+    "description": "Investment, banking, accounting and financial markets.",
+    "image": "/images/programs/finance.jpg",
+    "icon": "Landmark",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years"
+    },
+    "overview": "Finance focuses on financial markets, investment, banking, corporate finance and financial decision-making. Students develop analytical and quantitative skills used to manage money, assess risk, evaluate investments and support business strategy.",
+    "studyAreas": [
+      "Corporate Finance",
+      "Investment Management",
+      "Financial Markets",
+      "Banking",
+      "Risk Management",
+      "Accounting",
+      "Financial Analytics"
+    ],
+    "skills": [
+      "Financial Analysis",
+      "Investment Analysis",
+      "Risk Assessment",
+      "Quantitative Analysis",
+      "Business Communication",
+      "Financial Modeling"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Singapore",
+      "Canada"
+    ],
+    "topUniversities": [
+      "LSE",
+      "Wharton",
+      "Chicago Booth"
+    ],
+    "universitiesCount": 620,
+    "scholarshipsCount": 280,
+    "averageTuition": "$25,000-$70,000/year",
+    "averageSalary": "$105,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$25,000-$70,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Books and course materials",
+        "Professional certifications",
+        "Transportation"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong academic background. Mathematics, economics, business or accounting experience can be beneficial depending on the program.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Mathematics or quantitative background",
+        "Business or economics background may be beneficial",
+        "Strong analytical ability"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Finance graduates can work across banking, investment management, consulting, insurance, corporate finance and financial technology.",
+      "roles": [
+        "Financial Analyst",
+        "Investment Analyst",
+        "Financial Manager",
+        "Investment Banker",
+        "Risk Analyst",
+        "Portfolio Manager",
+        "Corporate Finance Analyst"
+      ],
+      "averageSalary": "$105,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate to High",
+      "description": "Finance students may find university, merit-based, government and business-school scholarships depending on academic performance and destination.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Business School Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong career opportunities in global financial centers",
+      "Wide range of professional specializations",
+      "Transferable analytical and business skills",
+      "Strong earning potential",
+      "Opportunities across banking, technology and consulting"
+    ],
+    "considerations": [
+      "Competitive field at leading financial institutions",
+      "Strong quantitative skills are beneficial",
+      "Professional certifications may improve career prospects",
+      "Some finance roles involve demanding work schedules"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Investment",
+      "Banking",
+      "Economics"
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "cyber-security",
+    "name": "Cyber Security",
+    "category": "Technology",
+    "description": "Protect digital systems from cyber threats and attacks.",
+    "image": "/images/programs/cyber-security.jpg",
+    "icon": "Shield",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years"
+    },
+    "overview": "Cyber Security focuses on protecting networks, applications, devices and digital information from unauthorized access, attacks and other security threats. Students learn how to identify vulnerabilities, investigate incidents and design secure digital systems.",
+    "studyAreas": [
+      "Network Security",
+      "Ethical Hacking",
+      "Digital Forensics",
+      "Cryptography",
+      "Cloud Security",
+      "Application Security",
+      "Cyber Threat Intelligence"
+    ],
+    "skills": [
+      "Network Security",
+      "Threat Analysis",
+      "Ethical Hacking",
+      "Incident Response",
+      "Digital Forensics",
+      "Security Management"
+    ],
+    "topCountries": [
+      "USA",
+      "Canada",
+      "UK",
+      "Australia"
+    ],
+    "topUniversities": [
+      "Georgia Tech",
+      "Purdue",
+      "Waterloo"
+    ],
+    "universitiesCount": 480,
+    "scholarshipsCount": 250,
+    "averageTuition": "$24,000-$55,000/year",
+    "averageSalary": "$115,000/year",
+    "jobGrowth": "Extremely High",
+    "costs": {
+      "tuition": "$24,000-$55,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Computing equipment",
+        "Security lab resources",
+        "Professional certifications"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong academic background in computer science, mathematics, information technology or another related technical field.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Basic programming knowledge",
+        "Networking fundamentals",
+        "Mathematics or technical background",
+        "Strong analytical and problem-solving skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Cyber Security graduates can work in technology companies, financial institutions, government organizations, consulting firms and security operations teams.",
+      "roles": [
+        "Cybersecurity Analyst",
+        "Security Engineer",
+        "Ethical Hacker",
+        "Security Consultant",
+        "Digital Forensics Analyst",
+        "Security Architect",
+        "Incident Response Analyst"
+      ],
+      "averageSalary": "$115,000/year",
+      "jobGrowth": "Extremely High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Cyber Security students may find university, government, industry and technology-focused scholarships, particularly in destinations investing heavily in digital security.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Technology Scholarships"
+      ]
+    },
+    "pros": [
+      "Extremely strong demand for security professionals",
+      "Rapidly growing technology specialization",
+      "Opportunities across almost every industry",
+      "Strong earning potential",
+      "Wide range of technical career paths"
+    ],
+    "considerations": [
+      "Requires continuous learning as threats evolve",
+      "Technical knowledge is essential",
+      "Some roles require professional certifications",
+      "Security work can involve high-pressure incident response"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Security",
+      "Ethical Hacking",
+      "Networking"
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "software-engineering",
+    "name": "Software Engineering",
+    "category": "Technology",
+    "description": "Design, develop, test and maintain reliable software applications and systems.",
+    "image": "/images/programs/software-engineering.jpg",
+    "icon": "Code2",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Software Engineering focuses on the systematic design, development, testing and maintenance of software systems. Students learn modern programming practices, software architecture, development methodologies and engineering principles used to build scalable and reliable applications.",
+    "studyAreas": [
+      "Software Development",
+      "Software Architecture",
+      "Web Development",
+      "Mobile Application Development",
+      "Software Testing",
+      "DevOps",
+      "Database Systems"
+    ],
+    "skills": [
+      "Programming",
+      "Software Design",
+      "Problem Solving",
+      "System Architecture",
+      "Testing and Debugging",
+      "Version Control"
+    ],
+    "topCountries": [
+      "USA",
+      "Canada",
+      "UK",
+      "Australia",
+      "Germany"
+    ],
+    "topUniversities": [
+      "Carnegie Mellon University",
+      "University of California, Berkeley",
+      "University of Waterloo",
+      "University of Toronto"
+    ],
+    "universitiesCount": 980,
+    "scholarshipsCount": 520,
+    "averageTuition": "$22,000-$60,000/year",
+    "averageSalary": "$100,000/year",
+    "jobGrowth": "Very High",
+    "costs": {
+      "tuition": "$22,000-$60,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Laptop or computing equipment",
+        "Software and development tools",
+        "Professional certifications"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong academic background in mathematics, computer science, information technology or another related technical field.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Basic programming knowledge",
+        "Mathematics",
+        "Logical reasoning",
+        "Problem-solving skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Software Engineering graduates can work across technology companies, startups, financial institutions, consulting firms and organizations developing digital products and services.",
+      "roles": [
+        "Software Engineer",
+        "Full Stack Developer",
+        "Backend Developer",
+        "Frontend Developer",
+        "Mobile Application Developer",
+        "DevOps Engineer",
+        "Software Architect"
+      ],
+      "averageSalary": "$100,000/year",
+      "jobGrowth": "Very High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Software Engineering students can find university, government and technology-focused scholarships, particularly at institutions investing in computing and digital innovation.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Technology Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong global demand for software professionals",
+      "Wide range of career specializations",
+      "Excellent opportunities in technology companies",
+      "Strong remote and international career potential",
+      "Competitive earning potential"
+    ],
+    "considerations": [
+      "Technology changes rapidly and requires continuous learning",
+      "Strong programming skills are essential",
+      "Competitive admission at leading universities",
+      "Software development can involve long periods of intensive problem solving"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Programming",
+      "Software",
+      "Development"
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "electrical-engineering",
+    "name": "Electrical Engineering",
+    "category": "Engineering",
+    "description": "Study electrical systems, electronics, power systems, communications and modern engineering technologies.",
+    "image": "/images/programs/electrical.jpg",
+    "icon": "Zap",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Electrical Engineering focuses on the design, development and operation of electrical and electronic systems. Students explore power generation, electronics, control systems, telecommunications and emerging technologies used across modern industries.",
+    "studyAreas": [
+      "Power Systems",
+      "Electronics",
+      "Control Systems",
+      "Telecommunications",
+      "Embedded Systems",
+      "Signal Processing",
+      "Renewable Energy"
+    ],
+    "skills": [
+      "Circuit Design",
+      "Electrical Systems Analysis",
+      "Programming",
+      "Control Systems",
+      "Problem Solving",
+      "Technical Design"
+    ],
+    "topCountries": [
+      "Germany",
+      "USA",
+      "Canada",
+      "UK",
+      "Australia"
+    ],
+    "topUniversities": [
+      "MIT",
+      "Stanford University",
+      "ETH Zurich",
+      "University of California, Berkeley"
+    ],
+    "universitiesCount": 870,
+    "scholarshipsCount": 480,
+    "averageTuition": "$20,000-$55,000/year",
+    "averageSalary": "$88,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$55,000/year",
+      "livingCost": "$1,000-$2,700/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Engineering equipment",
+        "Laboratory materials",
+        "Professional certifications"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong background in mathematics, physics and science. Engineering-related subjects are commonly preferred.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Mathematics",
+        "Physics",
+        "Analytical thinking",
+        "Basic technical knowledge"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Electrical Engineering graduates can work in energy, electronics, telecommunications, manufacturing, automation, transportation and technology industries.",
+      "roles": [
+        "Electrical Engineer",
+        "Electronics Engineer",
+        "Power Systems Engineer",
+        "Control Systems Engineer",
+        "Embedded Systems Engineer",
+        "Telecommunications Engineer",
+        "Renewable Energy Engineer"
+      ],
+      "averageSalary": "$88,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Electrical Engineering students may access university, government and engineering scholarships, particularly in countries investing in energy, electronics and advanced manufacturing.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Engineering Scholarships"
+      ]
+    },
+    "pros": [
+      "Broad applications across many industries",
+      "Strong demand for engineering professionals",
+      "Opportunities in renewable energy and automation",
+      "Excellent foundation for advanced engineering study",
+      "Wide international career opportunities"
+    ],
+    "considerations": [
+      "Requires strong mathematics and physics knowledge",
+      "Laboratory and technical work can be intensive",
+      "Some roles require professional licensing",
+      "Engineering technologies require continuous learning"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Electronics",
+      "Power Systems",
+      "Automation"
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "accounting",
+    "name": "Accounting",
+    "category": "Business",
+    "description": "Study financial reporting, auditing, taxation, accounting systems and financial management.",
+    "image": "/images/programs/accounting.jpg",
+    "icon": "Calculator",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years"
+    },
+    "overview": "Accounting focuses on recording, analyzing and communicating financial information used by organizations for planning and decision-making. Students develop knowledge of financial reporting, taxation, auditing, management accounting and accounting information systems.",
+    "studyAreas": [
+      "Financial Accounting",
+      "Management Accounting",
+      "Auditing",
+      "Taxation",
+      "Financial Reporting",
+      "Accounting Information Systems",
+      "Corporate Finance"
+    ],
+    "skills": [
+      "Financial Analysis",
+      "Accounting",
+      "Auditing",
+      "Tax Planning",
+      "Data Analysis",
+      "Financial Reporting"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Singapore"
+    ],
+    "topUniversities": [
+      "University of Pennsylvania",
+      "University of Texas at Austin",
+      "London School of Economics",
+      "University of Toronto"
+    ],
+    "universitiesCount": 760,
+    "scholarshipsCount": 360,
+    "averageTuition": "$18,000-$50,000/year",
+    "averageSalary": "$78,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$18,000-$50,000/year",
+      "livingCost": "$1,000-$2,600/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Textbooks and study materials",
+        "Accounting software",
+        "Professional certification fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a good academic background with mathematics, business, economics or related subjects.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Basic mathematics",
+        "Analytical thinking",
+        "Interest in business and finance",
+        "Numerical skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Accounting graduates can work in accounting firms, corporations, banks, government organizations and consulting companies.",
+      "roles": [
+        "Accountant",
+        "Auditor",
+        "Financial Analyst",
+        "Tax Consultant",
+        "Management Accountant",
+        "Financial Controller",
+        "Forensic Accountant"
+      ],
+      "averageSalary": "$78,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Accounting students may find university, business school and professional organization scholarships based on academic performance and financial need.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Business Scholarships",
+        "Professional Scholarships"
+      ]
+    },
+    "pros": [
+      "Applicable across almost every industry",
+      "Clear professional career pathways",
+      "Strong demand for financial professionals",
+      "Opportunities for professional certifications",
+      "Potential for international career mobility"
+    ],
+    "considerations": [
+      "Professional certifications may be important for advancement",
+      "Accuracy and attention to detail are essential",
+      "Tax and accounting regulations vary between countries",
+      "Some roles involve repetitive financial reporting work"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Accounting",
+      "Auditing",
+      "Finance"
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "marketing",
+    "name": "Marketing",
+    "category": "Business",
+    "description": "Explore consumer behavior, branding, digital marketing, advertising and strategic market development.",
+    "image": "/images/programs/marketing.jpg",
+    "icon": "Megaphone",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years"
+    },
+    "overview": "Marketing focuses on understanding customers, developing brands and creating strategies that connect products and services with target markets. Students explore digital marketing, consumer behavior, market research, advertising and strategic communication.",
+    "studyAreas": [
+      "Digital Marketing",
+      "Consumer Behavior",
+      "Brand Management",
+      "Market Research",
+      "Advertising",
+      "Social Media Marketing",
+      "Marketing Analytics"
+    ],
+    "skills": [
+      "Market Research",
+      "Digital Marketing",
+      "Communication",
+      "Brand Strategy",
+      "Data Analysis",
+      "Content Strategy"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "France"
+    ],
+    "topUniversities": [
+      "Northwestern University",
+      "University of Pennsylvania",
+      "University of Michigan",
+      "London Business School"
+    ],
+    "universitiesCount": 820,
+    "scholarshipsCount": 390,
+    "averageTuition": "$18,000-$55,000/year",
+    "averageSalary": "$75,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$18,000-$55,000/year",
+      "livingCost": "$1,000-$2,700/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Study materials",
+        "Marketing software",
+        "Professional certifications"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a good academic background. Business, economics, communication or related subjects can provide useful preparation.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Communication skills",
+        "Basic business knowledge",
+        "Creative thinking",
+        "Analytical skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Marketing graduates can work in advertising agencies, technology companies, retail organizations, startups, media companies and multinational corporations.",
+      "roles": [
+        "Marketing Specialist",
+        "Digital Marketing Manager",
+        "Brand Manager",
+        "Market Research Analyst",
+        "Social Media Manager",
+        "Content Strategist",
+        "Marketing Consultant"
+      ],
+      "averageSalary": "$75,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Marketing students can find university and business scholarships, particularly through business schools and management programs.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Business Scholarships",
+        "Management Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong demand across multiple industries",
+      "Excellent opportunities in digital marketing",
+      "Combines creativity with business strategy",
+      "Wide range of career specializations",
+      "Opportunities for entrepreneurship"
+    ],
+    "considerations": [
+      "Marketing trends change rapidly",
+      "Strong communication skills are important",
+      "Competition can be high for creative roles",
+      "Digital marketing requires continuous skill development"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Digital Marketing",
+      "Branding",
+      "Advertising"
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "economics",
+    "name": "Economics",
+    "category": "Business",
+    "description": "Study markets, economic policy, finance, data analysis and decision-making in complex economies.",
+    "image": "/images/programs/economics.jpg",
+    "icon": "ChartNoAxesCombined",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years",
+      "phd": "4-6 Years"
+    },
+    "overview": "Economics examines how individuals, businesses and governments make decisions about resources. Students study markets, economic policy, financial systems, statistics and quantitative methods used to understand economic behavior.",
+    "studyAreas": [
+      "Microeconomics",
+      "Macroeconomics",
+      "Econometrics",
+      "International Economics",
+      "Financial Economics",
+      "Development Economics",
+      "Economic Policy"
+    ],
+    "skills": [
+      "Economic Analysis",
+      "Data Analysis",
+      "Statistics",
+      "Research",
+      "Critical Thinking",
+      "Quantitative Modeling"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Netherlands"
+    ],
+    "topUniversities": [
+      "Harvard University",
+      "Massachusetts Institute of Technology",
+      "London School of Economics",
+      "University of Chicago"
+    ],
+    "universitiesCount": 690,
+    "scholarshipsCount": 330,
+    "averageTuition": "$20,000-$60,000/year",
+    "averageSalary": "$85,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$60,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Textbooks",
+        "Statistical software",
+        "Research materials"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally benefit from a strong background in mathematics, economics, statistics or related analytical subjects.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Mathematics",
+        "Statistics",
+        "Analytical thinking",
+        "Interest in economics and current affairs"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Economics graduates can work in financial institutions, government agencies, consulting firms, research organizations and multinational companies.",
+      "roles": [
+        "Economist",
+        "Economic Analyst",
+        "Financial Analyst",
+        "Policy Analyst",
+        "Data Analyst",
+        "Research Analyst",
+        "Economic Consultant"
+      ],
+      "averageSalary": "$85,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Economics students may access university, government and research scholarships, especially for postgraduate and research-focused study.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong analytical and quantitative foundation",
+      "Applicable to finance, business and public policy",
+      "Wide range of career options",
+      "Excellent preparation for postgraduate research",
+      "Useful for government and international organizations"
+    ],
+    "considerations": [
+      "Quantitative coursework can be challenging",
+      "Advanced roles may require postgraduate study",
+      "Strong statistics and mathematics skills are useful",
+      "Career outcomes vary significantly by specialization"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Economics",
+      "Finance",
+      "Analytics"
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "international-business",
+    "name": "International Business",
+    "category": "Business",
+    "description": "Study global markets, international trade, management, strategy and cross-cultural business operations.",
+    "image": "/images/programs/international-business.jpg",
+    "icon": "Globe2",
+    "degrees": [
+      "Bachelor",
+      "Master"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years"
+    },
+    "overview": "International Business focuses on how organizations operate across national borders and manage global markets. Students explore international trade, global strategy, cross-cultural management, international finance and multinational business operations.",
+    "studyAreas": [
+      "International Trade",
+      "Global Strategy",
+      "International Finance",
+      "Cross-Cultural Management",
+      "Global Marketing",
+      "International Economics",
+      "Supply Chain Management"
+    ],
+    "skills": [
+      "Global Business Strategy",
+      "Cross-Cultural Communication",
+      "Market Analysis",
+      "Negotiation",
+      "Leadership",
+      "International Management"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "France"
+    ],
+    "topUniversities": [
+      "INSEAD",
+      "Harvard University",
+      "London Business School",
+      "HEC Paris"
+    ],
+    "universitiesCount": 610,
+    "scholarshipsCount": 310,
+    "averageTuition": "$20,000-$65,000/year",
+    "averageSalary": "$88,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$65,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Study materials",
+        "Business networking events",
+        "International travel"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a good academic background. Business, economics, management or related subjects can be beneficial.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Communication skills",
+        "Interest in global business",
+        "Analytical thinking",
+        "Teamwork skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "International Business graduates can work with multinational corporations, consulting firms, international banks, trade organizations and global startups.",
+      "roles": [
+        "International Business Analyst",
+        "Business Development Manager",
+        "International Marketing Manager",
+        "Global Supply Chain Analyst",
+        "Management Consultant",
+        "International Trade Specialist",
+        "Global Operations Manager"
+      ],
+      "averageSalary": "$88,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "International Business students can find university and business school scholarships, particularly at institutions with strong global business programs.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Business Scholarships",
+        "International Student Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong exposure to global business environments",
+      "Excellent preparation for multinational careers",
+      "Opportunities to work across different markets",
+      "Develops valuable cross-cultural communication skills",
+      "Wide range of business career paths"
+    ],
+    "considerations": [
+      "International careers can require relocation",
+      "Strong communication and networking skills are important",
+      "Global markets can be highly competitive",
+      "Some roles may involve frequent international travel"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Global Business",
+      "Management",
+      "International Trade"
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "pharmacy",
+    "name": "Pharmacy",
+    "category": "Health",
+    "description": "Study medicines, pharmaceutical sciences, drug development and safe medication use.",
+    "image": "/images/programs/pharmacy.jpg",
+    "icon": "Pill",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Pharmacy focuses on medicines, their development, preparation, effects and safe use. Students study pharmaceutical sciences, pharmacology, medicinal chemistry and patient-centered medication management.",
+    "studyAreas": [
+      "Pharmacology",
+      "Medicinal Chemistry",
+      "Pharmaceutical Sciences",
+      "Clinical Pharmacy",
+      "Drug Development",
+      "Pharmacotherapy",
+      "Pharmaceutical Biotechnology"
+    ],
+    "skills": [
+      "Medication Management",
+      "Pharmaceutical Analysis",
+      "Clinical Knowledge",
+      "Patient Counseling",
+      "Research",
+      "Drug Safety"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Australia",
+      "Canada",
+      "Ireland"
+    ],
+    "topUniversities": [
+      "University of North Carolina",
+      "University College London",
+      "Monash University",
+      "University of Toronto"
+    ],
+    "universitiesCount": 430,
+    "scholarshipsCount": 210,
+    "averageTuition": "$20,000-$55,000/year",
+    "averageSalary": "$110,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$55,000/year",
+      "livingCost": "$1,000-$2,700/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Laboratory materials",
+        "Clinical training expenses",
+        "Professional registration fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong background in chemistry, biology and other sciences. Specific prerequisites vary by university and country.",
+      "english": "IELTS 6.5-7.0+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Chemistry",
+        "Biology",
+        "Mathematics",
+        "Strong scientific foundation"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Pharmacy graduates can work in community pharmacies, hospitals, pharmaceutical companies, research organizations and healthcare institutions.",
+      "roles": [
+        "Pharmacist",
+        "Clinical Pharmacist",
+        "Pharmaceutical Scientist",
+        "Drug Safety Specialist",
+        "Regulatory Affairs Specialist",
+        "Medical Affairs Specialist",
+        "Pharmaceutical Researcher"
+      ],
+      "averageSalary": "$110,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Pharmacy students may find university, government and pharmaceutical industry scholarships, especially for research and postgraduate study.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Pharmaceutical Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong connection to healthcare",
+      "Multiple clinical and pharmaceutical career paths",
+      "Opportunities in research and drug development",
+      "Strong professional career structure",
+      "Growing pharmaceutical industry"
+    ],
+    "considerations": [
+      "Professional licensing requirements vary by country",
+      "Science-heavy coursework can be demanding",
+      "Clinical roles may require additional registration",
+      "Regulatory requirements differ between countries"
+    ],
+    "ielts": "6.5-7.0+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Healthcare",
+      "Pharmaceuticals",
+      "Medicine"
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "public-health",
+    "name": "Public Health",
+    "category": "Health",
+    "description": "Study population health, disease prevention, healthcare systems and health policy.",
+    "image": "/images/programs/public-health.jpg",
+    "icon": "HeartHandshake",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Public Health focuses on improving the health of communities and populations through disease prevention, health education, epidemiology, policy and healthcare research. Students learn how social, environmental and economic factors influence population health.",
+    "studyAreas": [
+      "Epidemiology",
+      "Health Policy",
+      "Biostatistics",
+      "Global Health",
+      "Environmental Health",
+      "Health Promotion",
+      "Community Health"
+    ],
+    "skills": [
+      "Epidemiological Analysis",
+      "Health Research",
+      "Data Analysis",
+      "Health Policy",
+      "Community Outreach",
+      "Program Management"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Australia",
+      "Canada",
+      "Netherlands"
+    ],
+    "topUniversities": [
+      "Johns Hopkins University",
+      "Harvard University",
+      "University College London",
+      "University of Melbourne"
+    ],
+    "universitiesCount": 380,
+    "scholarshipsCount": 230,
+    "averageTuition": "$18,000-$50,000/year",
+    "averageSalary": "$75,000/year",
+    "jobGrowth": "Very High",
+    "costs": {
+      "tuition": "$18,000-$50,000/year",
+      "livingCost": "$1,000-$2,700/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Research materials",
+        "Statistical software",
+        "Fieldwork expenses"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a background in health sciences, biology, social sciences, medicine or another related discipline. Requirements vary by program.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Basic statistics",
+        "Research skills",
+        "Interest in healthcare",
+        "Analytical thinking"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Public Health graduates can work with government health departments, hospitals, NGOs, international organizations, research institutions and healthcare organizations.",
+      "roles": [
+        "Public Health Analyst",
+        "Epidemiologist",
+        "Health Policy Analyst",
+        "Health Program Coordinator",
+        "Community Health Specialist",
+        "Global Health Specialist",
+        "Public Health Researcher"
+      ],
+      "averageSalary": "$75,000/year",
+      "jobGrowth": "Very High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Public Health students may access government, university and international health scholarships, especially for postgraduate research and global health programs.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Global Health Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong global demand for health professionals",
+      "Meaningful impact on communities",
+      "Wide range of career specializations",
+      "Excellent opportunities in international organizations",
+      "Strong research and policy pathways"
+    ],
+    "considerations": [
+      "Some roles require postgraduate qualifications",
+      "Research and statistics can be demanding",
+      "Career paths may involve government or nonprofit organizations",
+      "Some positions can involve fieldwork in challenging environments"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "Spring",
+      "Fall"
+    ],
+    "tags": [
+      "Public Health",
+      "Epidemiology",
+      "Global Health"
+    ]
+  },
+  {
+    "id": 19,
+    "slug": "dentistry",
+    "name": "Dentistry",
+    "category": "Health",
+    "description": "Study oral health, dental diagnosis, prevention and clinical treatment.",
+    "image": "/images/programs/dentistry.jpg",
+    "icon": "SmilePlus",
+    "degrees": [
+      "DDS",
+      "DMD",
+      "Master"
+    ],
+    "duration": {
+      "dds": "4-5 Years",
+      "dmd": "4-5 Years",
+      "master": "1-3 Years"
+    },
+    "overview": "Dentistry focuses on the prevention, diagnosis and treatment of diseases and conditions affecting the teeth, gums and oral cavity. Students combine biomedical sciences with practical clinical training to develop patient care and dental treatment skills.",
+    "studyAreas": [
+      "Oral Anatomy",
+      "Dental Surgery",
+      "Periodontology",
+      "Prosthodontics",
+      "Orthodontics",
+      "Endodontics",
+      "Oral Pathology"
+    ],
+    "skills": [
+      "Clinical Diagnosis",
+      "Dental Procedures",
+      "Patient Care",
+      "Oral Health Assessment",
+      "Clinical Communication",
+      "Treatment Planning"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Australia",
+      "Canada",
+      "Ireland"
+    ],
+    "topUniversities": [
+      "Harvard University",
+      "King's College London",
+      "University of Melbourne",
+      "University of Toronto"
+    ],
+    "universitiesCount": 320,
+    "scholarshipsCount": 150,
+    "averageTuition": "$35,000-$90,000/year",
+    "averageSalary": "$150,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$35,000-$90,000/year",
+      "livingCost": "$1,200-$3,000/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Dental instruments",
+        "Clinical equipment",
+        "Professional licensing fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need strong academic preparation in biology, chemistry and other sciences. Some dental schools may require entrance examinations and specific prerequisites.",
+      "english": "IELTS 7.0+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Biology",
+        "Chemistry",
+        "Strong scientific foundation",
+        "Manual dexterity",
+        "Communication skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Dentistry graduates can work in dental clinics, hospitals, private practices, research institutions and public healthcare systems, subject to local licensing requirements.",
+      "roles": [
+        "General Dentist",
+        "Dental Surgeon",
+        "Orthodontist",
+        "Prosthodontist",
+        "Periodontist",
+        "Endodontist",
+        "Dental Researcher"
+      ],
+      "averageSalary": "$150,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Dentistry scholarships are available through universities, governments and healthcare organizations, although funding can be competitive due to the high cost of dental education.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Healthcare Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong professional career pathway",
+      "High earning potential",
+      "Direct impact on patient health",
+      "Opportunities for specialization",
+      "Potential for private practice"
+    ],
+    "considerations": [
+      "Education and clinical training can be expensive",
+      "Professional licensing is required in many countries",
+      "Admission can be highly competitive",
+      "Clinical work requires precision and strong patient communication"
+    ],
+    "ielts": "7.0+",
+    "intake": [
+      "Fall"
+    ],
+    "tags": [
+      "Dental",
+      "Healthcare",
+      "Clinical"
+    ]
+  },
+  {
+    "id": 20,
+    "slug": "biomedical-science",
+    "name": "Biomedical Science",
+    "category": "Health",
+    "description": "Study human biology, disease processes, laboratory science and medical research.",
+    "image": "/images/programs/biomedical-science.jpg",
+    "icon": "Microscope",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "3-4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Biomedical Science combines biology, chemistry and medical science to understand how the human body works, how diseases develop and how new diagnostic and therapeutic approaches are developed. Students gain laboratory and research skills that can lead to careers in healthcare, biotechnology, pharmaceuticals and medical research.",
+    "studyAreas": [
+      "Human Anatomy",
+      "Physiology",
+      "Pathology",
+      "Microbiology",
+      "Immunology",
+      "Molecular Biology",
+      "Medical Research"
+    ],
+    "skills": [
+      "Laboratory Techniques",
+      "Scientific Research",
+      "Data Analysis",
+      "Molecular Biology",
+      "Clinical Laboratory Skills",
+      "Scientific Communication"
+    ],
+    "topCountries": [
+      "UK",
+      "Australia",
+      "Canada",
+      "USA",
+      "Ireland"
+    ],
+    "topUniversities": [
+      "University of Oxford",
+      "University of Cambridge",
+      "University of Melbourne",
+      "University of Toronto",
+      "University College London"
+    ],
+    "universitiesCount": 430,
+    "scholarshipsCount": 210,
+    "averageTuition": "$18,000-$45,000/year",
+    "averageSalary": "$70,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$18,000-$45,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Laboratory equipment",
+        "Textbooks and study materials",
+        "Laboratory and research fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong academic background in biology, chemistry, physics or other relevant science subjects.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Biology",
+        "Chemistry",
+        "Basic mathematics",
+        "Scientific reasoning",
+        "Strong analytical skills"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Biomedical Science graduates can work in medical laboratories, pharmaceutical companies, biotechnology firms, research institutions, hospitals and public health organizations.",
+      "roles": [
+        "Biomedical Scientist",
+        "Laboratory Technician",
+        "Clinical Research Associate",
+        "Medical Researcher",
+        "Molecular Biology Technician",
+        "Microbiology Technician",
+        "Biotechnology Specialist"
+      ],
+      "averageSalary": "$70,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate to High",
+      "description": "Biomedical Science students can find university, government, research and healthcare-related scholarships, particularly for postgraduate study and medical research.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong foundation for healthcare and research careers",
+      "Growing demand for biomedical professionals",
+      "Opportunities in biotechnology and pharmaceutical industries",
+      "Strong pathway to postgraduate research",
+      "Wide range of laboratory and scientific careers"
+    ],
+    "considerations": [
+      "Laboratory work requires accuracy and attention to detail",
+      "Postgraduate study may be required for advanced research roles",
+      "Some careers require professional registration",
+      "Science-heavy coursework can be academically demanding"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Healthcare",
+      "Medical Research",
+      "Biology",
+      "Laboratory"
+    ]
+  },
+  {
+    "id": 21,
+    "slug": "psychology",
+    "name": "Psychology",
+    "category": "Science & Humanities",
+    "description": "Explore human behavior, cognition, emotions and mental processes through scientific study and research.",
+    "image": "/images/programs/psychology.jpg",
+    "icon": "Brain",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "3-4 Years",
+      "master": "1-2 Years",
+      "phd": "3-6 Years"
+    },
+    "overview": "Psychology explores human behavior, cognition, emotions and mental processes using scientific research and evidence-based approaches. Students study how people think, develop, learn and interact while building research, communication and analytical skills applicable across healthcare, education, business and social services.",
+    "studyAreas": [
+      "Cognitive Psychology",
+      "Developmental Psychology",
+      "Clinical Psychology",
+      "Social Psychology",
+      "Behavioral Psychology",
+      "Neuropsychology",
+      "Organizational Psychology"
+    ],
+    "skills": [
+      "Psychological Research",
+      "Behavioral Analysis",
+      "Communication",
+      "Critical Thinking",
+      "Data Analysis",
+      "Counselling Skills"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Netherlands"
+    ],
+    "topUniversities": [
+      "Harvard University",
+      "Stanford University",
+      "University College London",
+      "University of Melbourne",
+      "University of Toronto"
+    ],
+    "universitiesCount": 850,
+    "scholarshipsCount": 390,
+    "averageTuition": "$18,000-$50,000/year",
+    "averageSalary": "$75,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$18,000-$50,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Textbooks",
+        "Research materials",
+        "Professional training"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a good academic background with strong performance in science, mathematics, social science or related subjects.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Basic mathematics",
+        "Research interest",
+        "Strong communication skills",
+        "Critical thinking",
+        "Interest in human behavior"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Psychology graduates can work across healthcare, education, human resources, research, social services, marketing and organizational environments.",
+      "roles": [
+        "Psychologist",
+        "Counsellor",
+        "Clinical Research Assistant",
+        "Human Resources Specialist",
+        "Behavioral Researcher",
+        "Educational Psychologist",
+        "Organizational Psychologist"
+      ],
+      "averageSalary": "$75,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Psychology students can access university, government and research scholarships, with postgraduate research programs often offering additional funding opportunities.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Broad career applications across multiple industries",
+      "Strong foundation for healthcare and research",
+      "Growing interest in mental health and wellbeing",
+      "Useful skills for business and organizational roles",
+      "Multiple postgraduate specialization options"
+    ],
+    "considerations": [
+      "Professional psychology roles may require postgraduate qualifications",
+      "Licensing requirements vary by country",
+      "Research-heavy programs require strong analytical skills",
+      "Clinical pathways can require extensive additional training"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Psychology",
+      "Mental Health",
+      "Behavior",
+      "Research"
+    ]
+  },
+  {
+    "id": 22,
+    "slug": "law",
+    "name": "Law",
+    "category": "Science & Humanities",
+    "description": "Study legal systems, legislation, justice, contracts and the principles governing society and business.",
+    "image": "/images/programs/law.jpg",
+    "icon": "Scale",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "3-4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Law examines legal systems, institutions, regulations and the principles that govern individuals, organizations and governments. Students develop analytical, research, writing and advocacy skills while exploring areas such as corporate law, international law, human rights and criminal justice.",
+    "studyAreas": [
+      "Corporate Law",
+      "Criminal Law",
+      "International Law",
+      "Constitutional Law",
+      "Human Rights Law",
+      "Commercial Law",
+      "Intellectual Property Law"
+    ],
+    "skills": [
+      "Legal Research",
+      "Critical Thinking",
+      "Legal Writing",
+      "Negotiation",
+      "Argumentation",
+      "Case Analysis"
+    ],
+    "topCountries": [
+      "UK",
+      "USA",
+      "Canada",
+      "Australia",
+      "Netherlands"
+    ],
+    "topUniversities": [
+      "Harvard University",
+      "University of Oxford",
+      "University of Cambridge",
+      "Yale University",
+      "University College London"
+    ],
+    "universitiesCount": 760,
+    "scholarshipsCount": 310,
+    "averageTuition": "$20,000-$60,000/year",
+    "averageSalary": "$95,000/year",
+    "jobGrowth": "Moderate to High",
+    "costs": {
+      "tuition": "$20,000-$60,000/year",
+      "livingCost": "$1,000-$2,800/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Law textbooks",
+        "Professional examinations",
+        "Professional membership fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong academic record with excellent reading, writing, reasoning and analytical abilities. Some countries may require specific entrance examinations.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Strong reading ability",
+        "Excellent written communication",
+        "Critical thinking",
+        "Analytical reasoning",
+        "Interest in legal systems"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Law graduates can pursue careers in legal practice, corporate organizations, government, compliance, policy, consulting and international organizations.",
+      "roles": [
+        "Lawyer",
+        "Legal Advisor",
+        "Corporate Counsel",
+        "Compliance Officer",
+        "Legal Consultant",
+        "Policy Analyst",
+        "Legal Researcher"
+      ],
+      "averageSalary": "$95,000/year",
+      "jobGrowth": "Moderate to High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Law students can explore university, government and merit-based scholarships, with additional opportunities available for international law and postgraduate research.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Globally respected academic discipline",
+      "Wide range of legal specializations",
+      "Strong analytical and communication skills",
+      "Career opportunities across public and private sectors",
+      "Useful foundation for business and policy careers"
+    ],
+    "considerations": [
+      "Professional licensing varies significantly by country",
+      "Legal careers may require additional examinations",
+      "Programs involve substantial reading and writing",
+      "International students must understand local legal qualification rules"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Law",
+      "Justice",
+      "Corporate Law",
+      "Legal Studies"
+    ]
+  },
+  {
+    "id": 23,
+    "slug": "architecture",
+    "name": "Architecture",
+    "category": "Science & Humanities",
+    "description": "Design buildings, spaces and environments by combining creativity, technology and architectural principles.",
+    "image": "/images/programs/architecture.jpg",
+    "icon": "Building2",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "4-5 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Architecture combines creative design, engineering principles, technology and human-centered planning to create functional and sustainable buildings and environments. Students develop skills in architectural design, digital modeling, construction technology and urban planning.",
+    "studyAreas": [
+      "Architectural Design",
+      "Urban Planning",
+      "Sustainable Architecture",
+      "Construction Technology",
+      "Interior Design",
+      "Landscape Architecture",
+      "Digital Architecture"
+    ],
+    "skills": [
+      "Architectural Design",
+      "3D Modeling",
+      "CAD",
+      "Technical Drawing",
+      "Project Management",
+      "Creative Problem Solving"
+    ],
+    "topCountries": [
+      "UK",
+      "USA",
+      "Australia",
+      "Canada",
+      "Italy"
+    ],
+    "topUniversities": [
+      "University College London",
+      "MIT",
+      "Harvard University",
+      "University of Melbourne",
+      "Politecnico di Milano"
+    ],
+    "universitiesCount": 690,
+    "scholarshipsCount": 270,
+    "averageTuition": "$18,000-$50,000/year",
+    "averageSalary": "$78,000/year",
+    "jobGrowth": "Moderate to High",
+    "costs": {
+      "tuition": "$18,000-$50,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Design software",
+        "Drawing and model-making materials",
+        "Printing and studio fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a good academic background and an interest in design, mathematics, technology and the built environment. Some universities may require a portfolio.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Basic mathematics",
+        "Design interest",
+        "Creative thinking",
+        "Technical drawing",
+        "Portfolio development"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Portfolio",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Architecture graduates can work in architectural firms, construction companies, urban planning organizations, real estate companies and design consultancies.",
+      "roles": [
+        "Architect",
+        "Architectural Designer",
+        "Urban Planner",
+        "Interior Designer",
+        "BIM Specialist",
+        "Landscape Designer",
+        "Project Coordinator"
+      ],
+      "averageSalary": "$78,000/year",
+      "jobGrowth": "Moderate to High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Architecture students can find university, merit-based, design and government scholarships. Portfolio quality may also strengthen competitive applications.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Design Scholarships"
+      ]
+    },
+    "pros": [
+      "Combines creativity with technical skills",
+      "Strong opportunities in sustainable design",
+      "Multiple career paths within the built environment",
+      "Excellent foundation for urban development",
+      "Opportunities to work internationally"
+    ],
+    "considerations": [
+      "Programs can involve intensive studio work",
+      "Professional registration varies by country",
+      "Design software and materials can add significant costs",
+      "A strong portfolio is important for many applications and careers"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Architecture",
+      "Design",
+      "Construction",
+      "Urban Planning"
+    ]
+  },
+  {
+    "id": 24,
+    "slug": "environmental-science",
+    "name": "Environmental Science",
+    "category": "Science & Humanities",
+    "description": "Study environmental systems, climate change, conservation and sustainable solutions for a changing world.",
+    "image": "/images/programs/environmental-science.jpg",
+    "icon": "Leaf",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "3-4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Environmental Science examines the relationship between humans and the natural environment. Students study climate change, ecosystems, pollution, conservation and sustainability while learning how scientific research can support environmental policy and sustainable development.",
+    "studyAreas": [
+      "Climate Science",
+      "Environmental Management",
+      "Ecology",
+      "Conservation",
+      "Environmental Policy",
+      "Sustainability",
+      "Water and Resource Management"
+    ],
+    "skills": [
+      "Environmental Analysis",
+      "Scientific Research",
+      "Data Analysis",
+      "Field Research",
+      "Environmental Assessment",
+      "Sustainability Planning"
+    ],
+    "topCountries": [
+      "Canada",
+      "Australia",
+      "UK",
+      "Netherlands",
+      "Sweden"
+    ],
+    "topUniversities": [
+      "University of Oxford",
+      "University of Cambridge",
+      "University of British Columbia",
+      "Wageningen University",
+      "University of Melbourne"
+    ],
+    "universitiesCount": 540,
+    "scholarshipsCount": 300,
+    "averageTuition": "$15,000-$40,000/year",
+    "averageSalary": "$72,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$15,000-$40,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Field research equipment",
+        "Laboratory fees",
+        "Research materials"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a background in biology, chemistry, geography, environmental science or other relevant science subjects.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Biology",
+        "Chemistry",
+        "Basic mathematics",
+        "Scientific reasoning",
+        "Interest in environmental issues"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Environmental Science graduates can work in environmental consulting, conservation, government agencies, research institutions, sustainability teams and international organizations.",
+      "roles": [
+        "Environmental Scientist",
+        "Environmental Consultant",
+        "Sustainability Specialist",
+        "Conservation Officer",
+        "Environmental Analyst",
+        "Climate Policy Analyst",
+        "Environmental Researcher"
+      ],
+      "averageSalary": "$72,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Environmental Science students may benefit from university, government and research scholarships focused on sustainability, climate change, conservation and environmental development.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Environmental Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Growing global focus on sustainability",
+      "Strong relevance to climate change and environmental challenges",
+      "Career opportunities across government and private sectors",
+      "Opportunities for fieldwork and scientific research",
+      "Strong pathway into environmental policy and sustainability"
+    ],
+    "considerations": [
+      "Some careers involve extensive outdoor fieldwork",
+      "Research positions may require postgraduate study",
+      "Environmental regulations vary between countries",
+      "Career paths can be highly specialized"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Environment",
+      "Sustainability",
+      "Climate",
+      "Conservation"
+    ]
+  },
+  {
+    "id": 25,
+    "slug": "biotechnology",
+    "name": "Biotechnology",
+    "category": "Science & Humanities",
+    "description": "Apply biological science and technology to develop solutions in healthcare, agriculture, food and industry.",
+    "image": "/images/programs/biotechnology.jpg",
+    "icon": "Dna",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "3-4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Biotechnology combines biology, chemistry, genetics and technology to develop products and solutions for healthcare, agriculture, food production, environmental management and industrial applications. Students learn laboratory techniques, molecular biology and modern biotechnology methods.",
+    "studyAreas": [
+      "Genetic Engineering",
+      "Molecular Biology",
+      "Microbiology",
+      "Bioinformatics",
+      "Pharmaceutical Biotechnology",
+      "Agricultural Biotechnology",
+      "Industrial Biotechnology"
+    ],
+    "skills": [
+      "Laboratory Research",
+      "Molecular Biology",
+      "Genetic Analysis",
+      "Data Analysis",
+      "Scientific Research",
+      "Biotechnology Techniques"
+    ],
+    "topCountries": [
+      "USA",
+      "Germany",
+      "UK",
+      "Canada",
+      "Australia"
+    ],
+    "topUniversities": [
+      "MIT",
+      "Stanford University",
+      "University of Cambridge",
+      "ETH Zurich",
+      "University of Toronto"
+    ],
+    "universitiesCount": 470,
+    "scholarshipsCount": 260,
+    "averageTuition": "$20,000-$55,000/year",
+    "averageSalary": "$82,000/year",
+    "jobGrowth": "High",
+    "costs": {
+      "tuition": "$20,000-$55,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Laboratory equipment",
+        "Research materials",
+        "Laboratory fees"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a strong background in biology, chemistry, mathematics or related science subjects.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Biology",
+        "Chemistry",
+        "Basic mathematics",
+        "Laboratory interest",
+        "Analytical thinking"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume"
+      ]
+    },
+    "career": {
+      "summary": "Biotechnology graduates can work in pharmaceutical companies, biotechnology firms, food industries, agricultural organizations, research institutions and healthcare companies.",
+      "roles": [
+        "Biotechnologist",
+        "Research Scientist",
+        "Laboratory Scientist",
+        "Molecular Biology Technician",
+        "Bioprocessing Specialist",
+        "Clinical Research Associate",
+        "Bioinformatics Analyst"
+      ],
+      "averageSalary": "$82,000/year",
+      "jobGrowth": "High"
+    },
+    "scholarships": {
+      "availability": "High",
+      "description": "Biotechnology students can access university, government, research and industry-sponsored scholarships, particularly at postgraduate level.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Research Scholarships"
+      ]
+    },
+    "pros": [
+      "Strong connection to healthcare and pharmaceutical industries",
+      "Growing biotechnology sector",
+      "Excellent research opportunities",
+      "Applications across healthcare, agriculture and industry",
+      "Strong pathway to postgraduate research"
+    ],
+    "considerations": [
+      "Advanced research careers often require postgraduate qualifications",
+      "Laboratory work requires precision and patience",
+      "Science-heavy coursework can be demanding",
+      "Research careers may involve long-term experimentation"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Biotechnology",
+      "Genetics",
+      "Research",
+      "Healthcare"
+    ]
+  },
+  {
+    "id": 26,
+    "slug": "media-communication",
+    "name": "Media & Communication",
+    "category": "Science & Humanities",
+    "description": "Develop skills in journalism, digital media, public relations, communication and modern content production.",
+    "image": "/images/programs/media-communication.jpg",
+    "icon": "Megaphone",
+    "degrees": [
+      "Bachelor",
+      "Master",
+      "PhD"
+    ],
+    "duration": {
+      "bachelor": "3-4 Years",
+      "master": "1-2 Years",
+      "phd": "3-5 Years"
+    },
+    "overview": "Media & Communication explores how information, ideas and stories are created, distributed and interpreted across traditional and digital platforms. Students develop skills in journalism, content production, public relations, digital communication, media strategy and audience engagement.",
+    "studyAreas": [
+      "Journalism",
+      "Digital Media",
+      "Public Relations",
+      "Advertising",
+      "Broadcasting",
+      "Media Production",
+      "Strategic Communication"
+    ],
+    "skills": [
+      "Content Creation",
+      "Communication",
+      "Journalism",
+      "Public Speaking",
+      "Digital Marketing",
+      "Media Production",
+      "Storytelling"
+    ],
+    "topCountries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Netherlands"
+    ],
+    "topUniversities": [
+      "University of Southern California",
+      "New York University",
+      "University of Amsterdam",
+      "University of Leeds",
+      "University of Melbourne"
+    ],
+    "universitiesCount": 720,
+    "scholarshipsCount": 340,
+    "averageTuition": "$15,000-$45,000/year",
+    "averageSalary": "$68,000/year",
+    "jobGrowth": "Moderate to High",
+    "costs": {
+      "tuition": "$15,000-$45,000/year",
+      "livingCost": "$1,000-$2,500/month",
+      "additionalCosts": [
+        "Health insurance",
+        "Student visa",
+        "Camera and media equipment",
+        "Editing software",
+        "Production materials"
+      ]
+    },
+    "requirements": {
+      "academic": "Applicants generally need a good academic background with strong communication, writing and creative abilities. Some programs may request a portfolio or creative work sample.",
+      "english": "IELTS 6.5+ is commonly expected for international applicants.",
+      "prerequisites": [
+        "Strong communication skills",
+        "Writing ability",
+        "Creative thinking",
+        "Digital literacy",
+        "Interest in media and communication"
+      ],
+      "documents": [
+        "Academic Certificates",
+        "Academic Transcripts",
+        "English Test Score",
+        "Passport",
+        "Statement of Purpose",
+        "CV/Resume",
+        "Portfolio or Work Samples"
+      ]
+    },
+    "career": {
+      "summary": "Media & Communication graduates can work in journalism, digital media, advertising, public relations, corporate communication, broadcasting and content production.",
+      "roles": [
+        "Journalist",
+        "Content Strategist",
+        "Public Relations Specialist",
+        "Digital Media Specialist",
+        "Communications Officer",
+        "Social Media Manager",
+        "Media Producer"
+      ],
+      "averageSalary": "$68,000/year",
+      "jobGrowth": "Moderate to High"
+    },
+    "scholarships": {
+      "availability": "Moderate",
+      "description": "Media and Communication students can explore university, merit-based, journalism and creative-industry scholarships, with additional opportunities for postgraduate study.",
+      "types": [
+        "Merit-based Scholarships",
+        "University Scholarships",
+        "Government Scholarships",
+        "Media and Journalism Scholarships"
+      ]
+    },
+    "pros": [
+      "Wide range of creative career opportunities",
+      "Strong relevance to digital media and online communication",
+      "Transferable communication and storytelling skills",
+      "Opportunities across almost every industry",
+      "Suitable for creative and analytical students"
+    ],
+    "considerations": [
+      "Media industries can be highly competitive",
+      "Building a strong portfolio is important",
+      "Career progression may depend heavily on practical experience",
+      "Digital platforms and industry trends change rapidly"
+    ],
+    "ielts": "6.5+",
+    "intake": [
+      "September",
+      "January"
+    ],
+    "tags": [
+      "Media",
+      "Journalism",
+      "Communication",
+      "Digital Media"
+    ]
+  }
+]

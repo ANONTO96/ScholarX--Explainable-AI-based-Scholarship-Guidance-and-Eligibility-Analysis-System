@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { CalendarCheck, MessageSquareText, Search, Sparkles } from "lucide-react";
-import programs from "../data/courses.json"
+import programs from "../data/programs.json"
 import universities from "../data/universities.json";
 import opportunities from "../data/opportunities.json";
 import ProgramCard from "../components/ReusableComp/discover/ProgramCard";
 import UniversityCard from "../components/ReusableComp/discover/UniversityCard";
 import OpportunityCard from "../components/ReusableComp/discover/OpportunityCard";
 
-const AllCourses = () => {
+const AllPrograms = () => {
   const [activeTab, setActiveTab] = useState("programs");
   const [search, setSearch] = useState("");
 // data according to active tab
@@ -203,4 +203,4 @@ duration-300">
   );
 };
 
-export default AllCourses;
+export default AllPrograms;

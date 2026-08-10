@@ -65,7 +65,7 @@ const ProgramCard = ({ program }) => {
                         </div>
 
                         <NavLink
-                            to=""
+                            to={`/programDetails/${program.slug}`}
                             className="group flex items-center gap-2 mt-2 font-semibold text-gray-900 hover:text-blue-500 transition"
                         >
                             Learn More

@@ -63,7 +63,7 @@ const ScholarshipSearchSection = () => {
             {/* Buttons */}
             <div className="mt-5 flex flex-wrap items-center gap-5">
               <NavLink
-                    to="/courses"
+                    to="/programs"
                         className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 text-lg rounded-lg
                bg-gray-100 text-black
                border border-[#3A2C2C]
