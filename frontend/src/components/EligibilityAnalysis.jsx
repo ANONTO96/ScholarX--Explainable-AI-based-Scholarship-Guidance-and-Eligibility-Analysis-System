@@ -28,7 +28,7 @@ const EligibilityAnalysis = () => {
             </p>
             {/* Buttons */}
             <div className="mt-5 flex items-center gap-5">
-              <NavLink to="/eligibilityAnalysis"
+              <NavLink to="/eligibility-analysis"
                 className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
                            bg-gray-100
                            border border-[#3A2C2C]

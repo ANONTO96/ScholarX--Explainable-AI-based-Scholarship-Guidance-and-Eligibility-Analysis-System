@@ -27,7 +27,7 @@ const RoadmapSection = () => {
         <div className="mt-5 flex justify-center items-center gap-6">
 
           <NavLink
-                    to="/ScholarshipSearch"
+                    to="/programs"
                         className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 rounded-lg
                bg-gray-100 text-black
                border border-[#3A2C2C]

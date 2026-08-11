@@ -1143,7 +1143,7 @@ const CountryDetails = () => {
                         </div>
 
                         <div className="flex flex-wrap justify-center gap-4">
-                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
+                            <NavLink to="/consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all
@@ -1152,9 +1152,9 @@ duration-300">
                                     <CalendarCheck size={18} />
                                     Book Consultation
                                 </span>
-                            </button>
+                            </NavLink>
 
-                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+                            <NavLink to="/eligibility-analysis" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all
@@ -1163,7 +1163,7 @@ duration-300">
                                     <BadgeCheck size={18} />
                                     Check My Eligibility
                                 </span>
-                            </button>
+                            </NavLink>
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,7 @@ import {
     TrendingUp,
     University,
     WalletCards,
+    BadgeCheck,
 } from "lucide-react";
 
 import { NavLink, useParams } from "react-router";
@@ -57,7 +58,12 @@ const ProgramDetails = () => {
     const duration = Object.entries(program.duration);
 
     return (
-        <div className="bg-white text-slate-900">
+        <div className="text-slate-900">
+            {/* Background */}
+            <div className="pointer-events-none absolute inset-0">
+                <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
+            </div>
 
             {/* ========================================================= */}
             {/* HERO */}
@@ -73,12 +79,11 @@ const ProgramDetails = () => {
                 >
 
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-linear-to-r from-slate-950/90 via-blue-950/75 to-blue-900/45" />
+                    <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-blue-950 to-blue-800" />
 
-                    {/* Decorative circles */}
-                    <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
+                    <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10" />
 
-                    <div className="absolute -bottom-32 right-20 h-96 w-96 rounded-full border border-white/10" />
+                <div className="absolute -bottom-40 right-10 h-112.5 w-112.5 rounded-full border border-white/10" />
 
                     <div className="relative mx-auto flex min-h-140 max-w-7xl items-center px-6 py-20">
 
@@ -109,7 +114,7 @@ const ProgramDetails = () => {
                                 {program.degrees.map((degree) => (
                                     <span
                                         key={degree}
-                                        className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur"
+                                        className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur  hover:bg-white/20 transition-all duration-300 hover:-translate-y-2"
                                     >
                                         {degree}
                                     </span>
@@ -122,18 +127,22 @@ const ProgramDetails = () => {
 
                                 <NavLink
                                     to="/eligibility-analysis"
-                                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg transition hover:-translate-y-1 hover:bg-blue-500 hover:shadow-xl"
+                                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-2"
                                 >
+                                    <BadgeCheck size={18} />
                                     Check My Eligibility
-                                    <ArrowRight size={18} />
                                 </NavLink>
 
-                                <NavLink
-                                    to="/programs"
-                                    className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur transition hover:bg-white/20"
-                                >
+                                <NavLink to="/programs" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
+                                <span className="flex items-center gap-2">
                                     Explore More Programs
-                                </NavLink>
+                                    <ArrowRight size={18} />
+                                </span>
+                            </NavLink>
 
                             </div>
 
@@ -152,14 +161,14 @@ const ProgramDetails = () => {
 
             <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-6">
 
-                <div className="grid overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
 
                     {/* Duration */}
-                    <div className="border-b border-slate-100 p-6 lg:border-b-0 lg:border-r">
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-blue-50/50 md:border-b-0 md:border-r">
 
                         <div className="flex items-center gap-3">
 
-                            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
                                 <Clock3 size={21} />
                             </div>
 
@@ -179,11 +188,11 @@ const ProgramDetails = () => {
 
 
                     {/* Tuition */}
-                    <div className="border-b border-slate-100 p-6 lg:border-b-0 lg:border-r">
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-amber-50/50 md:border-b-0 md:border-r">
 
                         <div className="flex items-center gap-3">
 
-                            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 transition group-hover:bg-amber-500 group-hover:text-white">
                                 <BadgeDollarSign size={21} />
                             </div>
 
@@ -203,11 +212,11 @@ const ProgramDetails = () => {
 
 
                     {/* Salary */}
-                    <div className="border-b border-slate-100 p-6 sm:border-b-0 sm:border-r lg:border-r">
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-emerald-50/50 md:border-b-0 md:border-r">
 
                         <div className="flex items-center gap-3">
 
-                            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
                                 <TrendingUp size={21} />
                             </div>
 
@@ -227,11 +236,11 @@ const ProgramDetails = () => {
 
 
                     {/* Job Growth */}
-                    <div className="p-6">
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-violet-50/50 md:border-b-0 md:border-r">
 
                         <div className="flex items-center gap-3">
 
-                            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 transition group-hover:bg-violet-600 group-hover:text-white">
                                 <BriefcaseBusiness size={21} />
                             </div>
 
@@ -253,99 +262,92 @@ const ProgramDetails = () => {
 
             </section>
 
-
             {/* ========================================================= */}
             {/* ABOUT THE PROGRAM */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-6 py-20">
 
-                <div className="grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+                <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
 
-                    <div>
+                    <div className="max-w-3xl">
 
-                        <span className="text-sm font-bold uppercase tracking-wider text-blue-600">
-                            About the Program
-                        </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-blue-600" />
 
-                        <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-900">
-                            Build your future with {program.name}
-                        </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+            About the Program
+        </span>
+    </div>
 
-                        <p className="mt-6 text-lg leading-8 text-slate-600">
-                            {program.overview}
-                        </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Everything you need to know about{" "}
+        <span className="text-blue-600">
+            {program.name}.
+        </span>
+    </h2>
 
-                    </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        {program.overview}
+    </p>
 
+</div>
 
-                    {/* Program Snapshot */}
-                    <div className="relative overflow-hidden rounded-3xl bg-slate-50 p-8">
+                    <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-blue-600 to-indigo-700 p-8 text-white shadow-xl">
 
-                        <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-100/70" />
+                        {/* Decorative circles */}
+                        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10" />
+                        <div className="absolute -bottom-12 -left-12 h-36 w-36 rounded-full bg-white/5" />
 
                         <div className="relative">
+                            <p className="text-sm font-semibold uppercase tracking-wider text-blue-100">
+                                Program snapshot
+                            </p>
 
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white">
-                                    <GraduationCap size={22} />
-                                </div>
+                            <h3 className="mt-3 text-2xl font-bold">
+                                Why students choose this field
+                            </h3>
 
-                                <h3 className="text-xl font-bold">
-                                    Program Snapshot
-                                </h3>
-                            </div>
+                            <div className="mt-7 space-y-4">
 
-                            <div className="mt-7 space-y-5">
-
-                                <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-                                    <span className="text-slate-500">
-                                        Category
-                                    </span>
-
-                                    <span className="font-semibold">
-                                        {program.category}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-                                    <span className="text-slate-500">
-                                        IELTS
-                                    </span>
-
-                                    <span className="font-semibold">
-                                        {program.ielts}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-                                    <span className="text-slate-500">
+                                <div className="flex items-center justify-between border-b border-white/15 pb-4">
+                                    <span className="text-blue-100">
                                         Universities
                                     </span>
 
-                                    <span className="font-semibold">
-                                        {program.universitiesCount.toLocaleString()}+
+                                    <span className="font-bold">
+                                        {program.universitiesCount}+
+                                    </span>
+                                </div>
+
+                                <div className="flex items-center justify-between border-b border-white/15 pb-4">
+                                    <span className="text-blue-100">
+                                        Scholarships
+                                    </span>
+
+                                    <span className="font-bold">
+                                        {program.scholarshipsCount}+
                                     </span>
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <span className="text-slate-500">
-                                        Scholarships
+                                    <span className="text-blue-100">
+                                        English Requirement
                                     </span>
 
-                                    <span className="font-semibold">
-                                        {program.scholarshipsCount.toLocaleString()}+
+                                    <span className="font-bold">
+                                        IELTS {program.ielts}
                                     </span>
                                 </div>
 
                             </div>
-
                         </div>
-
                     </div>
 
                 </div>
-
             </section>
 
 
@@ -357,22 +359,32 @@ const ProgramDetails = () => {
 
                 <div className="mx-auto max-w-7xl px-6">
 
-                    <div className="max-w-2xl">
+                    <div className="max-w-3xl">
 
-                        <span className="text-sm font-bold uppercase tracking-wider text-indigo-600">
-                            Curriculum
-                        </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-indigo-600" />
 
-                        <h2 className="mt-3 text-4xl font-black tracking-tight">
-                            What you'll learn
-                        </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600">
+            Curriculum
+        </span>
+    </div>
 
-                        <p className="mt-5 leading-7 text-slate-600">
-                            Explore the major areas of study and practical skills
-                            you'll develop throughout a {program.name} program.
-                        </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        What you'll{" "}
+        <span className="text-indigo-600">
+            learn.
+        </span>
+    </h2>
 
-                    </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Explore the major areas of study and practical skills you'll
+        develop throughout a {program.name} program.
+    </p>
+
+</div>
 
 
                     <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -420,7 +432,7 @@ const ProgramDetails = () => {
 
                                 <span
                                     key={skill}
-                                    className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700"
+                                    className="rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 group border border-blue-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                                 >
                                     {skill}
                                 </span>
@@ -446,43 +458,52 @@ const ProgramDetails = () => {
 
                     <div>
 
-                        <span className="text-sm font-bold uppercase tracking-wider text-violet-600">
-                            Admission
-                        </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-violet-600" />
 
-                        <h2 className="mt-3 text-4xl font-black tracking-tight">
-                            What do you need to apply?
-                        </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-violet-600">
+            Admission
+        </span>
+    </div>
 
-                        <p className="mt-5 leading-7 text-slate-600">
-                            Admission requirements vary by university, country
-                            and degree level. Here are the common requirements
-                            students should prepare for.
-                        </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        What do you need to{" "}
+        <span className="text-violet-600">
+            apply?
+        </span>
+    </h2>
+
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Admission requirements vary by university, country and degree level.
+        Here are the common requirements students should prepare for.
+    </p>
 
 
-                        {/* IELTS Card */}
-                        <div className="mt-8 rounded-3xl bg-linear-to-br from-violet-600 to-indigo-700 p-7 text-white shadow-xl">
+    {/* IELTS Card */}
+    <div className="mt-8 rounded-3xl bg-linear-to-br from-violet-600 to-indigo-700 p-7 text-white shadow-xl">
 
-                            <div className="flex items-center gap-3">
-                                <Languages size={25} />
+        <div className="flex items-center gap-3">
+            <Languages size={25} />
 
-                                <p className="font-semibold">
-                                    Typical English Requirement
-                                </p>
-                            </div>
+            <p className="font-semibold">
+                Typical English Requirement
+            </p>
+        </div>
 
-                            <p className="mt-4 text-4xl font-black">
-                                IELTS {program.ielts}
-                            </p>
+        <p className="mt-4 text-4xl font-black">
+            IELTS {program.ielts}
+        </p>
 
-                            <p className="mt-2 text-sm text-violet-100">
-                                Requirements may differ between institutions.
-                            </p>
+        <p className="mt-2 text-sm text-violet-100">
+            Requirements may differ between institutions.
+        </p>
 
-                        </div>
+    </div>
 
-                    </div>
+</div>
 
 
                     <div className="space-y-5">
@@ -523,7 +544,7 @@ const ProgramDetails = () => {
 
                                         <div
                                             key={item}
-                                            className="flex items-center gap-3 rounded-xl bg-slate-50 p-3"
+                                            className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 group border border-slate-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                                         >
                                             <CircleCheck
                                                 size={18}
@@ -557,7 +578,7 @@ const ProgramDetails = () => {
 
                                         <span
                                             key={document}
-                                            className="rounded-full bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700"
+                                            className="rounded-full bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 group border border-blue-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                                         >
                                             {document}
                                         </span>
@@ -580,33 +601,45 @@ const ProgramDetails = () => {
             {/* TUITION & COSTS */}
             {/* ========================================================= */}
 
-            <section className="bg-slate-50 py-24">
+            <section className="relative overflow-hidden bg-slate-50 py-24">
+                {/* Decorative background */}
+                <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-amber-200/20 blur-3xl" />
+                <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-blue-200/20 blur-3xl" />
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="relative overflow-hidden mx-auto max-w-7xl px-6">
 
-                    <div className="max-w-2xl">
+                    <div className="max-w-3xl">
 
-                        <span className="text-sm font-bold uppercase tracking-wider text-amber-600">
-                            Cost of Study
-                        </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-amber-600" />
 
-                        <h2 className="mt-3 text-4xl font-black tracking-tight">
-                            Understand your investment
-                        </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
+            Cost of Study
+        </span>
+    </div>
 
-                        <p className="mt-5 leading-7 text-slate-600">
-                            Tuition is only one part of your study abroad
-                            budget. Consider living expenses and other
-                            student costs as well.
-                        </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Understand your{" "}
+        <span className="text-amber-600">
+            investment.
+        </span>
+    </h2>
 
-                    </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Tuition is only one part of your study abroad budget. Consider
+        living expenses and other student costs as well.
+    </p>
+
+</div>
 
 
-                    <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-12 grid gap-6 md:grid-cols-2">
 
                         {/* Tuition */}
-                        <div className="rounded-3xl bg-white p-7 shadow-sm">
+                        <div className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
                             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
                                 <BadgeDollarSign size={22} />
@@ -627,30 +660,8 @@ const ProgramDetails = () => {
                         </div>
 
 
-                        {/* Living */}
-                        <div className="rounded-3xl bg-white p-7 shadow-sm">
-
-                            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                                <WalletCards size={22} />
-                            </div>
-
-                            <p className="mt-6 text-sm font-semibold text-slate-500">
-                                Monthly Living Cost
-                            </p>
-
-                            <p className="mt-2 text-2xl font-black text-slate-900">
-                                {program.costs.livingCost}
-                            </p>
-
-                            <p className="mt-2 text-sm text-slate-500">
-                                Accommodation, food and daily expenses
-                            </p>
-
-                        </div>
-
-
                         {/* Total Scholarships */}
-                        <div className="rounded-3xl bg-white p-7 shadow-sm">
+                        <div className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
                             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                                 <DollarSign size={22} />
@@ -687,7 +698,7 @@ const ProgramDetails = () => {
 
                                 <div
                                     key={cost}
-                                    className="flex items-center gap-3 rounded-xl bg-slate-50 px-4 py-3"
+                                    className="flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-3 group border border-slate-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                                 >
 
                                     <Check
@@ -722,42 +733,53 @@ const ProgramDetails = () => {
 
                     <div>
 
-                        <span className="text-sm font-bold uppercase tracking-wider text-emerald-600">
-                            Career Opportunities
-                        </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-emerald-600" />
 
-                        <h2 className="mt-3 text-4xl font-black tracking-tight">
-                            Where can this program take you?
-                        </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600">
+            Career Opportunities
+        </span>
+    </div>
 
-                        <p className="mt-5 leading-7 text-slate-600">
-                            {program.career.summary}
-                        </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Where can this program{" "}
+        <span className="text-emerald-600">
+            take you?
+        </span>
+    </h2>
+
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        {program.career.summary}
+    </p>
 
 
-                        <div className="mt-8 rounded-3xl bg-emerald-50 p-7">
+    {/* Career Outlook Card */}
+    <div className="mt-8 rounded-3xl bg-emerald-50 p-7">
 
-                            <div className="flex items-center gap-3 text-emerald-700">
+        <div className="flex items-center gap-3 text-emerald-700">
 
-                                <TrendingUp size={23} />
+            <TrendingUp size={23} />
 
-                                <span className="font-semibold">
-                                    Career Outlook
-                                </span>
+            <span className="font-semibold">
+                Career Outlook
+            </span>
 
-                            </div>
+        </div>
 
-                            <p className="mt-3 text-3xl font-black text-emerald-800">
-                                {program.career.jobGrowth}
-                            </p>
+        <p className="mt-3 text-3xl font-black text-emerald-800">
+            {program.career.jobGrowth}
+        </p>
 
-                            <p className="mt-1 text-sm text-emerald-700">
-                                Current job growth outlook
-                            </p>
+        <p className="mt-1 text-sm text-emerald-700">
+            Current job growth outlook
+        </p>
 
-                        </div>
+    </div>
 
-                    </div>
+</div>
 
 
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -802,22 +824,32 @@ const ProgramDetails = () => {
 
                 <div className="mx-auto max-w-7xl px-6">
 
-                    <div className="max-w-2xl">
+                    <div className="max-w-3xl">
 
-                        <span className="text-sm font-bold uppercase tracking-wider text-blue-600">
-                            Study Destinations
-                        </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-blue-600" />
 
-                        <h2 className="mt-3 text-4xl font-black tracking-tight">
-                            Top countries for {program.name}
-                        </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+            Study Destinations
+        </span>
+    </div>
 
-                        <p className="mt-5 leading-7 text-slate-600">
-                            Explore destinations where students commonly choose
-                            to study {program.name}.
-                        </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Top countries for{" "}
+        <span className="text-blue-600">
+            {program.name}.
+        </span>
+    </h2>
 
-                    </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Explore destinations where students commonly choose to study{" "}
+        {program.name}.
+    </p>
+
+</div>
 
 
                     <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -835,7 +867,7 @@ const ProgramDetails = () => {
 
                                     <div className="flex items-center justify-between">
 
-                                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition duration-300 group-hover:bg-blue-600 group-hover:text-white">
                                             <Globe2 size={21} />
                                         </div>
 
@@ -872,22 +904,32 @@ const ProgramDetails = () => {
 
             <section className="mx-auto max-w-7xl px-6 py-24">
 
-                <div className="max-w-2xl">
+                <div className="max-w-3xl">
 
-                    <span className="text-sm font-bold uppercase tracking-wider text-violet-600">
-                        Universities
-                    </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-violet-600" />
 
-                    <h2 className="mt-3 text-4xl font-black tracking-tight">
-                        Top universities to consider
-                    </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-violet-600">
+            Universities
+        </span>
+    </div>
 
-                    <p className="mt-5 leading-7 text-slate-600">
-                        Some leading institutions offering strong academic
-                        opportunities related to {program.name}.
-                    </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Top universities to{" "}
+        <span className="text-violet-600">
+            consider.
+        </span>
+    </h2>
 
-                </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Some leading institutions offering strong academic opportunities
+        related to {program.name}.
+    </p>
+
+</div>
 
 
                 <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -943,40 +985,50 @@ const ProgramDetails = () => {
 
                         <div>
 
-                            <span className="text-sm font-bold uppercase tracking-wider text-amber-600">
-                                Scholarships
-                            </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-amber-600" />
 
-                            <h2 className="mt-3 text-4xl font-black tracking-tight">
-                                Make your education more affordable
-                            </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
+            Scholarships
+        </span>
+    </div>
 
-                            <p className="mt-5 leading-7 text-slate-600">
-                                {program.scholarships.description}
-                            </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Make your education{" "}
+        <span className="text-amber-600">
+            more affordable.
+        </span>
+    </h2>
 
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        {program.scholarships.description}
+    </p>
 
-                            <div className="mt-8 flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm">
+    {/* Scholarship Card */}
+<div className="mt-8 rounded-3xl bg-linear-to-br from-amber-500 to-orange-600 p-7 text-white shadow-xl">
 
-                                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-                                    <WalletCards size={22} />
-                                </div>
+    <div className="flex items-center gap-3 ">
+        <WalletCards size={25} />
 
-                                <div>
+        <p className="font-semibold">
+            Scholarship Opportunities
+        </p>
+    </div>
 
-                                    <p className="text-sm text-slate-500">
-                                        Scholarship opportunities
-                                    </p>
+    <p className="mt-4 text-4xl font-black">
+        {program.scholarshipsCount}+
+    </p>
 
-                                    <p className="text-2xl font-black text-slate-900">
-                                        {program.scholarshipsCount}+
-                                    </p>
+    <p className="mt-2 text-sm text-amber-100">
+        Potential scholarship opportunities available to students.
+    </p>
 
-                                </div>
+</div>
 
-                            </div>
-
-                        </div>
+</div>
 
 
                         <div className="grid gap-4 sm:grid-cols-2">
@@ -992,7 +1044,7 @@ const ProgramDetails = () => {
 
                                     <div className="relative">
 
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 transition duration-300 group-hover:bg-amber-600 group-hover:text-white">
                                             <GraduationCap size={19} />
                                         </div>
 
@@ -1025,22 +1077,33 @@ const ProgramDetails = () => {
 
             <section className="mx-auto max-w-7xl px-6 py-24">
 
-                <div className="max-w-2xl">
+                <div className="max-w-3xl">
 
-                    <span className="text-sm font-bold uppercase tracking-wider text-blue-600">
-                        Why Choose This Program?
-                    </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-blue-600" />
 
-                    <h2 className="mt-3 text-4xl font-black tracking-tight">
-                        Is {program.name} right for you?
-                    </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+            Why Choose This Program?
+        </span>
+    </div>
 
-                    <p className="mt-5 leading-7 text-slate-600">
-                        Consider these advantages when deciding whether this
-                        program aligns with your academic and career goals.
-                    </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Is{" "}
+        <span className="text-blue-600">
+            {program.name}
+        </span>{" "}
+        right for you?
+    </h2>
 
-                </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Consider these advantages when deciding whether this program aligns
+        with your academic and career goals.
+    </p>
+
+</div>
 
 
                 <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -1049,14 +1112,14 @@ const ProgramDetails = () => {
 
                         <div
                             key={item}
-                            className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl"
+                            className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
                         >
 
-                            <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-50 opacity-0 transition group-hover:opacity-100" />
+                            <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-50 opacity-0 transition group-hover:opacity-100" />
 
                             <div className="relative flex gap-4">
 
-                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition duration-300 group-hover:bg-blue-600 group-hover:text-white">
                                     <Check size={21} />
                                 </div>
 
@@ -1087,21 +1150,30 @@ const ProgramDetails = () => {
 
                         <div>
 
-                            <span className="text-sm font-bold uppercase tracking-wider text-orange-600">
-                                Before You Decide
-                            </span>
+    {/* Section label */}
+    <div className="mb-5 flex items-center gap-3">
+        <span className="h-px w-10 bg-orange-600" />
 
-                            <h2 className="mt-3 text-4xl font-black tracking-tight">
-                                Things to consider
-                            </h2>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-orange-600">
+            Before You Decide
+        </span>
+    </div>
 
-                            <p className="mt-5 leading-7 text-slate-600">
-                                Every program has its own challenges. Understanding
-                                these factors can help you make a more informed
-                                decision.
-                            </p>
+    {/* Heading */}
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+        Things to{" "}
+        <span className="text-orange-600">
+            consider.
+        </span>
+    </h2>
 
-                        </div>
+    {/* Description */}
+    <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+        Every program has its own challenges. Understanding these factors
+        can help you make a more informed decision.
+    </p>
+
+</div>
 
 
                         <div className="space-y-4">
@@ -1110,10 +1182,10 @@ const ProgramDetails = () => {
 
                                 <div
                                     key={item}
-                                    className="flex gap-4 rounded-2xl border border-orange-100 bg-white p-6"
+                                    className="group relative overflow-hidden flex gap-4 rounded-2xl border border-orange-100 bg-white p-6 transition-all duration-300 hover:border-orange-200 hover:-translate-y-1 hover:shadow-lg"
                                 >
 
-                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 transition duration-300 group-hover:bg-orange-600 group-hover:text-white">
                                         <Lightbulb size={19} />
                                     </div>
 
@@ -1146,28 +1218,28 @@ const ProgramDetails = () => {
             {/* FINAL CTA */}
             {/* ========================================================= */}
 
-            <section className="relative overflow-hidden bg-linear-to-br from-slate-950 via-blue-950 to-blue-800 py-24">
+            <section className="mx-auto max-w-7xl bg-slate-50 px-6 pb-20">
+                <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-slate-950 via-blue-950 to-blue-800 py-24">
 
                 {/* Decorative circles */}
                 <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10" />
 
-                <div className="absolute -bottom-40 right-10 h-[450px] w-[450px] rounded-full border border-white/10" />
+                <div className="absolute -bottom-40 right-10 h-112.5 w-112.5 rounded-full border border-white/10" />
 
                 <div className="relative mx-auto max-w-4xl px-6 text-center text-white">
 
-                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
-                        <ShieldCheck size={28} />
-                    </div>
-
-                    <span className="mt-6 inline-block text-sm font-bold uppercase tracking-wider text-cyan-300">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm backdrop-blur">
+                                <ShieldCheck size={28} />
+                                <span className="inline-block text-sm font-bold uppercase tracking-wider text-cyan-300">
                         Your Next Step
                     </span>
+                            </div>
 
-                    <h2 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
+                    <h2 className="mt-3 text-4xl font-black tracking-tight">
                         Is {program.name} the right fit for you?
                     </h2>
 
-                    <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+                    <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
                         Get a personalized eligibility analysis based on your
                         academic background, English proficiency, budget and
                         study goals.
@@ -1175,25 +1247,33 @@ const ProgramDetails = () => {
 
                     <div className="mt-9 flex flex-wrap justify-center gap-4">
 
-                        <NavLink
-                            to="/eligibility-analysis"
-                            className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 font-bold text-blue-700 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl"
-                        >
-                            Check My Eligibility
-                            <ArrowRight size={18} />
-                        </NavLink>
+                        <NavLink to="/eligibility-analysis" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
+                                <span className="flex items-center gap-2">
+                                    <BadgeCheck size={18} />
+                                    Check My Eligibility
+                                </span>
+                            </NavLink>
 
-                        <NavLink
-                            to="/programs"
-                            className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-7 py-3.5 font-bold backdrop-blur transition hover:bg-white/20"
-                        >
-                            Explore Other Programs
-                        </NavLink>
+                        <NavLink to="/programs" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+hover:shadow-xl
+active:translate-y-0
+transition-all
+duration-300">
+                                <span className="flex items-center gap-2">
+                                    Explore Other Programs
+                                    <ArrowRight size={18} />
+                                </span>
+                            </NavLink>
 
                     </div>
 
                 </div>
 
+            </div>
             </section>
 
         </div>

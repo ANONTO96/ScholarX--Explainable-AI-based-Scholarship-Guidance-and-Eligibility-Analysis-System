@@ -16,6 +16,7 @@ import {
   Mail,
   UserRound,
 } from "lucide-react";
+import { NavLink } from "react-router";
 
 const stats = [
   {
@@ -496,13 +497,13 @@ const Support = () => {
 
                 </p>
 
-                <button className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
+                <NavLink to="/AI-ChatBot" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
 
                   Ask AI Assistant
 
                   <ArrowRight size={18} />
 
-                </button>
+                </NavLink>
 
               </div>
 

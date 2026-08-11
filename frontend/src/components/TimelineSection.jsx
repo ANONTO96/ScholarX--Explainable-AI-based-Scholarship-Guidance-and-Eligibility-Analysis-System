@@ -33,7 +33,7 @@ const timelineCards = [
     description:
       "The system sequences your applications by deadline and probability. You always know exactly what to work on next.",
     image: plan,
-    link: "/eligibilityAnalysis",
+    link: "/eligibility-analysis",
   },
   {
     tag: "Track",

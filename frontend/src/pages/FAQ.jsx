@@ -1,5 +1,6 @@
 import { CalendarCheck, ChevronDown, MessageSquareText, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { NavLink } from "react-router";
 
 const faqs = [
   {
@@ -177,7 +178,7 @@ ${
 </div>
 
                         <div className="flex flex-wrap justify-center gap-4">
-                            <button className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:-translate-y-1
+                            <NavLink to="/consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 duration-300">
@@ -185,9 +186,9 @@ duration-300">
                                     <CalendarCheck size={18} />
                                     Book Consultation
                                 </span>
-                            </button>
+                            </NavLink>
 
-                            <button className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+                            <NavLink to="/AI-ChatBot" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all
@@ -196,7 +197,7 @@ duration-300">
                                     <MessageSquareText size={18} />
                                     Chat with AI
                                 </span>
-                            </button>
+                            </NavLink>
                         </div>
                     </div>
                 </div>
