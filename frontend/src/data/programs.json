@@ -52,7 +52,6 @@
     "universitiesCount": 1320,
     "scholarshipsCount": 842,
     "averageTuition": "$28,000-$65,000/year",
-    "averageSalary": "$95,000/year",
     "jobGrowth": "Very High",
     "costs": {
       "tuition": "$28,000-$65,000/year",
@@ -63,7 +62,8 @@
         "Accommodation",
         "Books & study materials",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "A strong academic background is generally expected. Mathematics or science subjects may be required depending on the university and degree level.",
@@ -94,7 +94,8 @@
         "Systems Analyst"
       ],
       "averageSalary": "$95,000/year",
-      "jobGrowth": "Very High"
+      "jobGrowth": "Very High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -181,7 +182,6 @@
     "universitiesCount": 640,
     "scholarshipsCount": 386,
     "averageTuition": "$25,000-$55,000/year",
-    "averageSalary": "$110,000/year",
     "jobGrowth": "Extremely High",
     "costs": {
       "tuition": "$25,000-$55,000/year",
@@ -192,7 +192,8 @@
         "Laptop and computing equipment",
         "Books & study materials",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants typically need a strong academic background with mathematics, statistics, computer science or another quantitative subject.",
@@ -222,7 +223,8 @@
         "Research Analyst"
       ],
       "averageSalary": "$110,000/year",
-      "jobGrowth": "Extremely High"
+      "jobGrowth": "Extremely High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -309,7 +311,6 @@
     "universitiesCount": 410,
     "scholarshipsCount": 290,
     "averageTuition": "$30,000-$70,000/year",
-    "averageSalary": "$125,000/year",
     "jobGrowth": "Extremely High",
     "costs": {
       "tuition": "$30,000-$70,000/year",
@@ -320,7 +321,8 @@
         "Computing equipment",
         "Research materials",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong background in computer science, mathematics, engineering, statistics or a related technical field.",
@@ -353,7 +355,8 @@
         "AI Researcher"
       ],
       "averageSalary": "$125,000/year",
-      "jobGrowth": "Extremely High"
+      "jobGrowth": "Extremely High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -437,7 +440,6 @@
     "universitiesCount": 720,
     "scholarshipsCount": 350,
     "averageTuition": "$40,000-$120,000",
-    "averageSalary": "$130,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$40,000-$120,000",
@@ -448,7 +450,8 @@
         "Accommodation",
         "Books & course materials",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "A recognized bachelor's degree is generally required. Many MBA programs also value professional work experience.",
@@ -481,7 +484,8 @@
         "Business Development Manager"
       ],
       "averageSalary": "$130,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate to High",
@@ -567,7 +571,6 @@
     "universitiesCount": 930,
     "scholarshipsCount": 460,
     "averageTuition": "$20,000-$50,000/year",
-    "averageSalary": "$82,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$50,000/year",
@@ -578,7 +581,8 @@
         "Engineering software and materials",
         "Laboratory expenses",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong background in mathematics and physics. Specific subject requirements vary by university.",
@@ -610,7 +614,8 @@
         "Project Engineer"
       ],
       "averageSalary": "$82,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -694,7 +699,6 @@
     "universitiesCount": 760,
     "scholarshipsCount": 320,
     "averageTuition": "$20,000-$45,000/year",
-    "averageSalary": "$78,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$45,000/year",
@@ -705,7 +709,8 @@
         "Engineering software",
         "Laboratory and project materials",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong academic background in mathematics and physics. Specific subject requirements depend on the university and degree level.",
@@ -737,7 +742,8 @@
         "Project Engineer"
       ],
       "averageSalary": "$78,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -821,7 +827,6 @@
     "universitiesCount": 510,
     "scholarshipsCount": 220,
     "averageTuition": "$18,000-$40,000/year",
-    "averageSalary": "$83,000/year",
     "jobGrowth": "Very High",
     "costs": {
       "tuition": "$18,000-$40,000/year",
@@ -832,7 +837,8 @@
         "Clinical equipment",
         "Uniform and placement expenses",
         "Registration or licensing fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a relevant secondary or undergraduate qualification with science subjects such as biology or chemistry depending on the program.",
@@ -865,7 +871,8 @@
         "Nurse Manager"
       ],
       "averageSalary": "$83,000/year",
-      "jobGrowth": "Very High"
+      "jobGrowth": "Very High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and healthcare sector."
     },
     "scholarships": {
       "availability": "Moderate to High",
@@ -948,7 +955,6 @@
     "universitiesCount": 340,
     "scholarshipsCount": 140,
     "averageTuition": "$35,000-$80,000/year",
-    "averageSalary": "$180,000/year",
     "jobGrowth": "Very High",
     "costs": {
       "tuition": "$35,000-$80,000/year",
@@ -959,7 +965,8 @@
         "Clinical equipment",
         "Laboratory expenses",
         "Professional registration and examination fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Medicine typically requires a strong academic background in science subjects. Entry requirements vary substantially by country, university and degree pathway.",
@@ -993,7 +1000,8 @@
         "Medical Consultant"
       ],
       "averageSalary": "$180,000/year",
-      "jobGrowth": "Very High"
+      "jobGrowth": "Very High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and medical specialty."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -1077,7 +1085,6 @@
     "universitiesCount": 620,
     "scholarshipsCount": 280,
     "averageTuition": "$25,000-$70,000/year",
-    "averageSalary": "$105,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$25,000-$70,000/year",
@@ -1088,7 +1095,8 @@
         "Books and course materials",
         "Professional certifications",
         "Transportation"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong academic background. Mathematics, economics, business or accounting experience can be beneficial depending on the program.",
@@ -1119,7 +1127,8 @@
         "Corporate Finance Analyst"
       ],
       "averageSalary": "$105,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate to High",
@@ -1203,7 +1212,6 @@
     "universitiesCount": 480,
     "scholarshipsCount": 250,
     "averageTuition": "$24,000-$55,000/year",
-    "averageSalary": "$115,000/year",
     "jobGrowth": "Extremely High",
     "costs": {
       "tuition": "$24,000-$55,000/year",
@@ -1214,7 +1222,8 @@
         "Computing equipment",
         "Security lab resources",
         "Professional certifications"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong academic background in computer science, mathematics, information technology or another related technical field.",
@@ -1246,7 +1255,8 @@
         "Incident Response Analyst"
       ],
       "averageSalary": "$115,000/year",
-      "jobGrowth": "Extremely High"
+      "jobGrowth": "Extremely High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -1334,7 +1344,6 @@
     "universitiesCount": 980,
     "scholarshipsCount": 520,
     "averageTuition": "$22,000-$60,000/year",
-    "averageSalary": "$100,000/year",
     "jobGrowth": "Very High",
     "costs": {
       "tuition": "$22,000-$60,000/year",
@@ -1345,7 +1354,8 @@
         "Laptop or computing equipment",
         "Software and development tools",
         "Professional certifications"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong academic background in mathematics, computer science, information technology or another related technical field.",
@@ -1377,7 +1387,8 @@
         "Software Architect"
       ],
       "averageSalary": "$100,000/year",
-      "jobGrowth": "Very High"
+      "jobGrowth": "Very High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -1465,7 +1476,6 @@
     "universitiesCount": 870,
     "scholarshipsCount": 480,
     "averageTuition": "$20,000-$55,000/year",
-    "averageSalary": "$88,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$55,000/year",
@@ -1476,7 +1486,8 @@
         "Engineering equipment",
         "Laboratory materials",
         "Professional certifications"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong background in mathematics, physics and science. Engineering-related subjects are commonly preferred.",
@@ -1508,7 +1519,8 @@
         "Renewable Energy Engineer"
       ],
       "averageSalary": "$88,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -1594,7 +1606,6 @@
     "universitiesCount": 760,
     "scholarshipsCount": 360,
     "averageTuition": "$18,000-$50,000/year",
-    "averageSalary": "$78,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$18,000-$50,000/year",
@@ -1605,7 +1616,8 @@
         "Textbooks and study materials",
         "Accounting software",
         "Professional certification fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a good academic background with mathematics, business, economics or related subjects.",
@@ -1637,7 +1649,8 @@
         "Forensic Accountant"
       ],
       "averageSalary": "$78,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -1723,7 +1736,6 @@
     "universitiesCount": 820,
     "scholarshipsCount": 390,
     "averageTuition": "$18,000-$55,000/year",
-    "averageSalary": "$75,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$18,000-$55,000/year",
@@ -1734,7 +1746,8 @@
         "Study materials",
         "Marketing software",
         "Professional certifications"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a good academic background. Business, economics, communication or related subjects can provide useful preparation.",
@@ -1766,7 +1779,8 @@
         "Marketing Consultant"
       ],
       "averageSalary": "$75,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -1854,7 +1868,6 @@
     "universitiesCount": 690,
     "scholarshipsCount": 330,
     "averageTuition": "$20,000-$60,000/year",
-    "averageSalary": "$85,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$60,000/year",
@@ -1865,7 +1878,8 @@
         "Textbooks",
         "Statistical software",
         "Research materials"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally benefit from a strong background in mathematics, economics, statistics or related analytical subjects.",
@@ -1897,7 +1911,8 @@
         "Economic Consultant"
       ],
       "averageSalary": "$85,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -1983,7 +1998,6 @@
     "universitiesCount": 610,
     "scholarshipsCount": 310,
     "averageTuition": "$20,000-$65,000/year",
-    "averageSalary": "$88,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$65,000/year",
@@ -1994,7 +2008,8 @@
         "Study materials",
         "Business networking events",
         "International travel"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a good academic background. Business, economics, management or related subjects can be beneficial.",
@@ -2026,7 +2041,8 @@
         "Global Operations Manager"
       ],
       "averageSalary": "$88,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -2114,7 +2130,6 @@
     "universitiesCount": 430,
     "scholarshipsCount": 210,
     "averageTuition": "$20,000-$55,000/year",
-    "averageSalary": "$110,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$55,000/year",
@@ -2125,7 +2140,8 @@
         "Laboratory materials",
         "Clinical training expenses",
         "Professional registration fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong background in chemistry, biology and other sciences. Specific prerequisites vary by university and country.",
@@ -2157,7 +2173,8 @@
         "Pharmaceutical Researcher"
       ],
       "averageSalary": "$110,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -2245,7 +2262,6 @@
     "universitiesCount": 380,
     "scholarshipsCount": 230,
     "averageTuition": "$18,000-$50,000/year",
-    "averageSalary": "$75,000/year",
     "jobGrowth": "Very High",
     "costs": {
       "tuition": "$18,000-$50,000/year",
@@ -2256,7 +2272,8 @@
         "Research materials",
         "Statistical software",
         "Fieldwork expenses"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a background in health sciences, biology, social sciences, medicine or another related discipline. Requirements vary by program.",
@@ -2288,7 +2305,8 @@
         "Public Health Researcher"
       ],
       "averageSalary": "$75,000/year",
-      "jobGrowth": "Very High"
+      "jobGrowth": "Very High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -2376,7 +2394,6 @@
     "universitiesCount": 320,
     "scholarshipsCount": 150,
     "averageTuition": "$35,000-$90,000/year",
-    "averageSalary": "$150,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$35,000-$90,000/year",
@@ -2387,7 +2404,8 @@
         "Dental instruments",
         "Clinical equipment",
         "Professional licensing fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need strong academic preparation in biology, chemistry and other sciences. Some dental schools may require entrance examinations and specific prerequisites.",
@@ -2420,7 +2438,8 @@
         "Dental Researcher"
       ],
       "averageSalary": "$150,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -2508,7 +2527,6 @@
     "universitiesCount": 430,
     "scholarshipsCount": 210,
     "averageTuition": "$18,000-$45,000/year",
-    "averageSalary": "$70,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$18,000-$45,000/year",
@@ -2519,7 +2537,8 @@
         "Laboratory equipment",
         "Textbooks and study materials",
         "Laboratory and research fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong academic background in biology, chemistry, physics or other relevant science subjects.",
@@ -2552,7 +2571,8 @@
         "Biotechnology Specialist"
       ],
       "averageSalary": "$70,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate to High",
@@ -2642,7 +2662,6 @@
     "universitiesCount": 850,
     "scholarshipsCount": 390,
     "averageTuition": "$18,000-$50,000/year",
-    "averageSalary": "$75,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$18,000-$50,000/year",
@@ -2653,7 +2672,8 @@
         "Textbooks",
         "Research materials",
         "Professional training"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a good academic background with strong performance in science, mathematics, social science or related subjects.",
@@ -2686,7 +2706,8 @@
         "Organizational Psychologist"
       ],
       "averageSalary": "$75,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -2776,7 +2797,6 @@
     "universitiesCount": 760,
     "scholarshipsCount": 310,
     "averageTuition": "$20,000-$60,000/year",
-    "averageSalary": "$95,000/year",
     "jobGrowth": "Moderate to High",
     "costs": {
       "tuition": "$20,000-$60,000/year",
@@ -2787,7 +2807,8 @@
         "Law textbooks",
         "Professional examinations",
         "Professional membership fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong academic record with excellent reading, writing, reasoning and analytical abilities. Some countries may require specific entrance examinations.",
@@ -2820,7 +2841,8 @@
         "Legal Researcher"
       ],
       "averageSalary": "$95,000/year",
-      "jobGrowth": "Moderate to High"
+      "jobGrowth": "Moderate to High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -2910,7 +2932,6 @@
     "universitiesCount": 690,
     "scholarshipsCount": 270,
     "averageTuition": "$18,000-$50,000/year",
-    "averageSalary": "$78,000/year",
     "jobGrowth": "Moderate to High",
     "costs": {
       "tuition": "$18,000-$50,000/year",
@@ -2921,7 +2942,8 @@
         "Design software",
         "Drawing and model-making materials",
         "Printing and studio fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a good academic background and an interest in design, mathematics, technology and the built environment. Some universities may require a portfolio.",
@@ -2955,7 +2977,8 @@
         "Project Coordinator"
       ],
       "averageSalary": "$78,000/year",
-      "jobGrowth": "Moderate to High"
+      "jobGrowth": "Moderate to High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
@@ -3045,7 +3068,6 @@
     "universitiesCount": 540,
     "scholarshipsCount": 300,
     "averageTuition": "$15,000-$40,000/year",
-    "averageSalary": "$72,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$15,000-$40,000/year",
@@ -3056,7 +3078,8 @@
         "Field research equipment",
         "Laboratory fees",
         "Research materials"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a background in biology, chemistry, geography, environmental science or other relevant science subjects.",
@@ -3089,7 +3112,8 @@
         "Environmental Researcher"
       ],
       "averageSalary": "$72,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -3179,7 +3203,6 @@
     "universitiesCount": 470,
     "scholarshipsCount": 260,
     "averageTuition": "$20,000-$55,000/year",
-    "averageSalary": "$82,000/year",
     "jobGrowth": "High",
     "costs": {
       "tuition": "$20,000-$55,000/year",
@@ -3190,7 +3213,8 @@
         "Laboratory equipment",
         "Research materials",
         "Laboratory fees"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a strong background in biology, chemistry, mathematics or related science subjects.",
@@ -3223,7 +3247,8 @@
         "Bioinformatics Analyst"
       ],
       "averageSalary": "$82,000/year",
-      "jobGrowth": "High"
+      "jobGrowth": "High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "High",
@@ -3314,7 +3339,6 @@
     "universitiesCount": 720,
     "scholarshipsCount": 340,
     "averageTuition": "$15,000-$45,000/year",
-    "averageSalary": "$68,000/year",
     "jobGrowth": "Moderate to High",
     "costs": {
       "tuition": "$15,000-$45,000/year",
@@ -3325,7 +3349,8 @@
         "Camera and media equipment",
         "Editing software",
         "Production materials"
-      ]
+      ],
+      "note": "Costs vary significantly by country, institution and city."
     },
     "requirements": {
       "academic": "Applicants generally need a good academic background with strong communication, writing and creative abilities. Some programs may request a portfolio or creative work sample.",
@@ -3359,7 +3384,8 @@
         "Media Producer"
       ],
       "averageSalary": "$68,000/year",
-      "jobGrowth": "Moderate to High"
+      "jobGrowth": "Moderate to High",
+      "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
     "scholarships": {
       "availability": "Moderate",
