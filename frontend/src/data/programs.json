@@ -13,8 +13,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Computer Science focuses on computing, software development, algorithms, data systems and emerging technologies. Students develop the technical and analytical skills needed to design software, solve complex problems and build digital solutions across a wide range of industries.",
@@ -36,18 +36,18 @@
       "Data Analysis"
     ],
     "topCountries": [
-      "United States",
+      "USA",
+      "UK",
       "Canada",
-      "United Kingdom",
       "Australia",
       "Germany"
     ],
     "topUniversities": [
-      "MIT",
+      "Massachusetts Institute of Technology",
       "Stanford University",
-      "University of Toronto",
-      "University of Melbourne",
-      "ETH Zurich"
+      "Carnegie Mellon University",
+      "University of Oxford",
+      "University of Toronto"
     ],
     "universitiesCount": 1320,
     "scholarshipsCount": 842,
@@ -80,7 +80,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Computer Science graduates can pursue careers across software, technology, data and emerging digital industries.",
@@ -93,7 +94,7 @@
         "Cloud Engineer",
         "Systems Analyst"
       ],
-      "averageSalary": "$95,000/year",
+      "averageSalary": "$70,000-$130,000/year",
       "jobGrowth": "Very High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -145,8 +146,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Data Science combines statistics, programming, mathematics and machine learning to transform large and complex datasets into useful insights. Students learn how to collect, analyze, visualize and model data to support better decisions.",
     "studyAreas": [
@@ -168,16 +169,17 @@
     ],
     "topCountries": [
       "USA",
-      "Canada",
       "UK",
+      "Canada",
       "Australia",
       "Netherlands"
     ],
     "topUniversities": [
-      "Harvard",
-      "MIT",
-      "Imperial College London",
-      "University of Melbourne"
+      "Massachusetts Institute of Technology",
+      "Stanford University",
+      "Harvard University",
+      "University of Oxford",
+      "University of Toronto"
     ],
     "universitiesCount": 640,
     "scholarshipsCount": 386,
@@ -210,7 +212,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Data Science graduates are increasingly employed across technology, finance, healthcare, consulting, retail and other data-driven industries.",
@@ -222,7 +225,7 @@
         "Data Engineer",
         "Research Analyst"
       ],
-      "averageSalary": "$110,000/year",
+      "averageSalary": "$80,000-$140,000/year",
       "jobGrowth": "Extremely High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -274,8 +277,8 @@
       "PhD"
     ],
     "duration": {
-      "master": "2 Years",
-      "phd": "4 Years"
+      "master's": "1-2 Years",
+      "phd": "3-4 Years"
     },
     "overview": "Artificial Intelligence focuses on creating systems that can learn, reason, recognize patterns and perform tasks that traditionally require human intelligence. Students explore machine learning, deep learning, computer vision, natural language processing and intelligent systems.",
     "studyAreas": [
@@ -297,15 +300,16 @@
     ],
     "topCountries": [
       "USA",
-      "Canada",
       "UK",
+      "Canada",
       "Germany",
       "Singapore"
     ],
     "topUniversities": [
-      "Carnegie Mellon",
-      "Oxford",
-      "MIT",
+      "Massachusetts Institute of Technology",
+      "Stanford University",
+      "Carnegie Mellon University",
+      "University of Oxford",
       "ETH Zurich"
     ],
     "universitiesCount": 410,
@@ -341,7 +345,8 @@
         "Statement of Purpose",
         "CV/Resume",
         "Research Proposal where applicable"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "AI graduates can work in technology, robotics, healthcare, finance, autonomous systems, research and other industries adopting intelligent technologies.",
@@ -354,7 +359,7 @@
         "Robotics Engineer",
         "AI Researcher"
       ],
-      "averageSalary": "$125,000/year",
+      "averageSalary": "$90,000-$160,000/year",
       "jobGrowth": "Extremely High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -394,17 +399,20 @@
   {
     "id": 4,
     "slug": "business-administration",
-    "name": "Business Administration (MBA)",
+    "name": "Business Administration",
     "category": "Business",
     "description": "Leadership, finance, marketing and business strategy.",
     "image": "/images/programs/mba.jpg",
     "icon": "Briefcase",
     "degrees": [
-      "MBA",
-      "Executive MBA"
+      "Bachelor",
+      "Master",
+      "PhD"
     ],
     "duration": {
-      "mba": "2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
+      "phd": "3-5 Years"
     },
     "overview": "Business Administration develops leadership, management and strategic decision-making skills across areas such as finance, marketing, operations and entrepreneurship. An MBA is particularly suited to professionals seeking management, leadership or business development roles.",
     "studyAreas": [
@@ -427,14 +435,15 @@
     "topCountries": [
       "USA",
       "UK",
-      "Canada",
       "France",
+      "Canada",
       "Australia"
     ],
     "topUniversities": [
-      "Harvard",
+      "Harvard University",
+      "Stanford University",
+      "Massachusetts Institute of Technology",
       "INSEAD",
-      "Wharton",
       "London Business School"
     ],
     "universitiesCount": 720,
@@ -470,7 +479,8 @@
         "Statement of Purpose",
         "CV/Resume",
         "Professional Experience Documents"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "MBA graduates can pursue management and leadership careers across finance, consulting, technology, marketing, operations and entrepreneurship.",
@@ -483,7 +493,7 @@
         "Operations Manager",
         "Business Development Manager"
       ],
-      "averageSalary": "$130,000/year",
+      "averageSalary": "$80,000-$160,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -535,9 +545,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years",
-      "phd": "3-5 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Mechanical Engineering focuses on the design, analysis, manufacturing and operation of machines and mechanical systems. Students combine mathematics, physics, engineering principles and modern technologies to develop solutions for manufacturing, automation, energy and transportation.",
     "studyAreas": [
@@ -558,15 +567,18 @@
       "Project Management"
     ],
     "topCountries": [
-      "Germany",
       "USA",
-      "Canada",
-      "Australia"
+      "Germany",
+      "UK",
+      "Switzerland",
+      "Canada"
     ],
     "topUniversities": [
-      "TU Munich",
-      "MIT",
-      "University of Toronto"
+      "Massachusetts Institute of Technology",
+      "Stanford University",
+      "ETH Zurich",
+      "University of Cambridge",
+      "University of California, Berkeley"
     ],
     "universitiesCount": 930,
     "scholarshipsCount": 460,
@@ -600,7 +612,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Mechanical Engineering graduates can work in manufacturing, automotive, aerospace, energy, robotics, construction and industrial technology.",
@@ -613,7 +626,7 @@
         "Aerospace Engineer",
         "Project Engineer"
       ],
-      "averageSalary": "$82,000/year",
+      "averageSalary": "$65,000-$105,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -664,8 +677,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Civil Engineering focuses on the planning, design, construction and maintenance of infrastructure such as buildings, bridges, roads, transportation systems and water networks. Students combine engineering principles, mathematics and practical design to create safe, efficient and sustainable infrastructure.",
     "studyAreas": [
@@ -686,15 +699,18 @@
       "Construction Planning"
     ],
     "topCountries": [
-      "Australia",
-      "Canada",
+      "USA",
+      "Singapore",
+      "Switzerland",
       "UK",
-      "USA"
+      "Canada"
     ],
     "topUniversities": [
-      "UNSW",
-      "Imperial College London",
-      "University of Toronto"
+      "Massachusetts Institute of Technology",
+      "National University of Singapore",
+      "ETH Zurich",
+      "University of Cambridge",
+      "University of California, Berkeley"
     ],
     "universitiesCount": 760,
     "scholarshipsCount": 320,
@@ -728,7 +744,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Civil Engineering graduates can work across construction, infrastructure, transportation, environmental services, urban development and project management.",
@@ -741,7 +758,7 @@
         "Environmental Engineer",
         "Project Engineer"
       ],
-      "averageSalary": "$78,000/year",
+      "averageSalary": "$60,000-$100,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -792,8 +809,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Nursing prepares students to provide safe, evidence-based and compassionate healthcare across hospitals, clinics, community settings and specialized healthcare environments. The field combines medical knowledge, clinical practice, patient communication and professional healthcare skills.",
     "studyAreas": [
@@ -814,15 +831,18 @@
       "Teamwork"
     ],
     "topCountries": [
-      "Canada",
-      "Australia",
       "USA",
-      "UK"
+      "UK",
+      "Australia",
+      "Canada",
+      "Ireland"
     ],
     "topUniversities": [
+      "University of Pennsylvania",
+      "King's College London",
+      "University of Toronto",
       "University of Sydney",
-      "Monash University",
-      "University of Toronto"
+      "University of Melbourne"
     ],
     "universitiesCount": 510,
     "scholarshipsCount": 220,
@@ -857,7 +877,8 @@
         "Statement of Purpose",
         "CV/Resume",
         "Health or Immunization Records where required"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Nursing graduates can work in hospitals, clinics, aged care, community healthcare, mental health and specialized clinical environments.",
@@ -870,7 +891,7 @@
         "Nurse Educator",
         "Nurse Manager"
       ],
-      "averageSalary": "$83,000/year",
+      "averageSalary": "$60,000-$100,000/year",
       "jobGrowth": "Very High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and healthcare sector."
     },
@@ -917,7 +938,7 @@
     "image": "/images/programs/medicine.jpg",
     "icon": "Stethoscope",
     "degrees": [
-      "MD",
+      "Medicine",
       "MBBS"
     ],
     "duration": {
@@ -942,15 +963,18 @@
       "Clinical Research"
     ],
     "topCountries": [
+      "USA",
       "UK",
       "Australia",
-      "Ireland",
-      "Canada"
+      "Canada",
+      "Ireland"
     ],
     "topUniversities": [
-      "Oxford",
-      "Cambridge",
-      "University of Melbourne"
+      "Harvard University",
+      "University of Oxford",
+      "University of Cambridge",
+      "University of Melbourne",
+      "University of Toronto"
     ],
     "universitiesCount": 340,
     "scholarshipsCount": 140,
@@ -986,7 +1010,8 @@
         "Statement of Purpose",
         "CV/Resume",
         "Medical or Immunization Records where required"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Medicine provides pathways into clinical practice and a wide range of medical specialties after completing the required education, examinations and professional registration.",
@@ -999,7 +1024,7 @@
         "Emergency Physician",
         "Medical Consultant"
       ],
-      "averageSalary": "$180,000/year",
+      "averageSalary": "$120,000-$250,000/year",
       "jobGrowth": "Very High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and medical specialty."
     },
@@ -1050,8 +1075,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Finance focuses on financial markets, investment, banking, corporate finance and financial decision-making. Students develop analytical and quantitative skills used to manage money, assess risk, evaluate investments and support business strategy.",
     "studyAreas": [
@@ -1075,12 +1100,15 @@
       "USA",
       "UK",
       "Singapore",
-      "Canada"
+      "Canada",
+      "Switzerland"
     ],
     "topUniversities": [
-      "LSE",
-      "Wharton",
-      "Chicago Booth"
+      "Harvard University",
+      "University of Pennsylvania",
+      "University of Oxford",
+      "London School of Economics",
+      "University of Chicago"
     ],
     "universitiesCount": 620,
     "scholarshipsCount": 280,
@@ -1113,7 +1141,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Finance graduates can work across banking, investment management, consulting, insurance, corporate finance and financial technology.",
@@ -1126,7 +1155,7 @@
         "Portfolio Manager",
         "Corporate Finance Analyst"
       ],
-      "averageSalary": "$105,000/year",
+      "averageSalary": "$70,000-$140,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1177,8 +1206,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Cyber Security focuses on protecting networks, applications, devices and digital information from unauthorized access, attacks and other security threats. Students learn how to identify vulnerabilities, investigate incidents and design secure digital systems.",
     "studyAreas": [
@@ -1200,14 +1229,17 @@
     ],
     "topCountries": [
       "USA",
-      "Canada",
       "UK",
-      "Australia"
+      "Canada",
+      "Australia",
+      "Germany"
     ],
     "topUniversities": [
-      "Georgia Tech",
-      "Purdue",
-      "Waterloo"
+      "Carnegie Mellon University",
+      "Georgia Institute of Technology",
+      "University of Oxford",
+      "University of California, Berkeley",
+      "University of Waterloo"
     ],
     "universitiesCount": 480,
     "scholarshipsCount": 250,
@@ -1241,7 +1273,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Cyber Security graduates can work in technology companies, financial institutions, government organizations, consulting firms and security operations teams.",
@@ -1254,7 +1287,7 @@
         "Security Architect",
         "Incident Response Analyst"
       ],
-      "averageSalary": "$115,000/year",
+      "averageSalary": "$80,000-$145,000/year",
       "jobGrowth": "Extremely High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1306,8 +1339,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Software Engineering focuses on the systematic design, development, testing and maintenance of software systems. Students learn modern programming practices, software architecture, development methodologies and engineering principles used to build scalable and reliable applications.",
@@ -1339,7 +1372,8 @@
       "Carnegie Mellon University",
       "University of California, Berkeley",
       "University of Waterloo",
-      "University of Toronto"
+      "University of Toronto",
+      "University of Oxford"
     ],
     "universitiesCount": 980,
     "scholarshipsCount": 520,
@@ -1373,7 +1407,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Software Engineering graduates can work across technology companies, startups, financial institutions, consulting firms and organizations developing digital products and services.",
@@ -1386,7 +1421,7 @@
         "DevOps Engineer",
         "Software Architect"
       ],
-      "averageSalary": "$100,000/year",
+      "averageSalary": "$70,000-$135,000/year",
       "jobGrowth": "Very High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1438,8 +1473,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Electrical Engineering focuses on the design, development and operation of electrical and electronic systems. Students explore power generation, electronics, control systems, telecommunications and emerging technologies used across modern industries.",
@@ -1461,17 +1496,18 @@
       "Technical Design"
     ],
     "topCountries": [
-      "Germany",
       "USA",
-      "Canada",
+      "Germany",
       "UK",
+      "Canada",
       "Australia"
     ],
     "topUniversities": [
       "MIT",
       "Stanford University",
+      "University of California, Berkeley",
       "ETH Zurich",
-      "University of California, Berkeley"
+      "University of Cambridge"
     ],
     "universitiesCount": 870,
     "scholarshipsCount": 480,
@@ -1505,7 +1541,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Electrical Engineering graduates can work in energy, electronics, telecommunications, manufacturing, automation, transportation and technology industries.",
@@ -1518,7 +1555,7 @@
         "Telecommunications Engineer",
         "Renewable Energy Engineer"
       ],
-      "averageSalary": "$88,000/year",
+      "averageSalary": "$65,000-$115,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1569,8 +1606,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Accounting focuses on recording, analyzing and communicating financial information used by organizations for planning and decision-making. Students develop knowledge of financial reporting, taxation, auditing, management accounting and accounting information systems.",
     "studyAreas": [
@@ -1598,8 +1635,9 @@
       "Singapore"
     ],
     "topUniversities": [
+      "Harvard University",
+      "University of Oxford",
       "University of Pennsylvania",
-      "University of Texas at Austin",
       "London School of Economics",
       "University of Toronto"
     ],
@@ -1635,7 +1673,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Accounting graduates can work in accounting firms, corporations, banks, government organizations and consulting companies.",
@@ -1648,7 +1687,7 @@
         "Financial Controller",
         "Forensic Accountant"
       ],
-      "averageSalary": "$78,000/year",
+      "averageSalary": "$50,000-$100,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1699,8 +1738,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "Marketing focuses on understanding customers, developing brands and creating strategies that connect products and services with target markets. Students explore digital marketing, consumer behavior, market research, advertising and strategic communication.",
     "studyAreas": [
@@ -1728,10 +1767,11 @@
       "France"
     ],
     "topUniversities": [
-      "Northwestern University",
       "University of Pennsylvania",
+      "Northwestern University",
       "University of Michigan",
-      "London Business School"
+      "London Business School",
+      "HEC Paris"
     ],
     "universitiesCount": 820,
     "scholarshipsCount": 390,
@@ -1765,7 +1805,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Marketing graduates can work in advertising agencies, technology companies, retail organizations, startups, media companies and multinational corporations.",
@@ -1778,7 +1819,7 @@
         "Content Strategist",
         "Marketing Consultant"
       ],
-      "averageSalary": "$75,000/year",
+      "averageSalary": "$50,000-$100,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1830,8 +1871,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "4-6 Years"
     },
     "overview": "Economics examines how individuals, businesses and governments make decisions about resources. Students study markets, economic policy, financial systems, statistics and quantitative methods used to understand economic behavior.",
@@ -1863,7 +1904,8 @@
       "Harvard University",
       "Massachusetts Institute of Technology",
       "London School of Economics",
-      "University of Chicago"
+      "University of Chicago",
+      "University of Oxford"
     ],
     "universitiesCount": 690,
     "scholarshipsCount": 330,
@@ -1897,7 +1939,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Economics graduates can work in financial institutions, government agencies, consulting firms, research organizations and multinational companies.",
@@ -1910,7 +1953,7 @@
         "Research Analyst",
         "Economic Consultant"
       ],
-      "averageSalary": "$85,000/year",
+      "averageSalary": "$55,000-$110,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -1961,8 +2004,8 @@
       "Master"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years"
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years"
     },
     "overview": "International Business focuses on how organizations operate across national borders and manage global markets. Students explore international trade, global strategy, cross-cultural management, international finance and multinational business operations.",
     "studyAreas": [
@@ -1985,15 +2028,16 @@
     "topCountries": [
       "USA",
       "UK",
+      "France",
       "Canada",
-      "Australia",
-      "France"
+      "Australia"
     ],
     "topUniversities": [
       "INSEAD",
       "Harvard University",
       "London Business School",
-      "HEC Paris"
+      "HEC Paris",
+      "University of Oxford"
     ],
     "universitiesCount": 610,
     "scholarshipsCount": 310,
@@ -2027,7 +2071,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "International Business graduates can work with multinational corporations, consulting firms, international banks, trade organizations and global startups.",
@@ -2040,7 +2085,7 @@
         "International Trade Specialist",
         "Global Operations Manager"
       ],
-      "averageSalary": "$88,000/year",
+      "averageSalary": "$55,000-$115,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2092,8 +2137,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Pharmacy focuses on medicines, their development, preparation, effects and safe use. Students study pharmaceutical sciences, pharmacology, medicinal chemistry and patient-centered medication management.",
@@ -2122,10 +2167,11 @@
       "Ireland"
     ],
     "topUniversities": [
-      "University of North Carolina",
+      "University of North Carolina at Chapel Hill",
       "University College London",
       "Monash University",
-      "University of Toronto"
+      "University of Toronto",
+      "University of Oxford"
     ],
     "universitiesCount": 430,
     "scholarshipsCount": 210,
@@ -2159,7 +2205,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Pharmacy graduates can work in community pharmacies, hospitals, pharmaceutical companies, research organizations and healthcare institutions.",
@@ -2172,7 +2219,7 @@
         "Medical Affairs Specialist",
         "Pharmaceutical Researcher"
       ],
-      "averageSalary": "$110,000/year",
+      "averageSalary": "$55,000-$115,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2224,8 +2271,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Public Health focuses on improving the health of communities and populations through disease prevention, health education, epidemiology, policy and healthcare research. Students learn how social, environmental and economic factors influence population health.",
@@ -2249,13 +2296,14 @@
     "topCountries": [
       "USA",
       "UK",
-      "Australia",
       "Canada",
+      "Australia",
       "Netherlands"
     ],
     "topUniversities": [
       "Johns Hopkins University",
       "Harvard University",
+      "University of North Carolina at Chapel Hill",
       "University College London",
       "University of Melbourne"
     ],
@@ -2291,7 +2339,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Public Health graduates can work with government health departments, hospitals, NGOs, international organizations, research institutions and healthcare organizations.",
@@ -2304,7 +2353,7 @@
         "Global Health Specialist",
         "Public Health Researcher"
       ],
-      "averageSalary": "$75,000/year",
+      "averageSalary": "$50,000-$100,000/year",
       "jobGrowth": "Very High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2386,6 +2435,7 @@
       "Ireland"
     ],
     "topUniversities": [
+      "University of Michigan",
       "Harvard University",
       "King's College London",
       "University of Melbourne",
@@ -2424,7 +2474,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Dentistry graduates can work in dental clinics, hospitals, private practices, research institutions and public healthcare systems, subject to local licensing requirements.",
@@ -2437,7 +2488,7 @@
         "Endodontist",
         "Dental Researcher"
       ],
-      "averageSalary": "$150,000/year",
+      "averageSalary": "$70,000-$180,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2488,8 +2539,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "3-4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Biomedical Science combines biology, chemistry and medical science to understand how the human body works, how diseases develop and how new diagnostic and therapeutic approaches are developed. Students gain laboratory and research skills that can lead to careers in healthcare, biotechnology, pharmaceuticals and medical research.",
@@ -2511,18 +2562,18 @@
       "Scientific Communication"
     ],
     "topCountries": [
+      "USA",
       "UK",
       "Australia",
       "Canada",
-      "USA",
       "Ireland"
     ],
     "topUniversities": [
       "University of Oxford",
       "University of Cambridge",
+      "University College London",
       "University of Melbourne",
-      "University of Toronto",
-      "University College London"
+      "University of Toronto"
     ],
     "universitiesCount": 430,
     "scholarshipsCount": 210,
@@ -2557,7 +2608,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Biomedical Science graduates can work in medical laboratories, pharmaceutical companies, biotechnology firms, research institutions, hospitals and public health organizations.",
@@ -2570,7 +2622,7 @@
         "Microbiology Technician",
         "Biotechnology Specialist"
       ],
-      "averageSalary": "$70,000/year",
+      "averageSalary": "$50,000-$100,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2623,8 +2675,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "3-4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-6 Years"
     },
     "overview": "Psychology explores human behavior, cognition, emotions and mental processes using scientific research and evidence-based approaches. Students study how people think, develop, learn and interact while building research, communication and analytical skills applicable across healthcare, education, business and social services.",
@@ -2692,7 +2744,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Psychology graduates can work across healthcare, education, human resources, research, social services, marketing and organizational environments.",
@@ -2705,7 +2758,7 @@
         "Educational Psychologist",
         "Organizational Psychologist"
       ],
-      "averageSalary": "$75,000/year",
+      "averageSalary": "$45,000-$95,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2758,8 +2811,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "3-4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Law examines legal systems, institutions, regulations and the principles that govern individuals, organizations and governments. Students develop analytical, research, writing and advocacy skills while exploring areas such as corporate law, international law, human rights and criminal justice.",
@@ -2827,7 +2880,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Law graduates can pursue careers in legal practice, corporate organizations, government, compliance, policy, consulting and international organizations.",
@@ -2840,7 +2894,7 @@
         "Policy Analyst",
         "Legal Researcher"
       ],
-      "averageSalary": "$95,000/year",
+      "averageSalary": "$55,000-$140,000/year",
       "jobGrowth": "Moderate to High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -2893,8 +2947,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "4-5 Years",
-      "master": "1-2 Years",
+      "bachelor's": "4-5 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Architecture combines creative design, engineering principles, technology and human-centered planning to create functional and sustainable buildings and environments. Students develop skills in architectural design, digital modeling, construction technology and urban planning.",
@@ -2919,13 +2973,13 @@
       "UK",
       "USA",
       "Australia",
-      "Canada",
-      "Italy"
+      "Italy",
+      "Canada"
     ],
     "topUniversities": [
       "University College London",
-      "MIT",
-      "Harvard University",
+      "Massachusetts Institute of Technology",
+      "University of Cambridge",
       "University of Melbourne",
       "Politecnico di Milano"
     ],
@@ -2963,7 +3017,8 @@
         "Portfolio",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Architecture graduates can work in architectural firms, construction companies, urban planning organizations, real estate companies and design consultancies.",
@@ -2976,7 +3031,7 @@
         "Landscape Designer",
         "Project Coordinator"
       ],
-      "averageSalary": "$78,000/year",
+      "averageSalary": "$45,000-$90,000/year",
       "jobGrowth": "Moderate to High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -3029,8 +3084,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "3-4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Environmental Science examines the relationship between humans and the natural environment. Students study climate change, ecosystems, pollution, conservation and sustainability while learning how scientific research can support environmental policy and sustainable development.",
@@ -3062,7 +3117,7 @@
       "University of Oxford",
       "University of Cambridge",
       "University of British Columbia",
-      "Wageningen University",
+      "Wageningen University & Research",
       "University of Melbourne"
     ],
     "universitiesCount": 540,
@@ -3098,7 +3153,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Environmental Science graduates can work in environmental consulting, conservation, government agencies, research institutions, sustainability teams and international organizations.",
@@ -3111,7 +3167,7 @@
         "Climate Policy Analyst",
         "Environmental Researcher"
       ],
-      "averageSalary": "$72,000/year",
+      "averageSalary": "$45,000-$90,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -3164,8 +3220,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "3-4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Biotechnology combines biology, chemistry, genetics and technology to develop products and solutions for healthcare, agriculture, food production, environmental management and industrial applications. Students learn laboratory techniques, molecular biology and modern biotechnology methods.",
@@ -3233,7 +3289,8 @@
         "Passport",
         "Statement of Purpose",
         "CV/Resume"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Biotechnology graduates can work in pharmaceutical companies, biotechnology firms, food industries, agricultural organizations, research institutions and healthcare companies.",
@@ -3246,7 +3303,7 @@
         "Clinical Research Associate",
         "Bioinformatics Analyst"
       ],
-      "averageSalary": "$82,000/year",
+      "averageSalary": "$50,000-$105,000/year",
       "jobGrowth": "High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },
@@ -3299,8 +3356,8 @@
       "PhD"
     ],
     "duration": {
-      "bachelor": "3-4 Years",
-      "master": "1-2 Years",
+      "bachelor's": "3-4 Years",
+      "master's": "1-2 Years",
       "phd": "3-5 Years"
     },
     "overview": "Media & Communication explores how information, ideas and stories are created, distributed and interpreted across traditional and digital platforms. Students develop skills in journalism, content production, public relations, digital communication, media strategy and audience engagement.",
@@ -3370,7 +3427,8 @@
         "Statement of Purpose",
         "CV/Resume",
         "Portfolio or Work Samples"
-      ]
+      ],
+      "note": "Requirements vary by university, program and degree level."
     },
     "career": {
       "summary": "Media & Communication graduates can work in journalism, digital media, advertising, public relations, corporate communication, broadcasting and content production.",
@@ -3383,7 +3441,7 @@
         "Social Media Manager",
         "Media Producer"
       ],
-      "averageSalary": "$68,000/year",
+      "averageSalary": "$40,000-$85,000/year",
       "jobGrowth": "Moderate to High",
       "note": "Career outcomes and salaries vary by country, occupation, experience and industry."
     },

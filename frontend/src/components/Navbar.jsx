@@ -461,7 +461,7 @@ const Navbar = () => {
                       isActive
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
-                    }>MBA</NavLink></li>
+                    }>Business Administration</NavLink></li>
 
                     <li><NavLink to="/programDetails/computer-science" className={({ isActive }) =>
                       isActive

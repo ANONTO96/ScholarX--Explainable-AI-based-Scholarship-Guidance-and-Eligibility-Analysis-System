@@ -550,7 +550,7 @@ duration-300">
                                         >
                                             <CircleCheck
                                                 size={18}
-                                                className="shrink-0 text-emerald-600"
+                                                className="shrink-0 text-blue-600"
                                             />
 
                                             <span className="text-sm font-medium text-slate-700">
@@ -591,6 +591,25 @@ duration-300">
                             </div>
 
                         </div>
+
+                        {/* Requirement Note */}
+<div className="mt-6 flex items-start gap-4 rounded-3xl border border-violet-200 bg-violet-50/70 p-6">
+
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-600">
+        <Info size={20} />
+    </div>
+
+    <div>
+        <p className="text-sm font-bold text-slate-900">
+            Good to know
+        </p>
+
+        <p className="mt-1 text-sm leading-6 text-slate-600">
+            {program.requirements.note}
+        </p>
+    </div>
+
+</div>
 
                     </div>
 
