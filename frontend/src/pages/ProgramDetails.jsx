@@ -593,9 +593,12 @@ duration-300">
                         </div>
 
                         {/* Requirement Note */}
-<div className="mt-6 flex items-start gap-4 rounded-3xl border border-violet-200 bg-violet-50/70 p-6">
+<div className="group mt-6 flex items-start gap-4 rounded-3xl border border-blue-200 bg-blue-50/70 p-6">
 
-    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-600">
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110
+">
         <Info size={20} />
     </div>
 
@@ -662,7 +665,11 @@ duration-300">
     {/* Tuition */}
     <div className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110
+group-hover:rotate-4
+group-hover:shadow-lg">
             <BadgeDollarSign size={22} />
         </div>
 
@@ -683,7 +690,11 @@ duration-300">
     {/* Living Cost */}
     <div className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110
+group-hover:rotate-4
+group-hover:shadow-lg">
             <House size={22} />
         </div>
 
@@ -704,7 +715,11 @@ duration-300">
     {/* Total Scholarships */}
     <div className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110
+group-hover:rotate-4
+group-hover:shadow-lg">
             <DollarSign size={22} />
         </div>
 
@@ -760,9 +775,11 @@ duration-300">
                     </div>
 
                     {/* Cost Note */}
-<div className="mt-6 flex items-start gap-4 rounded-3xl border border-amber-200 bg-amber-50/70 p-6">
+<div className="group mt-6 flex items-start gap-4 rounded-3xl border border-amber-200 bg-amber-50/70 p-6">
 
-    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110">
         <Info size={20} />
     </div>
 
@@ -884,9 +901,11 @@ duration-300">
                     </div>
 
                     {/* Career Note */}
-<div className="flex items-start gap-4 rounded-3xl border border-emerald-200 bg-emerald-50/70 p-6">
+<div className="group flex items-start gap-4 rounded-3xl border border-emerald-200 bg-emerald-50/70 p-6">
 
-    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110">
         <Info size={20} />
     </div>
 

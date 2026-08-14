@@ -89,45 +89,63 @@ const CountryDetails = () => {
             </section>
 
             {/* facts bar */}
-            <section className="relative z-10 mx-auto -mt-12 max-w-6xl px-6">
+            <section className="relative z-10 mx-auto -mt-12 max-w-7xl px-6">
                 <div className="grid grid-cols-2 overflow-hidden rounded-2xl bg-white shadow-xl md:grid-cols-4">
 
-                    <div className="p-6 text-center">
+                    <div className="p-6 text-center hover:bg-slate-50">
                         <p className="text-sm text-slate-500">
-                            Tuition
+                            Tuition Fees
                         </p>
 
-                        <p className="mt-2 font-bold text-slate-900">
-                            {country.tuition.bachelors}
-                        </p>
+                        <div className="mt-1 flex items-center justify-center gap-3">
+                            <div>
+                                <p className="text-xs font-medium text-slate-400">
+                                    Bachelor's
+                                </p>
+                                <p className="mt-1 text-sm font-bold text-slate-900">
+                                    {country.tuition.bachelors}
+                                </p>
+                            </div>
+
+                            <div className="h-10 w-px bg-slate-200" />
+
+                            <div>
+                                <p className="text-xs font-medium text-slate-400">
+                                    Master's
+                                </p>
+                                <p className="mt-1 text-sm font-bold text-slate-900">
+                                    {country.tuition.masters}
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="border-slate-200 p-6 text-center md:border-l">
+                    <div className="border-slate-200 p-6 text-center md:border-l hover:bg-slate-50">
                         <p className="text-sm text-slate-500">
                             Main Intakes
                         </p>
 
-                        <p className="mt-2 font-bold text-slate-900">
+                        <p className="mt-5 md:mt-3 font-bold text-slate-900">
                             {country.intakes.join(" • ")}
                         </p>
                     </div>
 
-                    <div className="border-slate-200 p-6 text-center md:border-l">
+                    <div className="border-slate-200 p-6 text-center md:border-l hover:bg-slate-50">
                         <p className="text-sm text-slate-500">
                             Student Work
                         </p>
 
-                        <p className="mt-2 font-bold text-slate-900">
+                        <p className="mt-3 font-bold text-slate-900">
                             {country.workRights}
                         </p>
                     </div>
 
-                    <div className="border-slate-200 p-6 text-center md:border-l">
+                    <div className="border-slate-200 p-6 text-center md:border-l hover:bg-slate-50">
                         <p className="text-sm text-slate-500">
                             Popular Fields
                         </p>
 
-                        <p className="mt-2 font-bold text-slate-900">
+                        <p className="mt-3 font-bold text-slate-900">
                             {country.topFields.length}+
                         </p>
                     </div>
@@ -364,12 +382,16 @@ const CountryDetails = () => {
 
 
                     {/* Bottom note */}
-                    <div className="mt-8 flex items-start gap-3 rounded-2xl border border-amber-100 bg-amber-50/70 p-4">
+                    <div className="group mt-8 flex items-start gap-3 rounded-2xl border border-amber-100 bg-amber-50/70 p-4 ">
 
-                        <Info
+                    <div className="mt-0.5 text-amber-600 rounded-full group-hover:bg-amber-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110">
+    <Info
                             size={18}
-                            className="mt-0.5 shrink-0 text-amber-600"
+                            className="shrink-0"
                         />
+                    </div>
 
                         <p className="text-sm leading-6 text-amber-900/80">
                             Costs are estimated ranges and can vary significantly
@@ -918,7 +940,7 @@ const CountryDetails = () => {
                             {/* Stats */}
                             <div className="mt-8 grid grid-cols-2 gap-4">
 
-                                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                                <div className="rounded-2xl border border-white/10 bg-white/4 p-5 transition hover:bg-white/[0.07]">
                                     <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                                         Work Rights
                                     </p>
@@ -929,7 +951,7 @@ const CountryDetails = () => {
                                 </div>
 
 
-                                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                                <div className="rounded-2xl border border-white/10 bg-white/4 p-5 transition hover:bg-white/[0.07]">
                                     <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                                         Typical Student Wage
                                     </p>
@@ -943,7 +965,7 @@ const CountryDetails = () => {
 
 
                             {/* Post study */}
-                            <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-6">
+                            <div className="mt-5 rounded-2xl border border-white/10 bg-white/4 p-6 transition hover:bg-white/[0.07]">
 
                                 <div className="flex items-center gap-3">
                                     <TrendingUp
