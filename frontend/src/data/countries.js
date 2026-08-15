@@ -11,7 +11,7 @@ import newzealand from "../assets/newzealand.avif";
 import switzerland from "../assets/switzerland.avif";
 import italy from "../assets/italy.avif";
 import southkorea from "../assets/southkorea.avif";
-import singapore from "../assets/singapore.avif";
+import china from "../assets/china.avif";
 import japan from "../assets/japan.avif";
 import malaysia from "../assets/malaysia.avif";
 
@@ -1654,129 +1654,127 @@ export const countries = [
             "Work opportunities can have visa restrictions",
         ],
     },
-
-
     {
-        id: 14,
-        name: "Singapore",
-        slug: "singapore",
-        image: singapore,
+    id: 14,
+    name: "China",
+    slug: "china",
+    image: china,
 
-        tagline:
-            "A global education and business hub with strong universities and excellent career opportunities.",
+    tagline:
+        "A rapidly growing study destination with world-class universities and strong opportunities in technology, engineering, and business.",
 
-        overview:
-            "Singapore provides a highly developed education system, excellent infrastructure, and close connections to major technology, finance, and business industries in Asia.",
+    overview:
+        "China offers affordable education, internationally recognized universities, modern infrastructure, and strong connections to major technology, business, and research industries.",
 
-        tuition: {
-            bachelors: "$18k–$35k/year",
-            masters: "$20k–$40k/year",
-        },
+    tuition: {
+        bachelors: "$3k–$8k/year",
+        masters: "$4k–$10k/year",
+    },
 
-        livingCost: {
-            monthly: "$1,200–$2,200",
-            accommodation: "$600–$1,300/month",
-        },
+    livingCost: {
+        monthly: "$400–$900",
+        accommodation: "$150–$500/month",
+    },
 
-        intakes: ["August", "January"],
+    intakes: ["September", "March"],
 
-        workRights: "Up to 16 hrs/week",
+    workRights:
+        "Part-time work may be possible with university approval and required authorization.",
 
-        studentWage: "$10–$18/hour",
+    studentWage: "$4–$10/hour",
 
-        postStudyWork:
-            "Graduates may explore employment opportunities in Singapore depending on their qualifications and employer sponsorship.",
+    postStudyWork:
+        "Graduates may explore employment opportunities in China by obtaining the appropriate work and residence authorization.",
 
-        topFields: [
-            "Business",
-            "Finance",
-            "Computer Science",
-            "Engineering",
-            "Data Science",
-        ],
+    topFields: [
+        "Computer Science",
+        "Engineering",
+        "Business",
+        "Artificial Intelligence",
+        "Data Science",
+    ],
 
-        admission: {
-            academic:
-                "Academic requirements vary by institution and program.",
+    admission: {
+        academic:
+            "Academic requirements vary by institution and program.",
 
-            english:
-                "English is the primary language of instruction, and accepted English qualifications may be required.",
+        english:
+            "English-taught programs may require IELTS or TOEFL, while Chinese-taught programs may require HSK.",
 
-            documents: [
-                "Academic transcripts",
-                "English proficiency certificate",
-                "Passport",
-                "Statement of Purpose",
-                "CV/Resume",
-                "Financial documents",
-            ],
-        },
-
-        visa: {
-            name: "Student's Pass",
-            financialProof:
-                "Students should be able to demonstrate sufficient financial resources.",
-            healthInsurance:
-                "Medical insurance may be required by the institution.",
-        },
-
-        universities: [
-            {
-                name: "National University of Singapore",
-                location: "Singapore",
-                ranking: "Top Asian University",
-                tuition: "$20k–$40k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Business",
-                    "Engineering",
-                ],
-            },
-            {
-                name: "Nanyang Technological University",
-                location: "Singapore",
-                ranking: "Top Asian University",
-                tuition: "$18k–$35k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "Business",
-                ],
-            },
-        ],
-
-        scholarships: [
-            {
-                name: "Singapore International Graduate Award",
-                provider: "Singapore Research Institutions",
-                amount: "Funded research support",
-                type: "Government/Research",
-            },
-            {
-                name: "University Scholarships",
-                provider: "Singapore Universities",
-                amount: "Varies",
-                type: "University",
-            },
-        ],
-
-        pros: [
-            "Excellent education quality",
-            "Strong technology and finance sectors",
-            "English-speaking environment",
-            "Excellent infrastructure",
-            "Strategic location in Asia",
-        ],
-
-        cons: [
-            "High living costs",
-            "Competitive university admission",
-            "Limited space compared with larger countries",
-            "Student work is subject to eligibility rules",
+        documents: [
+            "Academic transcripts",
+            "Language proficiency certificate",
+            "Passport",
+            "Statement of Purpose",
+            "CV/Resume",
+            "Financial documents",
         ],
     },
 
+    visa: {
+        name: "X1 / X2 Student Visa",
+        financialProof:
+            "Students should be able to demonstrate sufficient financial resources.",
 
+        healthInsurance:
+            "Medical insurance is generally required for international students.",
+    },
+
+    universities: [
+        {
+            name: "Tsinghua University",
+            location: "Beijing",
+            ranking: "Top Chinese University",
+            tuition: "$4k–$8k/year",
+            popularPrograms: [
+                "Computer Science",
+                "Engineering",
+                "Business",
+            ],
+        },
+        {
+            name: "Peking University",
+            location: "Beijing",
+            ranking: "Top Chinese University",
+            tuition: "$4k–$8k/year",
+            popularPrograms: [
+                "Computer Science",
+                "Business",
+                "Medicine",
+            ],
+        },
+    ],
+
+    scholarships: [
+        {
+            name: "Chinese Government Scholarship",
+            provider: "Chinese Government",
+            amount: "Full or partial funding",
+            type: "Government",
+        },
+        {
+            name: "University Scholarships",
+            provider: "Chinese Universities",
+            amount: "Varies",
+            type: "University",
+        },
+    ],
+
+    pros: [
+        "Affordable education",
+        "World-class universities",
+        "Strong technology and engineering sectors",
+        "Extensive scholarship opportunities",
+        "Modern infrastructure",
+    ],
+
+    cons: [
+        "Language barrier outside English-taught programs",
+        "Competitive university admission",
+        "Student work requires authorization",
+        "Living costs are higher in major cities",
+    ],
+},
     {
         id: 15,
         name: "Japan",

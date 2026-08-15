@@ -456,7 +456,7 @@ duration-300">
 
             <section className="mx-auto max-w-7xl px-6 py-24">
 
-                <div className="grid gap-14 lg:grid-cols-[.9fr_1.1fr]">
+                <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr]">
 
                     <div>
 
@@ -504,6 +504,28 @@ duration-300">
         </p>
 
     </div>
+
+    {/* Requirement Note */}
+<div className="group mt-6 flex items-start gap-4 rounded-3xl border border-blue-200 bg-blue-50/70 p-6">
+
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all
+duration-500
+group-hover:scale-110
+">
+        <Info size={20} />
+    </div>
+
+    <div>
+        <p className="text-sm font-bold text-slate-900">
+            Good to know
+        </p>
+
+        <p className="mt-1 text-sm leading-6 text-slate-600">
+            {program.requirements.note}
+        </p>
+    </div>
+
+</div>
 
 </div>
 
@@ -591,28 +613,6 @@ duration-300">
                             </div>
 
                         </div>
-
-                        {/* Requirement Note */}
-<div className="group mt-6 flex items-start gap-4 rounded-3xl border border-blue-200 bg-blue-50/70 p-6">
-
-    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all
-duration-500
-group-hover:scale-110
-">
-        <Info size={20} />
-    </div>
-
-    <div>
-        <p className="text-sm font-bold text-slate-900">
-            Good to know
-        </p>
-
-        <p className="mt-1 text-sm leading-6 text-slate-600">
-            {program.requirements.note}
-        </p>
-    </div>
-
-</div>
 
                     </div>
 

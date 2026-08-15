@@ -18,12 +18,12 @@ const Navbar = () => {
     { name: "Germany", code: "DE", slug: "germany" },
     { name: "Ireland", code: "IE", slug: "ireland" },
     { name: "New Zealand", code: "NZ", slug: "new-zealand" },
-    { name: "France", code: "FR", slug: "france" },
     { name: "Netherlands", code: "NL", slug: "netherlands" },
+    { name: "Italy", code: "IT", slug: "italy" },
+    { name: "France", code: "FR", slug: "france" },
     { name: "Sweden", code: "SE", slug: "sweden" },
     { name: "Switzerland", code: "CH", slug: "switzerland" },
-    { name: "Singapore", code: "SG", slug: "singapore" },
-    { name: "Italy", code: "IT", slug: "italy" },
+    { name: "China", code: "CN", slug: "china" },
     { name: "Japan", code: "JP", slug: "japan" },
     { name: "South Korea", code: "KR", slug: "south-korea" },
     { name: "Malaysia", code: "MY", slug: "malaysia" },
@@ -31,133 +31,133 @@ const Navbar = () => {
 
   const courseCategories = [
     {
-        title: "Engineering & Technology",
-        items: [
-            {
-                name: "Computer Science",
-                slug: "computer-science",
-            },
-            {
-                name: "Software Engineering",
-                slug: "software-engineering",
-            },
-            {
-                name: "Data Science",
-                slug: "data-science",
-            },
-            {
-                name: "Artificial Intelligence",
-                slug: "artificial-intelligence",
-            },
-            {
-                name: "Cyber Security",
-                slug: "cyber-security",
-            },
-            {
-                name: "Civil Engineering",
-                slug: "civil-engineering",
-            },
-            {
-                name: "Mechanical Engineering",
-                slug: "mechanical-engineering",
-            },
-            {
-                name: "Electrical Engineering",
-                slug: "electrical-engineering",
-            },
-        ],
+      title: "Engineering & Technology",
+      items: [
+        {
+          name: "Computer Science",
+          slug: "computer-science",
+        },
+        {
+          name: "Software Engineering",
+          slug: "software-engineering",
+        },
+        {
+          name: "Data Science",
+          slug: "data-science",
+        },
+        {
+          name: "Artificial Intelligence",
+          slug: "artificial-intelligence",
+        },
+        {
+          name: "Cyber Security",
+          slug: "cyber-security",
+        },
+        {
+          name: "Civil Engineering",
+          slug: "civil-engineering",
+        },
+        {
+          name: "Mechanical Engineering",
+          slug: "mechanical-engineering",
+        },
+        {
+          name: "Electrical Engineering",
+          slug: "electrical-engineering",
+        },
+      ],
     },
 
     {
-        title: "Business & Management",
-        items: [
-            {
-                name: "Business Administration (MBA)",
-                slug: "business-administration",
-            },
-            {
-                name: "Finance",
-                slug: "finance",
-            },
-            {
-                name: "Accounting",
-                slug: "accounting",
-            },
-            {
-                name: "Marketing",
-                slug: "marketing",
-            },
-            {
-                name: "Economics",
-                slug: "economics",
-            },
-            {
-                name: "International Business",
-                slug: "international-business",
-            },
-        ],
+      title: "Business & Management",
+      items: [
+        {
+          name: "Business Administration (MBA)",
+          slug: "business-administration",
+        },
+        {
+          name: "Finance",
+          slug: "finance",
+        },
+        {
+          name: "Accounting",
+          slug: "accounting",
+        },
+        {
+          name: "Marketing",
+          slug: "marketing",
+        },
+        {
+          name: "Economics",
+          slug: "economics",
+        },
+        {
+          name: "International Business",
+          slug: "international-business",
+        },
+      ],
     },
 
     {
-        title: "Health & Medicine",
-        items: [
-            {
-                name: "Medicine",
-                slug: "medicine",
-            },
-            {
-                name: "Nursing",
-                slug: "nursing",
-            },
-            {
-                name: "Pharmacy",
-                slug: "pharmacy",
-            },
-            {
-                name: "Public Health",
-                slug: "public-health",
-            },
-            {
-                name: "Dentistry",
-                slug: "dentistry",
-            },
-            {
-                name: "Biomedical Science",
-                slug: "biomedical-science",
-            },
-        ],
+      title: "Health & Medicine",
+      items: [
+        {
+          name: "Medicine",
+          slug: "medicine",
+        },
+        {
+          name: "Nursing",
+          slug: "nursing",
+        },
+        {
+          name: "Pharmacy",
+          slug: "pharmacy",
+        },
+        {
+          name: "Public Health",
+          slug: "public-health",
+        },
+        {
+          name: "Dentistry",
+          slug: "dentistry",
+        },
+        {
+          name: "Biomedical Science",
+          slug: "biomedical-science",
+        },
+      ],
     },
 
     {
-        title: "Science & Humanities",
-        items: [
-            {
-                name: "Psychology",
-                slug: "psychology",
-            },
-            {
-                name: "Law",
-                slug: "law",
-            },
-            {
-                name: "Architecture",
-                slug: "architecture",
-            },
-            {
-                name: "Environmental Science",
-                slug: "environmental-science",
-            },
-            {
-                name: "Biotechnology",
-                slug: "biotechnology",
-            },
-            {
-                name: "Media & Communication",
-                slug: "media-communication",
-            },
-        ],
+      title: "Science & Humanities",
+      items: [
+        {
+          name: "Psychology",
+          slug: "psychology",
+        },
+        {
+          name: "Law",
+          slug: "law",
+        },
+        {
+          name: "Architecture",
+          slug: "architecture",
+        },
+        {
+          name: "Environmental Science",
+          slug: "environmental-science",
+        },
+        {
+          name: "Biotechnology",
+          slug: "biotechnology",
+        },
+        {
+          name: "Media & Communication",
+          slug: "media-communication",
+        },
+      ],
     },
-];
+  ];
   return (
     <>
       <div className="flex w-full xl:w-[90%] mx-auto py-2 items-center justify-between">
@@ -232,16 +232,16 @@ const Navbar = () => {
                   ))}
                 </div>
                 <NavLink
-                                    to="/countries"
-                                    className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
-                                >
-                                    Explore All
+                  to="/countries"
+                  className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
+                >
+                  Explore All
 
-                                    <ArrowRight
-                                        size={18}
-                                        className="transition-transform duration-300 group-hover:translate-x-1"
-                                    />
-                                </NavLink>
+                  <ArrowRight
+                    size={18}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </NavLink>
               </div>
             </li>
             {/* courses */}
@@ -292,16 +292,16 @@ const Navbar = () => {
                   ))}
                 </div>
                 <NavLink
-                                    to="programs"
-                                    className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
-                                >
-                                    Explore All
+                  to="programs"
+                  className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
+                >
+                  Explore All
 
-                                    <ArrowRight
-                                        size={18}
-                                        className="transition-transform duration-300 group-hover:translate-x-1"
-                                    />
-                                </NavLink>
+                  <ArrowRight
+                    size={18}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </NavLink>
               </div>
             </li>
             <li><NavLink to="/pricing" className={({ isActive }) =>
@@ -383,7 +383,7 @@ const Navbar = () => {
             {isOpen && (
 
               <ul className="absolute right-0 mt-2 menu bg-base-100 rounded-box shadow w-52 z-100"
-              onClick={() => setIsOpen(false)}>
+                onClick={() => setIsOpen(false)}>
 
                 <li><NavLink to="/" className={({ isActive }) =>
                   isActive
@@ -403,51 +403,49 @@ const Navbar = () => {
                     : "text-gray-700 hover:text-sky-600"
                 }>Countries</NavLink>
                   <ul className="p-2">
-  {countries.slice(0, 4).map((country) => (
-    <li key={country.slug}>
-      <NavLink
-        to={`/countries/${country.slug}`}
-        className={({ isActive }) =>
-          `flex items-center gap-3 ${
-            isActive
-              ? "text-sky-600 font-semibold"
-              : "text-gray-700 hover:text-sky-600"
-          }`
-        }
-      >
-        <div className="w-6 h-6 rounded-full border shadow-xl border-gray-200 overflow-hidden shrink-0">
-          <ReactCountryFlag
-            countryCode={country.code}
-            svg
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
-        </div>
+                    {countries.slice(0, 4).map((country) => (
+                      <li key={country.slug}>
+                        <NavLink
+                          to={`/countries/${country.slug}`}
+                          className={({ isActive }) =>
+                            `flex items-center gap-3 ${isActive
+                              ? "text-sky-600 font-semibold"
+                              : "text-gray-700 hover:text-sky-600"
+                            }`
+                          }
+                        >
+                          <div className="w-6 h-6 rounded-full border shadow-xl border-gray-200 overflow-hidden shrink-0">
+                            <ReactCountryFlag
+                              countryCode={country.code}
+                              svg
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </div>
 
-        <span>{country.name}</span>
-      </NavLink>
-    </li>
-  ))}
+                          <span>{country.name}</span>
+                        </NavLink>
+                      </li>
+                    ))}
 
-  <li>
-    <NavLink
-      to="/countries"
-      className={({ isActive }) =>
-        `group flex items-center gap-2 transition ${
-          isActive
-            ? "text-sky-600 font-semibold"
-            : "text-gray-800 font-medium hover:text-sky-600"
-        }`
-      }
-    >
-      View All
-      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-    </NavLink>
-  </li>
-</ul>
+                    <li>
+                      <NavLink
+                        to="/countries"
+                        className={({ isActive }) =>
+                          `group flex items-center gap-2 transition ${isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-800 font-medium hover:text-sky-600"
+                          }`
+                        }
+                      >
+                        View All
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </NavLink>
+                    </li>
+                  </ul>
                 </li>
                 {/* programs */}
                 <li><NavLink to="/programs" className={({ isActive }) =>
