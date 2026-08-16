@@ -544,7 +544,6 @@ export const countries = [
         ],
     },
 
-
     {
         id: 5,
         name: "Germany",
@@ -676,9 +675,488 @@ export const countries = [
         ],
     },
 
-
     {
         id: 6,
+        name: "Ireland",
+        slug: "ireland",
+        image: ireland,
+
+        tagline:
+            "A growing European technology hub with English-taught programs and strong graduate opportunities.",
+
+        overview:
+            "Ireland has become a popular destination for international students, particularly in technology, business, pharmaceuticals, and data-related fields.",
+
+        tuition: {
+            bachelors: "$12k–$28k/year",
+            masters: "$14k–$32k/year",
+        },
+
+        livingCost: {
+            monthly: "$1,000–$2,000",
+            accommodation: "$600–$1,300/month",
+        },
+
+        intakes: ["September", "January"],
+
+        workRights: "Up to 20 hrs/week",
+
+        studentWage: "$13–$18/hour",
+
+        postStudyWork:
+            "Eligible graduates may qualify for the Third Level Graduate Programme, subject to the applicable conditions.",
+
+        topFields: [
+            "Computer Science",
+            "Business",
+            "Pharmaceutical Science",
+            "Data Science",
+            "Engineering",
+        ],
+
+        admission: {
+            academic:
+                "Requirements depend on the university and selected course.",
+
+            english:
+                "IELTS, TOEFL, PTE and other accepted tests may be required.",
+
+            documents: [
+                "Academic transcripts",
+                "English proficiency certificate",
+                "Passport",
+                "Statement of Purpose",
+                "CV/Resume",
+                "Financial documents",
+            ],
+        },
+
+        visa: {
+            name: "Long Stay 'D' Study Visa",
+            financialProof:
+                "Students may need to demonstrate sufficient funds to support themselves.",
+            healthInsurance:
+                "Private medical insurance is generally required.",
+        },
+
+        universities: [
+            {
+                name: "Trinity College Dublin",
+                location: "Dublin",
+                ranking: "Top Irish University",
+                tuition: "$20k–$35k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Business",
+                    "Engineering",
+                ],
+            },
+            {
+                name: "University College Dublin",
+                location: "Dublin",
+                ranking: "Top Irish University",
+                tuition: "$18k–$35k/year",
+                popularPrograms: [
+                    "Business",
+                    "Computer Science",
+                    "Engineering",
+                ],
+            },
+        ],
+
+        scholarships: [
+            {
+                name: "Government of Ireland International Education Scholarship",
+                provider: "Irish Government",
+                amount: "Tuition support + stipend",
+                type: "Government",
+            },
+            {
+                name: "University Scholarships",
+                provider: "Irish Universities",
+                amount: "Varies",
+                type: "University",
+            },
+        ],
+
+        pros: [
+            "English-speaking country",
+            "Strong technology sector",
+            "Good international student environment",
+            "Strong pharmaceutical industry",
+            "Growing graduate employment opportunities",
+        ],
+
+        cons: [
+            "Housing shortage in major cities",
+            "Dublin can be expensive",
+            "Limited number of major cities",
+            "Competitive accommodation market",
+        ],
+    },
+
+    {
+        id: 7,
+        name: "New Zealand",
+        slug: "new-zealand",
+        image: newzealand,
+
+        tagline:
+            "A welcoming study destination offering quality education, beautiful surroundings, and strong student support.",
+
+        overview:
+            "New Zealand combines a high-quality education system with a safe and welcoming environment, making it an attractive destination for international students.",
+
+        tuition: {
+            bachelors: "$18k–$32k/year",
+            masters: "$20k–$35k/year",
+        },
+
+        livingCost: {
+            monthly: "$1,000–$1,800",
+            accommodation: "$500–$1,100/month",
+        },
+
+        intakes: ["February", "July"],
+
+        workRights: "Up to 20 hrs/week",
+
+        studentWage: "$15–$22/hour",
+
+        postStudyWork:
+            "Eligible graduates may apply for a Post Study Work Visa depending on their qualification and circumstances.",
+
+        topFields: [
+            "Agriculture",
+            "Business",
+            "Engineering",
+            "IT",
+            "Environmental Science",
+        ],
+
+        admission: {
+            academic:
+                "Requirements vary by university and program.",
+
+            english:
+                "IELTS, TOEFL, PTE, or other recognized English tests may be required.",
+
+            documents: [
+                "Academic transcripts",
+                "English proficiency certificate",
+                "Passport",
+                "Statement of Purpose",
+                "CV/Resume",
+                "Financial documents",
+            ],
+        },
+
+        visa: {
+            name: "Fee Paying Student Visa",
+            financialProof:
+                "Applicants need to demonstrate sufficient funds for tuition and living expenses.",
+            healthInsurance:
+                "International students generally need appropriate medical and travel insurance.",
+        },
+
+        universities: [
+            {
+                name: "University of Auckland",
+                location: "Auckland",
+                ranking: "Top New Zealand University",
+                tuition: "$20k–$35k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "Business",
+                ],
+            },
+            {
+                name: "University of Otago",
+                location: "Dunedin",
+                ranking: "Top New Zealand University",
+                tuition: "$18k–$35k/year",
+                popularPrograms: [
+                    "Health Sciences",
+                    "Business",
+                    "Sciences",
+                ],
+            },
+        ],
+
+        scholarships: [
+            {
+                name: "New Zealand Scholarships",
+                provider: "New Zealand Government",
+                amount: "Fully funded",
+                type: "Government",
+            },
+            {
+                name: "University Scholarships",
+                provider: "New Zealand Universities",
+                amount: "Varies",
+                type: "University",
+            },
+        ],
+
+        pros: [
+            "Safe and welcoming environment",
+            "High-quality education",
+            "Beautiful natural environment",
+            "Strong student support",
+            "Good quality of life",
+        ],
+
+        cons: [
+            "Smaller job market",
+            "Relatively high living costs",
+            "Geographically distant from many countries",
+            "Limited number of major cities",
+        ],
+    },
+
+    {
+        id: 8,
+        name: "Netherlands",
+        slug: "netherlands",
+        image: netherlands,
+
+        tagline:
+            "Innovative education, English-taught programs, and a strong international environment in the heart of Europe.",
+
+        overview:
+            "The Netherlands is known for innovative teaching methods, internationally oriented universities, English-taught programs, and strong connections with European industries.",
+
+        tuition: {
+            bachelors: "$10k–$20k/year",
+            masters: "$12k–$24k/year",
+        },
+
+        livingCost: {
+            monthly: "$1,000–$1,800",
+            accommodation: "$500–$1,200/month",
+        },
+
+        intakes: ["September", "February"],
+
+        workRights: "16 hrs/week (permit required)",
+
+        studentWage: "$12–$18/hour",
+
+        postStudyWork:
+            "Graduates may be eligible for an orientation year residence permit to search for employment after graduation.",
+
+        topFields: [
+            "Engineering",
+            "Business",
+            "Agriculture",
+            "Computer Science",
+            "Sustainability",
+        ],
+
+        admission: {
+            academic:
+                "Academic requirements vary by university and program.",
+
+            english:
+                "English-taught programs commonly require IELTS, TOEFL, or another accepted English qualification.",
+
+            documents: [
+                "Academic transcripts",
+                "English proficiency certificate",
+                "Passport",
+                "Motivation Letter",
+                "CV/Resume",
+                "Financial documents",
+            ],
+        },
+
+        visa: {
+            name: "Student Residence Permit",
+            financialProof:
+                "Students must demonstrate sufficient financial resources according to applicable requirements.",
+            healthInsurance:
+                "Students must arrange appropriate health insurance.",
+        },
+
+        universities: [
+            {
+                name: "Delft University of Technology",
+                location: "Delft",
+                ranking: "Top Dutch University",
+                tuition: "$15k–$25k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "Architecture",
+                ],
+            },
+            {
+                name: "University of Amsterdam",
+                location: "Amsterdam",
+                ranking: "Top Dutch University",
+                tuition: "$12k–$25k/year",
+                popularPrograms: [
+                    "Business",
+                    "Computer Science",
+                    "Economics",
+                ],
+            },
+        ],
+
+        scholarships: [
+            {
+                name: "NL Scholarship",
+                provider: "Dutch Higher Education Institutions",
+                amount: "Financial award",
+                type: "Government/Institutional",
+            },
+            {
+                name: "University Scholarships",
+                provider: "Dutch Universities",
+                amount: "Varies",
+                type: "University",
+            },
+        ],
+
+        pros: [
+            "Many English-taught programs",
+            "Innovative education system",
+            "Strong international environment",
+            "Excellent transportation",
+            "Strong European career opportunities",
+        ],
+
+        cons: [
+            "Housing shortage",
+            "Living costs can be high",
+            "Part-time work may require additional arrangements",
+            "Competitive admission for popular programs",
+        ],
+    },
+
+    {
+        id: 9,
+        name: "Italy",
+        slug: "italy",
+        image: italy,
+
+        tagline:
+            "Affordable European education combined with history, culture, design, and strong academic traditions.",
+
+        overview:
+            "Italy offers affordable study options at many public universities and is particularly attractive for students interested in architecture, design, fashion, engineering, business, and arts.",
+
+        tuition: {
+            bachelors: "$2k–$12k/year",
+            masters: "$3k–$16k/year",
+        },
+
+        livingCost: {
+            monthly: "$700–$1,400",
+            accommodation: "$350–$800/month",
+        },
+
+        intakes: ["September", "February"],
+
+        workRights: "20 hrs/week",
+
+        studentWage: "$8–$15/hour",
+
+        postStudyWork:
+            "Graduates may have options to remain in Italy depending on their employment and immigration circumstances.",
+
+        topFields: [
+            "Architecture",
+            "Fashion",
+            "Engineering",
+            "Business",
+            "Design",
+        ],
+
+        admission: {
+            academic:
+                "Academic requirements vary by university and program.",
+
+            english:
+                "English-taught programs may require English proficiency, while Italian-taught programs generally require Italian language skills.",
+
+            documents: [
+                "Academic transcripts",
+                "Language certificate",
+                "Passport",
+                "Motivation Letter",
+                "CV/Resume",
+                "Financial documents",
+            ],
+        },
+
+        visa: {
+            name: "Italian Student Visa",
+            financialProof:
+                "Applicants need to demonstrate sufficient financial resources.",
+            healthInsurance:
+                "Appropriate health insurance is required.",
+        },
+
+        universities: [
+            {
+                name: "Politecnico di Milano",
+                location: "Milan",
+                ranking: "Top Italian University",
+                tuition: "$4k–$15k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Architecture",
+                    "Design",
+                ],
+            },
+            {
+                name: "University of Bologna",
+                location: "Bologna",
+                ranking: "Historic European University",
+                tuition: "$2k–$10k/year",
+                popularPrograms: [
+                    "Business",
+                    "Engineering",
+                    "Law",
+                ],
+            },
+        ],
+
+        scholarships: [
+            {
+                name: "Italian Regional Scholarships",
+                provider: "Regional Authorities",
+                amount: "Tuition + financial support",
+                type: "Government",
+            },
+            {
+                name: "University Scholarships",
+                provider: "Italian Universities",
+                amount: "Varies",
+                type: "University",
+            },
+        ],
+
+        pros: [
+            "Affordable public universities",
+            "Strong architecture and design programs",
+            "Rich cultural environment",
+            "Many scholarship opportunities",
+            "Relatively affordable living in smaller cities",
+        ],
+
+        cons: [
+            "Italian language can be important",
+            "Bureaucratic processes can take time",
+            "Job market varies by region",
+            "Some programs have limited English availability",
+        ],
+    },
+
+    {
+        id: 10,
         name: "France",
         slug: "france",
         image: france,
@@ -808,251 +1286,8 @@ export const countries = [
         ],
     },
 
-
     {
-        id: 7,
-        name: "Ireland",
-        slug: "ireland",
-        image: ireland,
-
-        tagline:
-            "A growing European technology hub with English-taught programs and strong graduate opportunities.",
-
-        overview:
-            "Ireland has become a popular destination for international students, particularly in technology, business, pharmaceuticals, and data-related fields.",
-
-        tuition: {
-            bachelors: "$12k–$28k/year",
-            masters: "$14k–$32k/year",
-        },
-
-        livingCost: {
-            monthly: "$1,000–$2,000",
-            accommodation: "$600–$1,300/month",
-        },
-
-        intakes: ["September", "January"],
-
-        workRights: "Up to 20 hrs/week",
-
-        studentWage: "$13–$18/hour",
-
-        postStudyWork:
-            "Eligible graduates may qualify for the Third Level Graduate Programme, subject to the applicable conditions.",
-
-        topFields: [
-            "Computer Science",
-            "Business",
-            "Pharmaceutical Science",
-            "Data Science",
-            "Engineering",
-        ],
-
-        admission: {
-            academic:
-                "Requirements depend on the university and selected course.",
-
-            english:
-                "IELTS, TOEFL, PTE and other accepted tests may be required.",
-
-            documents: [
-                "Academic transcripts",
-                "English proficiency certificate",
-                "Passport",
-                "Statement of Purpose",
-                "CV/Resume",
-                "Financial documents",
-            ],
-        },
-
-        visa: {
-            name: "Long Stay 'D' Study Visa",
-            financialProof:
-                "Students may need to demonstrate sufficient funds to support themselves.",
-            healthInsurance:
-                "Private medical insurance is generally required.",
-        },
-
-        universities: [
-            {
-                name: "Trinity College Dublin",
-                location: "Dublin",
-                ranking: "Top Irish University",
-                tuition: "$20k–$35k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Business",
-                    "Engineering",
-                ],
-            },
-            {
-                name: "University College Dublin",
-                location: "Dublin",
-                ranking: "Top Irish University",
-                tuition: "$18k–$35k/year",
-                popularPrograms: [
-                    "Business",
-                    "Computer Science",
-                    "Engineering",
-                ],
-            },
-        ],
-
-        scholarships: [
-            {
-                name: "Government of Ireland International Education Scholarship",
-                provider: "Irish Government",
-                amount: "Tuition support + stipend",
-                type: "Government",
-            },
-            {
-                name: "University Scholarships",
-                provider: "Irish Universities",
-                amount: "Varies",
-                type: "University",
-            },
-        ],
-
-        pros: [
-            "English-speaking country",
-            "Strong technology sector",
-            "Good international student environment",
-            "Strong pharmaceutical industry",
-            "Growing graduate employment opportunities",
-        ],
-
-        cons: [
-            "Housing shortage in major cities",
-            "Dublin can be expensive",
-            "Limited number of major cities",
-            "Competitive accommodation market",
-        ],
-    },
-
-
-    {
-        id: 8,
-        name: "Netherlands",
-        slug: "netherlands",
-        image: netherlands,
-
-        tagline:
-            "Innovative education, English-taught programs, and a strong international environment in the heart of Europe.",
-
-        overview:
-            "The Netherlands is known for innovative teaching methods, internationally oriented universities, English-taught programs, and strong connections with European industries.",
-
-        tuition: {
-            bachelors: "$10k–$20k/year",
-            masters: "$12k–$24k/year",
-        },
-
-        livingCost: {
-            monthly: "$1,000–$1,800",
-            accommodation: "$500–$1,200/month",
-        },
-
-        intakes: ["September", "February"],
-
-        workRights: "16 hrs/week (permit required)",
-
-        studentWage: "$12–$18/hour",
-
-        postStudyWork:
-            "Graduates may be eligible for an orientation year residence permit to search for employment after graduation.",
-
-        topFields: [
-            "Engineering",
-            "Business",
-            "Agriculture",
-            "Computer Science",
-            "Sustainability",
-        ],
-
-        admission: {
-            academic:
-                "Academic requirements vary by university and program.",
-
-            english:
-                "English-taught programs commonly require IELTS, TOEFL, or another accepted English qualification.",
-
-            documents: [
-                "Academic transcripts",
-                "English proficiency certificate",
-                "Passport",
-                "Motivation Letter",
-                "CV/Resume",
-                "Financial documents",
-            ],
-        },
-
-        visa: {
-            name: "Student Residence Permit",
-            financialProof:
-                "Students must demonstrate sufficient financial resources according to applicable requirements.",
-            healthInsurance:
-                "Students must arrange appropriate health insurance.",
-        },
-
-        universities: [
-            {
-                name: "Delft University of Technology",
-                location: "Delft",
-                ranking: "Top Dutch University",
-                tuition: "$15k–$25k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "Architecture",
-                ],
-            },
-            {
-                name: "University of Amsterdam",
-                location: "Amsterdam",
-                ranking: "Top Dutch University",
-                tuition: "$12k–$25k/year",
-                popularPrograms: [
-                    "Business",
-                    "Computer Science",
-                    "Economics",
-                ],
-            },
-        ],
-
-        scholarships: [
-            {
-                name: "NL Scholarship",
-                provider: "Dutch Higher Education Institutions",
-                amount: "Financial award",
-                type: "Government/Institutional",
-            },
-            {
-                name: "University Scholarships",
-                provider: "Dutch Universities",
-                amount: "Varies",
-                type: "University",
-            },
-        ],
-
-        pros: [
-            "Many English-taught programs",
-            "Innovative education system",
-            "Strong international environment",
-            "Excellent transportation",
-            "Strong European career opportunities",
-        ],
-
-        cons: [
-            "Housing shortage",
-            "Living costs can be high",
-            "Part-time work may require additional arrangements",
-            "Competitive admission for popular programs",
-        ],
-    },
-
-
-    {
-        id: 9,
+        id: 11,
         name: "Sweden",
         slug: "sweden",
         image: sweden,
@@ -1171,130 +1406,8 @@ export const countries = [
         ],
     },
 
-
     {
-        id: 10,
-        name: "New Zealand",
-        slug: "new-zealand",
-        image: newzealand,
-
-        tagline:
-            "A welcoming study destination offering quality education, beautiful surroundings, and strong student support.",
-
-        overview:
-            "New Zealand combines a high-quality education system with a safe and welcoming environment, making it an attractive destination for international students.",
-
-        tuition: {
-            bachelors: "$18k–$32k/year",
-            masters: "$20k–$35k/year",
-        },
-
-        livingCost: {
-            monthly: "$1,000–$1,800",
-            accommodation: "$500–$1,100/month",
-        },
-
-        intakes: ["February", "July"],
-
-        workRights: "Up to 20 hrs/week",
-
-        studentWage: "$15–$22/hour",
-
-        postStudyWork:
-            "Eligible graduates may apply for a Post Study Work Visa depending on their qualification and circumstances.",
-
-        topFields: [
-            "Agriculture",
-            "Business",
-            "Engineering",
-            "IT",
-            "Environmental Science",
-        ],
-
-        admission: {
-            academic:
-                "Requirements vary by university and program.",
-
-            english:
-                "IELTS, TOEFL, PTE, or other recognized English tests may be required.",
-
-            documents: [
-                "Academic transcripts",
-                "English proficiency certificate",
-                "Passport",
-                "Statement of Purpose",
-                "CV/Resume",
-                "Financial documents",
-            ],
-        },
-
-        visa: {
-            name: "Fee Paying Student Visa",
-            financialProof:
-                "Applicants need to demonstrate sufficient funds for tuition and living expenses.",
-            healthInsurance:
-                "International students generally need appropriate medical and travel insurance.",
-        },
-
-        universities: [
-            {
-                name: "University of Auckland",
-                location: "Auckland",
-                ranking: "Top New Zealand University",
-                tuition: "$20k–$35k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "Business",
-                ],
-            },
-            {
-                name: "University of Otago",
-                location: "Dunedin",
-                ranking: "Top New Zealand University",
-                tuition: "$18k–$35k/year",
-                popularPrograms: [
-                    "Health Sciences",
-                    "Business",
-                    "Sciences",
-                ],
-            },
-        ],
-
-        scholarships: [
-            {
-                name: "New Zealand Scholarships",
-                provider: "New Zealand Government",
-                amount: "Fully funded",
-                type: "Government",
-            },
-            {
-                name: "University Scholarships",
-                provider: "New Zealand Universities",
-                amount: "Varies",
-                type: "University",
-            },
-        ],
-
-        pros: [
-            "Safe and welcoming environment",
-            "High-quality education",
-            "Beautiful natural environment",
-            "Strong student support",
-            "Good quality of life",
-        ],
-
-        cons: [
-            "Smaller job market",
-            "Relatively high living costs",
-            "Geographically distant from many countries",
-            "Limited number of major cities",
-        ],
-    },
-
-
-    {
-        id: 11,
+        id: 12,
         name: "Switzerland",
         slug: "switzerland",
         image: switzerland,
@@ -1412,128 +1525,6 @@ export const countries = [
             "Student work opportunities can be restricted",
         ],
     },
-
-
-    {
-        id: 12,
-        name: "Italy",
-        slug: "italy",
-        image: italy,
-
-        tagline:
-            "Affordable European education combined with history, culture, design, and strong academic traditions.",
-
-        overview:
-            "Italy offers affordable study options at many public universities and is particularly attractive for students interested in architecture, design, fashion, engineering, business, and arts.",
-
-        tuition: {
-            bachelors: "$2k–$12k/year",
-            masters: "$3k–$16k/year",
-        },
-
-        livingCost: {
-            monthly: "$700–$1,400",
-            accommodation: "$350–$800/month",
-        },
-
-        intakes: ["September", "February"],
-
-        workRights: "20 hrs/week",
-
-        studentWage: "$8–$15/hour",
-
-        postStudyWork:
-            "Graduates may have options to remain in Italy depending on their employment and immigration circumstances.",
-
-        topFields: [
-            "Architecture",
-            "Fashion",
-            "Engineering",
-            "Business",
-            "Design",
-        ],
-
-        admission: {
-            academic:
-                "Academic requirements vary by university and program.",
-
-            english:
-                "English-taught programs may require English proficiency, while Italian-taught programs generally require Italian language skills.",
-
-            documents: [
-                "Academic transcripts",
-                "Language certificate",
-                "Passport",
-                "Motivation Letter",
-                "CV/Resume",
-                "Financial documents",
-            ],
-        },
-
-        visa: {
-            name: "Italian Student Visa",
-            financialProof:
-                "Applicants need to demonstrate sufficient financial resources.",
-            healthInsurance:
-                "Appropriate health insurance is required.",
-        },
-
-        universities: [
-            {
-                name: "Politecnico di Milano",
-                location: "Milan",
-                ranking: "Top Italian University",
-                tuition: "$4k–$15k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Architecture",
-                    "Design",
-                ],
-            },
-            {
-                name: "University of Bologna",
-                location: "Bologna",
-                ranking: "Historic European University",
-                tuition: "$2k–$10k/year",
-                popularPrograms: [
-                    "Business",
-                    "Engineering",
-                    "Law",
-                ],
-            },
-        ],
-
-        scholarships: [
-            {
-                name: "Italian Regional Scholarships",
-                provider: "Regional Authorities",
-                amount: "Tuition + financial support",
-                type: "Government",
-            },
-            {
-                name: "University Scholarships",
-                provider: "Italian Universities",
-                amount: "Varies",
-                type: "University",
-            },
-        ],
-
-        pros: [
-            "Affordable public universities",
-            "Strong architecture and design programs",
-            "Rich cultural environment",
-            "Many scholarship opportunities",
-            "Relatively affordable living in smaller cities",
-        ],
-
-        cons: [
-            "Italian language can be important",
-            "Bureaucratic processes can take time",
-            "Job market varies by region",
-            "Some programs have limited English availability",
-        ],
-    },
-
 
     {
         id: 13,
@@ -1654,127 +1645,129 @@ export const countries = [
             "Work opportunities can have visa restrictions",
         ],
     },
+
     {
-    id: 14,
-    name: "China",
-    slug: "china",
-    image: china,
+        id: 14,
+        name: "China",
+        slug: "china",
+        image: china,
 
-    tagline:
-        "A rapidly growing study destination with world-class universities and strong opportunities in technology, engineering, and business.",
+        tagline:
+            "A rapidly growing study destination with world-class universities and strong opportunities in technology, engineering, and business.",
 
-    overview:
-        "China offers affordable education, internationally recognized universities, modern infrastructure, and strong connections to major technology, business, and research industries.",
+        overview:
+            "China offers affordable education, internationally recognized universities, modern infrastructure, and strong connections to major technology, business, and research industries.",
 
-    tuition: {
-        bachelors: "$3k–$8k/year",
-        masters: "$4k–$10k/year",
-    },
+        tuition: {
+            bachelors: "$3k–$8k/year",
+            masters: "$4k–$10k/year",
+        },
 
-    livingCost: {
-        monthly: "$400–$900",
-        accommodation: "$150–$500/month",
-    },
+        livingCost: {
+            monthly: "$400–$900",
+            accommodation: "$150–$500/month",
+        },
 
-    intakes: ["September", "March"],
+        intakes: ["September", "March"],
 
-    workRights:
-        "Part-time work may be possible with university approval and required authorization.",
+        workRights:
+            "Part-time work may be possible with university approval and required authorization.",
 
-    studentWage: "$4–$10/hour",
+        studentWage: "$4–$10/hour",
 
-    postStudyWork:
-        "Graduates may explore employment opportunities in China by obtaining the appropriate work and residence authorization.",
+        postStudyWork:
+            "Graduates may explore employment opportunities in China by obtaining the appropriate work and residence authorization.",
 
-    topFields: [
-        "Computer Science",
-        "Engineering",
-        "Business",
-        "Artificial Intelligence",
-        "Data Science",
-    ],
+        topFields: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Artificial Intelligence",
+            "Data Science",
+        ],
 
-    admission: {
-        academic:
-            "Academic requirements vary by institution and program.",
+        admission: {
+            academic:
+                "Academic requirements vary by institution and program.",
 
-        english:
-            "English-taught programs may require IELTS or TOEFL, while Chinese-taught programs may require HSK.",
+            english:
+                "English-taught programs may require IELTS or TOEFL, while Chinese-taught programs may require HSK.",
 
-        documents: [
-            "Academic transcripts",
-            "Language proficiency certificate",
-            "Passport",
-            "Statement of Purpose",
-            "CV/Resume",
-            "Financial documents",
+            documents: [
+                "Academic transcripts",
+                "Language proficiency certificate",
+                "Passport",
+                "Statement of Purpose",
+                "CV/Resume",
+                "Financial documents",
+            ],
+        },
+
+        visa: {
+            name: "X1 / X2 Student Visa",
+            financialProof:
+                "Students should be able to demonstrate sufficient financial resources.",
+
+            healthInsurance:
+                "Medical insurance is generally required for international students.",
+        },
+
+        universities: [
+            {
+                name: "Tsinghua University",
+                location: "Beijing",
+                ranking: "Top Chinese University",
+                tuition: "$4k–$8k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Business",
+                ],
+            },
+            {
+                name: "Peking University",
+                location: "Beijing",
+                ranking: "Top Chinese University",
+                tuition: "$4k–$8k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Business",
+                    "Medicine",
+                ],
+            },
+        ],
+
+        scholarships: [
+            {
+                name: "Chinese Government Scholarship",
+                provider: "Chinese Government",
+                amount: "Full or partial funding",
+                type: "Government",
+            },
+            {
+                name: "University Scholarships",
+                provider: "Chinese Universities",
+                amount: "Varies",
+                type: "University",
+            },
+        ],
+
+        pros: [
+            "Affordable education",
+            "World-class universities",
+            "Strong technology and engineering sectors",
+            "Extensive scholarship opportunities",
+            "Modern infrastructure",
+        ],
+
+        cons: [
+            "Language barrier outside English-taught programs",
+            "Competitive university admission",
+            "Student work requires authorization",
+            "Living costs are higher in major cities",
         ],
     },
-
-    visa: {
-        name: "X1 / X2 Student Visa",
-        financialProof:
-            "Students should be able to demonstrate sufficient financial resources.",
-
-        healthInsurance:
-            "Medical insurance is generally required for international students.",
-    },
-
-    universities: [
-        {
-            name: "Tsinghua University",
-            location: "Beijing",
-            ranking: "Top Chinese University",
-            tuition: "$4k–$8k/year",
-            popularPrograms: [
-                "Computer Science",
-                "Engineering",
-                "Business",
-            ],
-        },
-        {
-            name: "Peking University",
-            location: "Beijing",
-            ranking: "Top Chinese University",
-            tuition: "$4k–$8k/year",
-            popularPrograms: [
-                "Computer Science",
-                "Business",
-                "Medicine",
-            ],
-        },
-    ],
-
-    scholarships: [
-        {
-            name: "Chinese Government Scholarship",
-            provider: "Chinese Government",
-            amount: "Full or partial funding",
-            type: "Government",
-        },
-        {
-            name: "University Scholarships",
-            provider: "Chinese Universities",
-            amount: "Varies",
-            type: "University",
-        },
-    ],
-
-    pros: [
-        "Affordable education",
-        "World-class universities",
-        "Strong technology and engineering sectors",
-        "Extensive scholarship opportunities",
-        "Modern infrastructure",
-    ],
-
-    cons: [
-        "Language barrier outside English-taught programs",
-        "Competitive university admission",
-        "Student work requires authorization",
-        "Living costs are higher in major cities",
-    ],
-},
+    
     {
         id: 15,
         name: "Japan",

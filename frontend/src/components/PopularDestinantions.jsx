@@ -14,7 +14,7 @@ import newzealand from "../assets/newzealand.avif"
 import switzerland from "../assets/switzerland.avif"
 import japan from "../assets/japan.avif"
 import southkorea from "../assets/southkorea.avif"
-import singapore from "../assets/singapore.avif"
+import china from "../assets/china.avif"
 import italy from "../assets/italy.avif"
 import malaysia from "../assets/malaysia.avif";
 
@@ -51,15 +51,15 @@ const countries = [
   },
   {
     id: 6,
-    name: "France",
-    slug: "france",
-    image: france,
-  },
-  {
-    id: 7,
     name: "Ireland",
     slug: "ireland",
     image: ireland,
+  },
+  {
+    id: 7,
+    name: "New Zealand",
+    slug: "new-zealand",
+    image: newzealand,
   },
   {
     id: 8,
@@ -69,27 +69,28 @@ const countries = [
   },
   {
     id: 9,
+    name: "Italy",
+    slug: "italy",
+    image: italy,
+  },
+  {
+    id: 10,
+    name: "France",
+    slug: "france",
+    image: france,
+  },
+  {
+    id: 11,
     name: "Sweden",
     slug: "sweden",
     image: sweden,
   },
+  
   {
-    id: 10,
-    name: "New Zealand",
-    slug: "new-zealand",
-    image: newzealand,
-  },
-  {
-    id: 11,
+    id: 12,
     name: "Switzerland",
     slug: "switzerland",
     image: switzerland,
-  },
-  {
-    id: 12,
-    name: "Italy",
-    slug: "italy",
-    image: italy,
   },
   {
     id: 13,
@@ -99,9 +100,9 @@ const countries = [
   },
   {
     id: 14,
-    name: "Singapore",
-    slug: "singapore",
-    image: singapore,
+    name: "China",
+    slug: "china",
+    image: china,
   },
   {
     id: 15,

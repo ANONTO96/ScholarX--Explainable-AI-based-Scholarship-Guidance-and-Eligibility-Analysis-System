@@ -12,6 +12,12 @@ import Support from "../pages/Support";
 import Blog from "../pages/Blog";
 import CountryDetails from "../pages/CountryDetails";
 import ProgramDetails from "../pages/ProgramDetails";
+import AdmissionsFAQ from "../pages/AdmissionsFAQ";
+import ScholarshipsFAQ from "../pages/ScholarshipsFAQ";
+import ScholarXAiFAQ from "../pages/ScholarXAiFAQ";
+import VisaFAQ from "../pages/VisaFAQ";
+import AccountBillingFAQ from "../pages/AccountBillingFAQ";
+import GeneralSupportFAQ from "../pages/GeneralSupportFAQ";
 
 
 export const router = createBrowserRouter([
@@ -30,6 +36,12 @@ export const router = createBrowserRouter([
        {path: "blog", Component: Blog},
        {path: "FAQ", Component: FAQ},
        {path: "support", Component: Support},
+       {path:"admissionsFAQ", Component: AdmissionsFAQ},
+       {path:"scholarshipsFAQ", Component: ScholarshipsFAQ},
+       {path:"scholarXaiFAQ", Component: ScholarXAiFAQ},
+       {path:"studentVisaFAQ", Component: VisaFAQ},
+       {path:"account&BillingFAQ", Component: AccountBillingFAQ},
+       {path:"generalSupportFAQ", Component: GeneralSupportFAQ},
        {path: "contact", Component: Contact},
     ],
   },

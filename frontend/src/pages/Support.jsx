@@ -64,24 +64,28 @@ const quickActions = [
     description: "Talk to our support team on WhatsApp",
     icon: MessageCircleMore,
     color: "from-cyan-500 to-sky-600",
+    borderColor: "hover:border-sky-100",
   },
   {
     title: "Book Consultation",
     description: "Meet an education expert consultant",
     icon: CalendarCheck,
     color: "from-violet-500 to-purple-600",
+    borderColor: "hover:border-purple-100",
   },
   {
     title: "Help Center",
     description: "Browse articles, guides & FAQs",
     icon: BookOpen,
     color: "from-blue-500 to-indigo-600",
+    borderColor: "hover:border-blue-100",
   },
   {
     title: "Report an Issue",
     description: "Found a problem? Let us know",
     icon: Bug,
     color: "from-rose-500 to-red-600",
+    borderColor: "hover:border-red-100",
   },
 ];
 
@@ -91,42 +95,54 @@ const categoriesActions = [
     description:
       "Applications, entry requirements, deadlines and offers.",
     icon: GraduationCap,
-    color: "bg-blue-50 text-blue-600",
+    color: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
+    borderColor: "hover:border-blue-100",
+    route:"/admissionsFAQ"
   },
   {
     title: "Scholarships",
     description:
       "Funding opportunities, eligibility and application tips.",
     icon: BadgeDollarSign,
-    color: "bg-emerald-50 text-emerald-600",
+    color: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
+    borderColor:"hover:border-emerald-100",
+    route:"/scholarshipsFAQ"
   },
   {
     title: "ScholarX AI",
     description:
       "Eligibility Checker, recommendations and profile analysis.",
     icon: Bot,
-    color: "bg-violet-50 text-violet-600",
+    color: "bg-violet-50 text-violet-600 group-hover:bg-violet-600 group-hover:text-white",
+    borderColor:"hover:border-violet-100",
+    route:"/scholarXaiFAQ"
   },
   {
     title: "Student Visa",
     description:
       "Visa documents, interviews and financial requirements.",
     icon: Plane,
-    color: "bg-orange-50 text-orange-600",
+    color: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+    borderColor:"hover:border-orange-100",
+    route:"/studentVisaFAQ"
   },
   {
     title: "Account & Billing",
     description:
       "Login issues, subscriptions and account settings.",
     icon: UserRoundCog,
-    color: "bg-sky-50 text-sky-600",
+    color: "bg-sky-50 text-sky-600 group-hover:bg-sky-600 group-hover:text-white",
+    borderColor:"hover:border-sky-100",
+    route:"/account&BillingFAQ"
   },
   {
     title: "General Support",
     description:
       "Need help? Our team is always ready to assist you.",
     icon: MessageCircleMore,
-    color: "bg-pink-50 text-pink-600",
+    color: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white",
+    borderColor:"hover:border-pink-100",
+    route:"/generalSupportFAQ"
   },
 ];
 
@@ -181,7 +197,7 @@ const Support = () => {
             return (
               <div
                 key={item.title}
-                className="group cursor-pointer rounded-3xl border border-slate-200 bg-white p-6 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                className={`group cursor-pointer rounded-3xl border border-slate-200 bg-white p-6 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl ${item.borderColor}`}
               >
 
                 <div
@@ -245,11 +261,12 @@ const Support = () => {
               return (
                 <div
                   key={item.title}
-                  className="group cursor-pointer rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
+                  className={`group cursor-pointer rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${item.borderColor}`}
                 >
 
                   <div
-                    className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ${item.color}`}
+                    className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110
+group-hover:rotate-3 ${item.color}`}
                   >
                     <Icon size={30} />
                   </div>
@@ -262,7 +279,7 @@ const Support = () => {
                     {item.description}
                   </p>
 
-                  <div className="mt-8 flex items-center gap-2 font-semibold text-blue-600">
+                  <NavLink to={`${item.route}`} className="mt-8 flex items-center gap-2 font-semibold text-blue-600">
 
                     Get Help
 
@@ -271,7 +288,7 @@ const Support = () => {
                       className="transition group-hover:translate-x-1"
                     />
 
-                  </div>
+                  </NavLink>
 
                 </div>
               );
