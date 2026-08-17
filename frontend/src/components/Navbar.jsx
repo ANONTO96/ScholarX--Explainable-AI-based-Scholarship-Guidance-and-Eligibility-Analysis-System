@@ -1,6 +1,6 @@
 import { Menu, X, ArrowRight, ChevronDown, } from "lucide-react";
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import ReactCountryFlag from "react-country-flag";
 
 
@@ -494,11 +494,8 @@ const Navbar = () => {
 
                 <li>
 
-                  <NavLink to="/resources" className={({ isActive }) =>
-                    isActive
-                      ? "text-sky-600 font-semibold"
-                      : "text-gray-700 hover:text-sky-600"
-                  }>Resources</NavLink>
+                  <Link className="text-gray-700 hover:text-sky-600"
+                  >Resources</Link>
 
                   <ul className="p-2">
 

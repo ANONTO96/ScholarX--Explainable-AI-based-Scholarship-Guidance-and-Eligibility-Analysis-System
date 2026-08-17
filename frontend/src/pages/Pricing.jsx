@@ -280,7 +280,7 @@ export default function Pricing() {
 
         <div className="mx-auto max-w-3xl text-center">
 
-          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600">
+          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm">
 
             💎 Pricing Plans
 

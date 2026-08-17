@@ -3,7 +3,7 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 
 export default function ReusableFAQ({
-  badge = "Frequently Asked Questions",
+  badge,
   title,
   description,
   faqs,
@@ -18,19 +18,9 @@ export default function ReusableFAQ({
       {/* BACKGROUND */}
       {/* ========================================================= */}
 
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Blue glow */}
-        <div className="absolute -left-40 -top-40 h-105 w-105 rounded-full bg-blue-300/20 blur-[100px]" />
-
-        {/* Purple glow */}
-        <div className="absolute -bottom-40 -right-40 h-112.5 w-112.5 rounded-full bg-purple-300/20 blur-[110px]" />
-
-        {/* Small decorative circles */}
-        <div className="absolute left-[8%] top-[25%] h-2 w-2 rounded-full bg-blue-400/40" />
-
-        <div className="absolute right-[12%] top-[35%] h-3 w-3 rounded-full bg-purple-400/30" />
-
-        <div className="absolute bottom-[20%] left-[15%] h-2 w-2 rounded-full bg-cyan-400/30" />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
 
       <div className="relative mx-auto max-w-5xl px-6">
@@ -41,7 +31,7 @@ export default function ReusableFAQ({
 
         <div className="text-center">
 
-          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/80 px-5 py-2 text-sm font-semibold text-blue-600 shadow-sm backdrop-blur">
+          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm">
             <Sparkles size={15} />
             {badge}
           </span>
@@ -66,22 +56,22 @@ export default function ReusableFAQ({
             return (
               <div
                 key={index}
-                className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 ${
+                className={`group relative overflow-hidden rounded-3xl border transition-all duration-300 ${
                   open
-                    ? "border-blue-200 bg-white shadow-[0_15px_45px_rgba(37,99,235,0.10)]"
+                    ? "border-blue-200 bg-white shadow-xl"
                     : "border-slate-200/80 bg-white/80 hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-lg"
                 }`}
               >
                 {/* Active gradient line */}
                 <div
-                  className={`absolute left-0 top-0 h-full w-[3px] bg-linear-to-b from-blue-500 via-indigo-500 to-purple-500 transition-all duration-300 ${
+                  className={`absolute left-0 top-0 h-full w-0.75 bg-sky-600 transition-all duration-300 ${
                     open ? "opacity-100" : "opacity-0"
                   }`}
                 />
 
                 {/* Soft active glow */}
                 {open && (
-                  <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-blue-100/50 blur-3xl" />
+                  <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-sky-200/50 blur-3xl" />
                 )}
 
                 {/* ================================================= */}
@@ -96,8 +86,8 @@ export default function ReusableFAQ({
                   <div
                     className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-all duration-300 ${
                       open
-                        ? "bg-linear-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25"
-                        : "bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600"
+                        ? "bg-linear-to-br from-sky-500 to-indigo-600 text-white shadow-lg shadow-sky-500/25"
+                        : "bg-slate-100 text-slate-500 group-hover:bg-sky-50 group-hover:text-sky-600"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
@@ -107,8 +97,8 @@ export default function ReusableFAQ({
                   <h3
                     className={`flex-1 text-base font-bold leading-7 transition-colors duration-300 sm:text-lg ${
                       open
-                        ? "text-blue-700"
-                        : "text-slate-800 group-hover:text-blue-700"
+                        ? "text-sky-600"
+                        : "text-slate-800 group-hover:text-sky-600"
                     }`}
                   >
                     {faq.question}
@@ -118,8 +108,8 @@ export default function ReusableFAQ({
                   <div
                     className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
                       open
-                        ? "bg-blue-100 text-blue-600"
-                        : "bg-slate-100 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500"
+                        ? "bg-sky-100 text-sky-600"
+                        : "bg-slate-100 text-slate-400 group-hover:bg-sky-50 group-hover:text-sky-500"
                     }`}
                   >
                     <ChevronDown
@@ -143,7 +133,7 @@ export default function ReusableFAQ({
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="px-5 pb-6 pl-[85px] pr-7 sm:pb-7">
+                    <div className="px-5 pb-6 pl-21.25 pr-7 sm:pb-7">
                       <div className="h-px w-full bg-slate-100" />
 
                       <p className="pt-5 text-[15px] leading-7 text-slate-600 sm:text-base sm:leading-8">

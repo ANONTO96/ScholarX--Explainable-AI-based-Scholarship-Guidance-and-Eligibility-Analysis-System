@@ -203,7 +203,7 @@ const smallArticles = articlesToShow.slice(1);
           <div>
             {/* Badge */}
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm backdrop-blur-3xl">
               <Sparkles size={16} />
               ScholarX Knowledge Hub
             </div>
