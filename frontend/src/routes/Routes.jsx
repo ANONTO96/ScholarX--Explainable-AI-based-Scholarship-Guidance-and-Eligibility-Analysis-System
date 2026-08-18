@@ -18,6 +18,7 @@ import ScholarXAiFAQ from "../pages/ScholarXAiFAQ";
 import VisaFAQ from "../pages/VisaFAQ";
 import AccountBillingFAQ from "../pages/AccountBillingFAQ";
 import GeneralSupportFAQ from "../pages/GeneralSupportFAQ";
+import BookConsultation from "../pages/BookConsultation";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
        {path: "blog", Component: Blog},
        {path: "FAQ", Component: FAQ},
        {path: "support", Component: Support},
+       {path:"book-consultation", Component: BookConsultation},
        {path:"admissionsFAQ", Component: AdmissionsFAQ},
        {path:"scholarshipsFAQ", Component: ScholarshipsFAQ},
        {path:"scholarXaiFAQ", Component: ScholarXAiFAQ},

@@ -16,7 +16,7 @@ import {
   Mail,
   UserRound,
 } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const stats = [
   {
@@ -42,21 +42,26 @@ const actions = [
     desc: "Fastest way to reach us",
     icon: MessageCircleMore,
     color: "bg-green-500",
+    route: "https://wa.me/8801XXXXXXXXX",
+    type: "external",
   },
   {
     title: "Email Support",
     desc: "Detailed questions & documents",
     icon: Mail,
     color: "bg-blue-500",
+    route: "mailto:support@scholarx.com",
+    type: "external",
   },
   {
     title: "Book Consultation",
     desc: "Meet an education expert consultant",
     icon: CalendarCheck,
     color: "bg-violet-500",
+    route: "/book-consultation",
+    type: "internal",
   },
 ];
-
 
 const quickActions = [
   {
@@ -65,6 +70,8 @@ const quickActions = [
     icon: MessageCircleMore,
     color: "from-cyan-500 to-sky-600",
     borderColor: "hover:border-sky-100",
+    route: "https://wa.me/8801XXXXXXXXX",
+    type: "external",
   },
   {
     title: "Book Consultation",
@@ -72,6 +79,8 @@ const quickActions = [
     icon: CalendarCheck,
     color: "from-violet-500 to-purple-600",
     borderColor: "hover:border-purple-100",
+    route: "/book-consultation",
+    type: "internal",
   },
   {
     title: "Help Center",
@@ -79,6 +88,8 @@ const quickActions = [
     icon: BookOpen,
     color: "from-blue-500 to-indigo-600",
     borderColor: "hover:border-blue-100",
+    route: "/FAQ",
+    type: "internal",
   },
   {
     title: "Report an Issue",
@@ -86,6 +97,8 @@ const quickActions = [
     icon: Bug,
     color: "from-rose-500 to-red-600",
     borderColor: "hover:border-red-100",
+    route: "/report-issue",
+    type: "internal",
   },
 ];
 
@@ -147,6 +160,18 @@ const categoriesActions = [
 ];
 
 const Support = () => {
+
+  const navigate = useNavigate();
+
+// routing for support banner actions
+const handleActionClick = (action) => {
+  if (action.type === "internal") {
+    navigate(action.route);
+    return;
+  }
+
+  window.location.assign(action.route);
+};
   return (
     <section className="bg-linear-to-b from-slate-50 via-white to-white py-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -197,6 +222,7 @@ const Support = () => {
             return (
               <div
                 key={item.title}
+                onClick={() => handleActionClick(item)}
                 className={`group cursor-pointer rounded-3xl border border-slate-200 bg-white p-6 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl ${item.borderColor}`}
               >
 
@@ -214,7 +240,7 @@ const Support = () => {
                   {item.description}
                 </p>
 
-                <div className="mt-6 flex items-center gap-2 font-semibold text-blue-600">
+                <button className="mt-6 flex items-center gap-2 font-semibold text-blue-600">
 
                   Learn More
 
@@ -223,7 +249,7 @@ const Support = () => {
                     className="transition group-hover:translate-x-1"
                   />
 
-                </div>
+                </button>
 
               </div>
             );
@@ -365,6 +391,7 @@ group-hover:rotate-3 ${item.color}`}
 
                     <button
                       key={item.title}
+                      onClick={() => handleActionClick(item)}
                       className="group flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-5 text-left text-white backdrop-blur transition hover:bg-white/20"
                     >
 

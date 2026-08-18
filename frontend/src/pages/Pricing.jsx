@@ -732,7 +732,7 @@ group-hover:shadow-lg ${plan.featured
 </div>
 
                         <div className="flex flex-wrap justify-center gap-4">
-                            <NavLink to="/consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
+                            <NavLink to="/book-consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all

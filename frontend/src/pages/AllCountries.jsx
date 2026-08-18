@@ -14,7 +14,7 @@ import {
     Globe2,
 } from "lucide-react";
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { countries } from "../data/countries";
 
 const stats = [
@@ -36,24 +36,30 @@ const stats = [
 ];
 
 const actions = [
-    {
-        title: "Chat on WhatsApp",
-        desc: "Fastest way to reach us",
-        icon: MessageCircleMore,
-        color: "bg-green-500",
-    },
-    {
-        title: "Email Support",
-        desc: "Detailed questions & documents",
-        icon: Mail,
-        color: "bg-blue-500",
-    },
-    {
-        title: "Book Consultation",
-        desc: "Meet an education expert consultant",
-        icon: CalendarCheck,
-        color: "bg-violet-500",
-    },
+  {
+    title: "Chat on WhatsApp",
+    desc: "Fastest way to reach us",
+    icon: MessageCircleMore,
+    color: "bg-green-500",
+    route: "https://wa.me/8801XXXXXXXXX",
+    type: "external",
+  },
+  {
+    title: "Email Support",
+    desc: "Detailed questions & documents",
+    icon: Mail,
+    color: "bg-blue-500",
+    route: "mailto:support@scholarx.com",
+    type: "external",
+  },
+  {
+    title: "Book Consultation",
+    desc: "Meet an education expert consultant",
+    icon: CalendarCheck,
+    color: "bg-violet-500",
+    route: "/book-consultation",
+    type: "internal",
+  },
 ];
 
 export default function AllCountries() {
@@ -62,6 +68,18 @@ export default function AllCountries() {
     const filtered = countries.filter((country) =>
         country.name.toLowerCase().includes(search.toLowerCase())
     );
+
+    const navigate = useNavigate();
+
+// routing for support banner actions
+const handleActionClick = (action) => {
+  if (action.type === "internal") {
+    navigate(action.route);
+    return;
+  }
+
+  window.location.assign(action.route);
+};
 
     return (
         <section className="bg-gray-50">
@@ -481,6 +499,7 @@ export default function AllCountries() {
 
                                                 <button
                                                     key={item.title}
+                                                    onClick={() => handleActionClick(item)}
                                                     className="group flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-5 text-left text-white backdrop-blur transition hover:bg-white/20"
                                                 >
 
