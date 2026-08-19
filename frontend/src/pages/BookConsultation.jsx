@@ -210,21 +210,20 @@ export default function BookConsultation() {
             </section>
 
             {/* ========================================================= */}
-            {/* BENEFITS BAR */}
+            {/* FACTS / BENEFITS BAR */}
             {/* ========================================================= */}
 
-            <section className="border-b border-slate-200 bg-white">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+            <section className="relative z-30 -mt-14 xl:-mt-10  px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl">
+                    <div className="grid overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl sm:grid-cols-2 lg:grid-cols-4">
 
                         {benefits.map((benefit) => (
                             <div
                                 key={benefit}
-                                className="group flex items-center gap-4 px-5 py-7 transition-colors duration-300 hover:bg-slate-50 lg:px-7"
+                                className="group flex items-center gap-4 p-6 transition-colors duration-300 hover:bg-slate-50 lg:px-7"
                             >
-
                                 {/* Icon */}
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-all duration-300 group-hover:scale-105 group-hover:bg-indigo-50 group-hover:text-indigo-600">
+                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-all duration-300 group-hover:scale-105 group-hover:bg-indigo-50 group-hover:text-indigo-600">
                                     <Check
                                         size={18}
                                         strokeWidth={2.5}
@@ -624,7 +623,7 @@ export default function BookConsultation() {
                                 </div>
 
                                 {/* Need help */}
-                                <div className="mt-5 rounded-2xl border border-slate-200 bg-white hover:scale-101 hover:shadow-md hover:border hover:border-green-100 transition-all p-5">
+                                <div className="mt-5 rounded-2xl border border-slate-200 bg-white hover:shadow-md hover:border hover:border-green-100 transition-all p-5">
                                     <div className="group flex items-start gap-3">
                                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
                                             <MessageCircleMore size={19} />
@@ -641,10 +640,10 @@ export default function BookConsultation() {
 
                                             <a
                                                 href="https://wa.me/8801XXXXXXXXX"
-                                                className="mt-3 inline-flex items-center gap-1 group-hover:gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-700"
+                                                className="group mt-3 inline-flex items-center gap-1 group-hover:gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-700"
                                             >
                                                 Chat on WhatsApp
-                                                <ArrowRight size={14} />
+                                                <ArrowRight className="transition-transform group-hover:translate-x-1" size={14} />
                                             </a>
                                         </div>
                                     </div>
