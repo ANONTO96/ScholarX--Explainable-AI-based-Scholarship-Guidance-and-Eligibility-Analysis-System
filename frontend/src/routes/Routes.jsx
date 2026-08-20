@@ -19,6 +19,7 @@ import VisaFAQ from "../pages/VisaFAQ";
 import AccountBillingFAQ from "../pages/AccountBillingFAQ";
 import GeneralSupportFAQ from "../pages/GeneralSupportFAQ";
 import BookConsultation from "../pages/BookConsultation";
+import ReportIssue from "../pages/ReportIssues";
 
 
 export const router = createBrowserRouter([
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
        {path: "FAQ", Component: FAQ},
        {path: "support", Component: Support},
        {path:"book-consultation", Component: BookConsultation},
+       {path: "report-issue", Component: ReportIssue},
        {path:"admissionsFAQ", Component: AdmissionsFAQ},
        {path:"scholarshipsFAQ", Component: ScholarshipsFAQ},
        {path:"scholarXaiFAQ", Component: ScholarXAiFAQ},
