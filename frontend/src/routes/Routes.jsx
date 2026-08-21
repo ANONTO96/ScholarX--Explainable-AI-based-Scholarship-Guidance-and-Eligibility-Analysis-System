@@ -20,6 +20,9 @@ import AccountBillingFAQ from "../pages/AccountBillingFAQ";
 import GeneralSupportFAQ from "../pages/GeneralSupportFAQ";
 import BookConsultation from "../pages/BookConsultation";
 import ReportIssue from "../pages/ReportIssues";
+import LearnMoreAboutScholarshipSearch from "../components/LearnMoreAboutScholarshipSearch";
+import EligibilityAnalysis from "../pages/EligibilitiyAnalysis";
+import LearnMoreAboutEligibilityAnalysis from "../components/LearnMoreAboutEligibilityAnalysis";
 
 
 export const router = createBrowserRouter([
@@ -28,25 +31,28 @@ export const router = createBrowserRouter([
     Component: Root,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
-       { index: true, Component: Home },
-       {path: "features", Component: Features},
-       { path: "countries", Component: AllCountries},
-       {path: "/countries/:slug", Component: CountryDetails},
-       {path: "/programs", Component: AllPrograms},
-       {path: "/programDetails/:slug", Component: ProgramDetails},
-       {path: "pricing", Component: Pricing},
-       {path: "blog", Component: Blog},
-       {path: "FAQ", Component: FAQ},
-       {path: "support", Component: Support},
-       {path:"book-consultation", Component: BookConsultation},
-       {path: "report-issue", Component: ReportIssue},
-       {path:"admissionsFAQ", Component: AdmissionsFAQ},
-       {path:"scholarshipsFAQ", Component: ScholarshipsFAQ},
-       {path:"scholarXaiFAQ", Component: ScholarXAiFAQ},
-       {path:"studentVisaFAQ", Component: VisaFAQ},
-       {path:"account&BillingFAQ", Component: AccountBillingFAQ},
-       {path:"generalSupportFAQ", Component: GeneralSupportFAQ},
-       {path: "contact", Component: Contact},
+      { index: true, Component: Home },
+      { path: "/eligibility-analysis", Component: EligibilityAnalysis },
+      { path: "/learn-more-about-eligibility-analysis", Component: LearnMoreAboutEligibilityAnalysis },
+      { path: "/learn-more-about-scholarship-search", Component: LearnMoreAboutScholarshipSearch },
+      { path: "features", Component: Features },
+      { path: "countries", Component: AllCountries },
+      { path: "/countries/:slug", Component: CountryDetails },
+      { path: "/programs", Component: AllPrograms },
+      { path: "/programDetails/:slug", Component: ProgramDetails },
+      { path: "pricing", Component: Pricing },
+      { path: "blog", Component: Blog },
+      { path: "FAQ", Component: FAQ },
+      { path: "support", Component: Support },
+      { path: "book-consultation", Component: BookConsultation },
+      { path: "report-issue", Component: ReportIssue },
+      { path: "admissionsFAQ", Component: AdmissionsFAQ },
+      { path: "scholarshipsFAQ", Component: ScholarshipsFAQ },
+      { path: "scholarXaiFAQ", Component: ScholarXAiFAQ },
+      { path: "studentVisaFAQ", Component: VisaFAQ },
+      { path: "account&BillingFAQ", Component: AccountBillingFAQ },
+      { path: "generalSupportFAQ", Component: GeneralSupportFAQ },
+      { path: "contact", Component: Contact },
     ],
   },
 ]);
