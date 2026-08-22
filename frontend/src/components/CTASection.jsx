@@ -20,7 +20,7 @@ export default function CTASection() {
               Start
             </NavLink>
 
-            <NavLink to="/learn" className="px-3 py-1 sm:px-4 sm:py-2 rounded-xl bg-white border border-[#3A2C2C] shadow-[2px_3px_0px_0px_#3A2C2C] font-medium hover:translate-y-0.5 hover:shadow-[1px_2px_0px_0px_#3A2C2C] transition-all inline-flex items-center gap-2">
+            <NavLink to="/learn-more-about-scholarship-search" className="px-3 py-1 sm:px-4 sm:py-2 rounded-xl bg-white border border-[#3A2C2C] shadow-[2px_3px_0px_0px_#3A2C2C] font-medium hover:translate-y-0.5 hover:shadow-[1px_2px_0px_0px_#3A2C2C] transition-all inline-flex items-center gap-2">
               Learn More
               <ArrowRight size={16} />
             </NavLink>

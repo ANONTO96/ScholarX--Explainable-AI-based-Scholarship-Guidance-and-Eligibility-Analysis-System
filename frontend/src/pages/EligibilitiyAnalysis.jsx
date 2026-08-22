@@ -7,7 +7,6 @@ import {
     CircleAlert,
     GraduationCap,
     Globe2,
-    Search,
     Sparkles,
     Target,
     UserRoundCheck,
@@ -124,6 +123,78 @@ function evaluateRequirement(requirement, opportunity) {
             type: "pass",
             label: "Commonwealth nationality",
             detail: "Bangladesh",
+            weight: 3,
+        };
+    }
+
+    /* ----------------------------------------------------- */
+    /* ACHIEVEMENTS                                  */
+    /* ----------------------------------------------------- */
+
+    if (
+        req.includes("achievement") ||
+        req.includes("extracurricular")
+    ) {
+        const hasAchievements =
+            studentProfile.achievements &&
+            studentProfile.achievements.length > 0;
+
+        return {
+            type: hasAchievements ? "pass" : "review",
+
+            label: "Achievements / extracurricular profile",
+
+            detail: hasAchievements
+                ? `${studentProfile.achievements.length} achievement(s) listed`
+                : "No achievements currently listed",
+
+            weight: 2,
+        };
+    }
+
+    /* ----------------------------------------------------- */
+    /* RESEARCH EXPERIENCE                                  */
+    /* ----------------------------------------------------- */
+
+    if (
+        req.includes("research experience") ||
+        req.includes("research background")
+    ) {
+        return {
+            type: studentProfile.researchExperience
+                ? "pass"
+                : "review",
+
+            label: "Research experience",
+
+            detail: studentProfile.researchExperience
+                ? "Research experience listed in profile"
+                : "No research experience currently listed",
+
+            weight: 3,
+        };
+    }
+
+    /* ----------------------------------------------------- */
+    /* STUDY DESTINATION                                  */
+    /* ----------------------------------------------------- */
+
+    if (
+        req.includes("study in australia") ||
+        req.includes("australia")
+    ) {
+        const matched =
+            normalize(studentProfile.studyDestination) === "australia";
+
+        return {
+            type: matched ? "pass" : "review",
+
+            label: "Study destination",
+
+            detail: matched
+                ? `Student plans to study in ${studentProfile.studyDestination}`
+                : `Student plans to study in ${studentProfile.studyDestination}`,
+
             weight: 3,
         };
     }
@@ -505,71 +576,109 @@ function evaluateRequirement(requirement, opportunity) {
 function analyzeOpportunity(opportunity) {
     const requirements = opportunity.eligibility || [];
 
+    /* ----------------------------------------------------- */
+    /* EVALUATE REQUIREMENTS                                 */
+    /* ----------------------------------------------------- */
+
     const results = requirements.map((requirement) => ({
         requirement,
         ...evaluateRequirement(requirement, opportunity),
     }));
 
-    const totalWeight = results.reduce(
-        (sum, item) => sum + item.weight,
-        0
-    );
+    /* ----------------------------------------------------- */
+    /* GROUP RESULTS                                         */
+    /* ----------------------------------------------------- */
 
-    const passedWeight = results
-        .filter((item) => item.type === "pass")
-        .reduce((sum, item) => sum + item.weight, 0);
-
-    const failedRequirements = results.filter(
-        (item) => item.type === "fail"
+    const passedRequirements = results.filter(
+        (item) => item.type === "pass"
     );
 
     const reviewRequirements = results.filter(
         (item) => item.type === "review"
     );
 
-    const score =
-        totalWeight === 0
-            ? 100
-            : Math.round((passedWeight / totalWeight) * 100);
+    const failedRequirements = results.filter(
+        (item) => item.type === "fail"
+    );
 
+    /* ----------------------------------------------------- */
+    /* WEIGHTED SCORE                                        */
     /*
-        Classification:
+     * Passed  = 100% of requirement weight
+     * Review  = 50% of requirement weight
+     * Failed  = 0%
+     */
+    /* ----------------------------------------------------- */
 
-        Strong Fit:
-        - No failed requirements
-        - Most requirements passed
-        - Score >= 75
+    const totalWeight = results.reduce(
+        (sum, item) => sum + item.weight,
+        0
+    );
 
-        Review:
-        - No hard failure OR limited uncertainty
-        - Some requirements need verification
+    const passedWeight = passedRequirements.reduce(
+        (sum, item) => sum + item.weight,
+        0
+    );
 
-        Not Eligible:
-        - At least one hard requirement clearly failed
-    */
+    const reviewWeight = reviewRequirements.reduce(
+        (sum, item) => sum + item.weight,
+        0
+    );
 
-    let status = "review";
+    const score =
+        totalWeight > 0
+            ? Math.round(
+                  ((passedWeight + reviewWeight * 0.5) /
+                      totalWeight) *
+                      100
+              )
+            : 0;
+
+    /* ----------------------------------------------------- */
+    /* STATUS LOGIC                                          */
+    /*
+     * Any failed requirement = Not Eligible
+     *
+     * 75–100% = Strong Fit
+     * 40–74%  = Review
+     * Below 40% = Not Eligible
+     */
+    /* ----------------------------------------------------- */
+
+    let status;
 
     if (failedRequirements.length > 0) {
         status = "not-eligible";
-    } else if (
-        score >= 75 &&
-        reviewRequirements.length === 0
-    ) {
+    } else if (score >= 75) {
         status = "strong";
+    } else if (score >= 40) {
+        status = "review";
+    } else {
+        status = "not-eligible";
     }
+
+    /* ----------------------------------------------------- */
+    /* RETURN ANALYSIS                                       */
+    /* ----------------------------------------------------- */
 
     return {
         ...opportunity,
+
         analysis: {
             score,
             status,
+
             requirements: results,
-            passedCount: results.filter(
-                (item) => item.type === "pass"
-            ).length,
+
+            passedRequirements,
+            reviewRequirements,
+            failedRequirements,
+
+            passedCount: passedRequirements.length,
             reviewCount: reviewRequirements.length,
             failedCount: failedRequirements.length,
+
+            totalRequirements: results.length,
         },
     };
 }
@@ -628,11 +737,11 @@ function OpportunityCard({ opportunity }) {
     return (
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all hover:border-indigo-200 hover:shadow-xl">
             {/* Main card */}
-            <div className="p-6 sm:p-7">
+            <div className="p-6 sm:p-7 group">
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                     {/* Opportunity info */}
                     <div className="flex gap-4">
-                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 group-hover:text-white group-hover:bg-indigo-600">
                             <Award size={26} />
                         </div>
 
@@ -748,9 +857,8 @@ function OpportunityCard({ opportunity }) {
 
                     <ChevronDown
                         size={18}
-                        className={`transition-transform ${
-                            open ? "rotate-180" : ""
-                        }`}
+                        className={`transition-transform ${open ? "rotate-180" : ""
+                            }`}
                     />
                 </button>
             </div>
@@ -784,13 +892,12 @@ function OpportunityCard({ opportunity }) {
                                     >
                                         <div className="flex gap-3">
                                             <div
-                                                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                                                    passed
-                                                        ? "bg-emerald-50 text-emerald-600"
-                                                        : failed
+                                                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${passed
+                                                    ? "bg-emerald-50 text-emerald-600"
+                                                    : failed
                                                         ? "bg-rose-50 text-rose-600"
                                                         : "bg-amber-50 text-amber-600"
-                                                }`}
+                                                    }`}
                                             >
                                                 {passed ? (
                                                     <CheckCircle2
@@ -812,19 +919,18 @@ function OpportunityCard({ opportunity }) {
                                                     </p>
 
                                                     <span
-                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                                                            passed
-                                                                ? "bg-emerald-50 text-emerald-600"
-                                                                : failed
+                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${passed
+                                                            ? "bg-emerald-50 text-emerald-600"
+                                                            : failed
                                                                 ? "bg-rose-50 text-rose-600"
                                                                 : "bg-amber-50 text-amber-600"
-                                                        }`}
+                                                            }`}
                                                     >
                                                         {passed
                                                             ? "Passed"
                                                             : failed
-                                                            ? "Not met"
-                                                            : "Review"}
+                                                                ? "Not met"
+                                                                : "Review"}
                                                     </span>
                                                 </div>
 
@@ -942,7 +1048,7 @@ export default function EligibilityAnalysis() {
                     />
                 </div>
 
-                <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-24">
+                <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
                     <div className="mx-auto max-w-4xl text-center">
                         <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm">
                             <Target size={16} />
@@ -973,15 +1079,15 @@ export default function EligibilityAnalysis() {
             <section className="relative z-20 mx-auto -mt-10 max-w-6xl px-6">
                 <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
                     <div className="grid lg:grid-cols-[1fr_auto]">
-                        <div className="p-6 sm:p-7">
+                        <div className="p-6 sm:p-7 group">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 group-hover:text-white group-hover:bg-indigo-600">
                                     <UserRoundCheck size={22} />
                                 </div>
 
                                 <div>
                                     <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                                        Analyzing profile
+                                        Your Academic profile
                                     </p>
 
                                     <h2 className="text-xl font-black">
@@ -1002,7 +1108,7 @@ export default function EligibilityAnalysis() {
                                 ].map((item) => (
                                     <span
                                         key={item}
-                                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600"
+                                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 transition-all"
                                     >
                                         {item}
                                     </span>
@@ -1033,11 +1139,10 @@ export default function EligibilityAnalysis() {
                     {/* Strong */}
                     <button
                         onClick={() => setActiveFilter("strong")}
-                        className={`rounded-2xl border p-5 text-left transition-all ${
-                            activeFilter === "strong"
-                                ? "border-emerald-300 bg-emerald-50 shadow-lg"
-                                : "border-slate-200 bg-white hover:border-emerald-200 hover:shadow-lg"
-                        }`}
+                        className={`rounded-2xl border p-5 text-left transition-all ${activeFilter === "strong"
+                            ? "border-emerald-300 bg-emerald-50 shadow-lg"
+                            : "border-slate-200 bg-white hover:border-emerald-200 hover:shadow-lg"
+                            }`}
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
@@ -1061,11 +1166,10 @@ export default function EligibilityAnalysis() {
                     {/* Review */}
                     <button
                         onClick={() => setActiveFilter("review")}
-                        className={`rounded-2xl border p-5 text-left transition-all ${
-                            activeFilter === "review"
-                                ? "border-amber-300 bg-amber-50 shadow-lg"
-                                : "border-slate-200 bg-white hover:border-amber-200 hover:shadow-lg"
-                        }`}
+                        className={`rounded-2xl border p-5 text-left transition-all ${activeFilter === "review"
+                            ? "border-amber-300 bg-amber-50 shadow-lg"
+                            : "border-slate-200 bg-white hover:border-amber-200 hover:shadow-lg"
+                            }`}
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
@@ -1091,11 +1195,10 @@ export default function EligibilityAnalysis() {
                         onClick={() =>
                             setActiveFilter("not-eligible")
                         }
-                        className={`rounded-2xl border p-5 text-left transition-all ${
-                            activeFilter === "not-eligible"
-                                ? "border-rose-300 bg-rose-50 shadow-lg"
-                                : "border-slate-200 bg-white hover:border-rose-200 hover:shadow-lg"
-                        }`}
+                        className={`rounded-2xl border p-5 text-left transition-all ${activeFilter === "not-eligible"
+                            ? "border-rose-300 bg-rose-50 shadow-lg"
+                            : "border-slate-200 bg-white hover:border-rose-200 hover:shadow-lg"
+                            }`}
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
@@ -1147,13 +1250,12 @@ export default function EligibilityAnalysis() {
 
                     <button
                         onClick={() => setActiveFilter("all")}
-                        className={`inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-bold transition ${
-                            activeFilter === "all"
-                                ? "border-indigo-200 bg-indigo-50 text-indigo-600"
-                                : "border-slate-200 bg-white text-slate-600 hover:border-indigo-200"
-                        }`}
+                        className={`inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-bold transition ${activeFilter === "all"
+                            ? "border-indigo-200 bg-indigo-50 text-indigo-600"
+                            : "border-slate-200 bg-white text-slate-600 hover:border-indigo-200"
+                            }`}
                     >
-                        <Search size={16} />
+                        <Award size={16} />
                         All opportunities
                     </button>
                 </div>

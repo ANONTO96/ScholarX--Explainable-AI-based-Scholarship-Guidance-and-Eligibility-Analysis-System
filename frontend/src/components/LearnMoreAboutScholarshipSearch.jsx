@@ -156,7 +156,7 @@ export default function LearnMoreAboutScholarshipSearch() {
                     <GraduationCap size={80} strokeWidth={1.2} />
                 </div>
 
-                <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
+                <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
                     <div className="mx-auto max-w-4xl text-center">
                         {/* Badge */}
                         <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm backdrop-blur-3xl">

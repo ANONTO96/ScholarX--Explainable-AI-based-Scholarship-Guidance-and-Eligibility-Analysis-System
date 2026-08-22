@@ -9,6 +9,7 @@ import {
   ChevronUp,
   CalendarCheck,
   MessageSquareText,
+  BadgeDollarSign,
 } from "lucide-react";
 import { NavLink } from "react-router";
 import { useState } from "react";
@@ -280,9 +281,10 @@ export default function Pricing() {
 
         <div className="mx-auto max-w-3xl text-center">
 
-          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm backdrop-blur-3xl">
 
-            💎 Pricing Plans
+            <BadgeDollarSign size={16} />
+            Pricing Plans
 
           </span>
 
@@ -302,19 +304,19 @@ export default function Pricing() {
 
           <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
 
-            <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow">
+            <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow-md">
 
               ✔ One-Time Payment
 
             </div>
 
-            <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow">
+            <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow-md">
 
               ✔ No Subscription
 
             </div>
 
-            <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow">
+            <div className="rounded-full hover:scale-101 hover:-translate-y-1 hover:shadow-2xl transition-all bg-white px-4 py-2 shadow-md">
 
               ✔ Instant AI Access
 
