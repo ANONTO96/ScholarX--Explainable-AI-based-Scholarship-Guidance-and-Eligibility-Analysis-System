@@ -70,7 +70,7 @@ const CountryDetails = () => {
 
                         <div className="mt-8 flex flex-wrap gap-3">
                             <NavLink
-                                to="/eligibility"
+                                to="/eligibility-analysis"
                                 className="rounded-xl bg-blue-600 px-6 py-3 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-2"
                             >
                                 Check My Eligibility

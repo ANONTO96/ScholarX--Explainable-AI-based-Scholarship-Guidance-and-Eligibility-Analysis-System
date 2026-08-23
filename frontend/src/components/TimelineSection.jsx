@@ -108,7 +108,7 @@ const card = timelineCards[current];
               </NavLink>
 
               <NavLink
-                to="/learn-more-about-timeline-section"
+                to="/learn-more-about-whole-process"
                 className="group flex items-center gap-2 font-semibold text-gray-900 hover:text-blue-500 transition"
               >
                 Learn More

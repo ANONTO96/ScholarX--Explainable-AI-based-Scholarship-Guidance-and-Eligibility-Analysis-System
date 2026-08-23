@@ -20,9 +20,10 @@ import AccountBillingFAQ from "../pages/AccountBillingFAQ";
 import GeneralSupportFAQ from "../pages/GeneralSupportFAQ";
 import BookConsultation from "../pages/BookConsultation";
 import ReportIssue from "../pages/ReportIssues";
-import LearnMoreAboutScholarshipSearch from "../components/LearnMoreAboutScholarshipSearch";
+import LearnMoreAboutScholarshipSearch from "../pages/LearnMoreAboutScholarshipSearch";
 import EligibilityAnalysis from "../pages/EligibilitiyAnalysis";
-import LearnMoreAboutEligibilityAnalysis from "../components/LearnMoreAboutEligibilityAnalysis";
+import LearnMoreAboutEligibilityAnalysis from "../pages/LearnMoreAboutEligibilityAnalysis";
+import LearnMoreAboutWholeProcess from "../pages/LearnMoreAboutWholeProcess";
 
 
 export const router = createBrowserRouter([
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "/eligibility-analysis", Component: EligibilityAnalysis },
       { path: "/learn-more-about-eligibility-analysis", Component: LearnMoreAboutEligibilityAnalysis },
       { path: "/learn-more-about-scholarship-search", Component: LearnMoreAboutScholarshipSearch },
+      { path: "/learn-more-about-whole-process", Component: LearnMoreAboutWholeProcess },
       { path: "features", Component: Features },
       { path: "countries", Component: AllCountries },
       { path: "/countries/:slug", Component: CountryDetails },
