@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
       { path: "features", Component: Features },
       { path: "countries", Component: AllCountries },
       { path: "/countries/:slug", Component: CountryDetails },
-      { path: "/programs", Component: AllPrograms },
+      { path: "programs", Component: AllPrograms },
       { path: "/programDetails/:slug", Component: ProgramDetails },
       { path: "pricing", Component: Pricing },
       { path: "blog", Component: Blog },

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
+
 const consultationTypes = [
     {
         id: "study",
@@ -623,36 +624,48 @@ export default function BookConsultation() {
                                 </div>
 
                                 {/* Need help */}
-                                <div className="mt-5 rounded-2xl border border-slate-200 bg-white hover:shadow-md hover:border hover:border-green-100 transition-all p-5">
-                                    <div className="group flex items-start gap-3">
-                                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
-                                            <MessageCircleMore size={19} />
-                                        </div>
+<div className="group relative mt-5 overflow-hidden rounded-2xl bg-slate-950 px-6 py-10 sm:px-10 lg:py-12 shadow-sm transition-all duration-300 hover:shadow-lg">
+    {/* Decorative glows */}
+    <div className="pointer-events-none absolute -right-12 -top-16 h-32 w-32 rounded-full bg-sky-500/20 blur-2xl transition-all duration-500 group-hover:bg-sky-500/30" />
 
-                                        <div>
-                                            <p className="font-bold text-slate-900">
-                                                Need help choosing?
-                                            </p>
+    <div className="pointer-events-none absolute -bottom-16 left-8 h-32 w-32 rounded-full bg-indigo-600/20 blur-2xl" />
 
-                                            <p className="mt-1 text-sm leading-5 text-slate-500">
-                                                Chat with our support team before booking.
-                                            </p>
+    {/* Content */}
+    <div className="relative flex items-start gap-3.5">
+        {/* Icon */}
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500/10 text-sky-300 ring-1 ring-sky-400/10">
+            <MessageCircleMore size={19} />
+        </div>
 
-                                            <a
-                                                href="https://wa.me/8801XXXXXXXXX"
-                                                className="group mt-3 inline-flex items-center gap-1 group-hover:gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-700"
-                                            >
-                                                Chat on WhatsApp
-                                                <ArrowRight className="transition-transform group-hover:translate-x-1" size={14} />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+        <div className="min-w-0">
+            <p className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+                Need help choosing?
+            </p>
+
+            <p className="mt-1 text-sm leading-5 text-slate-400">
+                Chat with our support team before booking.
+            </p>
+
+            <a
+                href="https://wa.me/8801XXXXXXXXX"
+                className="group/link mt-3 inline-flex items-center gap-1 text-sm font-bold text-sky-300 transition-all hover:gap-2 hover:text-sky-200"
+            >
+                Chat on WhatsApp
+
+                <ArrowRight
+                    size={14}
+                    className="transition-transform duration-200 group-hover/link:translate-x-1"
+                />
+            </a>
+        </div>
+    </div>
+</div>
                             </aside>
                         </div>
                     </form>
                 </div>
             </section>
+
         </main>
     );
 }

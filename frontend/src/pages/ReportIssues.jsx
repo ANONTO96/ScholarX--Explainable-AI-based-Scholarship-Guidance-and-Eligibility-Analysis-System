@@ -802,38 +802,42 @@ export default function ReportIssue() {
             {/* ========================================================= */}
 
             <section className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
-                <div className="relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 sm:px-10">
-                    <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
+    <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 via-indigo-600 to-sky-600 px-6 py-10 sm:px-10">
+        {/* Sky + Indigo glow */}
+        <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-sky-500/20 blur-3xl" />
 
-                    <div className="absolute -bottom-24 left-20 h-64 w-64 rounded-full bg-purple-600/20 blur-3xl" />
+        <div className="absolute -bottom-24 left-20 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
 
-                    <div className="relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-                        <div>
-                            <div className="mb-3 flex items-center gap-2 text-sm font-bold text-indigo-300">
-                                <Headphones className="h-4 w-4" />
-                                Need more help?
-                            </div>
+        {/* Subtle center glow */}
+        <div className="absolute right-1/3 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full bg-blue-500/10 blur-3xl" />
 
-                            <h2 className="text-2xl font-black text-white sm:text-3xl">
-                                Can't find what you're looking for?
-                            </h2>
-
-                            <p className="mt-2 max-w-xl text-sm leading-6 text-slate-400">
-                                Our support team is ready to help you with
-                                anything related to your ScholarX journey.
-                            </p>
-                        </div>
-
-                        <NavLink
-                            to="/book-consultation"
-                            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-bold text-slate-900 transition-all hover:bg-base-200 hover:scale-104"
-                        >
-                            Book Consultation
-                            <ChevronRight className="h-4 w-4" />
-                        </NavLink>
-                    </div>
+        <div className="relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+            <div>
+                <div className="mb-3 flex items-center gap-2 text-sm font-bold text-blue-300">
+                    <Headphones className="h-4 w-4" />
+                    Need more help?
                 </div>
-            </section>
+
+                <h2 className="text-2xl font-black text-white sm:text-3xl">
+                    Can't find what you're looking for?
+                </h2>
+
+                <p className="mt-2 max-w-xl text-sm leading-6 text-slate-400">
+                    Our support team is ready to help you with
+                    anything related to your ScholarX journey.
+                </p>
+            </div>
+
+            <NavLink
+                to="/book-consultation"
+                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-bold text-slate-900 transition-all hover:scale-104 hover:bg-base-200"
+            >
+                Book Consultation
+                <ChevronRight className="h-4 w-4" />
+            </NavLink>
+        </div>
+    </div>
+</section>
         </main>
     );
 }

@@ -16,14 +16,14 @@ const Footer = () => {
   <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
     <nav className="flex flex-col gap-3">
     <h6 className="footer-title opacity-80">Platform</h6>
-    <NavLink className="link link-hover text-gray-500">Home</NavLink>
-    <NavLink className="link link-hover text-gray-500">Features</NavLink>
-    <NavLink className="link link-hover text-gray-500">Countries</NavLink>
-    <NavLink className="link link-hover text-gray-500">Courses</NavLink>
-    <NavLink className="link link-hover text-gray-500">Pricing</NavLink>
-    <NavLink className="link link-hover text-gray-500">About us</NavLink>
-    <NavLink className="link link-hover text-gray-500">Privacy Policy</NavLink>
-    <NavLink className="link link-hover text-gray-500">Terms of Service</NavLink>
+    <NavLink to="/" className="link link-hover text-gray-500">Home</NavLink>
+    <NavLink to="features" className="link link-hover text-gray-500">Features</NavLink>
+    <NavLink to="countries" className="link link-hover text-gray-500">Countries</NavLink>
+    <NavLink to="programs" className="link link-hover text-gray-500">Courses</NavLink>
+    <NavLink to="pricing" className="link link-hover text-gray-500">Pricing</NavLink>
+    <NavLink to="about-us" className="link link-hover text-gray-500">About us</NavLink>
+    <NavLink to="privacy-policy" className="link link-hover text-gray-500">Privacy Policy</NavLink>
+    <NavLink to="terms-of-service" className="link link-hover text-gray-500">Terms of Service</NavLink>
   </nav>
   <nav className="flex flex-col gap-3">
     <h6 className="footer-title opacity-80">Services</h6>
@@ -37,10 +37,10 @@ const Footer = () => {
   </nav>
   <nav className="flex flex-col gap-3">
     <h6 className="footer-title opacity-80">Resources</h6>
-    <NavLink className="link link-hover text-gray-500">Blog</NavLink>
-    <NavLink className="link link-hover text-gray-500">FAQ</NavLink>
-    <NavLink className="link link-hover text-gray-500">Support</NavLink>
-    <NavLink className="link link-hover text-gray-500">Contact</NavLink>
+    <NavLink to="blog" className="link link-hover text-gray-500">Blog</NavLink>
+    <NavLink to="FAQ" className="link link-hover text-gray-500">FAQ</NavLink>
+    <NavLink to="support" className="link link-hover text-gray-500">Support</NavLink>
+    <NavLink to="contact" className="link link-hover text-gray-500">Contact</NavLink>
   </nav>
   <form>
     <h6 className="footer-title opacity-80">Subscribe</h6>
@@ -72,19 +72,19 @@ provide consent to receive updates from our company.
 <div className="footer place-items-center sm:place-items-start sm:footer-horizontal text-base-content items-center w-[98%] mx-auto pt-6 pb-6 sm:pb-10">
     <aside className="grid-flow-col items-center">
     <img className="w-10 h-10" src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000" alt="logo" />
-    <p className="text-gray-600">Copyright © {new Date().getFullYear()} -ScholarX. All rights reserved.</p>
+    <p className="text-gray-600">Copyright © {new Date().getFullYear()} - <span className="bg-linear-to-r from-blue-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent">ScholarX</span>. All rights reserved.</p>
   </aside>
   <nav className="grid-flow-col gap-2 place-self-center md:justify-self-end">
-    <a>
+    <a className="shadow-md hover:-translate-y-0.5 hover:shadow-xl transition-all">
       <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=59780&format=png&color=000000" alt="Facebook" />
     </a>
-    <a>
+    <a className="shadow-md hover:-translate-y-0.5 hover:shadow-xl transition-all">
       <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=59813&format=png&color=000000" alt="Instagram" />
     </a>
-    <a>
+    <a className="shadow-md hover:-translate-y-0.5 hover:shadow-xl transition-all">
         <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=01GWmP9aUoPj&format=png&color=000000" alt="Twitter" />
     </a>
-    <a>
+    <a className="shadow-md hover:-translate-y-0.5 hover:shadow-xl transition-all">
         <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=98960&format=png&color=000000" alt="LinkedIn" />
     </a>
   </nav>

@@ -42,7 +42,7 @@ const Hero = () => {
         className="absolute z-10 right-[45%] top-20 rotate-12 text-blue-200"
         size={55}
       />
-        <div className="relative z-20 flex flex-col gap-5 items-start justify-center w-[96%] max-w-210 text-center mx-auto px-5 sm:px-10 lg:px-20">
+        <div className="relative z-20 lg:z-0 flex flex-col gap-5 items-start justify-center w-[96%] max-w-210 text-center mx-auto px-5 sm:px-10 lg:px-20">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold">Find the scholarship that fits your future</h1>
             <p className="text-gray-600">We aggregate global opportunities from Erasmus+ to DAAD and analyze your profile against them. Then we build your personal roadmap to a funded education.</p>
             <div className="flex gap-2 sm:gap-5 items-center justify-center w-full">
