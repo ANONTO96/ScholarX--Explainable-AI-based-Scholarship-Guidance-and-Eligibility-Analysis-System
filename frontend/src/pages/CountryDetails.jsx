@@ -71,14 +71,14 @@ const CountryDetails = () => {
                         <div className="mt-8 flex flex-wrap gap-3">
                             <NavLink
                                 to="/eligibility-analysis"
-                                className="rounded-xl bg-blue-600 px-6 py-3 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-2"
+                                className="rounded-xl bg-blue-600 px-6 py-3.5 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-1"
                             >
                                 Check My Eligibility
                             </NavLink>
 
                             <a
                                 href="#universities"
-                                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-2"
+                                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
                             >
                                 Explore Universities
                             </a>

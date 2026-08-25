@@ -116,7 +116,7 @@ const ProgramDetails = () => {
                                 {program.degrees.map((degree) => (
                                     <span
                                         key={degree}
-                                        className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur  hover:bg-white/20 transition-all duration-300 hover:-translate-y-2"
+                                        className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur  hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
                                     >
                                         {degree}
                                     </span>
@@ -129,13 +129,13 @@ const ProgramDetails = () => {
 
                                 <NavLink
                                     to="/eligibility-analysis"
-                                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-2"
+                                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-1"
                                 >
                                     <BadgeCheck size={18} />
                                     Check My Eligibility
                                 </NavLink>
 
-                                <NavLink to="/programs" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+                                <NavLink to="programs" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all

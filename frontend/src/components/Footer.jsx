@@ -27,13 +27,13 @@ const Footer = () => {
   </nav>
   <nav className="flex flex-col gap-3">
     <h6 className="footer-title opacity-80">Services</h6>
-    <NavLink className="link link-hover text-gray-500">University Admissions</NavLink>
-    <NavLink className="link link-hover text-gray-500">Study Abroad Counseling</NavLink>
-    <NavLink className="link link-hover text-gray-500">Scholarship Assistance</NavLink>
-    <NavLink className="link link-hover text-gray-500">Digital AI Tools</NavLink>
-    <NavLink className="link link-hover text-gray-500">Visa Assistance</NavLink>
-    <NavLink className="link link-hover text-gray-500">SOP, LOR & CV Services</NavLink>
-    <NavLink className="link link-hover text-gray-500">Pre-Departure Services</NavLink>
+    <p className="link link-hover text-gray-500">University Admissions</p>
+    <p className="link link-hover text-gray-500">Study Abroad Counseling</p>
+    <p className="link link-hover text-gray-500">Scholarship Assistance</p>
+    <p className="link link-hover text-gray-500">Digital AI Tools</p>
+    <p className="link link-hover text-gray-500">Visa Assistance</p>
+    <p className="link link-hover text-gray-500">SOP, LOR & CV Services</p>
+    <p className="link link-hover text-gray-500">Pre-Departure Services</p>
   </nav>
   <nav className="flex flex-col gap-3">
     <h6 className="footer-title opacity-80">Resources</h6>

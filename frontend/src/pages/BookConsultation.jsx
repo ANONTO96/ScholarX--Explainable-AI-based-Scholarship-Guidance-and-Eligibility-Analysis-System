@@ -101,17 +101,22 @@ export default function BookConsultation() {
             {/* ========================================================= */}
 
             <section className="relative overflow-hidden bg-slate-950">
-                {/* Decorative background */}
-                <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
+                {/* Background decoration */}
+<div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
 
-                <div className="absolute -bottom-40 right-0 h-125 w-125 rounded-full bg-violet-600/20 blur-3xl" />
+<div className="absolute -bottom-48 -right-32 h-125 w-125 rounded-full bg-sky-600/20 blur-3xl" />
+
+<div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.18),transparent_34%),radial-gradient(circle_at_80%_75%,rgba(14,165,233,0.14),transparent_32%)]" />
+
+{/* Subtle center glow */}
+<div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-3xl" />
 
                 <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
                     <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
                         {/* Hero content */}
                         <div>
-                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-indigo-300 backdrop-blur">
-                                <CalendarCheck size={16} />
+                            <div className="mb-6 inline-flex items-center gap-2 rounded-full text-slate-300 border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold backdrop-blur">
+                                <CalendarCheck className="text-sky-400" size={16} />
                                 <span>Book a Consultation</span>
                             </div>
 

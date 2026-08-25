@@ -149,15 +149,21 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="relative overflow-hidden bg-slate-950">
-        {/* Decorative background */}
-        <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
-        <div className="absolute -bottom-40 right-0 h-125 w-125 rounded-full bg-blue-600/10 blur-3xl" />
+        {/* Background decoration */}
+<div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
+
+<div className="absolute -bottom-48 -right-32 h-125 w-125 rounded-full bg-sky-600/20 blur-3xl" />
+
+<div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.18),transparent_34%),radial-gradient(circle_at_80%_75%,rgba(14,165,233,0.14),transparent_32%)]" />
+
+{/* Subtle center glow */}
+<div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
           <div className="max-w-4xl">
             {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-indigo-300">
-              <Sparkles className="h-4 w-4" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-slate-300">
+              <Sparkles className="h-4 w-4 text-sky-400" />
               How ScholarX Works
             </div>
 
@@ -176,7 +182,7 @@ const LearnMoreAboutWholeProcess = () => {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <NavLink
                 to="/eligibility-analysis"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-2 hover:bg-indigo-500"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-500"
               >
                 Start Planning
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -184,7 +190,7 @@ const LearnMoreAboutWholeProcess = () => {
 
               <a
                 href="#process"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900/50 px-6 py-3.5 font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-2 hover:border-slate-600 hover:bg-slate-800"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900/50 px-6 py-3.5 font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-slate-600 hover:bg-slate-800"
               >
                 Explore the Process
               </a>
