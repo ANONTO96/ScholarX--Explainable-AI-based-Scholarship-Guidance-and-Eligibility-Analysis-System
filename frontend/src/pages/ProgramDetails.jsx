@@ -129,20 +129,17 @@ const ProgramDetails = () => {
 
                                 <NavLink
                                     to="/eligibility-analysis"
-                                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-1"
+                                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500"
                                 >
                                     <BadgeCheck size={18} />
                                     Check My Eligibility
+                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                                 </NavLink>
 
-                                <NavLink to="programs" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 hover:-translate-y-1
-hover:shadow-xl
-active:translate-y-0
-transition-all
-duration-300">
+                                <NavLink to="/programs" className="group inline-flex items-center gap-2 rounded-xl text-white border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
                                 <span className="flex items-center gap-2">
                                     Explore More Programs
-                                    <ArrowRight size={18} />
+                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" size={18} />
                                 </span>
                             </NavLink>
 

@@ -1317,7 +1317,7 @@ export default function EligibilityAnalysis() {
             {/* CTA                                                        */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-12 sm:px-8 bg-white">
+            <section className="mx-auto max-w-7xl px-6 pb-12 sm:px-8 bg-white">
                 <div className="relative overflow-hidden rounded-3xl bg-slate-950">
                     <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
 

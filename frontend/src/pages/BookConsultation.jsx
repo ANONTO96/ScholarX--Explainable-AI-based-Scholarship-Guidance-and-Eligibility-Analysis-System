@@ -653,6 +653,8 @@ export default function BookConsultation() {
 
             <a
                 href="https://wa.me/8801XXXXXXXXX"
+                target="_blank"
+  rel="noopener noreferrer"
                 className="group/link mt-3 inline-flex items-center gap-1 text-sm font-bold text-sky-300 transition-all hover:gap-2 hover:text-sky-200"
             >
                 Chat on WhatsApp

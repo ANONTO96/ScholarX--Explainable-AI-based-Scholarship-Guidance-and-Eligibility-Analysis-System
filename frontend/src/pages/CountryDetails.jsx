@@ -1,6 +1,6 @@
 import { useParams, NavLink } from "react-router";
 import { countries } from "../data/countries";
-import { ArrowRight, BadgeCheck, BadgeDollarSign, BookOpen, BriefcaseBusiness, Building2, CalendarCheck, CircleAlert, CircleCheckBig, FileCheck2, Files, GraduationCap, House, Info, Languages, MapPin, ShieldCheck, Sparkles, Stamp, TrendingUp, University, WalletCards } from "lucide-react";
+import { ArrowRight, BadgeCheck, BadgeDollarSign, BookOpen, BriefcaseBusiness, Building2, CalendarCheck, ChevronRight, CircleAlert, CircleCheckBig, FileCheck2, Files, GraduationCap, House, Info, Languages, MapPin, ShieldCheck, Sparkles, Stamp, TrendingUp, University, WalletCards } from "lucide-react";
 
 const CountryDetails = () => {
     const { slug } = useParams();
@@ -52,7 +52,7 @@ const CountryDetails = () => {
                 <div className="relative mx-auto max-w-7xl px-6 py-20 lg:py-25">
                     <div className="max-w-3xl text-white">
 
-                        <span className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-md">
+                        <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-md">
                             Study Abroad Destination
                         </span>
 
@@ -71,16 +71,18 @@ const CountryDetails = () => {
                         <div className="mt-8 flex flex-wrap gap-3">
                             <NavLink
                                 to="/eligibility-analysis"
-                                className="rounded-xl bg-blue-600 px-6 py-3.5 font-semibold hover:bg-blue-700 transition-all duration-300 hover:-translate-y-1"
-                            >
+                                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500"
+                            ><BadgeCheck size={18} />
                                 Check My Eligibility
+                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                             </NavLink>
 
                             <a
                                 href="#universities"
-                                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
+                                className="group inline-flex items-center gap-2 rounded-xl text-white border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
                             >
                                 Explore Universities
+                                <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                             </a>
                         </div>
 

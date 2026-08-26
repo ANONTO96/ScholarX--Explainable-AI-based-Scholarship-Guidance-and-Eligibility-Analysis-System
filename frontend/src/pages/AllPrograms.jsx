@@ -6,10 +6,13 @@ import opportunities from "../data/opportunities.json";
 import ProgramCard from "../components/ReusableComp/discover/ProgramCard";
 import UniversityCard from "../components/ReusableComp/discover/UniversityCard";
 import OpportunityCard from "../components/ReusableComp/discover/OpportunityCard";
-import { NavLink } from "react-router";
+import { NavLink, useParams } from "react-router";
+
 
 const AllPrograms = () => {
-  const [activeTab, setActiveTab] = useState("programs");
+  const { type } = useParams();
+
+  const activeTab = type || "programs";
   const [search, setSearch] = useState("");
 // data according to active tab
   const data =
@@ -79,35 +82,38 @@ const AllPrograms = () => {
         {/* Stats */}
         <div className="flex justify-center gap-4 mt-14">
 
-          <button
-            onClick={() => setActiveTab("programs")}
-            className={`px-6 py-3 rounded-full transition ${activeTab === "programs"
-              ? "bg-sky-500 text-white"
-              : "bg-white"
-              }`}
-          >
-            {programs.length} Programs
-          </button>
+          <NavLink
+  to="/programs"
+  className={`px-6 py-3 rounded-full transition ${
+    activeTab === "programs"
+      ? "bg-sky-500 text-white"
+      : "bg-white text-slate-700 hover:bg-slate-100"
+  }`}
+>
+  {programs.length} Programs
+</NavLink>
 
-          <button
-            onClick={() => setActiveTab("universities")}
-            className={`px-6 py-3 rounded-full transition ${activeTab === "universities"
-              ? "bg-sky-500 text-white"
-              : "bg-white"
-              }`}
-          >
-            {universities.length} Universities
-          </button>
+          <NavLink
+  to="/universities"
+  className={`px-6 py-3 rounded-full transition ${
+    activeTab === "universities"
+      ? "bg-sky-500 text-white"
+      : "bg-white text-slate-700 hover:bg-slate-100"
+  }`}
+>
+  {universities.length} Universities
+</NavLink>
 
-          <button
-            onClick={() => setActiveTab("opportunities")}
-            className={`px-6 py-3 rounded-full transition ${activeTab === "opportunities"
-              ? "bg-sky-500 text-white"
-              : "bg-white"
-              }`}
-          >
-            {opportunities.length} Opportunities
-          </button>
+          <NavLink
+  to="/opportunities"
+  className={`px-6 py-3 rounded-full transition ${
+    activeTab === "opportunities"
+      ? "bg-sky-500 text-white"
+      : "bg-white text-slate-700 hover:bg-slate-100"
+  }`}
+>
+  {opportunities.length} Opportunities
+</NavLink>
 
         </div>
 

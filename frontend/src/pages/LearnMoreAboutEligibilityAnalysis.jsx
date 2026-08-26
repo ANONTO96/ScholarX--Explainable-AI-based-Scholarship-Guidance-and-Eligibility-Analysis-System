@@ -684,9 +684,9 @@ export default function LearnMoreAboutEligibilityAnalysis() {
                             return (
                                 <div
                                     key={item.title}
-                                    className="rounded-2xl border border-slate-200 bg-[#f8fbff] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl"
+                                    className="group rounded-2xl border shadow-md border-slate-200 bg-[#f8fbff] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl"
                                 >
-                                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 group-hover:text-white group-hover:bg-indigo-600">
                                         <Icon size={23} />
                                     </div>
 

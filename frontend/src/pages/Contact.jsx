@@ -196,7 +196,9 @@ duration-300">
 
                             {/* WhatsApp */}
 
-                            <div className="group rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-green-300 hover:shadow-lg">
+                            <a href="https://wa.me/8801XXXXXXXXX"
+                            target="_blank"
+  rel="noopener noreferrer" className="group rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-green-300 hover:shadow-lg">
                                 <div className="flex items-start gap-4">
 
                                     <div className="rounded-xl bg-green-100 p-3">
@@ -218,7 +220,7 @@ duration-300">
                                     </div>
 
                                 </div>
-                            </div>
+                            </a>
 
                             {/* Email */}
 

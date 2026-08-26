@@ -170,7 +170,9 @@ const handleActionClick = (action) => {
     return;
   }
 
-  window.location.assign(action.route);
+ if (action.type === "external") {
+    window.open(action.route, "_blank", "noopener,noreferrer");
+  }
 };
   return (
     <section className="bg-linear-to-b from-slate-50 via-white to-white py-20">
@@ -197,14 +199,13 @@ const handleActionClick = (action) => {
 
             <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
               How can we
-              <span className="block text-orange-300">
-                help you today?
-              </span>
+              <span className="block bg-linear-to-r from-amber-200 via-orange-300 to-rose-300 bg-clip-text text-transparent">
+  help you today?
+</span>
             </h1>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100">
-              Search our knowledge base, browse popular topics,
-              or connect with one of our education consultants.
+              Get personalized guidance, instant answers, and expert support to navigate every step of your international education journey.
             </p>
 
           </div>
@@ -227,7 +228,8 @@ const handleActionClick = (action) => {
               >
 
                 <div
-                  className={`mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br ${item.color} text-white shadow-lg`}
+                  className={`mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br ${item.color} text-white shadow-lg transition-all duration-500 group-hover:scale-105
+group-hover:rotate-3`}
                 >
                   <Icon size={30} />
                 </div>

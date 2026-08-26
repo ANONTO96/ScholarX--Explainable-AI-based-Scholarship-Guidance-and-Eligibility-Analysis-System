@@ -15,7 +15,7 @@ import {
   Users,
   Workflow,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 export default function AboutUs() {
   const values = [
@@ -136,8 +136,8 @@ export default function AboutUs() {
 
               <div className="mt-9 flex flex-wrap items-center gap-4">
                 <Link
-                  to="opportunities"
-                  className="group inline-flex items-center gap-2 rounded-xl text-white bg-indigo-600 px-5 py-3.5 font-semibold shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:bg-slate-100"
+                  to="/opportunities"
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-500"
                 >
                   Explore Scholarships
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -155,17 +155,17 @@ export default function AboutUs() {
               {/* Mini trust row */}
               <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-slate-500">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-indigo-400" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   Personalized guidance
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-indigo-400" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   Intelligent analysis
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-indigo-400" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   Student-focused
                 </div>
               </div>
@@ -275,7 +275,7 @@ export default function AboutUs() {
       {/* FACT BAR */}
       {/* ========================================================= */}
 
-      <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-6">
+      <section className="relative z-10 mx-auto -mt-10 lg:-mt-15 max-w-7xl px-6">
 
                 <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
 {stats.map((stat) => {
@@ -315,8 +315,8 @@ export default function AboutUs() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             {/* Visual */}
             <div className="relative">
-              <div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-indigo-100 blur-2xl" />
-              <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-emerald-100 blur-2xl" />
+              <div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-indigo-200 blur-2xl" />
+              <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-sky-200 blur-2xl" />
 
               <div className="relative rounded-4xl border border-slate-200 bg-slate-50 p-5">
                 <div className="rounded-3xl bg-slate-950 p-7 sm:p-9">
@@ -716,42 +716,40 @@ export default function AboutUs() {
       {/* CTA */}
       {/* ========================================================= */}
 
-      <section className="bg-slate-950 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-4xl border border-white/10 bg-linear-to-br from-indigo-600/20 via-slate-900 to-emerald-500/10 px-7 py-14 text-center sm:px-12">
-            <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/20 blur-3xl" />
+      <section className="relative overflow-hidden bg-slate-950 py-20">
+        <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl" />
+        <div className="absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
 
-            <div className="relative mx-auto max-w-3xl">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/6">
-                <GraduationCap className="h-7 w-7 text-indigo-300" />
-              </div>
+        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-400">
+            <GraduationCap className="h-6 w-6" />
+          </div>
 
-              <h2 className="mt-7 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Your next opportunity could be closer than you think.
-              </h2>
+          <h2 className="mt-6 text-3xl font-bold text-white sm:text-4xl">
+            Your next opportunity could be closer than you think.
+          </h2>
 
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400">
-                Start exploring scholarships, understand your eligibility, and
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400">
+            Start exploring scholarships, understand your eligibility, and
                 take the next step toward your academic goals with ScholarX.
-              </p>
+          </p>
 
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Link
-                  to="/scholarships"
-                  className="group inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-slate-950 transition-all hover:-translate-y-0.5 hover:bg-slate-100"
-                >
-                  Start Exploring
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <NavLink
+              to="/eligibility-analysis"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-indigo-500"
+            >
+              Start with ScholarX
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </NavLink>
 
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/1"
-                >
-                  Talk to Us
-                </Link>
-              </div>
-            </div>
+            <a href="https://wa.me/8801XXXXXXXXX"
+              target="_blank"
+  rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-slate-500 hover:bg-slate-800"
+            >
+              Talk To Us
+            </a>
           </div>
         </div>
       </section>
