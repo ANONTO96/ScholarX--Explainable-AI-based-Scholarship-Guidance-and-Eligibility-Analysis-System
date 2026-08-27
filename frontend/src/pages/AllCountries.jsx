@@ -78,7 +78,9 @@ const handleActionClick = (action) => {
     return;
   }
 
-  window.location.assign(action.route);
+  if (action.type === "external") {
+    window.open(action.route, "_blank", "noopener,noreferrer");
+  }
 };
 
     return (
@@ -104,13 +106,14 @@ const handleActionClick = (action) => {
                 <div className="relative max-w-7xl mx-auto h-full flex items-center px-6 py-20 lg:py-25">
                     <div className="max-w-3xl text-white">
 
-                        <span className="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur border border-white/20 mb-4">
-                            🌍 Study Abroad
+                        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
+                            <Globe2 className="text-sky-400" size={16} />
+                            Study Abroad
                         </span>
 
                         <h1 className="text-4xl lg:text-6xl font-black leading-tight">
                             Explore Your
-                            <span className="block text-cyan-300">
+                            <span className="block text-sky-400">
                                 Dream Destination
                             </span>
                         </h1>

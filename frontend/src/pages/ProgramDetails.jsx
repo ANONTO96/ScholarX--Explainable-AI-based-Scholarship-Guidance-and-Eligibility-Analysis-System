@@ -100,7 +100,7 @@ const ProgramDetails = () => {
                             {/* Title */}
                             <h1 className="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
                                 Study
-                                <span className="block text-cyan-300">
+                                <span className="block bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent">
                                     {program.name}
                                 </span>
                             </h1>
@@ -1335,9 +1335,9 @@ group-hover:scale-110">
 
                 <div className="relative mx-auto max-w-4xl px-6 text-center text-white">
 
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm backdrop-blur">
-                                <ShieldCheck size={28} />
-                                <span className="inline-block text-sm font-bold uppercase tracking-wider text-cyan-300">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur">
+                                <ShieldCheck className="text-sky-400" size={28} />
+                                <span className="inline-block text-sm font-bold uppercase tracking-wider text-sky-400">
                         Your Next Step
                     </span>
                             </div>
@@ -1354,22 +1354,14 @@ group-hover:scale-110">
 
                     <div className="mt-9 flex flex-wrap justify-center gap-4">
 
-                        <NavLink to="/eligibility-analysis" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
-hover:shadow-xl
-active:translate-y-0
-transition-all
-duration-300">
+                        <NavLink to="/eligibility-analysis" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500">
                                 <span className="flex items-center gap-2">
                                     <BadgeCheck size={18} />
                                     Check My Eligibility
                                 </span>
                             </NavLink>
 
-                        <NavLink to="/programs" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
-hover:shadow-xl
-active:translate-y-0
-transition-all
-duration-300">
+                        <NavLink to="/programs" className="group inline-flex items-center gap-2 rounded-xl text-white border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
                                 <span className="flex items-center gap-2">
                                     Explore Other Programs
                                     <ArrowRight size={18} />
