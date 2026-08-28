@@ -45,7 +45,7 @@ const AllPrograms = () => {
         <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
-      <div className="relative max-w-7xl mx-auto px-5 py-20">
+      <div className="relative max-w-7xl mx-auto px-5 pt-40 pb-20">
 
         {/* Hero */}
         <div className="text-center">

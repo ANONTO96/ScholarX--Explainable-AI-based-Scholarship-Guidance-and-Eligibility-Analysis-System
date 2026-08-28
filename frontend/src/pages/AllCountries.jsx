@@ -106,7 +106,7 @@ const handleActionClick = (action) => {
                 <div className="relative max-w-7xl mx-auto h-full flex items-center px-6 py-20 lg:py-25">
                     <div className="max-w-3xl text-white">
 
-                        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
+                        <span className="mb-6 mt-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
                             <Globe2 className="text-sky-400" size={16} />
                             Study Abroad
                         </span>

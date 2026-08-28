@@ -175,7 +175,7 @@ const handleActionClick = (action) => {
   }
 };
   return (
-    <section className="bg-linear-to-b from-slate-50 via-white to-white py-20">
+    <section className="bg-linear-to-b from-slate-50 via-white to-white pt-40 pb-20">
       <div className="mx-auto max-w-7xl px-6">
 
         {/* ---------------- HERO ---------------- */}
@@ -184,6 +184,16 @@ const handleActionClick = (action) => {
 
           <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
           <div className="absolute bottom-0 left-0 h-56 w-56 rounded-full bg-cyan-400/20 blur-3xl"></div>
+
+          {/* background frame */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
+            backgroundSize: "42px 42px",
+          }}
+        />
 
           <div className="relative mx-auto max-w-3xl text-center">
 

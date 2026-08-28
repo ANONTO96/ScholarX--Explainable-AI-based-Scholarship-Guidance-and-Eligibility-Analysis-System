@@ -1,5 +1,5 @@
 import { generalFaqs } from "../data/FAQs/generalFAQs";
-import ReusableFAQ from "../components/ReusableComp/reusableFAQ";
+import ReusableFAQ from "../components/ReusableComp/ReusableFAQ";
 
 
 export default function FAQ() {

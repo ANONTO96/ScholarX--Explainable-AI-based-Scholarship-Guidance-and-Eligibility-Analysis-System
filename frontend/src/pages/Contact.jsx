@@ -13,7 +13,7 @@ import { NavLink } from "react-router";
 
 const Contact = () => {
     return (
-        <section className="bg-gray-50 py-20">
+        <section className="bg-gray-50 pt-40 pb-20">
             {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>

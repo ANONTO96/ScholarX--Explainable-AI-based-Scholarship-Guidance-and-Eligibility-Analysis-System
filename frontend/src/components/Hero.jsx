@@ -4,7 +4,7 @@ import { BookOpen, GraduationCap, Sparkles } from "lucide-react";
 
 const Hero = () => {
     return (
-        <section className="my-20 w-full lg:w-[95%] xl:w-[90%] mx-auto">
+        <section className="mb-20 pt-40 w-full lg:w-[95%] xl:w-[90%] mx-auto">
             {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-blue-300/20 blur-3xl" />
@@ -39,7 +39,7 @@ const Hero = () => {
       />
 
       <Sparkles
-        className="absolute z-10 right-[45%] top-20 rotate-12 text-blue-200"
+        className="absolute z-10 right-[45%] top-22 lg:top-25 rotate-12 text-blue-200"
         size={55}
       />
         <div className="relative z-20 lg:z-0 flex flex-col gap-5 items-start justify-center w-[96%] max-w-210 text-center mx-auto px-5 sm:px-10 lg:px-20">

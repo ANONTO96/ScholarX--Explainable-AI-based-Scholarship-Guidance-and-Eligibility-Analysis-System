@@ -159,8 +159,13 @@ const Navbar = () => {
     },
   ];
   return (
-    <>
-      <div className="flex w-full xl:w-[90%] mx-auto py-2 items-center justify-between">
+    <nav className="fixed inset-x-0 z-50 w-full pt-1 px-2">
+      <div className="flex w-full xl:w-[90%] mx-auto px-2 lg:px-3 py-2 lg:py-3 items-center justify-between rounded-2xl
+    border border-white/20
+    bg-white/30
+    backdrop-blur-md
+    backdrop-saturate-150
+    shadow-[0_8px_32px_rgba(0,0,0,0.10)]">
         {/* logo and name */}
         <div className="">
           <NavLink to="/" className="btn btn-ghost font-semibold text-2xl">
@@ -531,7 +536,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </>
+    </nav>
   );
 };
 

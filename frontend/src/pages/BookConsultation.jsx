@@ -111,7 +111,17 @@ export default function BookConsultation() {
 {/* Subtle center glow */}
 <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+{/* background frame */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
+            backgroundSize: "42px 42px",
+          }}
+        />
+
+                <div className="relative mx-auto max-w-7xl px-6 pt-40 pb-20 lg:px-8">
                     <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
                         {/* Hero content */}
                         <div>

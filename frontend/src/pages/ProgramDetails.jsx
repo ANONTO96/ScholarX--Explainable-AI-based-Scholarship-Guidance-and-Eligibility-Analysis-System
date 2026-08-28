@@ -87,7 +87,7 @@ const ProgramDetails = () => {
 
                 <div className="absolute -bottom-40 right-10 h-112.5 w-112.5 rounded-full border border-white/10" />
 
-                    <div className="relative mx-auto flex min-h-140 max-w-7xl items-center px-6 py-20">
+                    <div className="relative mx-auto flex min-h-140 max-w-7xl items-center px-6 pt-40 pb-20">
 
                         <div className="max-w-4xl text-white">
 

@@ -267,7 +267,7 @@ const renderCell = (value) => {
 export default function Pricing() {
   const [openCategory, setOpenCategory] = useState("explore");
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-20">
+    <section className="relative overflow-hidden bg-gray-50 pt-40 pb-20">
 
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">

@@ -157,7 +157,7 @@ const featuredArticle = articlesToShow[0];
 const smallArticles = articlesToShow.slice(1);
 
   return (
-    <section className="relative overflow-hidden bg-linear-to-b from-blue-50 via-white to-slate-50 py-20">
+    <section className="relative overflow-hidden bg-linear-to-b from-blue-50 via-white to-slate-50 pt-40 pb-20">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-blue-300/20 blur-3xl" />

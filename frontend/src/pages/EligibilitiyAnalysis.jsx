@@ -1674,7 +1674,7 @@ export default function EligibilityAnalysis() {
                     />
                 </div>
 
-                <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+                <div className="relative z-10 mx-auto max-w-7xl px-6 pt-40 pb-20 sm:px-8 lg:px-10">
 
                     <div className="mx-auto max-w-4xl text-center">
 

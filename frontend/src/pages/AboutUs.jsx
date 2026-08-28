@@ -103,14 +103,23 @@ export default function AboutUs() {
 
       <section className="relative isolate overflow-hidden bg-slate-950">
         {/* Background decoration */}
-<div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
+        <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
 
-<div className="absolute -bottom-48 -right-32 h-125 w-125 rounded-full bg-sky-600/20 blur-3xl" />
+        <div className="absolute -bottom-48 -right-32 h-125 w-125 rounded-full bg-sky-600/20 blur-3xl" />
 
-<div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.18),transparent_34%),radial-gradient(circle_at_80%_75%,rgba(14,165,233,0.14),transparent_32%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.18),transparent_34%),radial-gradient(circle_at_80%_75%,rgba(14,165,233,0.14),transparent_32%)]" />
 
-{/* Subtle center glow */}
-<div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-3xl" />
+        {/* Subtle center glow */}
+        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-3xl" />
+        {/* background frame */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
+            backgroundSize: "42px 42px",
+          }}
+        />
 
         <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
           <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
@@ -277,32 +286,32 @@ export default function AboutUs() {
 
       <section className="relative z-10 mx-auto -mt-10 lg:-mt-15 max-w-7xl px-6">
 
-                <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
-{stats.map((stat) => {
-              const Icon = stat.icon;
+        <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
+          {stats.map((stat) => {
+            const Icon = stat.icon;
 
-              return (
-                <div
-                  key={stat.label}
-                  className="group flex items-center gap-4 px-5 py-7 lg:px-8"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600 group-hover:text-white group-hover:bg-sky-600">
-                    <Icon className="h-5 w-5" />
-                  </div>
-
-                  <div>
-                    <p className="text-xl font-bold text-slate-900">
-                      {stat.value}
-                    </p>
-                    <p className="mt-0.5 text-sm text-slate-500">
-                      {stat.label}
-                    </p>
-                  </div>
+            return (
+              <div
+                key={stat.label}
+                className="group flex items-center gap-4 px-5 py-7 lg:px-8"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600 group-hover:text-white group-hover:bg-sky-600">
+                  <Icon className="h-5 w-5" />
                 </div>
-              );
-            })}
 
+                <div>
+                  <p className="text-xl font-bold text-slate-900">
+                    {stat.value}
+                  </p>
+                  <p className="mt-0.5 text-sm text-slate-500">
+                    {stat.label}
+                  </p>
                 </div>
+              </div>
+            );
+          })}
+
+        </div>
 
       </section>
 
@@ -411,32 +420,32 @@ export default function AboutUs() {
               </div>
 
               <div className="mt-8 flex items-center gap-3">
-                
+
                 <div className="flex items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50">
-                  <CheckCircle2 className="h-5 w-5 text-indigo-600" />
-                </div>
+                    <CheckCircle2 className="h-5 w-5 text-indigo-600" />
+                  </div>
                   <p className="text-sm font-semibold text-slate-700">
                     Less searching.
-                </p>
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50">
-                  <CheckCircle2 className="h-5 w-5 text-indigo-600" />
-                </div>
+                    <CheckCircle2 className="h-5 w-5 text-indigo-600" />
+                  </div>
                   <p className="text-sm font-semibold text-slate-700">
                     More Understanding.
-                </p>
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50">
-                  <CheckCircle2 className="h-5 w-5 text-indigo-600" />
-                </div>
+                    <CheckCircle2 className="h-5 w-5 text-indigo-600" />
+                  </div>
                   <p className="text-sm font-semibold text-slate-700">
                     Better decisions.
-                </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -731,7 +740,7 @@ export default function AboutUs() {
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400">
             Start exploring scholarships, understand your eligibility, and
-                take the next step toward your academic goals with ScholarX.
+            take the next step toward your academic goals with ScholarX.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -745,7 +754,7 @@ export default function AboutUs() {
 
             <a href="https://wa.me/8801XXXXXXXXX"
               target="_blank"
-  rel="noopener noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-slate-500 hover:bg-slate-800"
             >
               Talk To Us

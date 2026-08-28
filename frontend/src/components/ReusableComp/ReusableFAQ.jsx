@@ -13,7 +13,7 @@ export default function ReusableFAQ({
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative overflow-hidden bg-slate-50 py-20">
+    <section className="relative overflow-hidden bg-slate-50 pt-40 pb-20">
       {/* ========================================================= */}
       {/* BACKGROUND */}
       {/* ========================================================= */}

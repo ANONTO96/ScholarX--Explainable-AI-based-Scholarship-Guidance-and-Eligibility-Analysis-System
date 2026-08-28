@@ -224,7 +224,7 @@ export default function ReportIssue() {
                     />
                 </div>
 
-                <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-20 lg:px-8 lg:pb-16">
+                <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-40 lg:px-8 lg:pb-16">
 
                     <div className="grid items-center gap-12 lg:grid-cols-[1fr_420px]">
                         {/* Hero content */}
