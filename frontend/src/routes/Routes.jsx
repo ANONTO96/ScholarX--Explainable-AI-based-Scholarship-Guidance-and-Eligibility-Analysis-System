@@ -25,6 +25,8 @@ import EligibilityAnalysis from "../pages/EligibilitiyAnalysis";
 import LearnMoreAboutEligibilityAnalysis from "../pages/LearnMoreAboutEligibilityAnalysis";
 import LearnMoreAboutWholeProcess from "../pages/LearnMoreAboutWholeProcess";
 import AboutUs from "../pages/AboutUs";
+import TermsOfService from "../pages/TermsOfService";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 
 export const router = createBrowserRouter([
@@ -56,7 +58,9 @@ export const router = createBrowserRouter([
       { path: "account&BillingFAQ", Component: AccountBillingFAQ },
       { path: "generalSupportFAQ", Component: GeneralSupportFAQ },
       { path: "contact", Component: Contact },
-      {path: "about-us", Component: AboutUs},
+      { path: "about-us", Component: AboutUs },
+      { path: "privacy-policy", Component: PrivacyPolicy },
+      { path: "terms-of-service", Component: TermsOfService }
     ],
   },
 ]);
