@@ -163,9 +163,10 @@ const Navbar = () => {
       <div className="flex w-full xl:w-[90%] mx-auto px-2 lg:px-3 py-2 lg:py-3 items-center justify-between rounded-2xl
     border border-white/20
     bg-white/30
+    lg:bg-white/60
     backdrop-blur-md
     backdrop-saturate-150
-    shadow-[0_8px_32px_rgba(0,0,0,0.10)]">
+    shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
         {/* logo and name */}
         <div className="">
           <NavLink to="/" className="btn btn-ghost font-semibold text-2xl">
@@ -179,16 +180,16 @@ const Navbar = () => {
             <li><NavLink to="/" className={({ isActive }) =>
               isActive
                 ? "text-sky-600 font-semibold"
-                : "text-gray-700 hover:text-sky-600"
+                : "text-gray-800 hover:text-sky-600"
             }>Home</NavLink></li>
             <li><NavLink to="/features" className={({ isActive }) =>
               isActive
                 ? "text-sky-600 font-semibold"
-                : "text-gray-700 hover:text-sky-600"
+                : "text-gray-800 hover:text-sky-600"
             }>Features</NavLink></li>
             {/* countries */}
             <li className="relative group">
-              <button className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-sky-600">
+              <button className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:text-sky-600">
                 Countries
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
               </button>
@@ -251,7 +252,7 @@ const Navbar = () => {
             </li>
             {/* courses */}
             <li className="relative group">
-              <button className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-sky-600">
+              <button className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:text-sky-600">
                 Programs
                 <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
               </button>
@@ -312,7 +313,7 @@ const Navbar = () => {
             <li><NavLink to="/pricing" className={({ isActive }) =>
               isActive
                 ? "text-sky-600 font-semibold"
-                : "text-gray-700 hover:text-sky-600"
+                : "text-gray-800 hover:text-sky-600"
             }>Pricing</NavLink></li>
             <li>
               <details>

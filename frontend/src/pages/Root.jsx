@@ -1,6 +1,7 @@
 import { Outlet, ScrollRestoration } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import ScrollButtons from "../components/ReusableComp/ScrollButtons";
 
 
 const Root = () => {
@@ -10,6 +11,7 @@ const Root = () => {
             <Navbar></Navbar>
             <Outlet></Outlet> 
         <Footer></Footer>
+        <ScrollButtons></ScrollButtons>
         </div>
     );
 };

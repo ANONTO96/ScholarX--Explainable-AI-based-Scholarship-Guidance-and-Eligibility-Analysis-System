@@ -39,3 +39,36 @@ h6 {
     transform: translateX(-50%);
   }
 }
+
+/* ========================================================= */
+/* ScholarX Modern Scrollbar */
+/* ========================================================= */
+
+html {
+  scrollbar-color: #0e91ce transparent;
+  scrollbar-width: auto;
+}
+
+html::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #0ea5e9,
+    #0369a1
+  ) !important;
+  border-radius: 999px !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #075985 !important;
+  background-clip: padding-box !important;
+}
