@@ -16,6 +16,7 @@ import {
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { countries } from "../data/countries";
+import { useChatbot } from "../context/AiChatbot/useChatbot";
 
 const stats = [
     {
@@ -63,6 +64,7 @@ const actions = [
 ];
 
 export default function AllCountries() {
+    const { openChatbot } = useChatbot();
     const [search, setSearch] = useState("");
 
     const filtered = countries.filter((country) =>
@@ -652,14 +654,14 @@ const handleActionClick = (action) => {
 
                                         </p>
 
-                                        <NavLink
-                                         to="/AI-ChatBot" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
+                                        <button
+                                         type="button" onClick={openChatbot} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
 
                                             Ask AI Assistant
 
                                             <ArrowRight size={18} />
 
-                                        </NavLink
+                                        </button
                                         >
 
                                     </div>

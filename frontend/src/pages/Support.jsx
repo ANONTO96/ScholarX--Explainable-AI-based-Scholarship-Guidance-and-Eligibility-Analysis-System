@@ -17,6 +17,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
+import { useChatbot } from "../context/AiChatbot/useChatbot";
 
 const stats = [
   {
@@ -160,6 +161,7 @@ const categoriesActions = [
 ];
 
 const Support = () => {
+  const { openChatbot } = useChatbot();
 
   const navigate = useNavigate();
 
@@ -553,13 +555,13 @@ group-hover:rotate-3 ${item.color}`}
 
                 </p>
 
-                <NavLink to="/AI-ChatBot" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
+                <button type="button" onClick={openChatbot} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
 
                   Ask AI Assistant
 
                   <ArrowRight size={18} />
 
-                </NavLink>
+                </button>
 
               </div>
 

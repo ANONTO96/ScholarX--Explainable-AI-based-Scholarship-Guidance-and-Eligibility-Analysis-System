@@ -10,8 +10,10 @@ import {
     User,
 } from "lucide-react";
 import { NavLink } from "react-router";
+import { useChatbot } from "../context/AiChatbot/useChatbot";
 
 const Contact = () => {
+    const { openChatbot } = useChatbot();
     return (
         <section className="bg-gray-50 pt-40 pb-20">
             {/* Background */}
@@ -75,7 +77,7 @@ duration-300">
                                 </span>
                             </NavLink>
 
-                            <NavLink to="/AI-ChatBot" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+                            <button type="button" onClick={openChatbot} className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all
@@ -84,7 +86,7 @@ duration-300">
                                     <MessageSquareText size={18} />
                                     Chat with AI
                                 </span>
-                            </NavLink>
+                            </button>
                         </div>
                     </div>
                 </div>

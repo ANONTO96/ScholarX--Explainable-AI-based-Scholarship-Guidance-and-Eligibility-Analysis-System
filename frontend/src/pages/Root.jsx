@@ -2,11 +2,13 @@ import { Outlet, ScrollRestoration } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ScholarXChatbot from "../components/ScholarXChatbot";
+import ChatbotProvider from "../context/AiChatbot/ChatbotProvider";
 
 
 const Root = () => {
     return (
-        <div className="bg-[#E5F1F7]">
+        <ChatbotProvider>
+            <div className="bg-[#E5F1F7]">
 
             <Navbar></Navbar>
             <main>
@@ -18,6 +20,7 @@ const Root = () => {
             <ScrollRestoration></ScrollRestoration>
             <ScholarXChatbot></ScholarXChatbot>
         </div>
+        </ChatbotProvider>
     );
 };
 

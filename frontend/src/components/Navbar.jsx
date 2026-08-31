@@ -347,7 +347,7 @@ const Navbar = () => {
         {/* user actions */}
         <div className="flex items-center gap-1">
           <NavLink to="/login"
-            className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 text-lg rounded-xl
+            className="px-2 py-1 sm:px-3 sm:py-2 shrink-0 text-lg rounded-xl
                bg-gray-100 text-black
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]
@@ -359,7 +359,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink to="/signup"
-            className="px-3 py-1 sm:px-4 sm:py-2 shrink-0 text-lg rounded-xl
+            className="px-2 py-1 sm:px-3 sm:py-2 shrink-0 text-lg rounded-xl
                bg-[#DCEEFF] text-black
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]

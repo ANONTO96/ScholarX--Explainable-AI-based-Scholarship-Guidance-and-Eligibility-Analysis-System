@@ -8,13 +8,14 @@ import {
     Sparkles,
     X,
 } from "lucide-react";
+import { useChatbot } from "../context/AiChatbot/useChatbot";
 
 const initialMessages = [
     {
         id: 1,
         role: "assistant",
         content:
-            "Hi! I'm ScholarX AI 👋 I can help you explore scholarships, understand eligibility requirements, and plan your study journey.",
+            "Hi! 👋 I'm ScholarX AI, I can help you explore scholarships, understand eligibility requirements, and plan your study journey.",
         time: new Date(),
     },
 ];
@@ -22,17 +23,40 @@ const initialMessages = [
 const suggestedQuestions = [
     "Find scholarships for me",
     "Am I eligible for scholarships?",
-    "How does ScholarX work?",
+    "Which country is best for my studies?",
+    "Show me scholarships for Computer Science",
+    "What scholarships can I apply for?",
+    "Help me plan my study abroad journey",
+    "What are the requirements for studying abroad?",
+    "How can I improve my scholarship chances?",
 ];
 
 export default function ScholarXChatbot() {
-    const [isOpen, setIsOpen] = useState(false);
+
+    const {
+    isOpen,
+    openChatbot,
+    closeChatbot,
+} = useChatbot();
+
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState(initialMessages);
     const [isTyping, setIsTyping] = useState(false);
+    const suggestionsRef = useRef(null);
+
+    const [isDragging, setIsDragging] = useState(false);
+
+    const dragState = useRef({
+        startX: 0,
+        startScrollLeft: 0,
+        lastX: 0,
+        velocity: 0,
+        animationFrame: null,
+    });
 
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
+
 
     // Scroll to latest message
     useEffect(() => {
@@ -68,35 +92,35 @@ export default function ScholarXChatbot() {
     }, [isOpen]);
 
     const handleSendMessage = async (messageText = input) => {
-    const text = messageText.trim();
+        const text = messageText.trim();
 
-    if (!text || isTyping) return;
+        if (!text || isTyping) return;
 
-    const userMessage = {
-        id: crypto.randomUUID(),
-        role: "user",
-        content: text,
-        time: new Date(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsTyping(true);
-
-    // Temporary demo response
-    setTimeout(() => {
-        const aiMessage = {
+        const userMessage = {
             id: crypto.randomUUID(),
-            role: "assistant",
-            content:
-                "I'm currently in demo mode. Soon, ScholarX AI will be connected to your scholarship database and AI engine to give you personalized answers.",
+            role: "user",
+            content: text,
             time: new Date(),
         };
 
-        setMessages((prev) => [...prev, aiMessage]);
-        setIsTyping(false);
-    }, 1000);
-};
+        setMessages((prev) => [...prev, userMessage]);
+        setInput("");
+        setIsTyping(true);
+
+        // Temporary demo response
+        setTimeout(() => {
+            const aiMessage = {
+                id: crypto.randomUUID(),
+                role: "assistant",
+                content:
+                    "I'm currently in demo mode. Soon, ScholarX AI will be connected to your scholarship database and AI engine to give you personalized answers.",
+                time: new Date(),
+            };
+
+            setMessages((prev) => [...prev, aiMessage]);
+            setIsTyping(false);
+        }, 1000);
+    };
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
@@ -112,6 +136,72 @@ export default function ScholarXChatbot() {
         }).format(date);
     };
 
+    const handlePointerDown = (e) => {
+        const slider = suggestionsRef.current;
+
+        if (!slider) return;
+
+        dragState.current.startX = e.clientX;
+        dragState.current.startScrollLeft = slider.scrollLeft;
+        dragState.current.lastX = e.clientX;
+        dragState.current.velocity = 0;
+
+        setIsDragging(true);
+
+        slider.setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e) => {
+        if (!isDragging) return;
+
+        const slider = suggestionsRef.current;
+
+        if (!slider) return;
+
+        const currentX = e.clientX;
+        const distance = currentX - dragState.current.lastX;
+
+        dragState.current.velocity = distance;
+
+        slider.scrollLeft -= distance;
+
+        dragState.current.lastX = currentX;
+    };
+
+    const handlePointerUp = (e) => {
+        const slider = suggestionsRef.current;
+
+        if (!slider) return;
+
+        setIsDragging(false);
+
+        try {
+            slider.releasePointerCapture(e.pointerId);
+        } catch {
+            // Ignore errors when releasing pointer capture
+        }
+
+        // Add momentum
+        const animate = () => {
+            const state = dragState.current;
+
+            if (Math.abs(state.velocity) < 0.3) {
+                cancelAnimationFrame(state.animationFrame);
+                return;
+            }
+
+            slider.scrollLeft -= state.velocity;
+
+            state.velocity *= 0.94;
+
+            state.animationFrame = requestAnimationFrame(animate);
+        };
+
+        cancelAnimationFrame(dragState.current.animationFrame);
+
+        dragState.current.animationFrame = requestAnimationFrame(animate);
+    };
+
     return (
         <>
             {/* ===================================================== */}
@@ -121,7 +211,7 @@ export default function ScholarXChatbot() {
             {isOpen && (
                 <div
                     className="fixed inset-0 z-998 bg-slate-950/20 backdrop-blur-[2px] sm:bg-transparent sm:backdrop-blur-0"
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeChatbot}
                 />
             )}
 
@@ -141,6 +231,8 @@ export default function ScholarXChatbot() {
                     sm:right-5
                     sm:h-170
                     sm:w-100
+                    lg:h-190
+                    lg:w-140
 
                     overflow-hidden
                     rounded-none
@@ -153,10 +245,9 @@ export default function ScholarXChatbot() {
 
                     transition-all duration-300 ease-out
 
-                    ${
-                        isOpen
-                            ? "translate-x-0 opacity-100"
-                            : "pointer-events-none translate-x-[110%] opacity-0"
+                    ${isOpen
+                        ? "translate-x-0 opacity-100"
+                        : "pointer-events-none translate-x-[110%] opacity-0"
                     }
                 `}
             >
@@ -189,7 +280,7 @@ export default function ScholarXChatbot() {
                                 <div className="mt-0.5 flex items-center gap-1.5 text-xs text-sky-50">
                                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_8px_rgba(110,231,183,0.8)]" />
 
-                                    Online & ready to help
+                                    Ready to assist
                                 </div>
                             </div>
                         </div>
@@ -197,7 +288,7 @@ export default function ScholarXChatbot() {
                         {/* Close */}
                         <button
                             type="button"
-                            onClick={() => setIsOpen(false)}
+                            onClick={closeChatbot}
                             className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-white/10 transition hover:bg-white/20"
                             aria-label="Close chatbot"
                         >
@@ -230,23 +321,21 @@ export default function ScholarXChatbot() {
                             {messages.map((message) => (
                                 <div
                                     key={message.id}
-                                    className={`flex ${
-                                        message.role === "user"
-                                            ? "justify-end"
-                                            : "justify-start"
-                                    }`}
+                                    className={`flex ${message.role === "user"
+                                        ? "justify-end"
+                                        : "justify-start"
+                                        }`}
                                 >
                                     <div
-                                        className={`flex max-w-[85%] items-end gap-2 ${
-                                            message.role === "user"
-                                                ? "flex-row-reverse"
-                                                : ""
-                                        }`}
+                                        className={`flex max-w-[85%] items-end gap-2 ${message.role === "user"
+                                            ? "flex-row-reverse"
+                                            : ""
+                                            }`}
                                     >
                                         {/* Assistant avatar */}
                                         {message.role === "assistant" && (
                                             <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
-                                                <Sparkles size={14} />
+                                                <Bot size={14} />
                                             </div>
                                         )}
 
@@ -255,10 +344,9 @@ export default function ScholarXChatbot() {
                                                 className={`
                                                     rounded-2xl px-3.5 py-3 text-sm leading-relaxed
 
-                                                    ${
-                                                        message.role === "user"
-                                                            ? "rounded-br-md bg-sky-500 text-white shadow-sm"
-                                                            : "rounded-bl-md border border-slate-200 bg-white text-slate-700 shadow-sm"
+                                                    ${message.role === "user"
+                                                        ? "rounded-br-md bg-sky-500 text-white shadow-sm"
+                                                        : "rounded-bl-md border border-slate-200 bg-white text-slate-700 shadow-sm"
                                                     }
                                                 `}
                                             >
@@ -266,11 +354,10 @@ export default function ScholarXChatbot() {
                                             </div>
 
                                             <div
-                                                className={`mt-1 flex items-center gap-1 text-[10px] text-slate-400 ${
-                                                    message.role === "user"
-                                                        ? "justify-end"
-                                                        : "justify-start"
-                                                }`}
+                                                className={`mt-1 flex items-center gap-1 text-[10px] text-slate-400 ${message.role === "user"
+                                                    ? "justify-end"
+                                                    : "justify-start"
+                                                    }`}
                                             >
                                                 {formatTime(message.time)}
 
@@ -310,6 +397,7 @@ export default function ScholarXChatbot() {
 
                     {messages.length === 1 && (
                         <div className="border-t border-slate-200 bg-white px-4 py-3">
+                            {/* Header */}
                             <div className="mb-2 flex items-center gap-1.5">
                                 <Sparkles
                                     size={13}
@@ -317,19 +405,68 @@ export default function ScholarXChatbot() {
                                 />
 
                                 <span className="text-[11px] font-semibold text-slate-500">
-                                    Try asking
+                                    Try asking :
                                 </span>
                             </div>
 
-                            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                            {/* Scrollable Questions */}
+                            <div
+                                ref={suggestionsRef}
+                                onPointerDown={handlePointerDown}
+                                onPointerMove={handlePointerMove}
+                                onPointerUp={handlePointerUp}
+                                onPointerCancel={handlePointerUp}
+                                className={`
+        flex
+        min-w-0
+        gap-2
+        overflow-x-auto
+        pb-1
+
+        scrollbar-none
+
+        touch-pan-x
+        select-none
+
+        ${isDragging
+                                        ? "cursor-grabbing"
+                                        : "cursor-grab"
+                                    }
+    `}
+                            >
                                 {suggestedQuestions.map((question) => (
                                     <button
                                         key={question}
                                         type="button"
-                                        onClick={() =>
-                                            handleSendMessage(question)
-                                        }
-                                        className="shrink-0 rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-[11px] font-medium text-sky-700 transition hover:border-sky-300 hover:bg-sky-100"
+                                        onClick={() => {
+                                            if (!isDragging) {
+                                                handleSendMessage(question);
+                                            }
+                                        }}
+                                        className="
+                shrink-0
+                whitespace-nowrap
+
+                rounded-full
+                border border-sky-200
+                bg-sky-50
+
+                px-3.5
+                py-1.5
+
+                text-[11px]
+                font-medium
+                text-sky-700
+
+                transition-all
+                duration-200
+
+                hover:border-sky-300
+                hover:bg-sky-100
+                hover:shadow-sm
+
+                active:scale-[0.97]
+            "
                                     >
                                         {question}
                                     </button>
@@ -366,7 +503,7 @@ export default function ScholarXChatbot() {
                         </div>
 
                         <p className="mt-2 text-center text-[9px] text-slate-400">
-                            ScholarX AI can make mistakes. Verify important
+                            ScholarX AI can make mistakes. Double check any important
                             information.
                         </p>
                     </div>
@@ -381,7 +518,13 @@ export default function ScholarXChatbot() {
                 {/* CHAT BUTTON */}
                 <button
                     type="button"
-                    onClick={() => setIsOpen((prev) => !prev)}
+                    onClick={() => {
+    if (isOpen) {
+        closeChatbot();
+    } else {
+        openChatbot();
+    }
+}}
                     className={`
                         group relative flex h-12 w-12
                         items-center justify-center
