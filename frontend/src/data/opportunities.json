@@ -19,53 +19,69 @@
       "Travel Allowance"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master", "PhD"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": true,
-        "test": "IELTS",
-        "minimum": 6.5
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": []
-    },
+  "nationality": {
+    "required": false,
+    "countries": [],
+    "description": "Eligibility depends on the specific DAAD scholarship programme and its country-specific rules."
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master", "PhD"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null,
+    "description": "Academic requirements vary by DAAD programme and host university."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null,
+    "description": "Language requirements depend on the programme and university."
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null,
+    "preferred": true,
+    "description": "Some DAAD programmes, particularly development-related postgraduate programmes, may require relevant professional experience."
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "programSpecific",
+      "required": true,
+      "label": "DAAD programme-specific eligibility",
+      "description": "Exact eligibility must be verified against the selected DAAD scholarship programme, including academic background, admission requirements, language requirements and any programme-specific professional experience."
+    }
+  ]
+},
     "website": "https://www.daad.de",
     "image": "/images/opportunities/daad.jpg",
     "featured": true,
@@ -99,53 +115,74 @@
       "Visa Cost"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": true,
-        "minimumMonths": 12
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": true
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": []
+  "nationality": {
+    "required": true,
+    "countries": ["Bangladesh"]
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Applicants must hold an undergraduate degree that meets the eligibility requirements for their chosen course."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null,
+    "description": "Chevening does not impose a separate English-language test requirement, although applicants must satisfy their university's English requirements."
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": true,
+    "minimumMonths": 24,
+    "minimumHours": 2800,
+    "afterCompletedDegree": "Bachelor",
+    "description": "At least 2,800 hours of work experience acquired after completing an undergraduate degree."
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "eligibleCourse",
+      "required": true,
+      "label": "Eligible UK master's course",
+      "description": "Applicant must apply to an eligible full-time taught master's course in the UK."
     },
+    {
+      "type": "returnHome",
+      "required": true,
+      "label": "Return to home country",
+      "description": "Applicant must agree to return to their country of citizenship for at least two years after the award."
+    }
+  ]
+},
     "website": "https://www.chevening.org",
     "image": "/images/opportunities/chevening.jpg",
     "featured": true,
@@ -177,60 +214,66 @@
       "Academic Credits"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor", "Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": [
-        {
-          "type": "partnerUniversity",
-          "required": true,
-          "label": "Partner university eligibility",
-          "description": "Student must meet the exchange eligibility requirements of their home and host institutions."
-        }
-      ]
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor", "Master"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false
+  },
+  "additionalRequirements": [
+    {
+      "type": "partnerUniversity",
+      "required": true,
+      "label": "Institutional Erasmus+ agreement",
+      "description": "Student eligibility depends on the sending institution, receiving institution, Erasmus+ institutional agreements, programme participation and the specific mobility call."
     },
+    {
+      "type": "learningAgreement",
+      "required": true,
+      "label": "Learning agreement",
+      "description": "The student must have an approved learning agreement covering the mobility period."
+    }
+  ]
+},
     "website": "https://erasmus-plus.ec.europa.eu",
     "image": "/images/opportunities/erasmus.jpg",
     "featured": true,
@@ -261,65 +304,65 @@
       "Housing Support"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor"]
-      },
-      "fieldOfStudy": {
-        "required": true,
-        "values": [
-          "Computer Science",
-          "Computer Engineering",
-          "Software Engineering",
-          "Related Technical Field"
-        ]
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": [
-        {
-          "type": "academicYear",
-          "required": true,
-          "label": "Eligible undergraduate year",
-          "description": "The student must be in an eligible undergraduate year for the STEP internship."
-        }
-      ]
-    },
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor"]
+  },
+  "fieldOfStudy": {
+    "required": true,
+    "values": [
+      "Computer Science",
+      "Computer Engineering",
+      "Software Engineering",
+      "Related Technical Field"
+    ]
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false
+  },
+  "additionalRequirements": [
+    {
+      "type": "undergraduateEligibility",
+      "required": true,
+      "label": "Eligible undergraduate status",
+      "description": "Applicant must meet the specific undergraduate enrollment/year and graduation-window requirements of the applicable STEP internship posting."
+    }
+  ]
+},
     "website": "https://careers.google.com",
     "image": "/images/opportunities/google-step.jpg",
     "featured": true,
@@ -351,60 +394,65 @@
       "Airfare"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor", "Master", "PhD"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": true,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": [
-        {
-          "type": "programSpecific",
-          "required": true,
-          "label": "MEXT category-specific requirements",
-          "description": "Eligibility depends on the specific MEXT scholarship category, academic level and application route."
-        }
-      ]
-    },
+  "nationality": {
+    "required": true,
+    "countries": ["Bangladesh"],
+    "description": "Applicant must satisfy the nationality conditions of the applicable MEXT recruitment route."
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master", "PhD"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Academic requirements depend on the MEXT category and Japanese embassy/university route."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": true,
+    "minimum": null,
+    "maximum": null,
+    "description": "Age limit depends on the applicable MEXT recruitment year and category and must be verified from the current call."
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "programSpecific",
+      "required": true,
+      "label": "MEXT category-specific requirements",
+      "description": "Eligibility depends on the MEXT category, recruitment route, academic level, field and current year's official guidelines."
+    }
+  ]
+},
     "website": "https://www.studyinjapan.go.jp",
     "image": "/images/opportunities/mext.jpg",
     "featured": true,
@@ -435,66 +483,73 @@
       "Microsoft Credits"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor", "Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": true,
-        "minimum": 18,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": [
-        {
-          "type": "studentTeam",
-          "required": true,
-          "label": "Student team",
-          "description": "Application requires an eligible student team and a qualifying technology project."
-        },
-        {
-          "type": "innovationProject",
-          "required": true,
-          "label": "Innovation project",
-          "description": "Participants must submit a technology-based solution or project."
-        }
-      ]
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor", "Master"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": true,
+    "minimum": 18,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "studentStatus",
+      "required": true,
+      "label": "Enrolled student",
+      "description": "Participants must be enrolled students during the applicable competition eligibility period."
     },
+    {
+      "type": "innovationProject",
+      "required": true,
+      "label": "Qualifying technology project",
+      "description": "The submission must satisfy the current Imagine Cup project, Microsoft AI and judging requirements."
+    },
+    {
+      "type": "studentTeam",
+      "required": true,
+      "label": "Eligible student team",
+      "description": "A team may contain one to four eligible student members."
+    }
+  ]
+},
     "website": "https://imaginecup.microsoft.com",
     "image": "/images/opportunities/imagine-cup.jpg",
     "featured": true,
@@ -527,60 +582,72 @@
       "Travel Costs"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master", "PhD"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": true,
-        "test": "IELTS",
-        "minimum": 6.5
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": [
-        {
-          "type": "countryProgram",
-          "required": true,
-          "label": "Country-specific Fulbright eligibility",
-          "description": "Eligibility and application requirements vary according to the applicant's home country Fulbright program."
-        }
-      ]
+  "nationality": {
+    "required": true,
+    "countries": ["Bangladesh"]
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master", "PhD"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Academic requirements are determined by the applicable country programme and U.S. university requirements."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null,
+    "description": "English test requirements vary by country programme, field and university."
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "countryProgram",
+      "required": true,
+      "label": "Bangladesh Fulbright programme requirements",
+      "description": "Applicant must satisfy the current Fulbright Foreign Student Program requirements published for Bangladesh."
     },
+    {
+      "type": "universityAdmission",
+      "required": true,
+      "label": "U.S. graduate programme eligibility",
+      "description": "Applicant must satisfy the applicable U.S. graduate programme admission requirements."
+    }
+  ]
+},
     "website": "https://foreign.fulbrightonline.org",
     "image": "/images/opportunities/fulbright.jpg",
     "featured": true,
@@ -612,60 +679,83 @@
       "Medical Insurance"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": true,
-        "test": "IELTS",
-        "minimum": 6.5
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": true
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": [
-        {
-          "type": "countryEligibility",
-          "required": true,
-          "label": "Eligible country",
-          "description": "Applicant must be a citizen of a country participating in the relevant Australia Awards program."
-        }
-      ]
+  "nationality": {
+    "required": true,
+    "countries": ["Bangladesh"]
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master"]
+  },
+  "fieldOfStudy": {
+    "required": true,
+    "values": [
+      "Computer Science",
+      "Information Technology",
+      "Artificial Intelligence",
+      "Cyber Security",
+      "Information Systems",
+      "Digital Technology",
+      "Related Priority Field"
+    ]
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Applicant must hold a tertiary qualification at least equivalent to an Australian bachelor's degree and satisfy the selected university/course requirements."
+  },
+  "english": {
+    "required": true,
+    "test": "IELTS",
+    "minimum": 6.5,
+    "minimumBand": 6.0
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": 0,
+    "preferred": true,
+    "preferredMonths": 60,
+    "description": "The Bangladesh 2027 profile gives preference to relevant and consistent full-time work experience, particularly around five years."
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "countryEligibility",
+      "required": true,
+      "label": "Bangladesh country-specific eligibility",
+      "description": "Applicant must satisfy the current Bangladesh-specific Australia Awards conditions, including citizenship/residence and target employment-group requirements."
     },
+    {
+      "type": "englishBand",
+      "required": true,
+      "label": "Minimum IELTS bands",
+      "description": "IELTS Academic overall 6.5 with no individual band below 6.0, subject to the current Bangladesh country profile and applicable exceptions."
+    }
+  ]
+},
     "website": "https://www.australiaawards.gov.au",
     "image": "/images/opportunities/australia-awards.jpg",
     "featured": true,
@@ -696,57 +786,115 @@
       "Airfare"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": [
-          "Bangladesh",
-          "India",
-          "Pakistan"
-        ]
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": []
+  "nationality": {
+    "required": true,
+    "countries": [
+      "Bangladesh",
+      "Belize",
+      "Botswana",
+      "Dominica",
+      "Eswatini",
+      "Fiji",
+      "Gabon",
+      "The Gambia",
+      "Ghana",
+      "Grenada",
+      "Guyana",
+      "India",
+      "Jamaica",
+      "Kenya",
+      "Kiribati",
+      "Lesotho",
+      "Malawi",
+      "Malaysia",
+      "Maldives",
+      "Mauritius",
+      "Montserrat",
+      "Mozambique",
+      "Namibia",
+      "Nauru",
+      "Nigeria",
+      "Pakistan",
+      "Papua New Guinea",
+      "Rwanda",
+      "Saint Lucia",
+      "Samoa",
+      "Sierra Leone",
+      "Solomon Islands",
+      "South Africa",
+      "Sri Lanka",
+      "Tanzania",
+      "Togo",
+      "Tonga",
+      "Tuvalu",
+      "Uganda",
+      "Vanuatu",
+      "Zambia"
+    ]
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Applicant must meet the academic requirements of the scholarship and selected UK institution."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null,
+    "description": "English requirements are generally determined by the selected UK university/course."
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null,
+    "preferred": true
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "developmentImpact",
+      "required": true,
+      "label": "Development impact",
+      "description": "Applicant must demonstrate that the proposed study supports development priorities and their intended contribution after study."
     },
+    {
+      "type": "returnHome",
+      "required": true,
+      "label": "Return to home country",
+      "description": "Applicant must satisfy the scholarship's conditions regarding return to their home country after the award."
+    }
+  ]
+},
     "website": "https://cscuk.fcdo.gov.uk",
     "image": "/images/opportunities/commonwealth.jpg",
     "featured": true,
@@ -777,58 +925,69 @@
       "Mentorship"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor", "Master"]
-      },
-      "fieldOfStudy": {
-        "required": true,
-        "values": [
-          "Computer Science",
-          "Software Engineering",
-          "Computer Engineering",
-          "Related Technical Field"
-        ]
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": []
-    },
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor", "Master"]
+  },
+  "fieldOfStudy": {
+    "required": true,
+    "values": [
+      "Computer Science",
+      "Software Engineering",
+      "Computer Engineering",
+      "Information Systems",
+      "Data Science",
+      "Related STEM Field"
+    ]
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": true,
+    "minimum": 18,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null,
+    "preferred": true
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "jobSpecific",
+      "required": true,
+      "label": "Amazon posting-specific requirements",
+      "description": "Eligibility depends on the specific Amazon internship posting, including graduation date, location, work authorization, availability and technical requirements."
+    }
+  ]
+},
     "website": "https://www.amazon.jobs",
     "image": "/images/opportunities/amazon.jpg",
     "featured": true,
@@ -948,60 +1107,66 @@
       "Google Swag"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor", "Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": [
-        {
-          "type": "gdsc",
-          "required": true,
-          "label": "Google Developer Student Clubs participation",
-          "description": "Participation is tied to Google's student developer community and the applicable Solution Challenge rules."
-        }
-      ]
-    },
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor"]
+  },
+  "fieldOfStudy": {
+    "required": true,
+    "values": [
+      "Computer Science",
+      "Computer Engineering",
+      "Software Engineering",
+      "Related Technical Field"
+    ]
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "programSpecific",
+      "required": true,
+      "label": "Meta internship posting requirements",
+      "description": "Eligibility must be verified against the current Meta student internship posting, including academic year, graduation window, location and work authorization."
+    }
+  ]
+},
     "website": "https://developers.google.com/community/gdsc-solution-challenge",
     "image": "/images/opportunities/google-solution.jpg",
     "featured": true,
@@ -1032,58 +1197,73 @@
       "Employment Opportunities"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor"]
-      },
-      "fieldOfStudy": {
-        "required": true,
-        "values": [
-          "Information Technology",
-          "Information and Communication Technology",
-          "Computer Science",
-          "Computer Engineering"
-        ]
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": []
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor", "Master"]
+  },
+  "fieldOfStudy": {
+    "required": true,
+    "values": [
+      "Information Technology",
+      "Information and Communication Technology",
+      "Computer Science",
+      "Computer Engineering",
+      "Software Engineering",
+      "Related ICT Field"
+    ]
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false
+  },
+  "additionalRequirements": [
+    {
+      "type": "studentStatus",
+      "required": true,
+      "label": "University student",
+      "description": "Applicant must meet the student/enrollment requirements of the applicable national or regional Huawei ICT Competition."
     },
+    {
+      "type": "competitionTrack",
+      "required": true,
+      "label": "Competition track requirements",
+      "description": "The applicable Practice, Innovation or Programming track may impose additional team, technology and competition-specific requirements."
+    }
+  ]
+},
     "website": "https://e.huawei.com",
     "image": "/images/opportunities/huawei.jpg",
     "featured": false,
@@ -1115,53 +1295,76 @@
       "Health Coverage"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master", "PhD"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": true,
-        "test": "IELTS",
-        "minimum": 7.0
-      },
-      "age": {
-        "required": true,
-        "minimum": 18,
-        "maximum": 24
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": true
-      },
-      "communityService": {
-        "required": true
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": []
+  "nationality": {
+    "required": true,
+    "countries": ["Bangladesh"],
+    "description": "Eligibility depends on whether the applicant qualifies under an applicable Rhodes constituency or inter-jurisdictional route."
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master", "PhD"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": 3.7,
+    "scale": 4,
+    "preferred": true,
+    "description": "Rhodes constituency criteria and Oxford course requirements apply. A GPA around 3.7/4.0 is cited by several current constituency pages as a competitive academic benchmark, not a universal global hard cutoff."
+  },
+  "english": {
+    "required": true,
+    "test": null,
+    "minimum": null,
+    "description": "Applicant must satisfy the applicable Oxford English-language requirement or qualify for a waiver."
+  },
+  "age": {
+    "required": true,
+    "minimum": 18,
+    "maximum": 25,
+    "description": "Age rules depend on the Rhodes constituency and may include exceptions for applicants who completed their first undergraduate degree later than usual."
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "rhodesConstituency",
+      "required": true,
+      "label": "Rhodes constituency eligibility",
+      "description": "Applicant must qualify under the applicable Rhodes constituency rules or an accepted inter-jurisdictional route."
     },
+    {
+      "type": "oxfordAdmission",
+      "required": true,
+      "label": "Oxford course eligibility",
+      "description": "Applicant must meet the academic and admission requirements for an eligible full-time Oxford postgraduate course."
+    }
+  ]
+},
     "website": "https://www.rhodeshouse.ox.ac.uk",
     "image": "/images/opportunities/rhodes.jpg",
     "featured": true,
@@ -1194,60 +1397,73 @@
       "Research Funding"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master", "PhD"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": true,
-        "test": "IELTS",
-        "minimum": 7.5
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": true
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": [
-        {
-          "type": "admission",
-          "required": true,
-          "label": "Admission to Cambridge",
-          "description": "Applicant must be applying for or admitted to an eligible postgraduate course at the University of Cambridge."
-        }
-      ]
+  "nationality": {
+    "required": true,
+    "countries": [],
+    "description": "Open to applicants of any nationality other than UK citizenship restrictions specified by the programme."
+  },
+  "internationalStudent": {
+    "required": true
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master", "PhD"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Applicants must demonstrate outstanding academic achievement and satisfy the relevant Cambridge course requirements."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null,
+    "description": "English requirements are determined through the relevant Cambridge course/admission requirements."
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "eligibleCourse",
+      "required": true,
+      "label": "Eligible Cambridge postgraduate course",
+      "description": "Applicant must apply to an eligible postgraduate course at the University of Cambridge."
     },
+    {
+      "type": "admission",
+      "required": true,
+      "label": "Cambridge admission",
+      "description": "Applicant must satisfy the applicable Cambridge admission and course requirements."
+    }
+  ]
+},
     "website": "https://www.gatescambridge.org",
     "image": "/images/opportunities/gates-cambridge.jpg",
     "featured": true,
@@ -1277,66 +1493,75 @@
       "Research Support"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["PhD"]
-      },
-      "fieldOfStudy": {
-        "required": true,
-        "values": [
-          "Health Research",
-          "Natural Sciences",
-          "Engineering",
-          "Social Sciences",
-          "Humanities"
-        ]
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": true
-      },
-      "leadership": {
-        "required": true
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": [
-        {
-          "type": "nomination",
-          "required": true,
-          "label": "Institutional nomination",
-          "description": "Application proceeds through an eligible Canadian institution."
-        }
-      ]
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["PhD"]
+  },
+  "fieldOfStudy": {
+    "required": true,
+    "values": [
+      "Health Research",
+      "Natural Sciences",
+      "Engineering",
+      "Social Sciences",
+      "Humanities"
+    ]
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Applicant must satisfy the first-class-average requirement as determined under the current institutional/program rules."
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "doctoralStudyWindow",
+      "required": true,
+      "label": "Doctoral study eligibility window",
+      "description": "Prior doctoral-level study must fall within the current Vanier eligibility rules."
     },
+    {
+      "type": "nomination",
+      "required": true,
+      "label": "Canadian institutional nomination",
+      "description": "Applicant must be nominated through an eligible Canadian institution."
+    }
+  ]
+},
     "website": "https://vanier.gc.ca",
     "image": "/images/opportunities/vanier.jpg",
     "featured": true,
@@ -1368,53 +1593,72 @@
       "Leadership Training"
     ],
     "eligibility": {
-      "nationality": {
-        "required": true,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": true
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Master"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": true,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": true,
-        "test": "IELTS",
-        "minimum": 7.0
-      },
-      "age": {
-        "required": true,
-        "minimum": 18,
-        "maximum": 28
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": true
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": []
-    },
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Master"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": true,
+    "minimumGPA": null,
+    "description": "Applicant must hold or be on track to complete an undergraduate degree and meet programme/course academic standards."
+  },
+  "english": {
+    "required": true,
+    "test": "IELTS",
+    "minimum": 7.0,
+    "alternativeTests": [
+      "TOEFL",
+      "Duolingo English Test",
+      "Cambridge English"
+    ],
+    "waiverPossible": true
+  },
+  "age": {
+    "required": true,
+    "minimum": 18,
+    "maximum": 28,
+    "description": "Applicant must be at least 18 and not yet 29 on August 1 of the enrollment year."
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false,
+    "preferred": true
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "undergraduateDegree",
+      "required": true,
+      "label": "Undergraduate degree",
+      "description": "Applicant must have completed or be on track to complete an undergraduate degree by the programme's specified date."
+    }
+  ]
+},
     "website": "https://www.schwarzmanscholars.org",
     "image": "/images/opportunities/schwarzman.jpg",
     "featured": true,
@@ -1447,53 +1691,63 @@
       "Networking"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": false,
-        "values": []
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": true,
-        "minimum": 18,
-        "maximum": 35
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": true
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": []
-    },
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": false,
+    "values": []
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": true,
+    "minimum": 18,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false,
+    "preferred": true
+  },
+  "communityService": {
+    "required": false,
+    "preferred": true
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "delegateOrScholarship",
+      "required": true,
+      "label": "Summit participation route",
+      "description": "Eligibility differs between paid delegate participation and individual scholarship opportunities. Scholarship routes may impose additional age, nationality, leadership and impact requirements."
+    }
+  ]
+},
     "website": "https://www.oneyoungworld.com",
     "image": "/images/opportunities/one-young-world.jpg",
     "featured": false,
@@ -1524,60 +1778,73 @@
       "Prize Awards"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": true,
-        "values": ["Bachelor"]
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": true
-      },
-      "additionalRequirements": [
-        {
-          "type": "qualifiedUniversityTeam",
-          "required": true,
-          "label": "Qualified university team",
-          "description": "Participation requires qualification through the official ICPC regional and university team structure."
-        }
-      ]
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": true,
+    "values": ["Bachelor", "Master"]
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false,
+    "preferred": true
+  },
+  "additionalRequirements": [
+    {
+      "type": "qualifiedUniversityTeam",
+      "required": true,
+      "label": "Qualified ICPC university team",
+      "description": "Participation at the World Finals requires qualification through the applicable ICPC regional contest pathway."
     },
+    {
+      "type": "enrollment",
+      "required": true,
+      "label": "Eligible university enrollment",
+      "description": "Contestants must satisfy the current ICPC enrollment and participation rules."
+    },
+    {
+      "type": "teamQualification",
+      "required": true,
+      "label": "Regional qualification",
+      "description": "The student cannot independently apply to the World Finals without qualifying through the applicable ICPC competition structure."
+    }
+  ]
+},
     "website": "https://icpc.global",
     "image": "/images/opportunities/icpc.jpg",
     "featured": false,
@@ -1609,60 +1876,66 @@
       "Innovation Awards"
     ],
     "eligibility": {
-      "nationality": {
-        "required": false,
-        "countries": []
-      },
-      "internationalStudent": {
-        "required": false
-      },
-      "studyLevel": {
-        "required": false,
-        "values": []
-      },
-      "fieldOfStudy": {
-        "required": false,
-        "values": []
-      },
-      "academicPerformance": {
-        "required": false,
-        "minimumGPA": null
-      },
-      "english": {
-        "required": false,
-        "test": null,
-        "minimum": null
-      },
-      "age": {
-        "required": false,
-        "minimum": null,
-        "maximum": null
-      },
-      "workExperience": {
-        "required": false,
-        "minimumMonths": null
-      },
-      "researchExperience": {
-        "required": false
-      },
-      "leadership": {
-        "required": false
-      },
-      "communityService": {
-        "required": false
-      },
-      "achievements": {
-        "required": false
-      },
-      "additionalRequirements": [
-        {
-          "type": "openParticipation",
-          "required": true,
-          "label": "Open participation",
-          "description": "The challenge is designed for participants from diverse backgrounds and experience levels."
-        }
-      ]
+  "nationality": {
+    "required": false,
+    "countries": []
+  },
+  "internationalStudent": {
+    "required": false
+  },
+  "studyLevel": {
+    "required": false,
+    "values": []
+  },
+  "fieldOfStudy": {
+    "required": false,
+    "values": []
+  },
+  "academicPerformance": {
+    "required": false,
+    "minimumGPA": null
+  },
+  "english": {
+    "required": false,
+    "test": null,
+    "minimum": null
+  },
+  "age": {
+    "required": false,
+    "minimum": null,
+    "maximum": null
+  },
+  "workExperience": {
+    "required": false,
+    "minimumMonths": null
+  },
+  "researchExperience": {
+    "required": false
+  },
+  "leadership": {
+    "required": false
+  },
+  "communityService": {
+    "required": false
+  },
+  "achievements": {
+    "required": false
+  },
+  "additionalRequirements": [
+    {
+      "type": "openParticipation",
+      "required": true,
+      "label": "Open hackathon participation",
+      "description": "The event is designed for participants from diverse backgrounds and experience levels; eligibility should be checked against the current event's participant terms."
     },
+    {
+      "type": "projectSubmission",
+      "required": true,
+      "label": "Qualifying project submission",
+      "description": "Participants must create and submit a project satisfying the current NASA Space Apps challenge and submission rules."
+    }
+  ]
+},
     "website": "https://www.spaceappschallenge.org",
     "image": "/images/opportunities/nasa-space-apps.jpg",
     "featured": true,
