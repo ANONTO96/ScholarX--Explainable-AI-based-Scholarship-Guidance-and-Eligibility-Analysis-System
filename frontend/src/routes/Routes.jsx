@@ -27,6 +27,10 @@ import LearnMoreAboutWholeProcess from "../pages/LearnMoreAboutWholeProcess";
 import AboutUs from "../pages/AboutUs";
 import TermsOfService from "../pages/TermsOfService";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import UniversityDetails from "../pages/UniversityDetails";
+import OpportunityDetails from "../pages/OpportunityDetails";
 
 
 export const router = createBrowserRouter([
@@ -45,6 +49,8 @@ export const router = createBrowserRouter([
       { path: "/countries/:slug", Component: CountryDetails },
       { path: ":type", Component: AllPrograms },
       { path: "/programDetails/:slug", Component: ProgramDetails },
+      { path: "/universityDetails/:slug", Component: UniversityDetails },
+      { path: "/opportunityDetails/:slug", Component: OpportunityDetails },
       { path: "pricing", Component: Pricing },
       { path: "blog", Component: Blog },
       { path: "FAQ", Component: FAQ },
@@ -63,4 +69,6 @@ export const router = createBrowserRouter([
       { path: "terms-of-service", Component: TermsOfService }
     ],
   },
+  { path: "logIn", Component: Login },
+  { path: "register", Component: Register },
 ]);
