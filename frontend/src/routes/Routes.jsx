@@ -31,6 +31,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import UniversityDetails from "../pages/UniversityDetails";
 import OpportunityDetails from "../pages/OpportunityDetails";
+import DashboardLayout from "../pages/Dashboard/DashboardLayout";
+import DashboardOverview from "../pages/Dashboard/DashboardOverview";
 
 
 export const router = createBrowserRouter([
@@ -66,9 +68,59 @@ export const router = createBrowserRouter([
       { path: "contact", Component: Contact },
       { path: "about-us", Component: AboutUs },
       { path: "privacy-policy", Component: PrivacyPolicy },
-      { path: "terms-of-service", Component: TermsOfService }
+      { path: "terms-of-service", Component: TermsOfService },
     ],
   },
   { path: "logIn", Component: Login },
   { path: "register", Component: Register },
+  {
+        path: "dashboard",
+        element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <DashboardOverview />,
+          },
+
+          {
+            path: "profile",
+            element: <div>Profile Page</div>,
+          },
+
+          {
+            path: "matches",
+            element: <div>Matchmaking Page</div>,
+          },
+
+          {
+            path: "favorites",
+            element: <div>Favorites Page</div>,
+          },
+
+          {
+            path: "applications",
+            element: <div>Applications Page</div>,
+          },
+
+          {
+            path: "deadlines",
+            element: <div>Deadlines Page</div>,
+          },
+
+          {
+            path: "documents",
+            element: <div>Documents Page</div>,
+          },
+
+          {
+            path: "eligibility",
+            element: <div>Eligibility Page</div>,
+          },
+
+          {
+            path: "settings",
+            element: <div>Settings Page</div>,
+          },
+        ],
+      },
 ]);

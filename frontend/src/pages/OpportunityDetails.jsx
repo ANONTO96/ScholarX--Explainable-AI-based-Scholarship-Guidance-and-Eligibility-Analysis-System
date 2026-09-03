@@ -133,8 +133,6 @@ const OpportunityDetails = () => {
 
                 <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-sky-200/30 blur-3xl" />
 
-                <div className="absolute top-[40%] left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-200/20 blur-3xl" />
-
             </div>
 
 
@@ -152,14 +150,13 @@ const OpportunityDetails = () => {
                 >
 
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-blue-950 to-sky-800" />
+                    <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-blue-950 to-blue-800" />
 
                     {/* Decorative circles */}
+
                     <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10" />
 
                     <div className="absolute -bottom-40 right-10 h-112.5 w-112.5 rounded-full border border-white/10" />
-
-                    <div className="absolute right-1/4 top-20 h-32 w-32 rounded-full bg-sky-400/10 blur-2xl" />
 
                     <div className="relative mx-auto flex min-h-140 max-w-7xl items-center px-6 pt-40 pb-20">
 
@@ -197,7 +194,7 @@ const OpportunityDetails = () => {
 
 
                             {/* Title */}
-                            <h1 className="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+                            <h1 className="text-4xl bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent font-black leading-tight sm:text-5xl lg:text-6xl">
 
                                 {opportunity.title}
 

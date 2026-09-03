@@ -1,84 +1,86 @@
 import { NavLink } from "react-router";
-import { CalendarDays,
+import {
+  CalendarDays,
   ChartNoAxesColumn,
-  FileCheck, ArrowRight } from "lucide-react";
+  FileCheck, ArrowRight
+} from "lucide-react";
 import plan from "../assets/plan.jpg";
 import track from "../assets/track.jpg";
 import submit from "../assets/submit.jpg";
 import { useState } from "react";
+import { useChatbot } from "../context/AiChatbot/useChatbot";
 
 const TimelineSection = () => {
+  const { openChatbot } = useChatbot();
   // state for cards
-const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0);
 
-const steps = [
-  {
-    title: "Plan",
-    icon: CalendarDays,
-  },
-  {
-    title: "Track",
-    icon: ChartNoAxesColumn,
-  },
-  {
-    title: "Submit",
-    icon: FileCheck,
-  },
-];
+  const steps = [
+    {
+      title: "Plan",
+      icon: CalendarDays,
+    },
+    {
+      title: "Track",
+      icon: ChartNoAxesColumn,
+    },
+    {
+      title: "Submit",
+      icon: FileCheck,
+    },
+  ];
 
-const timelineCards = [
-  {
-    tag: "Plan",
-    title: "A personalized timeline built from your best matches",
-    description:
-      "The system sequences your applications by deadline and probability. You always know exactly what to work on next.",
-    image: plan,
-    link: "/eligibility-analysis",
-  },
-  {
-    tag: "Track",
-    title: "Track every scholarship in one organized dashboard",
-    description:
-      "Monitor deadlines, document status, interview schedules, and application progress without missing anything.",
-    image: track,
-    link: "/dashboard",
-  },
-  {
-    tag: "submit",
-    title: "Submit confidently with an AI-powered checklist",
-    description:
-      "ScholarX verifies your documents, highlights missing requirements, and helps maximize your success rate.",
-    image: submit,
-    link: "/aiChatBot",
-  },
-];
+  const timelineCards = [
+    {
+      tag: "Plan",
+      title: "A personalized timeline built from your best matches",
+      description:
+        "The system sequences your applications by deadline and probability. You always know exactly what to work on next.",
+      image: plan,
+      link: "/eligibility-analysis",
+    },
+    {
+      tag: "Track",
+      title: "Track every scholarship in one organized dashboard",
+      description:
+        "Monitor deadlines, document status, interview schedules, and application progress without missing anything.",
+      image: track,
+      link: "/dashboard",
+    },
+    {
+      tag: "Submit",
+      title: "Submit confidently with an AI-powered checklist",
+      description:
+        "ScholarX verifies your documents, highlights missing requirements, and helps maximize your success rate.",
+      image: submit,
+    },
+  ];
 
 
-const card = timelineCards[current];
+  const card = timelineCards[current];
 
-    return (
-        <section className="pb-20 bg-white">
+  return (
+    <section className="pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10 ">
         <div className="flex justify-center gap-10 mb-12">
-  {steps.map((step, index) => {
-    const Icon = step.icon;
+          {steps.map((step, index) => {
+            const Icon = step.icon;
 
-    return (
-      <button
-        key={step.title}
-        onClick={() => setCurrent(index)}
-        className={`flex items-center gap-2 pb-3 border-b-2 transition ${
-          current === index
-            ? "border-black text-black"
-            : "border-transparent text-gray-500 hover:text-black"
-        }`}
-      >
-        <Icon size={18} />
-        {step.title}
-      </button>
-    );
-  })}
-</div>
+            return (
+              <button
+                key={step.title}
+                onClick={() => setCurrent(index)}
+                className={`flex items-center gap-2 pb-3 border-b-2 transition ${current === index
+                    ? "border-black text-black"
+                    : "border-transparent text-gray-500 hover:text-black"
+                  }`}
+              >
+                <Icon size={18} />
+                {step.title}
+              </button>
+            );
+          })}
+        </div>
         <div className="grid lg:grid-cols-2 items-center gap-14 xl:gap-22 bg-zinc-100 rounded-lg shadow-lg">
           {/* Left Content */}
           <div className="order-2 px-4 pb-20 lg:p-0">
@@ -95,17 +97,34 @@ const card = timelineCards[current];
             </p>
             {/* Buttons */}
             <div className="mt-5 flex items-center gap-5">
-              <NavLink to={card.link}
-                className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
-                           bg-gray-100
-                           border border-[#3A2C2C]
-                           shadow-[2px_3px_0px_0px_#3A2C2C]
-                           transition-all duration-200
-                           hover:translate-y-0.5
-                           hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
-              >
-                Start
-              </NavLink>
+              {card.tag === "Submit" ? (
+                <button
+                  type="button"
+                  onClick={openChatbot}
+                  className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
+               bg-gray-100
+               border border-[#3A2C2C]
+               shadow-[2px_3px_0px_0px_#3A2C2C]
+               transition-all duration-200
+               hover:translate-y-0.5
+               hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
+                >
+                  Start
+                </button>
+              ) : (
+                <NavLink
+                  to={card.link}
+                  className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
+               bg-gray-100
+               border border-[#3A2C2C]
+               shadow-[2px_3px_0px_0px_#3A2C2C]
+               transition-all duration-200
+               hover:translate-y-0.5
+               hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
+                >
+                  Start
+                </NavLink>
+              )}
 
               <NavLink
                 to="/learn-more-about-whole-process"
@@ -128,7 +147,7 @@ const card = timelineCards[current];
         </div>
       </div>
     </section>
-    );
+  );
 };
 
 export default TimelineSection;

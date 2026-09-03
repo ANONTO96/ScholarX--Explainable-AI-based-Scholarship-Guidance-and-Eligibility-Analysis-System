@@ -9,7 +9,6 @@ import {
     CircleCheck,
     Globe2,
     GraduationCap,
-    House,
     Languages,
     MapPin,
     Medal,
@@ -20,6 +19,7 @@ import {
     Users,
     WalletCards,
     Info,
+    House,
 } from "lucide-react";
 
 import { NavLink, useParams } from "react-router";
@@ -159,7 +159,7 @@ const UniversityDetails = () => {
                         top-[35%]
                         h-96 w-96
                         rounded-full
-                        bg-cyan-200/20
+                        bg-cyan-200/30
                         blur-3xl
                     "
                 />
@@ -408,7 +408,7 @@ const UniversityDetails = () => {
                                         justify-center
                                         gap-2
                                         rounded-xl
-                                        bg-sky-500
+                                        bg-sky-600
                                         px-6 py-3.5
                                         font-semibold
                                         text-white
@@ -417,7 +417,7 @@ const UniversityDetails = () => {
                                         transition-all
                                         duration-300
                                         hover:-translate-y-1
-                                        hover:bg-sky-400
+                                        hover:bg-sky-500
                                     "
                                 >
                                     <BadgeCheck size={18} />
@@ -1670,58 +1670,23 @@ const UniversityDetails = () => {
 
 
                         {/* Living Cost */}
-
-                        <div
-                            className="
-                                group
-                                rounded-3xl
-                                border
-                                border-slate-200
-                                bg-white
-                                p-6
-                                shadow-sm
-                                transition-all
-                                duration-300
-                                hover:-translate-y-1
-                                hover:shadow-xl
-                            "
-                        >
-
-                            <div
-                                className="
-                                    flex
-                                    h-12 w-12
-                                    items-center
-                                    justify-center
-                                    rounded-xl
-                                    bg-sky-50
-                                    text-sky-600
-                                    transition-all
-                                    duration-500
-                                    group-hover:scale-110
-                                    group-hover:bg-sky-600
-                                    group-hover:text-white
-                                "
-                            >
-                                <House size={22} />
-                            </div>
-
-
-                            <p className="mt-6 text-sm font-semibold text-slate-500">
-                                Living Costs
-                            </p>
-
-
-                            <p className="mt-2 text-2xl font-black text-slate-900">
-                                {university.livingCost || "Not specified"}
-                            </p>
-
-
-                            <p className="mt-2 text-sm text-slate-500">
-                                Estimated living expenses
-                            </p>
-
+                        
+                        <div className=" group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl " >
+                            
+                            <div className=" flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-600 transition-all duration-500 group-hover:scale-110 group-hover:bg-sky-600 group-hover:text-white " >
+                                 <House size={22} /> 
+                                 </div> 
+                                 <p className="mt-6 text-sm font-semibold text-slate-500">
+                                    Living Costs
+                                  </p>
+                                 <p className="mt-2 text-2xl font-black text-slate-900">
+                                    {university.livingCost || "Not specified"}
+                                  </p>
+                                 <p className="mt-2 text-sm text-slate-500">
+                                    Estimated living expenses
+                                  </p>
                         </div>
+
 
 
                         {/* Scholarships */}
@@ -2740,196 +2705,49 @@ const UniversityDetails = () => {
             {/* FINAL CTA */}
             {/* ========================================================= */}
 
-            <section className="bg-slate-50 px-6 pb-20">
-
-                <div
-                    className="
-                        relative
-                        mx-auto
-                        max-w-308
-                        overflow-hidden
-                        rounded-3xl
-                        bg-linear-to-br
-                        from-slate-950
+            <section className=" bg-slate-50 px-6 pb-20">
+                <div className="relative overflow-hidden mx-auto max-w-308 rounded-3xl bg-linear-to-br from-slate-950
                         via-sky-950
-                        to-sky-800
-                        py-24
-                    "
-                >
+                        to-sky-800 py-24">
 
                     {/* Decorative circles */}
+                    <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10" />
 
-                    <div
-                        className="
-                            absolute
-                            -left-32
-                            -top-32
-                            h-96 w-96
-                            rounded-full
-                            border
-                            border-white/10
-                        "
-                    />
+                    <div className="absolute -bottom-40 right-10 h-112.5 w-112.5 rounded-full border border-white/10" />
 
-                    <div
-                        className="
-                            absolute
-                            -bottom-40
-                            right-10
-                            h-112.5 w-112.5
-                            rounded-full
-                            border
-                            border-white/10
-                        "
-                    />
+                    <div className="relative mx-auto max-w-4xl px-6 text-center text-white">
 
-
-                    <div
-                        className="
-                            relative
-                            mx-auto
-                            max-w-4xl
-                            px-6
-                            text-center
-                            text-white
-                        "
-                    >
-
-                        <div
-                            className="
-                                mb-4
-                                inline-flex
-                                items-center
-                                gap-2
-                                rounded-full
-                                border
-                                border-white/20
-                                bg-white/10
-                                px-4 py-2
-                                text-sm
-                                backdrop-blur
-                            "
-                        >
-
-                            <ShieldCheck
-                                className="text-sky-400"
-                                size={28}
-                            />
-
-                            <span
-                                className="
-                                    inline-block
-                                    text-sm
-                                    font-bold
-                                    uppercase
-                                    tracking-wider
-                                    text-sky-400
-                                "
-                            >
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur">
+                            <ShieldCheck className="text-sky-400" size={28} />
+                            <span className="inline-block text-sm font-bold uppercase tracking-wider text-sky-400">
                                 Your Next Step
                             </span>
-
                         </div>
 
-
-                        <h2
-                            className="
-                                mt-3
-                                text-4xl
-                                font-black
-                                tracking-tight
-                            "
-                        >
+                        <h2 className="mt-3 text-4xl font-black tracking-tight">
                             Could {university.name} be your next destination?
                         </h2>
 
-
-                        <p
-                            className="
-                                mx-auto
-                                mt-4
-                                max-w-2xl
-                                text-lg
-                                leading-8
-                                text-slate-300
-                            "
-                        >
+                        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
                             Check your eligibility and discover whether your
                             academic background, English proficiency, budget
                             and study goals align with your plans.
                         </p>
 
-
                         <div className="mt-9 flex flex-wrap justify-center gap-4">
 
-                            <NavLink
-                                to="/eligibility-analysis"
-                                className="
-                                    group
-                                    inline-flex
-                                    items-center
-                                    justify-center
-                                    gap-2
-                                    rounded-xl
-                                    bg-sky-500
-                                    px-6 py-3.5
-                                    font-semibold
-                                    text-white
-                                    shadow-lg
-                                    shadow-sky-500/20
-                                    transition-all
-                                    duration-300
-                                    hover:-translate-y-1
-                                    hover:bg-sky-400
-                                "
-                            >
-
-                                <BadgeCheck size={18} />
-
-                                Check My Eligibility
-
-                                <ArrowRight
-                                    size={18}
-                                    className="
-                                        transition-transform
-                                        group-hover:translate-x-1
-                                    "
-                                />
-
+                            <NavLink to="/eligibility-analysis" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-sky-500">
+                                <span className="flex items-center gap-2">
+                                    <BadgeCheck size={18} />
+                                    Check My Eligibility
+                                </span>
                             </NavLink>
 
-
-                            <NavLink
-                                to="/universities"
-                                className="
-                                    group
-                                    inline-flex
-                                    items-center
-                                    gap-2
-                                    rounded-xl
-                                    border
-                                    border-white/30
-                                    bg-white/10
-                                    px-6 py-3.5
-                                    font-semibold
-                                    text-white
-                                    backdrop-blur-sm
-                                    transition-all
-                                    duration-300
-                                    hover:-translate-y-1
-                                    hover:bg-white/20
-                                "
-                            >
-                                Explore Other Universities
-
-                                <ArrowRight
-                                    size={18}
-                                    className="
-                                        transition-transform
-                                        group-hover:translate-x-1
-                                    "
-                                />
-
+                            <NavLink to="/universities" className="group inline-flex items-center gap-2 rounded-xl text-white border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
+                                <span className="flex items-center gap-2">
+                                    Explore Other Universities
+                                    <ArrowRight size={18} />
+                                </span>
                             </NavLink>
 
                         </div>
@@ -2937,7 +2755,6 @@ const UniversityDetails = () => {
                     </div>
 
                 </div>
-
             </section>
 
         </div>

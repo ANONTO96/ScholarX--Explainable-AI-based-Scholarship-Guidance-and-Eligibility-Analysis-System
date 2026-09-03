@@ -342,6 +342,11 @@ const Navbar = () => {
                 </ul>
               </details>
             </li>
+            <li><NavLink to="/dashboard" className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-bold"
+                    : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+                }>Dashboard</NavLink></li>
           </ul>
         </div>
         {/* user actions */}
@@ -530,7 +535,13 @@ const Navbar = () => {
 
                   </ul>
 
-                </li>        </ul>
+                </li>
+                <li><NavLink to="/dashboard" className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-bold"
+                    : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+                }>Dashboard</NavLink></li>
+                        </ul>
 
             )}
 
