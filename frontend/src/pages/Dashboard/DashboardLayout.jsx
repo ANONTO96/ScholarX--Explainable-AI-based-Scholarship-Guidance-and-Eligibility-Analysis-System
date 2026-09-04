@@ -57,7 +57,6 @@ const DashboardLayout = () => {
       label: "Matchmaking",
       path: "/dashboard/matches",
       icon: Target,
-      badge: "12",
     },
     {
       label: "Favorites",
@@ -251,32 +250,34 @@ const DashboardLayout = () => {
           </div>
 
           {/* Bottom navigation */}
-          <div className="mt-8 border-t border-slate-100 pt-5">
-            {bottomNavigation.map((item) => {
-              const Icon = item.icon;
+<div className="mt-8 border-t border-slate-100 pt-5">
+  {bottomNavigation.map((item) => {
+    const Icon = item.icon;
 
-              return (
-                <NavLink
-                  key={item.label}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `
-                    flex items-center gap-3 rounded-xl px-3 py-3
-                    text-sm font-medium transition
-                    ${
-                      isActive
-                        ? "bg-sky-50 text-sky-600"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }
-                    `
-                  }
-                >
-                  <Icon className="h-4.5 w-4.5" />
-                  {item.label}
-                </NavLink>
-              );
-            })}
-          </div>
+    return (
+      <NavLink
+        key={item.label}
+        to={item.path}
+        onClick={() => setSidebarOpen(false)}
+        className={({ isActive }) =>
+          `
+          flex items-center gap-3 rounded-xl px-3 py-3
+          text-sm font-medium transition
+          ${
+            isActive
+              ? "bg-sky-50 text-sky-600"
+              : "text-slate-600 hover:bg-slate-50"
+          }
+          `
+        }
+      >
+        <Icon className="h-4.5 w-4.5" />
+
+        {item.label}
+      </NavLink>
+    );
+  })}
+</div>
         </div>
 
         {/* User section */}

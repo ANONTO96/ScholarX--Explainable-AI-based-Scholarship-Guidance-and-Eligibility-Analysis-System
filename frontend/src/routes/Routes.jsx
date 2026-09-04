@@ -34,6 +34,12 @@ import OpportunityDetails from "../pages/OpportunityDetails";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 import DashboardOverview from "../pages/Dashboard/DashboardOverview";
 import Profile from "../pages/Dashboard/Profile";
+import Matches from "../pages/Dashboard/Matches";
+import Favorites from "../pages/Dashboard/Favorites";
+import Applications from "../pages/Dashboard/Applications";
+import Deadlines from "../pages/Dashboard/Deadlines";
+import Documents from "../pages/Dashboard/Documents";
+import Settings from "../pages/Dashboard/Settings";
 
 
 export const router = createBrowserRouter([
@@ -90,37 +96,32 @@ export const router = createBrowserRouter([
 
           {
             path: "matches",
-            element: <div>Matchmaking Page</div>,
+            element: <Matches></Matches>,
           },
 
           {
             path: "favorites",
-            element: <div>Favorites Page</div>,
+            element: <Favorites></Favorites>,
           },
 
           {
             path: "applications",
-            element: <div>Applications Page</div>,
+            element: <Applications></Applications>,
           },
 
           {
             path: "deadlines",
-            element: <div>Deadlines Page</div>,
+            element: <Deadlines></Deadlines>,
           },
 
           {
             path: "documents",
-            element: <div>Documents Page</div>,
+            element: <Documents></Documents>,
           },
-
-          {
-            path: "eligibility",
-            element: <div>Eligibility Page</div>,
-          },
-
+          
           {
             path: "settings",
-            element: <div>Settings Page</div>,
+            element: <Settings></Settings>,
           },
         ],
       },
