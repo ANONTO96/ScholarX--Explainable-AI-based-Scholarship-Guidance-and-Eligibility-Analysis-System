@@ -33,6 +33,7 @@ import UniversityDetails from "../pages/UniversityDetails";
 import OpportunityDetails from "../pages/OpportunityDetails";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 import DashboardOverview from "../pages/Dashboard/DashboardOverview";
+import Profile from "../pages/Dashboard/Profile";
 
 
 export const router = createBrowserRouter([
@@ -84,7 +85,7 @@ export const router = createBrowserRouter([
 
           {
             path: "profile",
-            element: <div>Profile Page</div>,
+            element: <Profile></Profile>,
           },
 
           {
