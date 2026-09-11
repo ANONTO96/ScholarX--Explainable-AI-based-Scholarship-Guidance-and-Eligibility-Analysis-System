@@ -3,8 +3,8 @@ import {
     CalendarDays,
     CircleDollarSign,
     Globe2,
+    GraduationCap,
     Landmark,
-    Sparkles,
 } from "lucide-react";
 import { NavLink } from "react-router";
 
@@ -61,7 +61,7 @@ const OpportunityCard = ({ opportunity }) => {
                                 group-hover:scale-105
                             "
                         >
-                            <Sparkles className="h-6 w-6" />
+                            <GraduationCap className="h-6 w-6" />
                         </div>
 
                         <div className="min-w-0">

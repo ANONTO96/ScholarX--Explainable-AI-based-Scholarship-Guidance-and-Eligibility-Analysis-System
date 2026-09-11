@@ -612,14 +612,14 @@ group-hover:scale-110">
 
                         </div>
 
-                        <button className="group flex shrink-0 items-center gap-2 font-semibold text-blue-600 transition hover:text-blue-700">
+                        <NavLink to="/universities" className="group flex shrink-0 items-center gap-2 font-semibold text-blue-600 transition hover:text-blue-700">
                             View all universities
 
                             <ArrowRight
                                 size={18}
                                 className="transition-transform duration-300 group-hover:translate-x-1"
                             />
-                        </button>
+                        </NavLink>
 
                     </div>
 

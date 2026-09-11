@@ -1,10 +1,10 @@
 import {
     ArrowRight,
+    BookOpen,
     Building2,
     GraduationCap,
     MapPin,
     Medal,
-    Sparkles,
 } from "lucide-react";
 import { NavLink } from "react-router";
 
@@ -248,7 +248,7 @@ const UniversityCard = ({ university }) => {
                                     shadow-sm
                                 "
                             >
-                                <GraduationCap className="h-4 w-4" />
+                                <BookOpen className="h-4 w-4" />
                             </div>
 
                             <div>
@@ -288,7 +288,7 @@ const UniversityCard = ({ university }) => {
                                     shadow-sm
                                 "
                             >
-                                <Sparkles className="h-4 w-4" />
+                                <GraduationCap className="h-4 w-4" />
                             </div>
 
                             <div>

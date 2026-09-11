@@ -4,6 +4,7 @@ import {
     Globe2,
     Landmark,
     Sparkles,
+    BookOpen,
 } from "lucide-react";
 import { NavLink } from "react-router";
 
@@ -61,7 +62,7 @@ const ProgramCard = ({ program }) => {
                                 group-hover:scale-105
                             "
                         >
-                            <GraduationCap className="h-6 w-6" />
+                            <BookOpen className="h-6 w-6" />
                         </div>
 
                         <div>

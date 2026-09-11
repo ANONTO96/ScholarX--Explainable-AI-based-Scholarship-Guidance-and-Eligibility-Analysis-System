@@ -820,7 +820,7 @@ export default function EligibilityAnalysis() {
                 <div className="absolute -right-32 -top-20 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl" />
 
 
-                <div className="absolute right-[20%] top-20 rotate-12 text-blue-200">
+                <div className="absolute right-[25%] lg:right-[30%] top-20 lg:top-25 rotate-12 text-blue-200">
                     <Sparkles
                         size={70}
                         strokeWidth={1.5}
@@ -828,7 +828,7 @@ export default function EligibilityAnalysis() {
                 </div>
 
 
-                <div className="absolute bottom-32 left-[8%] rotate-12 text-blue-200">
+                <div className="absolute bottom-32 left-[15%] rotate-12 text-blue-200">
                     <Target
                         size={75}
                         strokeWidth={1.2}
@@ -887,7 +887,7 @@ export default function EligibilityAnalysis() {
             {/* PROFILE SUMMARY                                        */}
             {/* ===================================================== */}
 
-            <section className="relative z-20 mx-auto -mt-10 max-w-6xl px-6">
+            <section className="relative z-20 mx-auto -mt-12 max-w-7xl px-6 sm:px-8 lg:px-10">
 
                 <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
 

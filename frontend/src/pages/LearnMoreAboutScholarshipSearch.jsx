@@ -144,11 +144,11 @@ export default function LearnMoreAboutScholarshipSearch() {
 
                 <div className="absolute -right-32 -top-20 h-96 w-96 rounded-full bg-indigo-200/40 blur-3xl" />
 
-                <div className="absolute right-[20%] top-20 rotate-12 text-blue-200">
+                <div className="absolute right-[25%] lg:right-[30%] top-20 lg:top-25 rotate-12 text-blue-200">
                     <Sparkles size={70} strokeWidth={1.5} />
                 </div>
 
-                <div className="absolute bottom-60 left-[8%] rotate-12 text-blue-200">
+                <div className="absolute bottom-60 left-[15%] rotate-12 text-blue-200">
                     <BookOpen size={75} strokeWidth={1.2} />
                 </div>
 
@@ -184,7 +184,7 @@ export default function LearnMoreAboutScholarshipSearch() {
                         <div className="mt-9 flex flex-wrap items-center justify-center">
                             <NavLink
                                 to="/programs"
-                                className="group inline-flex items-center gap-2 px-4 py-2 font-semibold text-slate-950 shrink-0 text-lg rounded-2xl
+                                className="group inline-flex items-center gap-2 px-5 py-3 font-semibold text-slate-950 shrink-0 text-lg rounded-2xl
                bg-[#DCEEFF]
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]

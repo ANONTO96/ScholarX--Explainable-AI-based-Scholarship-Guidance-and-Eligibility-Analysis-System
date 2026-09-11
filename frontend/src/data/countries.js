@@ -15,7 +15,6 @@ import china from "../assets/china.avif";
 import japan from "../assets/japan.avif";
 import malaysia from "../assets/malaysia.avif";
 
-
 export const countries = [
     {
         id: 1,
@@ -41,12 +40,13 @@ export const countries = [
 
         intakes: ["Fall", "Spring"],
 
-        workRights: "Up to 20 hrs/week",
+        workRights:
+            "Generally up to 20 hrs/week on campus during the academic term; off-campus work requires authorization.",
 
         studentWage: "$12–$25/hour",
 
         postStudyWork:
-            "Eligible graduates may apply for Optional Practical Training (OPT) to gain practical work experience related to their field of study.",
+            "Eligible F-1 graduates may qualify for up to 12 months of post-completion OPT; qualifying STEM graduates may receive a 24-month STEM OPT extension.",
 
         topFields: [
             "Computer Science",
@@ -85,33 +85,72 @@ export const countries = [
             {
                 name: "Massachusetts Institute of Technology",
                 location: "Massachusetts",
-                ranking: "Top Global University",
-                tuition: "$60k+/year",
+                ranking: "QS 2027: #1",
+                tuition: "$60k–$70k/year",
                 popularPrograms: [
                     "Computer Science",
-                    "Engineering",
                     "AI",
+                    "Engineering",
+                    "Data Science",
                 ],
             },
             {
                 name: "Stanford University",
                 location: "California",
-                ranking: "Top Global University",
-                tuition: "$60k+/year",
+                ranking: "QS 2027: =#2",
+                tuition: "$60k–$70k/year",
                 popularPrograms: [
                     "Computer Science",
+                    "AI",
                     "Business",
                     "Engineering",
                 ],
             },
             {
+                name: "Harvard University",
+                location: "Massachusetts",
+                ranking: "QS 2027: #5",
+                tuition: "$55k–$70k/year",
+                popularPrograms: [
+                    "Business",
+                    "Computer Science",
+                    "Data Science",
+                    "Public Health",
+                ],
+            },
+            {
                 name: "University of California, Berkeley",
                 location: "California",
-                ranking: "Top US University",
-                tuition: "$30k–$65k/year",
+                ranking: "QS 2027: =#20",
+                tuition: "$30k–$55k/year",
                 popularPrograms: [
                     "Computer Science",
                     "Engineering",
+                    "Business",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "University of California, Los Angeles",
+                location: "California",
+                ranking: "QS 2027: #49",
+                tuition: "$30k–$55k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Business",
+                    "Life Sciences",
+                ],
+            },
+            {
+                name: "University of Illinois Urbana-Champaign",
+                location: "Illinois",
+                ranking: "QS 2027: #74",
+                tuition: "$25k–$45k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Data Science",
                     "Business",
                 ],
             },
@@ -148,7 +187,6 @@ export const countries = [
         ],
     },
 
-
     {
         id: 2,
         name: "United Kingdom",
@@ -173,12 +211,13 @@ export const countries = [
 
         intakes: ["September", "January"],
 
-        workRights: "Up to 20 hrs/week",
+        workRights:
+            "Generally up to 20 hrs/week on campus during the academic term; off-campus work requires authorization.",
 
         studentWage: "$13–$20/hour",
 
         postStudyWork:
-            "Eligible international graduates may apply for the Graduate Route, allowing them to remain in the UK for a period after completing their studies.",
+            "The Graduate Route currently allows 2 years for applications made on or before 31 December 2026; applications from 1 January 2027 receive 18 months (3 years for doctoral graduates).",
 
         topFields: [
             "Business",
@@ -215,36 +254,75 @@ export const countries = [
 
         universities: [
             {
+                name: "Imperial College London",
+                location: "London",
+                ranking: "QS 2027: =#2",
+                tuition: "$30k–$60k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computing",
+                    "AI",
+                    "Business",
+                ],
+            },
+            {
                 name: "University of Oxford",
                 location: "Oxford",
-                ranking: "Top Global University",
-                tuition: "$35k–$55k/year",
+                ranking: "QS 2027: #4",
+                tuition: "$25k–$55k/year",
                 popularPrograms: [
-                    "Business",
                     "Computer Science",
+                    "Business",
+                    "Engineering",
                     "Law",
                 ],
             },
             {
                 name: "University of Cambridge",
                 location: "Cambridge",
-                ranking: "Top Global University",
-                tuition: "$30k–$55k/year",
+                ranking: "QS 2027: #6",
+                tuition: "$25k–$55k/year",
                 popularPrograms: [
                     "Engineering",
                     "Computer Science",
                     "Business",
+                    "Natural Sciences",
                 ],
             },
             {
-                name: "Imperial College London",
+                name: "University College London",
                 location: "London",
-                ranking: "Top UK University",
-                tuition: "$35k–$55k/year",
+                ranking: "QS 2027: =#8",
+                tuition: "$25k–$50k/year",
                 popularPrograms: [
+                    "Computer Science",
                     "Engineering",
-                    "Computing",
+                    "Architecture",
                     "Business",
+                ],
+            },
+            {
+                name: "University of Edinburgh",
+                location: "Edinburgh",
+                ranking: "QS 2027: #35",
+                tuition: "$20k–$45k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "AI",
+                    "Business",
+                    "Engineering",
+                ],
+            },
+            {
+                name: "University of Manchester",
+                location: "Manchester",
+                ranking: "QS 2027: =#40",
+                tuition: "$20k–$40k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Business",
+                    "Data Science",
                 ],
             },
         ],
@@ -279,7 +357,6 @@ export const countries = [
             "Tuition can be high for international students",
         ],
     },
-
 
     {
         id: 3,
@@ -349,19 +426,8 @@ export const countries = [
             {
                 name: "University of Toronto",
                 location: "Ontario",
-                ranking: "Top Canadian University",
-                tuition: "$35k–$60k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Engineering",
-                    "Business",
-                ],
-            },
-            {
-                name: "University of British Columbia",
-                location: "British Columbia",
-                ranking: "Top Canadian University",
-                tuition: "$30k–$55k/year",
+                ranking: "QS 2027: #32",
+                tuition: "$30k–$60k/year",
                 popularPrograms: [
                     "Computer Science",
                     "Engineering",
@@ -371,11 +437,60 @@ export const countries = [
             {
                 name: "McGill University",
                 location: "Quebec",
-                ranking: "Top Canadian University",
+                ranking: "QS 2027: #30",
                 tuition: "$20k–$50k/year",
                 popularPrograms: [
                     "Medicine",
                     "Engineering",
+                    "Business",
+                    "Computer Science",
+                ],
+            },
+            {
+                name: "University of British Columbia",
+                location: "British Columbia",
+                ranking: "QS 2027: =#45",
+                tuition: "$25k–$50k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Business",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "University of Alberta",
+                location: "Alberta",
+                ranking: "QS 2027: #96",
+                tuition: "$20k–$35k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Business",
+                    "Health Sciences",
+                ],
+            },
+            {
+                name: "University of Waterloo",
+                location: "Ontario",
+                ranking: "QS 2027: =#113",
+                tuition: "$25k–$45k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Mathematics",
+                    "Business",
+                ],
+            },
+            {
+                name: "McMaster University",
+                location: "Ontario",
+                ranking: "QS 2027: =#174",
+                tuition: "$20k–$35k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "Health Sciences",
                     "Business",
                 ],
             },
@@ -383,9 +498,9 @@ export const countries = [
 
         scholarships: [
             {
-                name: "Vanier Canada Graduate Scholarships",
-                provider: "Canadian Government",
-                amount: "Up to $50,000/year",
+                name: "Canada Graduate Research Scholarship",
+                provider: "Government of Canada / Tri-agency",
+                amount: "Up to CAD $40,000/year for doctoral awards",
                 type: "Government",
             },
             {
@@ -411,7 +526,6 @@ export const countries = [
             "Immigration policies can change",
         ],
     },
-
 
     {
         id: 4,
@@ -442,7 +556,7 @@ export const countries = [
         studentWage: "$24–$35/hour",
 
         postStudyWork:
-            "Eligible graduates may qualify for temporary post-study work arrangements depending on their qualification and circumstances.",
+            "Eligible graduates may qualify for Temporary Graduate visa (subclass 485) arrangements, generally providing 2–3 years depending on qualification and circumstances.",
 
         topFields: [
             "Nursing",
@@ -480,35 +594,74 @@ export const countries = [
         universities: [
             {
                 name: "University of Melbourne",
-                location: "Melbourne",
-                ranking: "Top Australian University",
-                tuition: "$30k–$50k/year",
+                location: "Victoria",
+                ranking: "QS 2027: =#22",
+                tuition: "$25k–$50k/year",
                 popularPrograms: [
                     "Computer Science",
                     "Engineering",
                     "Business",
+                    "Data Science",
                 ],
             },
             {
                 name: "Monash University",
-                location: "Melbourne",
-                ranking: "Top Australian University",
-                tuition: "$28k–$48k/year",
+                location: "Victoria",
+                ranking: "QS 2027: #31",
+                tuition: "$25k–$45k/year",
                 popularPrograms: [
                     "IT",
                     "Business",
                     "Engineering",
+                    "Computer Science",
                 ],
             },
             {
                 name: "University of Sydney",
-                location: "Sydney",
-                ranking: "Top Australian University",
-                tuition: "$30k–$55k/year",
+                location: "New South Wales",
+                ranking: "QS 2027: #28",
+                tuition: "$25k–$50k/year",
                 popularPrograms: [
                     "Engineering",
                     "Business",
                     "Computer Science",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "UNSW Sydney",
+                location: "New South Wales",
+                ranking: "QS 2027: #19",
+                tuition: "$25k–$50k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "Business",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "Australian National University",
+                location: "Australian Capital Territory",
+                ranking: "QS 2027: #29",
+                tuition: "$25k–$45k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Engineering",
+                    "Business",
+                    "Science",
+                ],
+            },
+            {
+                name: "University of Queensland",
+                location: "Queensland",
+                ranking: "QS 2027: =#40",
+                tuition: "$25k–$45k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "Business",
+                    "Health Sciences",
                 ],
             },
         ],
@@ -573,7 +726,7 @@ export const countries = [
         studentWage: "$13–$20/hour",
 
         postStudyWork:
-            "Graduates may have opportunities to remain in Germany to look for qualified employment after completing their studies.",
+            "Graduates may have opportunities to remain in Germany for up to 18 months to look for qualified employment after completing their studies.",
 
         topFields: [
             "Engineering",
@@ -611,35 +764,74 @@ export const countries = [
         universities: [
             {
                 name: "Technical University of Munich",
-                location: "Munich",
-                ranking: "Top German University",
-                tuition: "Varies by program",
+                location: "Bavaria",
+                ranking: "QS 2027: #25",
+                tuition: "$0–$8k/year",
                 popularPrograms: [
                     "Engineering",
                     "Computer Science",
                     "AI",
+                    "Data Science",
                 ],
             },
             {
                 name: "LMU Munich",
-                location: "Munich",
-                ranking: "Top German University",
-                tuition: "Low/varies",
+                location: "Bavaria",
+                ranking: "QS 2027: #61",
+                tuition: "$0–$5k/year",
                 popularPrograms: [
                     "Computer Science",
                     "Business",
+                    "Sciences",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "Heidelberg University",
+                location: "Baden-Württemberg",
+                ranking: "QS 2027: #86",
+                tuition: "$0–$5k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Sciences",
+                    "Medicine",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "Freie Universität Berlin",
+                location: "Berlin",
+                ranking: "QS 2027: =#98",
+                tuition: "$0–$5k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Business",
+                    "Social Sciences",
                     "Sciences",
                 ],
             },
             {
                 name: "RWTH Aachen University",
-                location: "Aachen",
-                ranking: "Top Engineering University",
-                tuition: "Low/varies",
+                location: "North Rhine-Westphalia",
+                ranking: "QS 2027: #104",
+                tuition: "$0–$5k/year",
                 popularPrograms: [
                     "Engineering",
                     "Computer Science",
                     "Automotive",
+                    "AI",
+                ],
+            },
+            {
+                name: "Karlsruhe Institute of Technology",
+                location: "Baden-Württemberg",
+                ranking: "QS 2027: #110",
+                tuition: "$0–$5k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "AI",
+                    "Data Science",
                 ],
             },
         ],
@@ -699,7 +891,8 @@ export const countries = [
 
         intakes: ["September", "January"],
 
-        workRights: "Up to 20 hrs/week",
+        workRights:
+            "Up to 20 hrs/week during term time; up to 40 hrs/week during the permitted holiday periods.",
 
         studentWage: "$13–$18/hour",
 
@@ -743,23 +936,73 @@ export const countries = [
             {
                 name: "Trinity College Dublin",
                 location: "Dublin",
-                ranking: "Top Irish University",
-                tuition: "$20k–$35k/year",
+                ranking: "QS 2027: #75",
+                tuition: "$20k–$40k/year",
                 popularPrograms: [
                     "Computer Science",
                     "Business",
                     "Engineering",
+                    "Data Science",
                 ],
             },
             {
                 name: "University College Dublin",
                 location: "Dublin",
-                ranking: "Top Irish University",
+                ranking: "QS 2027: =#100",
                 tuition: "$18k–$35k/year",
                 popularPrograms: [
+                    "Computer Science",
                     "Business",
+                    "Engineering",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "University College Cork",
+                location: "Cork",
+                ranking: "QS 2027: #220",
+                tuition: "$15k–$30k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Business",
+                    "Engineering",
+                    "Health Sciences",
+                ],
+            },
+            {
+                name: "University of Galway",
+                location: "Galway",
+                ranking: "QS 2027: #275",
+                tuition: "$15k–$30k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Data Science",
+                    "Engineering",
+                    "Business",
+                ],
+            },
+            {
+                name: "Dublin City University",
+                location: "Dublin",
+                ranking: "Established Irish university",
+                tuition: "$15k–$28k/year",
+                popularPrograms: [
+                    "Computing",
+                    "Business",
+                    "Engineering",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "University of Limerick",
+                location: "Limerick",
+                ranking: "Established Irish university",
+                tuition: "$14k–$25k/year",
+                popularPrograms: [
                     "Computer Science",
                     "Engineering",
+                    "Business",
+                    "Health Sciences",
                 ],
             },
         ],
@@ -819,12 +1062,13 @@ export const countries = [
 
         intakes: ["February", "July"],
 
-        workRights: "Up to 20 hrs/week",
+        workRights:
+            "Up to 25 hrs/week for eligible student visas; conditions depend on the visa.",
 
         studentWage: "$15–$22/hour",
 
         postStudyWork:
-            "Eligible graduates may apply for a Post Study Work Visa depending on their qualification and circumstances.",
+            "Eligible graduates may qualify for a Post Study Work Visa depending on qualification and other requirements. A new 6-month Short-Term Graduate Work Visa begins 16 November 2026 for certain Level 5–7 graduates who are not eligible for the Post Study Work Visa.",
 
         topFields: [
             "Agriculture",
@@ -863,23 +1107,73 @@ export const countries = [
             {
                 name: "University of Auckland",
                 location: "Auckland",
-                ranking: "Top New Zealand University",
+                ranking: "QS 2027: #67",
                 tuition: "$20k–$35k/year",
                 popularPrograms: [
                     "Engineering",
                     "Computer Science",
                     "Business",
+                    "Data Science",
                 ],
             },
             {
                 name: "University of Otago",
                 location: "Dunedin",
-                ranking: "Top New Zealand University",
+                ranking: "QS 2027: #198",
                 tuition: "$18k–$35k/year",
                 popularPrograms: [
                     "Health Sciences",
+                    "Computer Science",
                     "Business",
                     "Sciences",
+                ],
+            },
+            {
+                name: "Victoria University of Wellington",
+                location: "Wellington",
+                ranking: "Leading New Zealand university",
+                tuition: "$18k–$32k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Business",
+                    "Engineering",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "University of Canterbury",
+                location: "Christchurch",
+                ranking: "Leading New Zealand university",
+                tuition: "$18k–$32k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "Business",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "Massey University",
+                location: "Palmerston North / Auckland / Wellington",
+                ranking: "Leading New Zealand university",
+                tuition: "$17k–$30k/year",
+                popularPrograms: [
+                    "Business",
+                    "Computer Science",
+                    "Agriculture",
+                    "Engineering",
+                ],
+            },
+            {
+                name: "Auckland University of Technology",
+                location: "Auckland",
+                ranking: "Leading New Zealand university",
+                tuition: "$18k–$32k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "IT",
+                    "Business",
+                    "Engineering",
                 ],
             },
         ],
@@ -939,7 +1233,8 @@ export const countries = [
 
         intakes: ["September", "February"],
 
-        workRights: "16 hrs/week (permit required)",
+        workRights:
+            "Up to 16 hrs/week during the academic year with a work permit, or full-time during June–August.",
 
         studentWage: "$12–$18/hour",
 
@@ -983,23 +1278,73 @@ export const countries = [
             {
                 name: "Delft University of Technology",
                 location: "Delft",
-                ranking: "Top Dutch University",
+                ranking: "QS 2027: #48",
                 tuition: "$15k–$25k/year",
                 popularPrograms: [
                     "Engineering",
                     "Computer Science",
                     "Architecture",
+                    "AI",
                 ],
             },
             {
                 name: "University of Amsterdam",
                 location: "Amsterdam",
-                ranking: "Top Dutch University",
+                ranking: "QS 2027: #60",
+                tuition: "$12k–$25k/year",
+                popularPrograms: [
+                    "Computer Science",
+                    "Business",
+                    "Economics",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "Utrecht University",
+                location: "Utrecht",
+                ranking: "QS 2027: =#113",
+                tuition: "$12k–$25k/year",
+                popularPrograms: [
+                    "Sciences",
+                    "Computer Science",
+                    "Business",
+                    "Social Sciences",
+                ],
+            },
+            {
+                name: "Leiden University",
+                location: "Leiden",
+                ranking: "QS 2027: =#119",
+                tuition: "$12k–$24k/year",
+                popularPrograms: [
+                    "Law",
+                    "Computer Science",
+                    "Business",
+                    "Social Sciences",
+                ],
+            },
+            {
+                name: "Erasmus University Rotterdam",
+                location: "Rotterdam",
+                ranking: "QS 2027: #148",
                 tuition: "$12k–$25k/year",
                 popularPrograms: [
                     "Business",
-                    "Computer Science",
                     "Economics",
+                    "Finance",
+                    "Data Science",
+                ],
+            },
+            {
+                name: "Eindhoven University of Technology",
+                location: "Eindhoven",
+                ranking: "QS 2027: #152",
+                tuition: "$12k–$22k/year",
+                popularPrograms: [
+                    "Engineering",
+                    "Computer Science",
+                    "AI",
+                    "Data Science",
                 ],
             },
         ],
@@ -1100,29 +1445,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "Politecnico di Milano",
-                location: "Milan",
-                ranking: "Top Italian University",
-                tuition: "$4k–$15k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Architecture",
-                    "Design",
-                ],
-            },
-            {
-                name: "University of Bologna",
-                location: "Bologna",
-                ranking: "Historic European University",
-                tuition: "$2k–$10k/year",
-                popularPrograms: [
-                    "Business",
-                    "Engineering",
-                    "Law",
-                ],
-            },
+    {
+        name: "Politecnico di Milano",
+        location: "Milan",
+        ranking: "QS #=87 (2027)",
+        tuition: "$1.5k–$5k/year",
+        popularPrograms: [
+            "Engineering",
+            "Architecture",
+            "Computer Science",
+            "Design",
         ],
+    },
+    {
+        name: "University of Bologna",
+        location: "Bologna",
+        ranking: "QS #=123 (2027)",
+        tuition: "$1.5k–$6k/year",
+        popularPrograms: [
+            "Business",
+            "Engineering",
+            "Computer Science",
+            "Law",
+        ],
+    },
+    {
+        name: "Sapienza University of Rome",
+        location: "Rome",
+        ranking: "QS #=111 (2027)",
+        tuition: "$1.5k–$5k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Architecture",
+            "Economics",
+        ],
+    },
+    {
+        name: "University of Padua",
+        location: "Padua",
+        ranking: "QS #204 (2027)",
+        tuition: "$2k–$5k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Medicine",
+            "Business",
+        ],
+    },
+    {
+        name: "Politecnico di Torino",
+        location: "Turin",
+        ranking: "QS #=206 (2027)",
+        tuition: "$2k–$5k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Architecture",
+            "Automotive Engineering",
+        ],
+    },
+    {
+        name: "University of Milan",
+        location: "Milan",
+        ranking: "QS 2027 Ranked",
+        tuition: "$2k–$5k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Medicine",
+            "Economics",
+            "Biotechnology",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1220,40 +1615,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "Sorbonne University",
-                location: "Paris",
-                ranking: "Top French University",
-                tuition: "$3k–$10k/year",
-                popularPrograms: [
-                    "Sciences",
-                    "Computer Science",
-                    "Business",
-                ],
-            },
-            {
-                name: "Université Paris-Saclay",
-                location: "Paris",
-                ranking: "Top French University",
-                tuition: "$3k–$10k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Science",
-                    "Computer Science",
-                ],
-            },
-            {
-                name: "HEC Paris",
-                location: "Paris",
-                ranking: "Top Business School",
-                tuition: "$20k+/year",
-                popularPrograms: [
-                    "Business",
-                    "Finance",
-                    "Management",
-                ],
-            },
+    {
+        name: "Université PSL",
+        location: "Paris",
+        ranking: "QS #34 (2027)",
+        tuition: "$3k–$15k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Sciences",
         ],
+    },
+    {
+        name: "Institut Polytechnique de Paris",
+        location: "Paris",
+        ranking: "QS #=43 (2027)",
+        tuition: "$5k–$20k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Business",
+        ],
+    },
+    {
+        name: "Sorbonne University",
+        location: "Paris",
+        ranking: "QS #73 (2027)",
+        tuition: "$3k–$8k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Sciences",
+            "Medicine",
+        ],
+    },
+    {
+        name: "Université Paris-Saclay",
+        location: "Paris",
+        ranking: "QS #76 (2027)",
+        tuition: "$3k–$8k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Data Science",
+            "Sciences",
+        ],
+    },
+    {
+        name: "École Normale Supérieure de Lyon",
+        location: "Lyon",
+        ranking: "QS 2027 Ranked",
+        tuition: "$3k–$8k/year",
+        popularPrograms: [
+            "Sciences",
+            "Computer Science",
+            "Mathematics",
+            "Humanities",
+        ],
+    },
+    {
+        name: "Université Grenoble Alpes",
+        location: "Grenoble",
+        ranking: "QS 2027 Ranked",
+        tuition: "$3k–$8k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Physics",
+            "Business",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1351,29 +1785,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "KTH Royal Institute of Technology",
-                location: "Stockholm",
-                ranking: "Top Swedish University",
-                tuition: "$15k–$25k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "Architecture",
-                ],
-            },
-            {
-                name: "Lund University",
-                location: "Lund",
-                ranking: "Top Swedish University",
-                tuition: "$10k–$20k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Business",
-                    "Computer Science",
-                ],
-            },
+    {
+        name: "Lund University",
+        location: "Lund",
+        ranking: "QS #71 (2027)",
+        tuition: "$10k–$20k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Business",
+            "Environmental Science",
         ],
+    },
+    {
+        name: "KTH Royal Institute of Technology",
+        location: "Stockholm",
+        ranking: "QS #=82 (2027)",
+        tuition: "$14k–$25k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Architecture",
+        ],
+    },
+    {
+        name: "Uppsala University",
+        location: "Uppsala",
+        ranking: "QS #=87 (2027)",
+        tuition: "$9k–$18k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Life Sciences",
+            "Business",
+        ],
+    },
+    {
+        name: "Stockholm University",
+        location: "Stockholm",
+        ranking: "QS #167 (2027)",
+        tuition: "$8k–$18k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Business",
+            "Data Science",
+            "Environmental Science",
+        ],
+    },
+    {
+        name: "Chalmers University of Technology",
+        location: "Gothenburg",
+        ranking: "QS #=174 (2027)",
+        tuition: "$10k–$20k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Architecture",
+            "Automotive Engineering",
+        ],
+    },
+    {
+        name: "Linköping University",
+        location: "Linköping",
+        ranking: "QS 2027 Ranked",
+        tuition: "$9k–$18k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Artificial Intelligence",
+            "Business",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1471,29 +1955,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "ETH Zurich",
-                location: "Zurich",
-                ranking: "Top Global University",
-                tuition: "Relatively low tuition",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "AI",
-                ],
-            },
-            {
-                name: "EPFL",
-                location: "Lausanne",
-                ranking: "Top Swiss University",
-                tuition: "Relatively low tuition",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "Robotics",
-                ],
-            },
+    {
+        name: "ETH Zurich",
+        location: "Zurich",
+        ranking: "QS #8 (2027)",
+        tuition: "$1k–$8k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Robotics",
         ],
+    },
+    {
+        name: "EPFL",
+        location: "Lausanne",
+        ranking: "QS #=22 (2027)",
+        tuition: "$1k–$8k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Robotics",
+            "Data Science",
+        ],
+    },
+    {
+        name: "University of Zurich",
+        location: "Zurich",
+        ranking: "QS #=98 (2027)",
+        tuition: "$1k–$4k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Business",
+            "Economics",
+            "Data Science",
+        ],
+    },
+    {
+        name: "University of Basel",
+        location: "Basel",
+        ranking: "QS #=150 (2027)",
+        tuition: "$1k–$5k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Business",
+            "Medicine",
+            "Life Sciences",
+        ],
+    },
+    {
+        name: "University of Geneva",
+        location: "Geneva",
+        ranking: "QS #168 (2027)",
+        tuition: "$1k–$5k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Business",
+            "International Relations",
+            "Sciences",
+        ],
+    },
+    {
+        name: "University of Bern",
+        location: "Bern",
+        ranking: "QS #=191 (2027)",
+        tuition: "$1k–$5k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Medicine",
+            "Business",
+            "Sciences",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1591,29 +2125,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "Seoul National University",
-                location: "Seoul",
-                ranking: "Top Korean University",
-                tuition: "$5k–$12k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Engineering",
-                    "Business",
-                ],
-            },
-            {
-                name: "KAIST",
-                location: "Daejeon",
-                ranking: "Top Science & Technology University",
-                tuition: "$5k–$10k/year",
-                popularPrograms: [
-                    "AI",
-                    "Engineering",
-                    "Computer Science",
-                ],
-            },
+    {
+        name: "Seoul National University",
+        location: "Seoul",
+        ranking: "QS #38 (2027)",
+        tuition: "$5k–$12k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Artificial Intelligence",
         ],
+    },
+    {
+        name: "Yonsei University",
+        location: "Seoul",
+        ranking: "QS #42 (2027)",
+        tuition: "$6k–$15k/year",
+        popularPrograms: [
+            "Business",
+            "Computer Science",
+            "Engineering",
+            "Economics",
+        ],
+    },
+    {
+        name: "KAIST",
+        location: "Daejeon",
+        ranking: "QS #65 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Artificial Intelligence",
+            "Engineering",
+            "Computer Science",
+            "Robotics",
+        ],
+    },
+    {
+        name: "POSTECH",
+        location: "Pohang",
+        ranking: "QS #106 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Materials Science",
+        ],
+    },
+    {
+        name: "Sungkyunkwan University",
+        location: "Seoul",
+        ranking: "QS #108 (2027)",
+        tuition: "$6k–$15k/year",
+        popularPrograms: [
+            "Business",
+            "Computer Science",
+            "Engineering",
+            "Data Science",
+        ],
+    },
+    {
+        name: "Korea University",
+        location: "Seoul",
+        ranking: "QS #=52 (2027)",
+        tuition: "$6k–$15k/year",
+        popularPrograms: [
+            "Business",
+            "Computer Science",
+            "Engineering",
+            "Economics",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1713,29 +2297,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "Tsinghua University",
-                location: "Beijing",
-                ranking: "Top Chinese University",
-                tuition: "$4k–$8k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Engineering",
-                    "Business",
-                ],
-            },
-            {
-                name: "Peking University",
-                location: "Beijing",
-                ranking: "Top Chinese University",
-                tuition: "$4k–$8k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Business",
-                    "Medicine",
-                ],
-            },
+    {
+        name: "Peking University",
+        location: "Beijing",
+        ranking: "QS #13 (2027)",
+        tuition: "$4k–$8k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Business",
+            "Medicine",
+            "Economics",
         ],
+    },
+    {
+        name: "Tsinghua University",
+        location: "Beijing",
+        ranking: "QS #14 (2027)",
+        tuition: "$4k–$8k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Artificial Intelligence",
+            "Business",
+        ],
+    },
+    {
+        name: "Fudan University",
+        location: "Shanghai",
+        ranking: "QS #26 (2027)",
+        tuition: "$4k–$10k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Business",
+            "Economics",
+            "Data Science",
+        ],
+    },
+    {
+        name: "Shanghai Jiao Tong University",
+        location: "Shanghai",
+        ranking: "QS #36 (2027)",
+        tuition: "$4k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Business",
+            "Data Science",
+        ],
+    },
+    {
+        name: "Zhejiang University",
+        location: "Hangzhou",
+        ranking: "QS #47 (2027)",
+        tuition: "$4k–$9k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Artificial Intelligence",
+            "Business",
+        ],
+    },
+    {
+        name: "Nanjing University",
+        location: "Nanjing",
+        ranking: "QS #=90 (2027)",
+        tuition: "$3k–$8k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Sciences",
+            "Business",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1833,29 +2467,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "University of Tokyo",
-                location: "Tokyo",
-                ranking: "Top Japanese University",
-                tuition: "$5k–$10k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Computer Science",
-                    "Business",
-                ],
-            },
-            {
-                name: "Kyoto University",
-                location: "Kyoto",
-                ranking: "Top Japanese University",
-                tuition: "$5k–$10k/year",
-                popularPrograms: [
-                    "Engineering",
-                    "Sciences",
-                    "Computer Science",
-                ],
-            },
+    {
+        name: "The University of Tokyo",
+        location: "Tokyo",
+        ranking: "QS #39 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Business",
         ],
+    },
+    {
+        name: "Kyoto University",
+        location: "Kyoto",
+        ranking: "QS #64 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Sciences",
+            "Computer Science",
+            "Technology",
+        ],
+    },
+    {
+        name: "The University of Osaka",
+        location: "Osaka",
+        ranking: "QS #95 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Medicine",
+            "Sciences",
+        ],
+    },
+    {
+        name: "Institute of Science Tokyo",
+        location: "Tokyo",
+        ranking: "QS #=97 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Robotics",
+        ],
+    },
+    {
+        name: "Tohoku University",
+        location: "Sendai",
+        ranking: "QS #102 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Materials Science",
+            "Physics",
+        ],
+    },
+    {
+        name: "Nagoya University",
+        location: "Nagoya",
+        ranking: "QS #156 (2027)",
+        tuition: "$5k–$10k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Sciences",
+            "Automotive Engineering",
+        ],
+    },
+],
 
         scholarships: [
             {
@@ -1954,29 +2638,79 @@ export const countries = [
         },
 
         universities: [
-            {
-                name: "University of Malaya",
-                location: "Kuala Lumpur",
-                ranking: "Top Malaysian University",
-                tuition: "$4k–$12k/year",
-                popularPrograms: [
-                    "Computer Science",
-                    "Engineering",
-                    "Business",
-                ],
-            },
-            {
-                name: "Universiti Putra Malaysia",
-                location: "Selangor",
-                ranking: "Top Malaysian University",
-                tuition: "$3k–$10k/year",
-                popularPrograms: [
-                    "Agriculture",
-                    "Engineering",
-                    "Business",
-                ],
-            },
+    {
+        name: "Universiti Malaya",
+        location: "Kuala Lumpur",
+        ranking: "QS #56 (2027)",
+        tuition: "$4k–$12k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Data Science",
         ],
+    },
+    {
+        name: "Universiti Sains Malaysia",
+        location: "George Town",
+        ranking: "QS #=128 (2027)",
+        tuition: "$3k–$10k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Medicine",
+        ],
+    },
+    {
+        name: "Universiti Kebangsaan Malaysia",
+        location: "Bangi",
+        ranking: "QS #130 (2027)",
+        tuition: "$3k–$10k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Information Technology",
+        ],
+    },
+    {
+        name: "Universiti Putra Malaysia",
+        location: "Serdang",
+        ranking: "QS #138 (2027)",
+        tuition: "$3k–$10k/year",
+        popularPrograms: [
+            "Computer Science",
+            "Engineering",
+            "Business",
+            "Agriculture",
+        ],
+    },
+    {
+        name: "Universiti Teknologi Malaysia",
+        location: "Johor Bahru",
+        ranking: "QS #=158 (2027)",
+        tuition: "$3k–$9k/year",
+        popularPrograms: [
+            "Engineering",
+            "Computer Science",
+            "Information Technology",
+            "Architecture",
+        ],
+    },
+    {
+        name: "Taylor's University",
+        location: "Subang Jaya",
+        ranking: "QS 2027 Ranked",
+        tuition: "$5k–$15k/year",
+        popularPrograms: [
+            "Business",
+            "Computer Science",
+            "Hospitality",
+            "Engineering",
+        ],
+    },
+],
 
         scholarships: [
             {
