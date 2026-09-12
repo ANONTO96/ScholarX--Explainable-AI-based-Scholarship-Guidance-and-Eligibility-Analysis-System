@@ -2400,7 +2400,7 @@ export function analyzeOpportunity(
     */
 
     else if (
-        score >= 85
+        score >= 80
     ) {
         status =
             "strong";
@@ -2469,7 +2469,7 @@ export function analyzeOpportunity(
 
 
     else if (
-        score >= 85
+        score >= 80
     ) {
         statusReason =
             "Your profile satisfies the mandatory requirements and has a strong overall fit for this opportunity.";

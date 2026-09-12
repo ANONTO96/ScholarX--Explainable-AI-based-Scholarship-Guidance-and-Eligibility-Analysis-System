@@ -46,6 +46,8 @@ export default function ScholarXChatbot() {
 
     const [isDragging, setIsDragging] = useState(false);
 
+    const didDrag = useRef(false);
+
     const dragState = useRef({
         startX: 0,
         startScrollLeft: 0,
@@ -136,71 +138,86 @@ export default function ScholarXChatbot() {
         }).format(date);
     };
 
-    const handlePointerDown = (e) => {
-        const slider = suggestionsRef.current;
+const handlePointerDown = (e) => {
+    const slider = suggestionsRef.current;
 
-        if (!slider) return;
+    if (!slider) return;
 
-        dragState.current.startX = e.clientX;
-        dragState.current.startScrollLeft = slider.scrollLeft;
-        dragState.current.lastX = e.clientX;
-        dragState.current.velocity = 0;
+    dragState.current.startX = e.clientX;
+    dragState.current.startScrollLeft = slider.scrollLeft;
+    dragState.current.lastX = e.clientX;
+    dragState.current.velocity = 0;
 
-        setIsDragging(true);
+    // Reset BEFORE a new interaction starts
+    didDrag.current = false;
 
-        slider.setPointerCapture(e.pointerId);
-    };
+    setIsDragging(true);
 
-    const handlePointerMove = (e) => {
-        if (!isDragging) return;
+    slider.setPointerCapture(e.pointerId);
+};
 
-        const slider = suggestionsRef.current;
+const handlePointerMove = (e) => {
+    if (!isDragging) return;
 
-        if (!slider) return;
+    const slider = suggestionsRef.current;
 
-        const currentX = e.clientX;
-        const distance = currentX - dragState.current.lastX;
+    if (!slider) return;
 
-        dragState.current.velocity = distance;
+    const currentX = e.clientX;
 
-        slider.scrollLeft -= distance;
+    const totalDistance =
+        currentX - dragState.current.startX;
 
-        dragState.current.lastX = currentX;
-    };
+    if (Math.abs(totalDistance) > 5) {
+        didDrag.current = true;
+    }
 
-    const handlePointerUp = (e) => {
-        const slider = suggestionsRef.current;
+    const distance =
+        currentX - dragState.current.lastX;
 
-        if (!slider) return;
+    dragState.current.velocity = distance;
 
-        setIsDragging(false);
+    slider.scrollLeft -= distance;
 
-        try {
-            slider.releasePointerCapture(e.pointerId);
-        } catch {
-            // Ignore errors when releasing pointer capture
+    dragState.current.lastX = currentX;
+};
+
+const handlePointerUp = (e) => {
+    const slider = suggestionsRef.current;
+
+    if (!slider) return;
+
+    setIsDragging(false);
+
+    try {
+        slider.releasePointerCapture(e.pointerId);
+    } catch {
+        // Ignore errors when releasing pointer capture
+    }
+
+    // Add momentum
+    const animate = () => {
+        const state = dragState.current;
+
+        if (Math.abs(state.velocity) < 0.3) {
+            cancelAnimationFrame(state.animationFrame);
+            return;
         }
 
-        // Add momentum
-        const animate = () => {
-            const state = dragState.current;
+        slider.scrollLeft -= state.velocity;
 
-            if (Math.abs(state.velocity) < 0.3) {
-                cancelAnimationFrame(state.animationFrame);
-                return;
-            }
+        state.velocity *= 0.94;
 
-            slider.scrollLeft -= state.velocity;
-
-            state.velocity *= 0.94;
-
-            state.animationFrame = requestAnimationFrame(animate);
-        };
-
-        cancelAnimationFrame(dragState.current.animationFrame);
-
-        dragState.current.animationFrame = requestAnimationFrame(animate);
+        state.animationFrame = requestAnimationFrame(animate);
     };
+
+    cancelAnimationFrame(
+        dragState.current.animationFrame
+    );
+
+    dragState.current.animationFrame =
+        requestAnimationFrame(animate);
+};
 
     return (
         <>
@@ -438,11 +455,17 @@ export default function ScholarXChatbot() {
                                     <button
                                         key={question}
                                         type="button"
-                                        onClick={() => {
-                                            if (!isDragging) {
-                                                handleSendMessage(question);
-                                            }
-                                        }}
+                                        onPointerDown={(e) => {
+    e.stopPropagation();
+    didDrag.current = false;
+  }}
+  onClick={(e) => {
+    e.stopPropagation();
+
+    if (!didDrag.current) {
+      handleSendMessage(question);
+    }
+  }}
                                         className="
                 shrink-0
                 whitespace-nowrap

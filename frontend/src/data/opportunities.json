@@ -1,188 +1,396 @@
 [
   {
     "id": 1,
-    "slug": "daad-scholarship-2027",
-    "title": "DAAD Scholarship 2027",
-    "category": "Scholarship",
+    "slug": "daad-scholarship",
+    "title": "DAAD Scholarships",
+    "category": "Government Scholarship",
     "provider": "DAAD",
     "country": "Germany",
     "city": "Multiple Cities",
     "funding": "Fully Funded",
     "degree": ["Master", "PhD"],
-    "deadline": "2027-10-15",
+    "deadline": "Annual - Programme Specific",
     "applicationFee": "Free",
-    "ielts": "6.5+",
+    "ielts": "Programme Specific",
     "benefits": [
-      "Full Tuition",
       "Monthly Stipend",
+      "Travel Allowance",
       "Health Insurance",
-      "Travel Allowance"
+      "Research and Study Allowance"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": [],
-    "description": "Eligibility depends on the specific DAAD scholarship programme and its country-specific rules."
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master", "PhD"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null,
-    "description": "Academic requirements vary by DAAD programme and host university."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null,
-    "description": "Language requirements depend on the programme and university."
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null,
-    "preferred": true,
-    "description": "Some DAAD programmes, particularly development-related postgraduate programmes, may require relevant professional experience."
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "programSpecific",
-      "required": true,
-      "label": "DAAD programme-specific eligibility",
-      "description": "Exact eligibility must be verified against the selected DAAD scholarship programme, including academic background, admission requirements, language requirements and any programme-specific professional experience."
-    }
-  ]
-},
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Eligibility depends on the specific DAAD scholarship programme and its country-specific rules."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": false,
+        "minimumGPA": null,
+        "description": "Academic requirements vary by scholarship programme and host institution."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on the selected programme and university."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null,
+        "preferred": true,
+        "description": "Some DAAD programmes, particularly development-related programmes, require or prefer relevant professional experience."
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "programSpecific",
+          "required": true,
+          "label": "DAAD programme-specific eligibility",
+          "description": "Applicants must satisfy the academic, admission, language and programme-specific requirements of the selected DAAD scholarship."
+        }
+      ]
+    },
     "website": "https://www.daad.de",
     "image": "/images/opportunities/daad.jpg",
     "featured": true,
-    "status": "Open",
+    "status": "Upcoming",
     "tags": [
       "Germany",
-      "Scholarship",
+      "Government",
+      "DAAD",
       "Master",
       "PhD"
     ],
-    "description": "One of the world's most prestigious fully funded scholarships for international students."
+    "description": "Major German scholarship programmes supporting international students and researchers across a wide range of study levels and fields."
   },
-
   {
     "id": 2,
+    "slug": "daad-epos-scholarship",
+    "title": "DAAD EPOS Scholarship",
+    "category": "Government Scholarship",
+    "provider": "DAAD",
+    "country": "Germany",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Programme Specific",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Monthly Scholarship",
+      "Travel Allowance",
+      "Health Insurance",
+      "Study Allowance"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Primarily intended for applicants from developing and emerging countries eligible under the programme."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": [
+          "Development Studies",
+          "Engineering",
+          "Computer Science",
+          "Economics",
+          "Public Policy",
+          "Environmental Sciences",
+          "Related Development Fields"
+        ]
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Strong academic performance is expected and exact requirements vary by selected EPOS course."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "English or German language requirements depend on the selected programme."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+  "required": true,
+  "minimumMonths": 24,
+  "preferred": false,
+  "description": "Applicants must have at least two years of relevant professional experience after completing their bachelor's degree."
+},
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleEPOSCourse",
+          "required": true,
+          "label": "Eligible EPOS programme",
+          "description": "Applicant must apply to a participating development-related postgraduate course listed under the current EPOS programme."
+        }
+      ]
+    },
+    "website": "https://www.daad.de",
+    "image": "/images/opportunities/daad-epos.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Germany",
+      "DAAD",
+      "EPOS",
+      "Development",
+      "Scholarship"
+    ],
+    "description": "DAAD development-related postgraduate scholarship programme for qualified applicants from developing and emerging countries."
+  },
+  {
+    "id": 3,
+    "slug": "daad-helmut-schmidt-programme",
+    "title": "DAAD Helmut-Schmidt Programme",
+    "category": "Government Scholarship",
+    "provider": "DAAD",
+    "country": "Germany",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "Annual - Programme Specific",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Full Scholarship",
+      "Monthly Stipend",
+      "Travel Allowance",
+      "Health Insurance",
+      "German Language Course"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Designed for graduates from developing and emerging countries meeting the programme's eligibility rules."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": true,
+        "values": [
+          "Public Policy",
+          "Public Administration",
+          "Political Science",
+          "Law",
+          "Economics",
+          "Social Sciences"
+        ]
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate strong academic performance."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on the selected master's programme."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null,
+        "preferred": true,
+        "description": "Relevant practical experience is valued by the programme."
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": false
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleProgramme",
+          "required": true,
+          "label": "Eligible Helmut-Schmidt master's programme",
+          "description": "Applicant must apply to one of the participating master's programmes covered by the current Helmut-Schmidt call."
+        }
+      ]
+    },
+    "website": "https://www.daad.de",
+    "image": "/images/opportunities/helmut-schmidt.jpg",
+    "featured": false,
+    "status": "Upcoming",
+    "tags": [
+      "Germany",
+      "DAAD",
+      "Public Policy",
+      "Government"
+    ],
+    "description": "DAAD programme supporting future leaders from developing and emerging countries through selected master's programmes related to governance and public policy."
+  },
+  {
+    "id": 4,
     "slug": "chevening-scholarship",
     "title": "Chevening Scholarship",
-    "category": "Scholarship",
+    "category": "Government Scholarship",
     "provider": "UK Government",
     "country": "United Kingdom",
     "city": "Multiple",
     "funding": "Fully Funded",
     "degree": ["Master"],
-    "deadline": "2027-11-02",
+    "deadline": "2026-10-06",
     "applicationFee": "Free",
-    "ielts": "6.5+",
+    "ielts": "University Specific",
     "benefits": [
-      "Tuition Fees",
-      "Living Expenses",
-      "Airfare",
-      "Visa Cost"
+      "Full Tuition Fees",
+      "Monthly Living Allowance",
+      "Return Airfare",
+      "Visa Cost",
+      "Travel Grants"
     ],
     "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": ["Bangladesh"]
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Applicants must hold an undergraduate degree that meets the eligibility requirements for their chosen course."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null,
-    "description": "Chevening does not impose a separate English-language test requirement, although applicants must satisfy their university's English requirements."
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": true,
-    "minimumMonths": 24,
-    "minimumHours": 2800,
-    "afterCompletedDegree": "Bachelor",
-    "description": "At least 2,800 hours of work experience acquired after completing an undergraduate degree."
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "eligibleCourse",
-      "required": true,
-      "label": "Eligible UK master's course",
-      "description": "Applicant must apply to an eligible full-time taught master's course in the UK."
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"]
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must hold an undergraduate degree that meets the requirements for the selected UK master's programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Chevening does not impose a separate English test score requirement; applicants must meet the selected university's requirements."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": true,
+        "minimumMonths": 24,
+        "minimumHours": 2800,
+        "afterCompletedDegree": "Bachelor",
+        "description": "Applicants need at least 2,800 hours of work experience acquired after completing an undergraduate degree."
+      },
+      "researchExperience": {
+        "required": false
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleCourse",
+          "required": true,
+          "label": "Eligible UK master's course",
+          "description": "Applicant must apply to eligible full-time taught master's courses at UK universities."
+        },
+        {
+          "type": "returnHome",
+          "required": true,
+          "label": "Return to home country",
+          "description": "Successful scholars must satisfy the programme's post-study return requirement."
+        }
+      ]
     },
-    {
-      "type": "returnHome",
-      "required": true,
-      "label": "Return to home country",
-      "description": "Applicant must agree to return to their country of citizenship for at least two years after the award."
-    }
-  ]
-},
     "website": "https://www.chevening.org",
     "image": "/images/opportunities/chevening.jpg",
     "featured": true,
@@ -190,857 +398,1094 @@
     "tags": [
       "UK",
       "Government",
+      "Leadership",
       "Scholarship"
     ],
-    "description": "Fully funded UK Government scholarship for future global leaders."
+    "description": "The UK Government's flagship international scholarship programme for future leaders."
   },
-
-  {
-    "id": 3,
-    "slug": "erasmus-plus",
-    "title": "Erasmus+ Exchange Program",
-    "category": "Exchange Program",
-    "provider": "European Union",
-    "country": "Europe",
-    "city": "Multiple",
-    "funding": "Partially Funded",
-    "degree": ["Bachelor", "Master"],
-    "deadline": "2027-05-30",
-    "applicationFee": "Free",
-    "ielts": "Depends on University",
-    "benefits": [
-      "Travel Grant",
-      "Living Allowance",
-      "Academic Credits"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor", "Master"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false
-  },
-  "additionalRequirements": [
-    {
-      "type": "partnerUniversity",
-      "required": true,
-      "label": "Institutional Erasmus+ agreement",
-      "description": "Student eligibility depends on the sending institution, receiving institution, Erasmus+ institutional agreements, programme participation and the specific mobility call."
-    },
-    {
-      "type": "learningAgreement",
-      "required": true,
-      "label": "Learning agreement",
-      "description": "The student must have an approved learning agreement covering the mobility period."
-    }
-  ]
-},
-    "website": "https://erasmus-plus.ec.europa.eu",
-    "image": "/images/opportunities/erasmus.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Exchange",
-      "Europe"
-    ],
-    "description": "Study abroad in Europe while earning credits at your home university."
-  },
-
-  {
-    "id": 4,
-    "slug": "google-step-internship",
-    "title": "Google STEP Internship",
-    "category": "Internship",
-    "provider": "Google",
-    "country": "United States",
-    "city": "Mountain View",
-    "funding": "Paid Internship",
-    "degree": ["Bachelor"],
-    "deadline": "2027-01-20",
-    "applicationFee": "Free",
-    "ielts": "Not Required",
-    "benefits": [
-      "Competitive Salary",
-      "Mentorship",
-      "Housing Support"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor"]
-  },
-  "fieldOfStudy": {
-    "required": true,
-    "values": [
-      "Computer Science",
-      "Computer Engineering",
-      "Software Engineering",
-      "Related Technical Field"
-    ]
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false
-  },
-  "additionalRequirements": [
-    {
-      "type": "undergraduateEligibility",
-      "required": true,
-      "label": "Eligible undergraduate status",
-      "description": "Applicant must meet the specific undergraduate enrollment/year and graduation-window requirements of the applicable STEP internship posting."
-    }
-  ]
-},
-    "website": "https://careers.google.com",
-    "image": "/images/opportunities/google-step.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Internship",
-      "Google",
-      "Software"
-    ],
-    "description": "Paid internship program for undergraduate computer science students."
-  },
-
   {
     "id": 5,
-    "slug": "mext-scholarship",
-    "title": "MEXT Scholarship",
-    "category": "Scholarship",
-    "provider": "Government of Japan",
-    "country": "Japan",
-    "city": "Multiple",
-    "funding": "Fully Funded",
-    "degree": ["Bachelor", "Master", "PhD"],
-    "deadline": "2027-06-15",
-    "applicationFee": "Free",
-    "ielts": "Optional",
-    "benefits": [
-      "Tuition",
-      "Monthly Allowance",
-      "Airfare"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": ["Bangladesh"],
-    "description": "Applicant must satisfy the nationality conditions of the applicable MEXT recruitment route."
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master", "PhD"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Academic requirements depend on the MEXT category and Japanese embassy/university route."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": true,
-    "minimum": null,
-    "maximum": null,
-    "description": "Age limit depends on the applicable MEXT recruitment year and category and must be verified from the current call."
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "programSpecific",
-      "required": true,
-      "label": "MEXT category-specific requirements",
-      "description": "Eligibility depends on the MEXT category, recruitment route, academic level, field and current year's official guidelines."
-    }
-  ]
-},
-    "website": "https://www.studyinjapan.go.jp",
-    "image": "/images/opportunities/mext.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Japan",
-      "Scholarship"
-    ],
-    "description": "Prestigious Japanese Government scholarship for international students."
-  },
-
-  {
-    "id": 6,
-    "slug": "microsoft-imagine-cup",
-    "title": "Microsoft Imagine Cup",
-    "category": "Competition",
-    "provider": "Microsoft",
-    "country": "Global",
-    "city": "Online",
-    "funding": "Prize Competition",
-    "degree": ["Bachelor", "Master"],
-    "deadline": "2027-02-28",
-    "applicationFee": "Free",
-    "ielts": "Not Required",
-    "benefits": [
-      "$100,000 Prize",
-      "Mentorship",
-      "Microsoft Credits"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor", "Master"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": true,
-    "minimum": 18,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "studentStatus",
-      "required": true,
-      "label": "Enrolled student",
-      "description": "Participants must be enrolled students during the applicable competition eligibility period."
-    },
-    {
-      "type": "innovationProject",
-      "required": true,
-      "label": "Qualifying technology project",
-      "description": "The submission must satisfy the current Imagine Cup project, Microsoft AI and judging requirements."
-    },
-    {
-      "type": "studentTeam",
-      "required": true,
-      "label": "Eligible student team",
-      "description": "A team may contain one to four eligible student members."
-    }
-  ]
-},
-    "website": "https://imaginecup.microsoft.com",
-    "image": "/images/opportunities/imagine-cup.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Competition",
-      "Microsoft",
-      "AI"
-    ],
-    "description": "Global student technology competition organized by Microsoft."
-  },
-
-  {
-    "id": 7,
-    "slug": "fulbright-foreign-student-program",
-    "title": "Fulbright Foreign Student Program",
-    "category": "Scholarship",
-    "provider": "U.S. Department of State",
-    "country": "United States",
-    "city": "Multiple",
-    "funding": "Fully Funded",
-    "degree": ["Master", "PhD"],
-    "deadline": "2027-09-30",
-    "applicationFee": "Free",
-    "ielts": "6.5+",
-    "benefits": [
-      "Full Tuition",
-      "Monthly Stipend",
-      "Health Insurance",
-      "Travel Costs"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": ["Bangladesh"]
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master", "PhD"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Academic requirements are determined by the applicable country programme and U.S. university requirements."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null,
-    "description": "English test requirements vary by country programme, field and university."
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "countryProgram",
-      "required": true,
-      "label": "Bangladesh Fulbright programme requirements",
-      "description": "Applicant must satisfy the current Fulbright Foreign Student Program requirements published for Bangladesh."
-    },
-    {
-      "type": "universityAdmission",
-      "required": true,
-      "label": "U.S. graduate programme eligibility",
-      "description": "Applicant must satisfy the applicable U.S. graduate programme admission requirements."
-    }
-  ]
-},
-    "website": "https://foreign.fulbrightonline.org",
-    "image": "/images/opportunities/fulbright.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "USA",
-      "Scholarship"
-    ],
-    "description": "Prestigious U.S. government scholarship for graduate study."
-  },
-
-  {
-    "id": 8,
-    "slug": "australia-awards-scholarships",
-    "title": "Australia Awards Scholarship",
-    "category": "Scholarship",
-    "provider": "Australian Government",
-    "country": "Australia",
-    "city": "Multiple",
-    "funding": "Fully Funded",
-    "degree": ["Bachelor", "Master"],
-    "deadline": "2027-04-30",
-    "applicationFee": "Free",
-    "ielts": "6.5",
-    "benefits": [
-      "Tuition",
-      "Living Expenses",
-      "Return Airfare",
-      "Medical Insurance"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": ["Bangladesh"]
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master"]
-  },
-  "fieldOfStudy": {
-    "required": true,
-    "values": [
-      "Computer Science",
-      "Information Technology",
-      "Artificial Intelligence",
-      "Cyber Security",
-      "Information Systems",
-      "Digital Technology",
-      "Related Priority Field"
-    ]
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Applicant must hold a tertiary qualification at least equivalent to an Australian bachelor's degree and satisfy the selected university/course requirements."
-  },
-  "english": {
-    "required": true,
-    "test": "IELTS",
-    "minimum": 6.5,
-    "minimumBand": 6.0
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": 0,
-    "preferred": true,
-    "preferredMonths": 60,
-    "description": "The Bangladesh 2027 profile gives preference to relevant and consistent full-time work experience, particularly around five years."
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "countryEligibility",
-      "required": true,
-      "label": "Bangladesh country-specific eligibility",
-      "description": "Applicant must satisfy the current Bangladesh-specific Australia Awards conditions, including citizenship/residence and target employment-group requirements."
-    },
-    {
-      "type": "englishBand",
-      "required": true,
-      "label": "Minimum IELTS bands",
-      "description": "IELTS Academic overall 6.5 with no individual band below 6.0, subject to the current Bangladesh country profile and applicable exceptions."
-    }
-  ]
-},
-    "website": "https://www.australiaawards.gov.au",
-    "image": "/images/opportunities/australia-awards.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Australia",
-      "Scholarship"
-    ],
-    "description": "Government-funded scholarship for students from developing nations."
-  },
-
-  {
-    "id": 9,
-    "slug": "commonwealth-scholarship",
+    "slug": "commonwealth-masters-scholarship",
     "title": "Commonwealth Master's Scholarship",
-    "category": "Scholarship",
+    "category": "Government Scholarship",
     "provider": "Commonwealth Scholarship Commission",
     "country": "United Kingdom",
     "city": "Multiple",
     "funding": "Fully Funded",
     "degree": ["Master"],
-    "deadline": "2027-10-18",
+    "deadline": "2026-10-20",
     "applicationFee": "Free",
-    "ielts": "6.5+",
+    "ielts": "University Specific",
     "benefits": [
       "Full Tuition",
       "Living Allowance",
-      "Airfare"
+      "Airfare",
+      "Study and Travel Support"
     ],
     "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": [
-      "Bangladesh",
-      "Belize",
-      "Botswana",
-      "Dominica",
-      "Eswatini",
-      "Fiji",
-      "Gabon",
-      "The Gambia",
-      "Ghana",
-      "Grenada",
-      "Guyana",
-      "India",
-      "Jamaica",
-      "Kenya",
-      "Kiribati",
-      "Lesotho",
-      "Malawi",
-      "Malaysia",
-      "Maldives",
-      "Mauritius",
-      "Montserrat",
-      "Mozambique",
-      "Namibia",
-      "Nauru",
-      "Nigeria",
-      "Pakistan",
-      "Papua New Guinea",
-      "Rwanda",
-      "Saint Lucia",
-      "Samoa",
-      "Sierra Leone",
-      "Solomon Islands",
-      "South Africa",
-      "Sri Lanka",
-      "Tanzania",
-      "Togo",
-      "Tonga",
-      "Tuvalu",
-      "Uganda",
-      "Vanuatu",
-      "Zambia"
-    ]
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Applicant must meet the academic requirements of the scholarship and selected UK institution."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null,
-    "description": "English requirements are generally determined by the selected UK university/course."
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null,
-    "preferred": true
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "developmentImpact",
-      "required": true,
-      "label": "Development impact",
-      "description": "Applicant must demonstrate that the proposed study supports development priorities and their intended contribution after study."
+      "nationality": {
+        "required": true,
+        "countries": [
+          "Bangladesh",
+          "Belize",
+          "Botswana",
+          "Dominica",
+          "Eswatini",
+          "Fiji",
+          "Gabon",
+          "The Gambia",
+          "Ghana",
+          "Grenada",
+          "Guyana",
+          "India",
+          "Jamaica",
+          "Kenya",
+          "Kiribati",
+          "Lesotho",
+          "Malawi",
+          "Malaysia",
+          "Maldives",
+          "Mauritius",
+          "Montserrat",
+          "Mozambique",
+          "Namibia",
+          "Nauru",
+          "Nigeria",
+          "Pakistan",
+          "Papua New Guinea",
+          "Rwanda",
+          "Saint Lucia",
+          "Samoa",
+          "Sierra Leone",
+          "Solomon Islands",
+          "South Africa",
+          "Sri Lanka",
+          "Tanzania",
+          "Togo",
+          "Tonga",
+          "Tuvalu",
+          "Uganda",
+          "Vanuatu",
+          "Zambia"
+        ]
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicant must satisfy the academic requirements of the scholarship and selected UK institution."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "English requirements are determined by the selected UK university and course."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null,
+        "preferred": true
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "developmentImpact",
+          "required": true,
+          "label": "Development impact",
+          "description": "The proposed study should contribute to development priorities in the applicant's home country."
+        },
+        {
+          "type": "returnHome",
+          "required": true,
+          "label": "Return to home country",
+          "description": "Applicants must satisfy the scholarship's conditions concerning return to their home country."
+        }
+      ]
     },
-    {
-      "type": "returnHome",
-      "required": true,
-      "label": "Return to home country",
-      "description": "Applicant must satisfy the scholarship's conditions regarding return to their home country after the award."
-    }
-  ]
-},
     "website": "https://cscuk.fcdo.gov.uk",
     "image": "/images/opportunities/commonwealth.jpg",
     "featured": true,
     "status": "Open",
     "tags": [
       "UK",
+      "Commonwealth",
+      "Government",
       "Scholarship"
     ],
-    "description": "Scholarship supporting talented students from Commonwealth countries."
+    "description": "UK-funded master's scholarships for talented citizens of eligible low and middle income Commonwealth countries."
   },
-
   {
-    "id": 10,
-    "slug": "amazon-sde-internship",
-    "title": "Amazon Software Development Internship",
-    "category": "Internship",
-    "provider": "Amazon",
-    "country": "United States",
-    "city": "Seattle",
-    "funding": "Paid Internship",
-    "degree": ["Bachelor", "Master"],
-    "deadline": "2027-02-15",
+    "id": 6,
+    "slug": "commonwealth-shared-scholarship",
+    "title": "Commonwealth Shared Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Commonwealth Scholarship Commission",
+    "country": "United Kingdom",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "2026-11 to 2026-12",
     "applicationFee": "Free",
-    "ielts": "Not Required",
+    "ielts": "University Specific",
     "benefits": [
-      "Competitive Salary",
-      "Housing",
-      "Mentorship"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor", "Master"]
-  },
-  "fieldOfStudy": {
-    "required": true,
-    "values": [
-      "Computer Science",
-      "Software Engineering",
-      "Computer Engineering",
-      "Information Systems",
-      "Data Science",
-      "Related STEM Field"
-    ]
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": true,
-    "minimum": 18,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null,
-    "preferred": true
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "jobSpecific",
-      "required": true,
-      "label": "Amazon posting-specific requirements",
-      "description": "Eligibility depends on the specific Amazon internship posting, including graduation date, location, work authorization, availability and technical requirements."
-    }
-  ]
-},
-    "website": "https://www.amazon.jobs",
-    "image": "/images/opportunities/amazon.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Amazon",
-      "Internship"
-    ],
-    "description": "Internship for aspiring software engineers at Amazon."
-  },
-
-  {
-    "id": 11,
-    "slug": "meta-university-program",
-    "title": "Meta University Program",
-    "category": "Internship",
-    "provider": "Meta",
-    "country": "United States",
-    "city": "Menlo Park",
-    "funding": "Paid Internship",
-    "degree": ["Bachelor"],
-    "deadline": "2027-03-10",
-    "applicationFee": "Free",
-    "ielts": "Not Required",
-    "benefits": [
-      "Salary",
-      "Mentorship",
-      "Networking"
+      "Full Tuition",
+      "Living Allowance",
+      "Airfare",
+      "Study Support"
     ],
     "eligibility": {
       "nationality": {
-        "required": false,
-        "countries": []
+        "required": true,
+        "countries": [
+          "Bangladesh",
+          "Belize",
+          "Botswana",
+          "Dominica",
+          "Eswatini",
+          "Fiji",
+          "Ghana",
+          "Guyana",
+          "India",
+          "Jamaica",
+          "Kenya",
+          "Malawi",
+          "Malaysia",
+          "Maldives",
+          "Mauritius",
+          "Mozambique",
+          "Nigeria",
+          "Pakistan",
+          "Rwanda",
+          "Sierra Leone",
+          "South Africa",
+          "Sri Lanka",
+          "Tanzania",
+          "Uganda",
+          "Zambia"
+        ]
       },
       "internationalStudent": {
-        "required": false
+        "required": true
       },
       "studyLevel": {
         "required": true,
-        "values": ["Bachelor"]
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must meet the academic requirements of the selected participating university."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null,
+        "preferred": false
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": false
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "participatingUniversity",
+          "required": true,
+          "label": "Participating UK university",
+          "description": "Applicant must apply through a participating UK university offering a Commonwealth Shared Scholarship."
+        },
+        {
+          "type": "returnHome",
+          "required": true,
+          "label": "Return to home country",
+          "description": "Scholarship conditions require the scholar to return to their home country after study."
+        }
+      ]
+    },
+    "website": "https://cscuk.fcdo.gov.uk",
+    "image": "/images/opportunities/commonwealth-shared.jpg",
+    "featured": false,
+    "status": "Upcoming",
+    "tags": [
+      "UK",
+      "Commonwealth",
+      "Government",
+      "Master"
+    ],
+    "description": "UK scholarship programme supporting students from eligible developing Commonwealth countries through participating universities."
+  },
+  {
+    "id": 7,
+    "slug": "fulbright-foreign-student-program",
+    "title": "Fulbright Foreign Student Program",
+    "category": "Government Scholarship",
+    "provider": "U.S. Department of State",
+    "country": "United States",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Country Specific",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Support",
+      "Living Stipend",
+      "Health Insurance",
+      "Travel Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"]
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Academic requirements are determined by the applicable country programme and U.S. graduate programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "English requirements vary by country programme and university."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "countryProgram",
+          "required": true,
+          "label": "Country-specific Fulbright programme",
+          "description": "Applicants must satisfy the current Fulbright Foreign Student Program requirements for their country."
+        },
+        {
+          "type": "universityAdmission",
+          "required": true,
+          "label": "U.S. graduate admission",
+          "description": "Applicants must satisfy the admission requirements of their applicable U.S. graduate programme."
+        }
+      ]
+    },
+    "website": "https://foreign.fulbrightonline.org",
+    "image": "/images/opportunities/fulbright.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "USA",
+      "Government",
+      "Fulbright",
+      "Scholarship"
+    ],
+    "description": "Major U.S. government scholarship programme supporting international graduate students and researchers."
+  },
+  {
+    "id": 8,
+    "slug": "australia-awards-scholarships",
+    "title": "Australia Awards Scholarships",
+    "category": "Government Scholarship",
+    "provider": "Australian Government",
+    "country": "Australia",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "2026-04-30",
+    "applicationFee": "Free",
+    "ielts": "6.5",
+    "benefits": [
+      "Full Tuition",
+      "Living Expenses",
+      "Return Airfare",
+      "Health Insurance",
+      "Pre-course English Support",
+      "Establishment Allowance"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"]
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
       },
       "fieldOfStudy": {
         "required": true,
         "values": [
           "Computer Science",
-          "Computer Engineering",
-          "Software Engineering",
-          "Related Technical Field"
+          "Information Technology",
+          "Artificial Intelligence",
+          "Cyber Security",
+          "Information Systems",
+          "Digital Technology",
+          "Other Priority Fields"
         ]
       },
       "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must hold the required tertiary qualification and satisfy the Bangladesh country profile and university requirements."
+      },
+      "english": {
+        "required": true,
+        "test": "IELTS",
+        "minimum": 6.5,
+        "minimumBand": 6.0
+      },
+      "age": {
         "required": false,
-        "minimumGPA": null
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": true,
+        "minimumMonths": null,
+        "preferred": false,
+        "description": "Country-specific requirements and priority employment profiles may apply."
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "countryEligibility",
+          "required": true,
+          "label": "Bangladesh country-specific eligibility",
+          "description": "Applicants must satisfy the current Bangladesh Australia Awards country profile, including citizenship, employment, priority-field and return requirements."
+        },
+        {
+          "type": "englishBand",
+          "required": true,
+          "label": "Minimum English requirement",
+          "description": "The current Bangladesh profile requires IELTS Academic overall 6.5 with no individual band below 6.0, subject to official exceptions."
+        }
+      ]
+    },
+    "website": "https://www.australiaawards.gov.au",
+    "image": "/images/opportunities/australia-awards.jpg",
+    "featured": true,
+    "status": "Closed",
+    "tags": [
+      "Australia",
+      "Government",
+      "Scholarship"
+    ],
+    "description": "Australian Government scholarship programme supporting students from participating developing countries to undertake study in Australia."
+  },
+  {
+    "id": 9,
+    "slug": "mext-scholarship",
+    "title": "MEXT Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Government of Japan",
+    "country": "Japan",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Embassy or University Route",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Fees",
+      "Monthly Allowance",
+      "Airfare",
+      "Preparatory Education When Applicable"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Applicants must satisfy the nationality conditions of the applicable MEXT recruitment route."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Academic requirements vary by MEXT category and recruitment route."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": true,
+        "minimum": null,
+        "maximum": null,
+        "description": "Age requirements depend on the recruitment year and MEXT category."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": false
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "programSpecific",
+          "required": true,
+          "label": "MEXT category requirements",
+          "description": "Eligibility depends on the selected MEXT category, recruitment route, academic level, field and current official guidelines."
+        }
+      ]
+    },
+    "website": "https://www.studyinjapan.go.jp",
+    "image": "/images/opportunities/mext.jpg",
+    "featured": true,
+    "status": "Closed",
+    "tags": [
+      "Japan",
+      "Government",
+      "MEXT",
+      "Scholarship"
+    ],
+    "description": "Japanese Government scholarship programme supporting international students from undergraduate through doctoral level."
+  },
+  {
+    "id": 10,
+    "slug": "global-korea-scholarship",
+    "title": "Global Korea Scholarship (GKS)",
+    "category": "Government Scholarship",
+    "provider": "Government of South Korea",
+    "country": "South Korea",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Embassy or University Route",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Fees",
+      "Monthly Allowance",
+      "Airfare",
+      "Settlement Allowance",
+      "Medical Insurance",
+      "Language Training When Applicable"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"]
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+  "required": true,
+  "minimumGPA": 2.64,
+  "description": "Applicants must have a CGPA of at least 2.64/4.0, 2.80/4.3, 2.91/4.5 or 3.23/5.0, or meet the required 100-point percentile/top-20% criterion."
+},
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": true,
+        "minimum": null,
+        "maximum": null,
+        "description": "Age limits depend on the degree level and current GKS guidelines."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "applicationTrack",
+          "required": true,
+          "label": "Embassy or University Track",
+          "description": "Applicants must apply through an applicable Korean embassy or designated university according to the current GKS guidelines."
+        }
+      ]
+    },
+    "website": "https://www.studyinkorea.go.kr",
+    "image": "/images/opportunities/gks.jpg",
+    "featured": true,
+    "status": "Open",
+    "tags": [
+      "South Korea",
+      "Korea",
+      "Government",
+      "GKS"
+    ],
+    "description": "South Korean Government scholarship programme for international students at undergraduate and graduate levels."
+  },
+  {
+    "id": 11,
+    "slug": "chinese-government-scholarship",
+    "title": "Chinese Government Scholarship (CSC)",
+    "category": "Government Scholarship",
+    "provider": "Government of China",
+    "country": "China",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Route Specific",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Fees",
+      "Accommodation",
+      "Monthly Stipend",
+      "Medical Insurance"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Applicants must be citizens of eligible countries under the applicable Chinese Government Scholarship route."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Academic criteria depend on the scholarship category and selected university."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on whether the programme is taught in Chinese or English."
+      },
+      "age": {
+  "required": true,
+  "minimum": null,
+  "maximum": null,
+  "description": "Age limits are degree-specific: Master's applicants must not exceed 28 years, while PhD applicants must not exceed 30 years under the current call."
+},
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "scholarshipRoute",
+          "required": true,
+          "label": "Eligible CSC scholarship route",
+          "description": "Applicants must satisfy the requirements of the applicable Chinese Government Scholarship category and host university."
+        }
+      ]
+    },
+    "website": "https://www.campuschina.org",
+    "image": "/images/opportunities/csc.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "China",
+      "Government",
+      "CSC",
+      "Scholarship"
+    ],
+    "description": "Chinese Government scholarship programme supporting international students across multiple degree levels and disciplines."
+  },
+  {
+    "id": 12,
+    "slug": "italian-government-maeci-scholarship",
+    "title": "Italian Government MAECI Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Italian Ministry of Foreign Affairs",
+    "country": "Italy",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Usually Around March",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Monthly Scholarship Grant",
+      "Tuition Support",
+      "Health Insurance",
+      "Financial Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Bangladesh is included among eligible countries under the applicable annual call."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must satisfy the academic admission requirements of the selected Italian programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on the selected programme."
+      },
+      "age": {
+        "required": true,
+        "minimum": null,
+        "maximum": 28,
+        "description": "Age limits vary by scholarship category and the current annual call."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": false
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "studyInItaly",
+          "required": true,
+          "label": "Eligible Italian institution or programme",
+          "description": "Applicant must apply to an eligible academic programme or research activity covered by the current MAECI call."
+        }
+      ]
+    },
+    "website": "https://studyinitaly.esteri.it",
+    "image": "/images/opportunities/maeci.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Italy",
+      "MAECI",
+      "Government",
+      "Scholarship"
+    ],
+    "description": "Italian Government scholarship programme for foreign students pursuing eligible study and research programmes in Italy."
+  },
+  {
+    "id": 13,
+    "slug": "france-excellence-eiffel-scholarship",
+    "title": "France Excellence Eiffel Scholarship",
+    "category": "Government Scholarship",
+    "provider": "French Ministry for Europe and Foreign Affairs",
+    "country": "France",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Usually January",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "Monthly Allowance",
+      "International Travel",
+      "Domestic Travel",
+      "Health Insurance",
+      "Cultural Activities"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "The programme targets foreign students; exact country eligibility follows the current annual call."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": true,
+        "values": [
+          "Science and Technology",
+          "Biology and Health",
+          "Ecological Transition",
+          "Mathematics and Digital",
+          "Engineering",
+          "Political Science",
+          "Law",
+          "Economics and Management"
+        ]
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate strong academic performance and satisfy the selected French institution's requirements."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": true,
+        "minimum": null,
+        "maximum": 29,
+        "description": "For master's applicants, the current programme generally targets candidates under 30; doctoral limits are higher."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "institutionNomination",
+          "required": true,
+          "label": "French institution nomination",
+          "description": "Applications must be submitted by eligible French higher education institutions rather than directly by students."
+        }
+      ]
+    },
+    "website": "https://www.campusfrance.org/en/france-excellence-eiffel-scholarship-program",
+    "image": "/images/opportunities/eiffel.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "France",
+      "Eiffel",
+      "Government",
+      "Scholarship"
+    ],
+    "description": "French Government scholarship programme designed to attract high-level international students to French higher education."
+  },
+  {
+    "id": 14,
+    "slug": "si-scholarship-global-professionals",
+    "title": "SI Scholarship for Global Professionals",
+    "category": "Government Scholarship",
+    "provider": "Swedish Institute",
+    "country": "Sweden",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "Annual - Usually February",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "Full Tuition",
+      "Monthly Allowance",
+      "Travel Grant",
+      "Insurance"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Applicants must be citizens of countries included in the current SI eligible-country list."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must meet the academic admission requirements of their selected Swedish master's programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": true,
+        "minimumMonths": null,
+        "preferred": true,
+        "description": "Relevant professional experience requirements depend on the current SI call."
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleProgramme",
+          "required": true,
+          "label": "Eligible Swedish master's programme",
+          "description": "Applicant must apply to an eligible master's programme covered by the current Swedish Institute scholarship call."
+        }
+      ]
+    },
+    "website": "https://si.se/en/apply/scholarships/",
+    "image": "/images/opportunities/si-scholarship.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Sweden",
+      "Swedish Institute",
+      "Government",
+      "Scholarship"
+    ],
+    "description": "Swedish Institute scholarship programme supporting international professionals pursuing eligible master's programmes in Sweden."
+  },
+  {
+    "id": 15,
+    "slug": "government-of-ireland-international-education-scholarship",
+    "title": "Government of Ireland International Education Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Government of Ireland",
+    "country": "Ireland",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Usually March",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "€10,000 Stipend",
+      "Full Fee Waiver",
+      "One Year Study Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Applicants must be from a non-EU/non-EEA country eligible under the annual call."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Strong academic performance is expected."
       },
       "english": {
         "required": false,
@@ -1057,894 +1502,1740 @@
         "minimumMonths": null
       },
       "researchExperience": {
-        "required": false
+        "required": false,
+        "preferred": true
       },
       "leadership": {
-        "required": false
+        "required": false,
+        "preferred": true
       },
       "communityService": {
-        "required": false
+        "required": false,
+        "preferred": true
       },
       "achievements": {
-        "required": false
+        "required": false,
+        "preferred": true
       },
       "additionalRequirements": [
         {
-          "type": "undergraduateEligibility",
+          "type": "irishInstitutionOffer",
           "required": true,
-          "label": "Eligible undergraduate status",
-          "description": "Applicant must satisfy the academic-year and program-specific requirements for the internship."
+          "label": "Eligible Irish institution offer",
+          "description": "Applicant must have an offer from an eligible Irish higher education institution before completing the scholarship application."
         }
       ]
     },
-    "website": "https://www.metacareers.com",
-    "image": "/images/opportunities/meta.jpg",
+    "website": "https://hea.ie/policy/internationalisation/government-of-ireland-international-education-scholarship/",
+    "image": "/images/opportunities/goi-ies.jpg",
     "featured": true,
-    "status": "Open",
+    "status": "Upcoming",
     "tags": [
-      "Meta",
-      "Internship"
+      "Ireland",
+      "Government",
+      "GOI",
+      "Scholarship"
     ],
-    "description": "Early career internship for future software engineers."
+    "description": "Irish Government scholarship supporting high-calibre international students from non-EU and non-EEA countries."
   },
-
   {
-    "id": 12,
-    "slug": "google-solution-challenge",
-    "title": "Google Solution Challenge",
-    "category": "Competition",
-    "provider": "Google",
-    "country": "Global",
-    "city": "Online",
-    "funding": "Prize Competition",
-    "degree": ["Bachelor", "Master"],
-    "deadline": "2027-03-31",
+    "id": 16,
+    "slug": "manaaki-new-zealand-scholarships",
+    "title": "Manaaki New Zealand Scholarships",
+    "category": "Government Scholarship",
+    "provider": "New Zealand Government",
+    "country": "New Zealand",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Country Specific",
     "applicationFee": "Free",
-    "ielts": "Not Required",
+    "ielts": "Programme Specific",
     "benefits": [
-      "Global Recognition",
-      "Mentorship",
-      "Google Swag"
+      "Full Tuition",
+      "Living Allowance",
+      "Establishment Allowance",
+      "Medical Insurance",
+      "Airfare",
+      "Travel Insurance"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor"]
-  },
-  "fieldOfStudy": {
-    "required": true,
-    "values": [
-      "Computer Science",
-      "Computer Engineering",
-      "Software Engineering",
-      "Related Technical Field"
-    ]
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "programSpecific",
-      "required": true,
-      "label": "Meta internship posting requirements",
-      "description": "Eligibility must be verified against the current Meta student internship posting, including academic year, graduation window, location and work authorization."
-    }
-  ]
-},
-    "website": "https://developers.google.com/community/gdsc-solution-challenge",
-    "image": "/images/opportunities/google-solution.jpg",
-    "featured": true,
-    "status": "Open",
-    "tags": [
-      "Google",
-      "Competition"
-    ],
-    "description": "Build innovative solutions aligned with the UN Sustainable Development Goals."
-  },
-
-  {
-    "id": 13,
-    "slug": "huawei-ict-competition",
-    "title": "Huawei ICT Competition",
-    "category": "Competition",
-    "provider": "Huawei",
-    "country": "Global",
-    "city": "Online",
-    "funding": "Prize Competition",
-    "degree": ["Bachelor"],
-    "deadline": "2027-04-15",
-    "applicationFee": "Free",
-    "ielts": "Not Required",
-    "benefits": [
-      "Cash Prize",
-      "Huawei Certification",
-      "Employment Opportunities"
-    ],
-    "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor", "Master"]
-  },
-  "fieldOfStudy": {
-    "required": true,
-    "values": [
-      "Information Technology",
-      "Information and Communication Technology",
-      "Computer Science",
-      "Computer Engineering",
-      "Software Engineering",
-      "Related ICT Field"
-    ]
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false
-  },
-  "additionalRequirements": [
-    {
-      "type": "studentStatus",
-      "required": true,
-      "label": "University student",
-      "description": "Applicant must meet the student/enrollment requirements of the applicable national or regional Huawei ICT Competition."
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility depends on the current participating-country list and country-specific priorities."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must satisfy the academic requirements of the selected programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": true,
+        "minimum": 18,
+        "maximum": 40
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null,
+        "preferred": true
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "countryEligibility",
+          "required": true,
+          "label": "Eligible Manaaki country",
+          "description": "Applicant must be a citizen of an eligible country and meet the current country-specific priority requirements."
+        },
+        {
+          "type": "returnHome",
+          "required": true,
+          "label": "Return and contribute to home country",
+          "description": "Scholars are expected to return to their home country and contribute to its development."
+        }
+      ]
     },
-    {
-      "type": "competitionTrack",
-      "required": true,
-      "label": "Competition track requirements",
-      "description": "The applicable Practice, Innovation or Programming track may impose additional team, technology and competition-specific requirements."
-    }
-  ]
-},
-    "website": "https://e.huawei.com",
-    "image": "/images/opportunities/huawei.jpg",
-    "featured": false,
-    "status": "Open",
+    "website": "https://www.manaaki.govt.nz",
+    "image": "/images/opportunities/manaaki.jpg",
+    "featured": true,
+    "status": "Upcoming",
     "tags": [
-      "Huawei",
-      "Competition"
+      "New Zealand",
+      "Government",
+      "Manaaki",
+      "Scholarship"
     ],
-    "description": "International ICT skills competition for university students."
+    "description": "New Zealand Government scholarship programme for students from eligible developing countries."
   },
-
   {
-    "id": 14,
+    "id": 17,
+    "slug": "danish-government-scholarships",
+    "title": "Danish Government Scholarships",
+    "category": "Government Scholarship",
+    "provider": "Government of Denmark",
+    "country": "Denmark",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "Annual - University Specific",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "Tuition Fee Waiver",
+      "Living Grant",
+      "Study Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility depends on the participating Danish university and current scholarship scheme."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Academic requirements are determined by the participating university."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "English requirements depend on the selected Danish programme."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": false
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "participatingUniversity",
+          "required": true,
+          "label": "Participating Danish university",
+          "description": "Availability, funding level and eligibility depend on the participating university and its current scholarship call."
+        }
+      ]
+    },
+    "website": "https://studyindenmark.dk",
+    "image": "/images/opportunities/denmark-government.jpg",
+    "featured": false,
+    "status": "Upcoming",
+    "tags": [
+      "Denmark",
+      "Government",
+      "Scholarship",
+      "Europe"
+    ],
+    "description": "Government-supported scholarships administered through participating Danish higher education institutions."
+  },
+  {
+    "id": 18,
+    "slug": "nl-scholarship",
+    "title": "NL Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Dutch Ministry of Education and Participating Institutions",
+    "country": "Netherlands",
+    "city": "Multiple",
+    "funding": "Partially Funded",
+    "degree": ["Bachelor", "Master"],
+    "deadline": "Annual - University Specific",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "€5,000 Scholarship",
+      "Tuition Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "The scholarship targets non-EEA students; exact eligibility depends on the participating institution."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Academic requirements are determined by the participating institution."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": false
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "participatingInstitution",
+          "required": true,
+          "label": "Participating Dutch institution",
+          "description": "Applicant must apply to a participating Dutch higher education institution and satisfy its programme-specific requirements."
+        }
+      ]
+    },
+    "website": "https://www.studyinnl.org/finances/nl-scholarship",
+    "image": "/images/opportunities/nl-scholarship.jpg",
+    "featured": false,
+    "status": "Upcoming",
+    "tags": [
+      "Netherlands",
+      "Government",
+      "Scholarship"
+    ],
+    "description": "Scholarship for non-EEA international students offered through participating Dutch higher education institutions."
+  },
+  {
+    "id": 19,
+    "slug": "erasmus-mundus-joint-masters",
+    "title": "Erasmus Mundus Joint Masters",
+    "category": "Global Scholarship",
+    "provider": "European Union",
+    "country": "Europe",
+    "city": "Multiple Countries",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "Annual - Usually October to January",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Full Scholarship",
+      "Tuition and Participation Costs",
+      "Travel Support",
+      "Visa Support",
+      "Living Allowance"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Students from around the world are eligible to apply, subject to the requirements of the selected joint master's programme."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Academic requirements vary by the selected Erasmus Mundus master's programme."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "English or other language requirements depend on the selected consortium."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleJointMaster",
+          "required": true,
+          "label": "Eligible Erasmus Mundus Joint Master",
+          "description": "Applicant must apply to an eligible Erasmus Mundus Joint Master programme and satisfy its consortium-specific admission requirements."
+        }
+      ]
+    },
+    "website": "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters",
+    "image": "/images/opportunities/erasmus.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Global",
+      "Europe",
+      "Erasmus",
+      "Master",
+      "Fully Funded"
+    ],
+    "description": "European Union-funded international master's programmes delivered by university consortia across multiple countries, with full scholarships available."
+  },
+  {
+    "id": 20,
     "slug": "rhodes-scholarship",
     "title": "Rhodes Scholarship",
-    "category": "Scholarship",
+    "category": "Global Scholarship",
     "provider": "Rhodes Trust",
     "country": "United Kingdom",
     "city": "Oxford",
     "funding": "Fully Funded",
     "degree": ["Master", "PhD"],
-    "deadline": "2027-08-31",
+    "deadline": "Annual - Constituency Specific",
     "applicationFee": "Free",
-    "ielts": "7.0+",
+    "ielts": "Oxford Requirement",
     "benefits": [
       "Full Tuition",
       "Annual Stipend",
-      "Travel Costs",
-      "Health Coverage"
+      "Application and University Fees",
+      "Travel Support",
+      "Settling-in Allowance"
     ],
     "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": ["Bangladesh"],
-    "description": "Eligibility depends on whether the applicant qualifies under an applicable Rhodes constituency or inter-jurisdictional route."
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master", "PhD"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": 3.7,
-    "scale": 4,
-    "preferred": true,
-    "description": "Rhodes constituency criteria and Oxford course requirements apply. A GPA around 3.7/4.0 is cited by several current constituency pages as a competitive academic benchmark, not a universal global hard cutoff."
-  },
-  "english": {
-    "required": true,
-    "test": null,
-    "minimum": null,
-    "description": "Applicant must satisfy the applicable Oxford English-language requirement or qualify for a waiver."
-  },
-  "age": {
-    "required": true,
-    "minimum": 18,
-    "maximum": 25,
-    "description": "Age rules depend on the Rhodes constituency and may include exceptions for applicants who completed their first undergraduate degree later than usual."
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "rhodesConstituency",
-      "required": true,
-      "label": "Rhodes constituency eligibility",
-      "description": "Applicant must qualify under the applicable Rhodes constituency rules or an accepted inter-jurisdictional route."
-    },
-    {
-      "type": "oxfordAdmission",
-      "required": true,
-      "label": "Oxford course eligibility",
-      "description": "Applicant must meet the academic and admission requirements for an eligible full-time Oxford postgraduate course."
-    }
-  ]
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility depends on the applicant's applicable Rhodes constituency or accepted inter-jurisdictional route."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate strong academic achievement and satisfy the relevant Rhodes and Oxford course requirements."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "Applicants must satisfy the applicable Oxford English-language requirements."
+      },
+      "age": {
+  "required": true,
+  "minimum": null,
+  "maximum": null,
+  "description": "Age and degree-completion requirements depend on the applicable Rhodes constituency and annual cycle."
 },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "rhodesConstituency",
+          "required": true,
+          "label": "Rhodes constituency eligibility",
+          "description": "Applicant must qualify under the applicable Rhodes constituency or accepted inter-jurisdictional route."
+        },
+        {
+          "type": "oxfordAdmission",
+          "required": true,
+          "label": "Oxford course eligibility",
+          "description": "Applicant must meet the academic and admission requirements for an eligible Oxford postgraduate course."
+        }
+      ]
+    },
     "website": "https://www.rhodeshouse.ox.ac.uk",
     "image": "/images/opportunities/rhodes.jpg",
     "featured": true,
     "status": "Open",
     "tags": [
+      "UK",
       "Oxford",
-      "Scholarship",
-      "Leadership"
+      "Global",
+      "Leadership",
+      "Scholarship"
     ],
-    "description": "One of the world's oldest and most prestigious international scholarships."
+    "description": "Prestigious international scholarship supporting outstanding postgraduate students at the University of Oxford."
   },
-
   {
-    "id": 15,
+    "id": 21,
     "slug": "gates-cambridge-scholarship",
     "title": "Gates Cambridge Scholarship",
-    "category": "Scholarship",
+    "category": "Global Scholarship",
     "provider": "University of Cambridge",
     "country": "United Kingdom",
     "city": "Cambridge",
     "funding": "Fully Funded",
     "degree": ["Master", "PhD"],
-    "deadline": "2027-12-05",
+    "deadline": "Annual - Course Specific",
     "applicationFee": "Free",
-    "ielts": "7.5",
+    "ielts": "Course Specific",
     "benefits": [
       "Full Tuition",
-      "Living Allowance",
+      "Maintenance Allowance",
       "Airfare",
-      "Research Funding"
+      "Visa and Health Costs",
+      "Additional Academic Funding"
     ],
     "eligibility": {
-  "nationality": {
-    "required": true,
-    "countries": [],
-    "description": "Open to applicants of any nationality other than UK citizenship restrictions specified by the programme."
-  },
-  "internationalStudent": {
-    "required": true
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master", "PhD"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Applicants must demonstrate outstanding academic achievement and satisfy the relevant Cambridge course requirements."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null,
-    "description": "English requirements are determined through the relevant Cambridge course/admission requirements."
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "eligibleCourse",
-      "required": true,
-      "label": "Eligible Cambridge postgraduate course",
-      "description": "Applicant must apply to an eligible postgraduate course at the University of Cambridge."
+      "nationality": {
+        "required": true,
+        "countries": [],
+        "description": "Open to international applicants subject to the programme's course and nationality rules."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants should demonstrate outstanding academic achievement."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "English requirements are determined by the selected Cambridge course."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleCourse",
+          "required": true,
+          "label": "Eligible Cambridge postgraduate course",
+          "description": "Applicant must apply to an eligible postgraduate programme at the University of Cambridge."
+        },
+        {
+          "type": "admission",
+          "required": true,
+          "label": "Cambridge admission",
+          "description": "Applicants must satisfy the admission requirements of the selected Cambridge course."
+        }
+      ]
     },
-    {
-      "type": "admission",
-      "required": true,
-      "label": "Cambridge admission",
-      "description": "Applicant must satisfy the applicable Cambridge admission and course requirements."
-    }
-  ]
-},
     "website": "https://www.gatescambridge.org",
     "image": "/images/opportunities/gates-cambridge.jpg",
     "featured": true,
-    "status": "Open",
+    "status": "Upcoming",
     "tags": [
+      "UK",
       "Cambridge",
+      "Global",
       "Scholarship"
     ],
-    "description": "Highly competitive scholarship funded by the Bill & Melinda Gates Foundation."
+    "description": "Fully funded scholarship for outstanding international postgraduate students at the University of Cambridge."
   },
-
   {
-    "id": 16,
-    "slug": "vanier-canada-graduate-scholarship",
-    "title": "Vanier Canada Graduate Scholarship",
-    "category": "Scholarship",
-    "provider": "Government of Canada",
-    "country": "Canada",
-    "city": "Multiple",
+    "id": 22,
+    "slug": "clarendon-fund-scholarship",
+    "title": "Clarendon Fund Scholarship",
+    "category": "Global Scholarship",
+    "provider": "University of Oxford",
+    "country": "United Kingdom",
+    "city": "Oxford",
     "funding": "Fully Funded",
-    "degree": ["PhD"],
-    "deadline": "2027-11-01",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Course Specific",
     "applicationFee": "Free",
-    "ielts": "6.5+",
+    "ielts": "Oxford Requirement",
     "benefits": [
-      "$50,000 Annual Funding",
-      "Research Support"
+      "Full Tuition",
+      "Annual Living Grant",
+      "College Support"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["PhD"]
-  },
-  "fieldOfStudy": {
-    "required": true,
-    "values": [
-      "Health Research",
-      "Natural Sciences",
-      "Engineering",
-      "Social Sciences",
-      "Humanities"
-    ]
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Applicant must satisfy the first-class-average requirement as determined under the current institutional/program rules."
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "doctoralStudyWindow",
-      "required": true,
-      "label": "Doctoral study eligibility window",
-      "description": "Prior doctoral-level study must fall within the current Vanier eligibility rules."
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Open to applicants of all nationalities applying to eligible Oxford graduate programmes."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants should demonstrate excellent academic potential."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "oxfordApplication",
+          "required": true,
+          "label": "Oxford graduate application",
+          "description": "Applicants must apply for an eligible Oxford graduate course before the relevant course deadline."
+        }
+      ]
     },
-    {
-      "type": "nomination",
-      "required": true,
-      "label": "Canadian institutional nomination",
-      "description": "Applicant must be nominated through an eligible Canadian institution."
-    }
-  ]
-},
-    "website": "https://vanier.gc.ca",
-    "image": "/images/opportunities/vanier.jpg",
+    "website": "https://www.ox.ac.uk/clarendon",
+    "image": "/images/opportunities/clarendon.jpg",
     "featured": true,
-    "status": "Open",
+    "status": "Upcoming",
     "tags": [
-      "Canada",
-      "Research"
+      "UK",
+      "Oxford",
+      "Global",
+      "Scholarship"
     ],
-    "description": "Canada's flagship doctoral scholarship supporting world-class researchers."
+    "description": "Oxford graduate scholarship providing full tuition and a living grant to academically outstanding students."
   },
-
   {
-    "id": 17,
+    "id": 23,
     "slug": "schwarzman-scholars",
     "title": "Schwarzman Scholars",
-    "category": "Fellowship",
+    "category": "Global Scholarship",
     "provider": "Tsinghua University",
     "country": "China",
     "city": "Beijing",
     "funding": "Fully Funded",
     "degree": ["Master"],
-    "deadline": "2027-09-20",
+    "deadline": "2026-09-09",
     "applicationFee": "Free",
     "ielts": "7.0",
     "benefits": [
       "Full Tuition",
       "Accommodation",
+      "Living Allowance",
       "Travel",
-      "Leadership Training"
+      "Leadership Programme"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Master"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": true,
-    "minimumGPA": null,
-    "description": "Applicant must hold or be on track to complete an undergraduate degree and meet programme/course academic standards."
-  },
-  "english": {
-    "required": true,
-    "test": "IELTS",
-    "minimum": 7.0,
-    "alternativeTests": [
-      "TOEFL",
-      "Duolingo English Test",
-      "Cambridge English"
-    ],
-    "waiverPossible": true
-  },
-  "age": {
-    "required": true,
-    "minimum": 18,
-    "maximum": 28,
-    "description": "Applicant must be at least 18 and not yet 29 on August 1 of the enrollment year."
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false,
-    "preferred": true
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "undergraduateDegree",
-      "required": true,
-      "label": "Undergraduate degree",
-      "description": "Applicant must have completed or be on track to complete an undergraduate degree by the programme's specified date."
-    }
-  ]
-},
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Applicants from around the world may apply subject to programme eligibility."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate strong academic achievement."
+      },
+      "english": {
+        "required": true,
+        "test": "IELTS",
+        "minimum": 7.0,
+        "alternativeTests": [
+          "TOEFL",
+          "Duolingo English Test",
+          "Cambridge English"
+        ],
+        "waiverPossible": true
+      },
+      "age": {
+        "required": true,
+        "minimum": 18,
+        "maximum": 28,
+        "description": "Applicants must meet the programme's age requirement for the relevant enrollment year."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "undergraduateDegree",
+          "required": true,
+          "label": "Undergraduate degree",
+          "description": "Applicant must have completed or be on track to complete an undergraduate degree by the programme's specified deadline."
+        }
+      ]
+    },
     "website": "https://www.schwarzmanscholars.org",
     "image": "/images/opportunities/schwarzman.jpg",
     "featured": true,
-    "status": "Open",
+    "status": "Closed",
     "tags": [
       "China",
+      "Global",
       "Leadership",
-      "Fellowship"
+      "Master"
     ],
-    "description": "International leadership fellowship at Tsinghua University."
+    "description": "Fully funded international leadership scholarship for a master's degree at Tsinghua University."
   },
-
   {
-    "id": 18,
-    "slug": "one-young-world-summit",
-    "title": "One Young World Summit",
-    "category": "Conference",
-    "provider": "One Young World",
-    "country": "Global",
-    "city": "Rotating Host City",
+    "id": 24,
+    "slug": "joint-japan-world-bank-graduate-scholarship",
+    "title": "Joint Japan/World Bank Graduate Scholarship Program",
+    "category": "Global Scholarship",
+    "provider": "World Bank and Government of Japan",
+    "country": "Multiple Countries",
+    "city": "Multiple",
     "funding": "Fully Funded",
-    "degree": ["Bachelor", "Master", "Professional"],
-    "deadline": "2027-06-30",
+    "degree": ["Master"],
+    "deadline": "2027-01-18 to 2027-05-21",
     "applicationFee": "Free",
-    "ielts": "Not Required",
+    "ielts": "University Specific",
     "benefits": [
-      "Conference Access",
+      "Tuition",
+      "Monthly Living Allowance",
+      "Round-trip Airfare",
+      "Health Insurance",
+      "Travel Allowance"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Applicants must be nationals of a World Bank member developing country listed under the current programme eligibility rules."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": true,
+        "values": [
+          "Economic Policy Management",
+          "Development Policy",
+          "Public Policy",
+          "Infrastructure",
+          "Health",
+          "Education",
+          "Environment",
+          "Related Development Fields"
+        ]
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must have a bachelor's degree and satisfy the selected participating master's programme."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": true,
+        "minimumMonths": 36,
+        "description": "Applicants generally need relevant professional experience after completing their bachelor's degree."
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "participatingProgramme",
+          "required": true,
+          "label": "Participating master's programme",
+          "description": "Applicant must apply to an approved JJ/WBGSP participating master's programme."
+        },
+        {
+          "type": "developmentCommitment",
+          "required": true,
+          "label": "Development-related career",
+          "description": "Applicants should demonstrate a commitment to development-related work."
+        }
+      ]
+    },
+    "website": "https://www.worldbank.org/en/programs/scholarships/jj-wbgsp",
+    "image": "/images/opportunities/jj-wbgsp.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Global",
+      "World Bank",
+      "Japan",
+      "Master",
+      "Development"
+    ],
+    "description": "Scholarship programme supporting professionals from eligible developing countries to pursue selected development-related master's degrees."
+  },
+  {
+    "id": 25,
+    "slug": "islamic-development-bank-scholarship",
+    "title": "Islamic Development Bank Scholarship Program",
+    "category": "Global Scholarship",
+    "provider": "Islamic Development Bank",
+    "country": "Multiple Countries",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Programme Specific",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Support",
+      "Monthly Stipend",
+      "Medical Coverage",
+      "Travel Support",
+      "Academic Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility depends on the applicable IsDB scholarship programme and eligible-country list."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Strong academic performance is generally required."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": true,
+        "minimum": null,
+        "maximum": null,
+        "description": "Age limits depend on the selected IsDB scholarship programme."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "eligibleCountry",
+          "required": true,
+          "label": "Eligible IsDB country",
+          "description": "Applicant must be a citizen of an eligible IsDB member or participating country under the applicable programme."
+        },
+        {
+          "type": "fieldSpecific",
+          "required": false,
+          "label": "Priority field",
+          "description": "Some IsDB scholarship tracks prioritize science, technology, medicine, engineering and other development-related disciplines."
+        }
+      ]
+    },
+    "website": "https://www.isdb.org/scholarships",
+    "image": "/images/opportunities/isdb.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Global",
+      "IsDB",
+      "Scholarship",
+      "Developing Countries"
+    ],
+    "description": "Recurring Islamic Development Bank scholarship programmes supporting students from eligible member and participating countries."
+  },
+  {
+    "id": 26,
+    "slug": "aga-khan-foundation-international-scholarship",
+    "title": "Aga Khan Foundation International Scholarship Programme",
+    "category": "Global Scholarship",
+    "provider": "Aga Khan Foundation",
+    "country": "Multiple Countries",
+    "city": "Multiple",
+    "funding": "Partially Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "Annual - Usually March",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "Tuition Support",
+      "Living Cost Support",
+      "Travel Support"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility depends on the annual geographic eligibility list and programme rules."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate strong academic performance."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "Applicants must meet the language requirements of the selected university."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null,
+        "preferred": true
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "geographicEligibility",
+          "required": true,
+          "label": "Eligible geographic region",
+          "description": "Applicant must be from a country or territory covered by the current scholarship programme."
+        },
+        {
+          "type": "financialNeed",
+          "required": true,
+          "label": "Financial need",
+          "description": "The programme considers applicants who require financial assistance to pursue postgraduate study."
+        }
+      ]
+    },
+    "website": "https://www.akdn.org/our-agencies/aga-khan-foundation/international-scholarship-programme",
+    "image": "/images/opportunities/aga-khan.jpg",
+    "featured": false,
+    "status": "Upcoming",
+    "tags": [
+      "Global",
+      "Aga Khan",
+      "Scholarship",
+      "Master",
+      "PhD"
+    ],
+    "description": "International postgraduate scholarship programme providing financial assistance to talented students from selected developing countries."
+  },
+  {
+    "id": 27,
+    "slug": "rotary-peace-fellowship",
+    "title": "Rotary Peace Fellowship",
+    "category": "Global Scholarship",
+    "provider": "Rotary International",
+    "country": "Multiple Countries",
+    "city": "Multiple",
+    "funding": "Fully Funded",
+    "degree": ["Master"],
+    "deadline": "Annual - Usually May",
+    "applicationFee": "Free",
+    "ielts": "University Specific",
+    "benefits": [
+      "Full Tuition",
       "Accommodation",
-      "Meals",
-      "Networking"
+      "Living Expenses",
+      "Round-trip Transportation",
+      "Field Study Support"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": false,
-    "values": []
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": true,
-    "minimum": 18,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false,
-    "preferred": true
-  },
-  "communityService": {
-    "required": false,
-    "preferred": true
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "delegateOrScholarship",
-      "required": true,
-      "label": "Summit participation route",
-      "description": "Eligibility differs between paid delegate participation and individual scholarship opportunities. Scholarship routes may impose additional age, nationality, leadership and impact requirements."
-    }
-  ]
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Applicants from around the world may apply, subject to programme and host-centre requirements."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master"]
+      },
+      "fieldOfStudy": {
+        "required": true,
+        "values": [
+          "Peace Studies",
+          "International Development",
+          "International Relations",
+          "Public Policy",
+          "Conflict Resolution",
+          "Related Fields"
+        ]
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate strong academic performance."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": true,
+        "minimumMonths": 36,
+        "description": "Relevant work or volunteer experience related to peace and development is required."
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+  "required": true,
+  "preferred": false
 },
-    "website": "https://www.oneyoungworld.com",
-    "image": "/images/opportunities/one-young-world.jpg",
+"communityService": {
+  "required": true,
+  "preferred": false
+},
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "professionalExperience",
+          "required": true,
+          "label": "Relevant professional or volunteer experience",
+          "description": "Applicants must demonstrate relevant experience in peace, development, conflict resolution or related areas."
+        }
+      ]
+    },
+    "website": "https://www.rotary.org/en/our-programs/peace-fellowships",
+    "image": "/images/opportunities/rotary-peace.jpg",
     "featured": false,
-    "status": "Open",
+    "status": "Closed",
     "tags": [
-      "Conference",
-      "Leadership"
+      "Global",
+      "Rotary",
+      "Peace",
+      "Leadership",
+      "Scholarship"
     ],
-    "description": "Global summit connecting young leaders to solve international challenges."
+    "description": "Fully funded postgraduate fellowship for professionals pursuing peace and development studies."
   },
-
   {
-    "id": 19,
-    "slug": "icpc-world-finals",
-    "title": "ICPC World Finals",
-    "category": "Competition",
-    "provider": "ICPC Foundation",
-    "country": "Global",
-    "city": "Varies",
-    "funding": "Competition",
-    "degree": ["Bachelor"],
-    "deadline": "2027-05-10",
+    "id": 28,
+    "slug": "swiss-government-excellence-scholarships",
+    "title": "Swiss Government Excellence Scholarships",
+    "category": "Government Scholarship",
+    "provider": "Swiss Confederation / Federal Commission for Scholarships for Foreign Students",
+    "country": "Switzerland",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": ["PhD"],
+    "deadline": "Annual - Country Specific",
     "applicationFee": "Free",
-    "ielts": "Not Required",
+    "ielts": "Programme Specific",
     "benefits": [
-      "World Recognition",
-      "Career Opportunities",
-      "Prize Awards"
+      "Monthly Scholarship",
+      "Tuition Support",
+      "Health Insurance",
+      "Travel Support",
+      "Housing Allowance"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": true,
-    "values": ["Bachelor", "Master"]
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false,
-    "preferred": true
-  },
-  "additionalRequirements": [
-    {
-      "type": "qualifiedUniversityTeam",
-      "required": true,
-      "label": "Qualified ICPC university team",
-      "description": "Participation at the World Finals requires qualification through the applicable ICPC regional contest pathway."
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility and available scholarship types depend on the applicant's country of origin and the annual Swiss Government Excellence Scholarships call."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must demonstrate a strong academic profile appropriate for doctoral-level research."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on the research project, host institution and programme."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": true,
+        "preferred": false,
+        "description": "Research competence and the quality of the proposed research project are important selection criteria."
+      },
+      "leadership": {
+        "required": false,
+        "preferred": false
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "academicSupervisor",
+          "required": true,
+          "label": "Swiss academic supervisor",
+          "description": "Applicants for research and doctoral scholarships must identify an academic supervisor at a Swiss higher education institution who supports the proposed research project."
+        },
+        {
+          "type": "researchProject",
+          "required": true,
+          "label": "Research project",
+          "description": "Applicants must submit a suitable research proposal and satisfy the academic requirements of the selected Swiss institution."
+        }
+      ]
     },
-    {
-      "type": "enrollment",
-      "required": true,
-      "label": "Eligible university enrollment",
-      "description": "Contestants must satisfy the current ICPC enrollment and participation rules."
-    },
-    {
-      "type": "teamQualification",
-      "required": true,
-      "label": "Regional qualification",
-      "description": "The student cannot independently apply to the World Finals without qualifying through the applicable ICPC competition structure."
-    }
-  ]
-},
-    "website": "https://icpc.global",
-    "image": "/images/opportunities/icpc.jpg",
-    "featured": false,
-    "status": "Open",
+    "website": "https://www.sbfi.admin.ch/en/swiss-government-excellence-scholarships",
+    "image": "/images/opportunities/swiss-government-excellence.jpg",
+    "featured": true,
+    "status": "Upcoming",
     "tags": [
-      "Programming",
-      "Competition"
+      "Switzerland",
+      "Swiss Government",
+      "Government",
+      "PhD",
+      "Research",
+      "Scholarship"
     ],
-    "description": "The world's most prestigious collegiate programming competition."
+    "description": "Swiss Government scholarship programme supporting international researchers and doctoral candidates through study and research opportunities at Swiss higher education institutions."
   },
-
   {
-    "id": 20,
-    "slug": "nasa-space-apps-challenge",
-    "title": "NASA Space Apps Challenge",
-    "category": "Hackathon",
-    "provider": "NASA",
-    "country": "Global",
-    "city": "Online & Local Events",
-    "funding": "Competition",
-    "degree": ["Student", "Professional"],
-    "deadline": "2027-09-15",
+    "id": 29,
+    "slug": "stipendium-hungaricum-scholarship",
+    "title": "Stipendium Hungaricum Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Government of Hungary / Tempus Public Foundation",
+    "country": "Hungary",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Usually January",
     "applicationFee": "Free",
-    "ielts": "Not Required",
+    "ielts": "University Specific",
     "benefits": [
-      "Global Recognition",
-      "NASA Certificates",
-      "Networking",
-      "Innovation Awards"
+      "Tuition Fee Exemption",
+      "Monthly Stipend",
+      "Accommodation Support",
+      "Medical Insurance",
+      "Living Support"
     ],
     "eligibility": {
-  "nationality": {
-    "required": false,
-    "countries": []
-  },
-  "internationalStudent": {
-    "required": false
-  },
-  "studyLevel": {
-    "required": false,
-    "values": []
-  },
-  "fieldOfStudy": {
-    "required": false,
-    "values": []
-  },
-  "academicPerformance": {
-    "required": false,
-    "minimumGPA": null
-  },
-  "english": {
-    "required": false,
-    "test": null,
-    "minimum": null
-  },
-  "age": {
-    "required": false,
-    "minimum": null,
-    "maximum": null
-  },
-  "workExperience": {
-    "required": false,
-    "minimumMonths": null
-  },
-  "researchExperience": {
-    "required": false
-  },
-  "leadership": {
-    "required": false
-  },
-  "communityService": {
-    "required": false
-  },
-  "achievements": {
-    "required": false
-  },
-  "additionalRequirements": [
-    {
-      "type": "openParticipation",
-      "required": true,
-      "label": "Open hackathon participation",
-      "description": "The event is designed for participants from diverse backgrounds and experience levels; eligibility should be checked against the current event's participant terms."
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Eligibility depends on the annual sending-partner agreement and eligible-country arrangements for the Stipendium Hungaricum programme."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must satisfy the academic requirements of the selected Hungarian institution and programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements are determined by the selected programme and host institution."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "sendingPartner",
+          "required": true,
+          "label": "Eligible sending partner",
+          "description": "Applicants must be eligible under the applicable sending partner and country-specific conditions."
+        },
+        {
+          "type": "hostInstitution",
+          "required": true,
+          "label": "Eligible Hungarian institution",
+          "description": "Applicants must apply to an eligible Hungarian higher education institution and programme available under the current call."
+        }
+      ]
     },
-    {
-      "type": "projectSubmission",
-      "required": true,
-      "label": "Qualifying project submission",
-      "description": "Participants must create and submit a project satisfying the current NASA Space Apps challenge and submission rules."
-    }
-  ]
-},
-    "website": "https://www.spaceappschallenge.org",
-    "image": "/images/opportunities/nasa-space-apps.jpg",
+    "website": "https://stipendiumhungaricum.hu",
+    "image": "/images/opportunities/stipendium-hungaricum.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Hungary",
+      "Government",
+      "Stipendium Hungaricum",
+      "Bachelor",
+      "Master",
+      "PhD",
+      "Scholarship"
+    ],
+    "description": "Hungarian Government scholarship programme offering international students opportunities to study at Hungarian higher education institutions across multiple degree levels."
+  },
+  {
+    "id": 30,
+    "slug": "turkiye-scholarships",
+    "title": "Türkiye Scholarships",
+    "category": "Government Scholarship",
+    "provider": "Government of Türkiye / Presidency for Turks Abroad and Related Communities",
+    "country": "Türkiye",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Usually January to February",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Fees",
+      "Monthly Stipend",
+      "University Placement",
+      "Accommodation",
+      "Health Insurance",
+      "Round-trip Airfare",
+      "Turkish Language Training"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Türkiye Scholarships are open to international applicants from eligible countries worldwide, subject to the current programme criteria."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must satisfy the academic performance requirements applicable to their selected degree level and programme."
+      },
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on the selected university and academic programme."
+      },
+      "age": {
+        "required": true,
+        "minimum": null,
+        "maximum": null,
+        "description": "Age requirements depend on the degree level and current Türkiye Scholarships criteria."
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "universityPlacement",
+          "required": true,
+          "label": "Türkiye Scholarships programme placement",
+          "description": "Applicants must satisfy the scholarship programme's placement and programme-selection requirements."
+        },
+        {
+          "type": "programmeSpecific",
+          "required": true,
+          "label": "Programme-specific eligibility",
+          "description": "Applicants must satisfy the academic, age and programme-specific requirements of the selected Turkish university and degree programme."
+        }
+      ]
+    },
+    "website": "https://www.turkiyeburslari.gov.tr",
+    "image": "/images/opportunities/turkiye-scholarships.jpg",
+    "featured": true,
+    "status": "Upcoming",
+    "tags": [
+      "Türkiye",
+      "Turkey",
+      "Government",
+      "Bachelor",
+      "Master",
+      "PhD",
+      "Scholarship"
+    ],
+    "description": "Turkish Government scholarship programme providing international students with financial support, university placement and comprehensive study benefits."
+  },
+  {
+    "id": 31,
+    "slug": "knight-hennessy-scholars",
+    "title": "Knight-Hennessy Scholars",
+    "category": "Global Scholarship",
+    "provider": "Stanford University",
+    "country": "United States",
+    "city": "Stanford",
+    "funding": "Fully Funded",
+    "degree": ["Master", "PhD"],
+    "deadline": "2026-10-06",
+    "applicationFee": "Free",
+    "ielts": "Stanford Programme Specific",
+    "benefits": [
+      "Full Tuition Support",
+      "Living Stipend",
+      "Accommodation Allowance",
+      "Travel Stipend",
+      "Leadership Development"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": false,
+        "countries": [],
+        "description": "Applicants from all countries and nationalities are encouraged to apply, subject to Stanford graduate programme eligibility."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+        "required": true,
+        "minimumGPA": null,
+        "description": "Applicants must be admitted to an eligible Stanford graduate programme and demonstrate strong academic and personal potential."
+      },
+      "english": {
+        "required": true,
+        "test": null,
+        "minimum": null,
+        "description": "Applicants must satisfy the English-language requirements of their selected Stanford graduate programme."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": true
+      },
+      "communityService": {
+        "required": false,
+        "preferred": true
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "stanfordAdmission",
+          "required": true,
+          "label": "Stanford graduate admission",
+          "description": "Applicants must apply to and be admitted to an eligible full-time Stanford graduate degree programme."
+        },
+        {
+          "type": "degreeDate",
+          "required": true,
+          "label": "Undergraduate degree date",
+          "description": "For the 2027 cohort, applicants must have earned their first bachelor's degree in January 2020 or later, with an extended window for eligible military applicants."
+        }
+      ]
+    },
+    "website": "https://knight-hennessy.stanford.edu",
+    "image": "/images/opportunities/knight-hennessy.jpg",
     "featured": true,
     "status": "Open",
     "tags": [
-      "NASA",
-      "Hackathon",
-      "Space"
+      "USA",
+      "Stanford",
+      "Global",
+      "Leadership",
+      "Master",
+      "PhD",
+      "Scholarship"
     ],
-    "description": "Annual global hackathon where participants solve real-world challenges using NASA's open data."
+    "description": "Stanford University's multidisciplinary graduate scholarship programme supporting outstanding students from around the world through funding and leadership development."
+  },
+  {
+    "id": 32,
+    "slug": "romanian-government-mfa-scholarship",
+    "title": "Romanian Government MFA Scholarship",
+    "category": "Government Scholarship",
+    "provider": "Romanian Ministry of Foreign Affairs",
+    "country": "Romania",
+    "city": "Multiple Cities",
+    "funding": "Fully Funded",
+    "degree": ["Bachelor", "Master", "PhD"],
+    "deadline": "Annual - Usually March",
+    "applicationFee": "Free",
+    "ielts": "Programme Specific",
+    "benefits": [
+      "Tuition Fee Exemption",
+      "Monthly Scholarship",
+      "Accommodation Support",
+      "Medical Assistance",
+      "Preparatory Romanian Language Year When Applicable"
+    ],
+    "eligibility": {
+      "nationality": {
+        "required": true,
+        "countries": ["Bangladesh"],
+        "description": "Open to citizens of non-EU countries subject to the exclusions and conditions in the current Romanian Government scholarship call."
+      },
+      "internationalStudent": {
+        "required": true
+      },
+      "studyLevel": {
+        "required": true,
+        "values": ["Bachelor", "Master", "PhD"]
+      },
+      "fieldOfStudy": {
+        "required": false,
+        "values": []
+      },
+      "academicPerformance": {
+  "required": true,
+  "minimumGPA": 2.8,
+  "description": "Applicants must have at least the equivalent of 7.0 on the Romanian grading scale. For a 4.0 GPA scale, the official equivalent is 2.8/4.0."
+},
+      "english": {
+        "required": false,
+        "test": null,
+        "minimum": null,
+        "description": "Language requirements depend on the selected programme; Romanian-language preparatory study may apply where required."
+      },
+      "age": {
+        "required": false,
+        "minimum": null,
+        "maximum": null
+      },
+      "workExperience": {
+        "required": false,
+        "minimumMonths": null
+      },
+      "researchExperience": {
+        "required": false,
+        "preferred": true
+      },
+      "leadership": {
+        "required": false,
+        "preferred": false
+      },
+      "communityService": {
+        "required": false,
+        "preferred": false
+      },
+      "achievements": {
+        "required": false,
+        "preferred": true
+      },
+      "additionalRequirements": [
+        {
+          "type": "nonEUNationality",
+          "required": true,
+          "label": "Non-EU nationality",
+          "description": "Applicants must be citizens of a non-EU country and satisfy the exclusions and eligibility rules in the current Romanian Government call."
+        },
+        {
+          "type": "studyProgramme",
+          "required": true,
+          "label": "Eligible Romanian programme",
+          "description": "Applicants must select an eligible programme and institution covered by the Romanian Ministry of Foreign Affairs scholarship scheme."
+        }
+      ]
+    },
+    "website": "https://studyinromania.gov.ro",
+    "image": "/images/opportunities/romanian-government.jpg",
+    "featured": false,
+    "status": "Upcoming",
+    "tags": [
+      "Romania",
+      "Government",
+      "Europe",
+      "Bachelor",
+      "Master",
+      "PhD",
+      "Scholarship"
+    ],
+    "description": "Romanian Government scholarship programme supporting eligible non-EU international students at Romanian higher education institutions."
   }
 ]
