@@ -1,0 +1,14 @@
+requests 
+beautifulsoup4 
+mysql-connector-python 
+python-dotenv
+playwright
+dotenv
+ollama
+fastapi 
+uvicorn 
+bcrypt 
+PyJWT 
+email-validator 
+python-dotenv
+google-auth

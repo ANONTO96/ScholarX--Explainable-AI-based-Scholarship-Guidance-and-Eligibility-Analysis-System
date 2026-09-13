@@ -1,0 +1,4 @@
+-- Database CREATION SCRIPT
+
+CREATE IF NOT EXISTS DATABASE study_abroad_ai;
+
