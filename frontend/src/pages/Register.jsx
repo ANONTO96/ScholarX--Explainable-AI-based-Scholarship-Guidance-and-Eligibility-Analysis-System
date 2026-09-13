@@ -16,8 +16,65 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 
+// Backend Features
+import { GoogleLogin } from "@react-oauth/google";
+
 const Register = () => {
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            if (!credentialResponse?.credential) {
+                console.error("Google credential was not received.");
+                return;
+            }
+
+            const response = await fetch(
+                `${API_BASE_URL}/api/auth/google`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        credential: credentialResponse.credential,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error(data);
+                return;
+            }
+
+            // Store JWT returned by FastAPI
+            console.log("Google authentication successful. JWT received:", data);
+            localStorage.setItem("access_token", data.token);
+
+            // Optional user information
+            if (data.user) {
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
+            }
+
+            navigate("/");
+        } catch (error) {
+            console.error("Google authentication failed:", error);
+        }
+    };
+
+    const handleGoogleError = () => {
+        console.error("Google Sign-In failed.");
+    };
+
+
+
+    // Manual Registration Form State
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -40,7 +97,7 @@ const Register = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!agreeTerms) {
@@ -52,9 +109,39 @@ const Register = () => {
         }
 
         // Add your registration/authentication logic here
+        try {
+            const response = await fetch(
+                `${API_BASE_URL}/api/auth/register`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: `${formData.firstName} ${formData.lastName}`.trim(),
+                        email: formData.email,
+                        password: formData.password,
+                    }),
+                }
+            );
 
-        // After successful registration
-        navigate("/logIn");
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error(data);
+                return;
+            }
+
+            console.log("Registration successful:", data);
+            // After successful registration
+            localStorage.setItem("access_token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            navigate("/");
+        } catch (error) {
+            console.error("Registration failed:", error);
+        }
+
+
     };
 
     return (
@@ -536,26 +623,45 @@ const Register = () => {
                             <div className="grid grid-cols-2 gap-3">
 
                                 {/* Google */}
-                                <button
-                                    type="button"
-                                    className="
-                                        flex h-12 items-center
-                                        justify-center gap-2.5
-                                        rounded-xl
-                                        border border-slate-200
-                                        bg-white
-                                        text-sm font-semibold
-                                        text-slate-600
-                                        transition-all duration-200
-                                        hover:border-sky-200
-                                        hover:bg-sky-50/50
-                                        hover:shadow-sm
-                                        active:scale-[0.98]
-                                    "
-                                >
-                                    <FcGoogle size={21} />
-                                    <span>Google</span>
-                                </button>
+                                <div className="relative">
+                                    {/* Your custom UI */}
+                                    <button
+                                        type="button"
+                                        className="
+                                            flex h-12 w-full items-center
+                                            justify-center gap-2.5
+                                            rounded-xl
+                                            border border-slate-200
+                                            bg-white
+                                            text-sm font-semibold
+                                            text-slate-600
+                                            transition-all duration-200
+                                            hover:border-sky-200
+                                            hover:bg-sky-50/50
+                                            hover:shadow-sm
+                                            active:scale-[0.98]"
+                                    >
+                                        <FcGoogle size={21} />
+                                        <span>Google</span>
+                                    </button>
+
+                                    {/* Invisible Google authentication layer */}
+                                    <div
+                                        className="
+                                                absolute inset-0
+                                                z-10
+                                                overflow-hidden
+                                                opacity-0
+                                            "
+                                    >
+                                        <GoogleLogin
+                                            onSuccess={handleGoogleSuccess}
+                                            onError={handleGoogleError}
+                                            useOneTap={false}
+                                            width="100%"
+                                        />
+                                    </div>
+                                </div>
 
                                 {/* Facebook */}
                                 <button
@@ -653,7 +759,7 @@ const Register = () => {
                                     <Sparkles size={15} />
                                     Begin your scholarship journey
                                 </div>
-                                
+
 
                                 <h2 className="text-4xl font-extrabold leading-[1.15] tracking-tight text-white xl:text-5xl">
                                     One account.

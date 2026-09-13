@@ -11,7 +11,6 @@ from database.queries.auth_queries import (
     create_user
 )
 
-
 JWT_SECRET = os.getenv("JWT_SECRET")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 
@@ -21,50 +20,27 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 def login_with_google(credential):
 
     if not credential:
-        return {
-            "status": 400,
-            "message": "Google credential is required"
-        }
+        return {"status": 400, "message": "Google credential is required"}
 
     try:
-        google_user = id_token.verify_oauth2_token(
-            credential,
-            requests.Request(),
-            GOOGLE_CLIENT_ID
-        )
-
+        google_user = id_token.verify_oauth2_token(credential, requests.Request(), GOOGLE_CLIENT_ID)
     except ValueError:
-        return {
-            "status": 401,
-            "message": "Invalid Google credential"
-        }
+        return {"status": 401, "message": "Invalid Google credential"}
 
     google_id = google_user.get("sub")
     email = google_user.get("email")
     name = google_user.get("name")
 
     if not google_id or not email:
-        return {
-            "status": 401,
-            "message": "Invalid Google account information"
-        }
+        return {"status": 401, "message": "Invalid Google account information"}
 
     email = email.strip().lower()
+    user = get_user_by_provider("google", google_id)
 
-    # Check whether this Google account already exists
-    user = get_user_by_provider(
-        "google",
-        google_id
-    )
-
-    # If Google account does not exist,
-    # check whether this email already belongs to a user
     if not user:
         user = get_user_by_email(email)
 
     if not user:
-
-        # Create a new student account
         user_id = create_user(
             name=name or "Google User",
             email=email,
@@ -73,13 +49,8 @@ def login_with_google(credential):
             auth_provider="google",
             provider_id=google_id
         )
-
-        user = {
-            "id": user_id,
-            "name": name or "Google User",
-            "email": email,
-            "role": "student"
-        }
+        
+        user = {"id": user_id, "name": name or "Google User", "email": email, "role": "student"}
 
     # Generate your application's JWT
     payload = {
@@ -93,6 +64,8 @@ def login_with_google(credential):
         JWT_SECRET,
         algorithm=JWT_ALGORITHM
     )
+
+    # print(f"User {user['email']} logged in with Google. JWT: {token}")
 
     return {
         "status": 200,
