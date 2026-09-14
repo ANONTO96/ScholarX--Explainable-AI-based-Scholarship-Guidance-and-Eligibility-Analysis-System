@@ -1,0 +1,433 @@
+{
+    "programs": [
+        {
+            "program": "Undergraduate",
+            "duration": "4-5 Years",
+            "study_language": [
+                "English",
+                "Chinese"
+            ]
+        },
+        {
+            "program": "Master",
+            "duration": "2-3 Years",
+            "study_language": [
+                "English",
+                "Chinese"
+            ]
+        },
+        {
+            "program": "Doctoral",
+            "duration": "3-4 Years",
+            "study_language": [
+                "English",
+                "Chinese"
+            ]
+        },
+        {
+            "program": "General Scholar",
+            "duration": "1 Year",
+            "study_language": [
+                "English",
+                "Chinese"
+            ]
+        },
+        {
+            "program": "Senior Scholar",
+            "duration": "1 Year",
+            "study_language": [
+                "English",
+                "Chinese"
+            ]
+        }
+    ],
+    "eligibility": {
+        "scholarship_rules": [
+            {
+                "rule_type": "citizenship",
+                "operator": "=",
+                "rule_value": "International",
+                "mandatory": true
+            },
+            {
+                "rule_type": "health",
+                "operator": "=",
+                "rule_value": "Good",
+                "mandatory": true
+            }
+        ],
+        "program_rules": [
+            {
+                "program": "Undergraduate",
+                "rules": [
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "25",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "High School",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Bachelor",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "entrance_exam",
+                        "operator": "=",
+                        "rule_value": "CSCA",
+                        "mandatory": true
+                    }
+                ]
+            },
+            {
+                "program": "Master",
+                "rules": [
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "35",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Bachelor",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "40",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Master",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "50",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Master",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Master",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "language_exam",
+                        "operator": ">=",
+                        "rule_value": "HSK 4",
+                        "mandatory": true
+                    }
+                ]
+            },
+            {
+                "program": "Doctoral",
+                "rules": [
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "40",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Master",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Master",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "language_exam",
+                        "operator": ">=",
+                        "rule_value": "HSK 4",
+                        "mandatory": true
+                    }
+                ]
+            },
+            {
+                "program": "General Scholar",
+                "rules": [
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "45",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "High School",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "language_exam",
+                        "operator": ">=",
+                        "rule_value": "HSK 3",
+                        "mandatory": true
+                    }
+                ]
+            },
+            {
+                "program": "Senior Scholar",
+                "rules": [
+                    {
+                        "rule_type": "age",
+                        "operator": "<",
+                        "rule_value": "50",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "minimum_degree",
+                        "operator": ">=",
+                        "rule_value": "Master",
+                        "mandatory": true
+                    },
+                    {
+                        "rule_type": "language_exam",
+                        "operator": ">=",
+                        "rule_value": "HSK 3",
+                        "mandatory": true
+                    }
+                ]
+            }
+        ]
+    },
+    "documents": [
+        {
+            "document_name": "Application Form for Chinese Government Scholarship",
+            "requirement": "Filled in online",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Application Form for Chinese Government Scholarship (filled in online)"
+        },
+        {
+            "document_name": "Ordinary Passport",
+            "requirement": "Submit a clear scanned copy of the information page of the ordinary passport. The passport should have at least 12 months validity from the expected start date.",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Applicants are required to submit a clear scanned copy of the information page of their ordinary passports. If the validity period of the currently held passport is less than 12 months (calculated from the expected start date of study), please renew the passport and use it to complete the scholarship application. An applicant who fails to apply for a passport due to objective reasons may submit valid documentation or documentary evidence that carries information about the full English name, gender, nationality and date of birth of the applicant upon the approval of the application receiving agency"
+        },
+        {
+            "document_name": "Diploma and Highest Education Certificate",
+            "requirement": "Diploma and certificate of highest education (notarized photocopy). An applicant who is a current university student shall submit the certificate of expected graduation or student status issued by his/her university",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Diploma and certificate of highest education (notarized photocopy). An applicant who is a current university student shall submit the certificate of expected graduation or student status issued by his/her university"
+        },
+        {
+            "document_name": "Academic Records",
+            "requirement": "Academic records. Academic records in languages other than Chinese or English shall be attached with notarized translations in Chinese or English",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Academic records. Academic records in languages other than Chinese or English shall be attached with notarized translations in Chinese or English"
+        },
+        {
+            "document_name": "Language Qualification Certificates",
+            "requirement": "Language qualification certificates. Applicants for master's, doctoral, general scholar, and senior scholar programs taught in Chinese must submit a valid HSK score report that meets the corresponding Chinese language proficiency requirements. Applicants for programs taught in other languages are required to provide relevant language proficiency certificates, such as IELTS or TOEFL score reports, in accordance with the requirements of each university",
+            "condition_text": "Master's, doctoral, general scholar, or senior scholar program",
+            "mandatory": true,
+            "source_sentence": "Language qualification certificates. Applicants for master's, doctoral, general scholar, and senior scholar programs taught in Chinese must submit a valid HSK score report that meets the corresponding Chinese language proficiency requirements. Applicants for programs taught in other languages are required to provide relevant language proficiency certificates, such as IELTS or TOEFL score reports, in accordance with the requirements of each university"
+        },
+        {
+            "document_name": "CSCA Score Report",
+            "requirement": "CSCA Score Report. Applicants seeking to pursue a bachelor's degree must register for and take the CSCA before the application deadline, and obtain a valid Score Report. Please contact the target institution to inquire about and obtain the required test subjects for the applied major",
+            "condition_text": "Applicants seeking to pursue a bachelor's degree",
+            "mandatory": true,
+            "source_sentence": "CSCA Score Report. Applicants seeking to pursue a bachelor's degree must register for and take the CSCA before the application deadline, and obtain a valid Score Report. Please contact the target institution to inquire about and obtain the required test subjects for the applied major"
+        },
+        {
+            "document_name": "Pre-Admission Documents",
+            "requirement": "PreAdmission Documents. All applicants must provide a preadmission document issued by the universities applying. Preadmission documents include preadmission notice issued by the international students' admission department or invitation letter from the schools or professors, etc",
+            "condition_text": "All applicants",
+            "mandatory": true,
+            "source_sentence": "PreAdmission Documents. All applicants must provide a preadmission document issued by the universities applying. Preadmission documents include preadmission notice issued by the international students' admission department or invitation letter from the schools or professors, etc"
+        },
+        {
+            "document_name": "Study or Research Plan",
+            "requirement": "A study or research plan written in Chinese or in English (no less than 200 words/characters for undergraduates. no less than 500 words/characters for scholars. no less than 1000 words/characters for postgraduates)",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "A study or research plan written in Chinese or in English (no less than 200 words/characters for undergraduates. no less than 500 words/characters for scholars. no less than 1000 words/characters for postgraduates)"
+        },
+        {
+            "document_name": "Recommendation Letters",
+            "requirement": "Recommendation letters. An applicant for a postgraduate program or for academic education as a senior scholar shall submit two recommendation letters in Chinese or in English from professors or associate professors",
+            "condition_text": "Master's, doctoral, general scholar, or senior scholar program",
+            "mandatory": true,
+            "source_sentence": "Recommendation letters. An applicant for a postgraduate program or for academic education as a senior scholar shall submit two recommendation letters in Chinese or in English from professors or associate professors"
+        },
+        {
+            "document_name": "Portfolio / Own Works",
+            "requirement": "An applicant for the arts or design program shall provide his/her own works (such as videos and paintings)",
+            "condition_text": "Applicants for arts or design programs",
+            "mandatory": true,
+            "source_sentence": "An applicant for the arts or design program shall provide his/her own works (such as videos and paintings)"
+        },
+        {
+            "document_name": "Legal Guardian Documents",
+            "requirement": "An applicant under the age of 18 shall submit the legal documents of his/her legal guardian(s) in China",
+            "condition_text": "Applicants under the age of 18",
+            "mandatory": true,
+            "source_sentence": "An applicant under the age of 18 shall submit the legal documents of his/her legal guardian(s) in China"
+        },
+        {
+            "document_name": "Foreigner Physical Examination Form",
+            "requirement": "An applicant to study in China for more than six months shall submit a photocopy of the Foreigner Physical Examination Form (the original document, printed by Chinese quarantine authorities, shall be filled in in English and kept by the applicant). The medical examinations must cover all the items listed in the Foreigner Physical Examination Form. Incomplete records or those without the signature of the attending physician, the official stamp of the hospital, or a sealed photograph of the applicant are invalid. Medical examination results are valid for only six months",
+            "condition_text": "Applicants studying in China for more than six months",
+            "mandatory": true,
+            "source_sentence": "An applicant to study in China for more than six months shall submit a photocopy of the Foreigner Physical Examination Form (the original document, printed by Chinese quarantine authorities, shall be filled in in English and kept by the applicant). The medical examinations must cover all the items listed in the Foreigner Physical Examination Form. Incomplete records or those without the signature of the attending physician, the official stamp of the hospital, or a sealed photograph of the applicant are invalid. Medical examination results are valid for only six months"
+        },
+        {
+            "document_name": "Certificate of Non-Criminal Record",
+            "requirement": "An applicant shall submit a valid Certificate of NonCriminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "An applicant shall submit a valid Certificate of NonCriminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application"
+        }
+    ],
+    "coverage": [
+        {
+            "benefit_type": "tuition_fee",
+            "description": "Tuition fees",
+            "coverage": "Tuition fees"
+        },
+        {
+            "benefit_type": "accommodation",
+            "description": "Accommodation",
+            "coverage": "Free university dormitory or accommodation subsidy"
+        },
+        {
+            "benefit_type": "stipend",
+            "description": "Monthly stipend",
+            "program": "Undergraduate",
+            "amount": 2500,
+            "currency": "CNY",
+            "period": "month"
+        },
+        {
+            "benefit_type": "stipend",
+            "description": "Monthly stipend",
+            "program": "Master",
+            "amount": 3000,
+            "currency": "CNY",
+            "period": "month"
+        },
+        {
+            "benefit_type": "stipend",
+            "description": "Monthly stipend",
+            "program": "General Scholar",
+            "amount": 3000,
+            "currency": "CNY",
+            "period": "month"
+        },
+        {
+            "benefit_type": "stipend",
+            "description": "Monthly stipend",
+            "program": "Doctoral",
+            "amount": 3500,
+            "currency": "CNY",
+            "period": "month"
+        },
+        {
+            "benefit_type": "stipend",
+            "description": "Monthly stipend",
+            "program": "Senior Scholar",
+            "amount": 3500,
+            "currency": "CNY",
+            "period": "month"
+        },
+        {
+            "benefit_type": "medical_insurance",
+            "description": "Comprehensive medical insurance",
+            "amount": 800,
+            "currency": "CNY",
+            "period": "person/year"
+        },
+        {
+            "benefit_type": "medical_insurance",
+            "description": "Comprehensive medical insurance",
+            "amount": 400,
+            "currency": "CNY",
+            "period": "person",
+            "applicability": "Programs lasting less than six months"
+        }
+    ],
+    "contact": [
+        {
+            "contact_type": "email",
+            "value": "asiaadmission@csc.edu.cn"
+        },
+        {
+            "contact_type": "email",
+            "value": "africaadmission@csc.edu.cn"
+        },
+        {
+            "contact_type": "email",
+            "value": "europeadmission@csc.edu.cn"
+        },
+        {
+            "contact_type": "email",
+            "value": "americasadmission@csc.edu.cn"
+        },
+        {
+            "contact_type": "email",
+            "value": "oceaniaadmission@csc.edu.cn"
+        },
+        {
+            "contact_type": "phone",
+            "value": "00861066093584"
+        },
+        {
+            "contact_type": "phone",
+            "value": "00861066093924"
+        },
+        {
+            "contact_type": "phone",
+            "value": "00861066093921"
+        },
+        {
+            "contact_type": "phone",
+            "value": "00861066093578"
+        },
+        {
+            "contact_type": "fax",
+            "value": "00861066093972"
+        },
+        {
+            "contact_type": "website",
+            "value": "http://www.campuschina.org"
+        },
+        {
+            "contact_type": "office",
+            "value": "Division of International Students Admission and Cooperation Programs"
+        },
+        {
+            "contact_type": "address",
+            "value": "Division of International Students Admission and Cooperation Programs, China Scholarship Council Level 13, Building A3, No"
+        }
+    ]
+}

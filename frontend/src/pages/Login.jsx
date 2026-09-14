@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -35,18 +36,75 @@ const Login = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            if (!credentialResponse?.credential) {
+                console.error("Google credential was not received.");
+                return;
+            }
+
+            const response = await fetch(`${API_BASE_URL}/api/auth/google`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    credential: credentialResponse.credential,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || data.status !== 200) {
+                console.error(data.message || "Google login failed");
+                return;
+            }
+
+            console.log("Google authentication successful. JWT received:", data);
+            localStorage.setItem("access_token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            navigate("/");
+        } catch (error) {
+            console.error("Google authentication failed:", error);
+        }
+    };
+
+    const handleGoogleError = () => {
+        console.error("Google Sign-In failed.");
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Add your authentication logic here
-        console.log("Login data:", {
-            ...formData,
-            rememberMe,
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
 
-        // Example:
-        // navigate("/dashboard");
-        navigate("/");
+            const data = await response.json();
+
+            // Backend returns HTTP 200 even on failure, so check data.status too
+            if (!response.ok || data.status !== 200) {
+                console.error(data.message || "Login failed");
+                return;
+            }
+
+            console.log("Login successful:", data);
+            localStorage.setItem("access_token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            navigate("/");
+        } catch (error) {
+            console.error("Login failed:", error);
+        }
     };
 
     return (
@@ -59,7 +117,7 @@ const Login = () => {
                     {/* ================================================= */}
 
                     <section className="relative hidden overflow-hidden bg-linear-to-br from-sky-600 via-sky-500 to-cyan-400 p-10 lg:flex xl:p-14">
-                        
+
                         {/* Decorative circles */}
                         <div className="absolute -right-28 -top-28 h-80 w-80 rounded-full bg-white/10" />
                         <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-cyan-300/10" />
@@ -468,54 +526,66 @@ const Login = () => {
 
 
                             {/* Social buttons */}
-<div className="grid grid-cols-2 gap-3">
-    {/* Google */}
-    <button
-        type="button"
-        className="
-            flex h-12 items-center
-            justify-center gap-2.5
-            rounded-xl
-            border border-slate-200
-            bg-white
-            text-sm font-semibold
-            text-slate-600
-            transition-all duration-200
-            hover:border-sky-200
-            hover:bg-sky-50/50
-            hover:shadow-sm
-            active:scale-[0.98]
-        "
-    >
-        <FcGoogle size={21} />
-        <span>Google</span>
-    </button>
+                            <div className="grid grid-cols-2 gap-3">
+                                {/* Google */}
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        className="
+                                            flex h-12 w-full items-center
+                                            justify-center gap-2.5
+                                            rounded-xl
+                                            border border-slate-200
+                                            bg-white
+                                            text-sm font-semibold
+                                            text-slate-600
+                                            transition-all duration-200
+                                            hover:border-sky-200
+                                            hover:bg-sky-50/50
+                                            hover:shadow-sm
+                                            active:scale-[0.98]
+                                        "
+                                    >
+                                        <FcGoogle size={21} />
+                                        <span>Google</span>
+                                    </button>
 
-    {/* Facebook */}
-    <button
-        type="button"
-        className="
-            flex h-12 items-center
-            justify-center gap-2.5
-            rounded-xl
-            border border-slate-200
-            bg-white
-            text-sm font-semibold
-            text-slate-600
-            transition-all duration-200
-            hover:border-sky-200
-            hover:bg-sky-50/50
-            hover:shadow-sm
-            active:scale-[0.98]
-        "
-    >
-        <FaFacebookF
-            size={19}
-            className="text-[#1877F2]"
-        />
-        <span>Facebook</span>
-    </button>
-</div>
+                                    {/* Invisible Google authentication layer */}
+                                    <div className="absolute inset-0 z-10 overflow-hidden opacity-0">
+                                        <GoogleLogin
+                                            onSuccess={handleGoogleSuccess}
+                                            onError={handleGoogleError}
+                                            useOneTap={false}
+                                            width="100%"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Facebook */}
+                                <button
+                                    type="button"
+                                    className="
+                                                flex h-12 items-center
+                                                justify-center gap-2.5
+                                                rounded-xl
+                                                border border-slate-200
+                                                bg-white
+                                                text-sm font-semibold
+                                                text-slate-600
+                                                transition-all duration-200
+                                                hover:border-sky-200
+                                                hover:bg-sky-50/50
+                                                hover:shadow-sm
+                                                active:scale-[0.98]
+                                            "
+                                >
+                                    <FaFacebookF
+                                        size={19}
+                                        className="text-[#1877F2]"
+                                    />
+                                    <span>Facebook</span>
+                                </button>
+                            </div>
 
 
                             {/* Register */}
