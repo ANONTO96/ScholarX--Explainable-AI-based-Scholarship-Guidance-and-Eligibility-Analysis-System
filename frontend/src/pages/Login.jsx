@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import {
     ArrowRight,
@@ -14,11 +14,9 @@ import {
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
-import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
     const navigate = useNavigate();
-    const googleButtonRef = useRef(null);
 
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
@@ -27,6 +25,12 @@ const Login = () => {
         email: "",
         password: "",
     });
+
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    // =========================================================
+    // FORM CHANGE
+    // =========================================================
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,111 +41,73 @@ const Login = () => {
         }));
     };
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    // =========================================================
+    // GOOGLE OAUTH
+    // =========================================================
 
-    const handleGoogleSuccess = async (credentialResponse) => {
-        console.log("=================================");
-        console.log("[Google] SUCCESS CALLBACK FIRED");
-        console.log("[Google] credentialResponse:", credentialResponse);
-        console.log(
-            "[Google] credential exists:",
-            !!credentialResponse?.credential
-        );
-        console.log("=================================");
-
-        try {
-            if (!credentialResponse?.credential) {
-                console.error("[Google] No credential received from Google.");
-                return;
-            }
-
-            console.log("[Google] Sending credential to backend...");
-            console.log(
-                "[Google] API:",
-                `${API_BASE_URL}/api/auth/google`
-            );
-
-            const response = await fetch(`${API_BASE_URL}/api/auth/google`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    credential: credentialResponse.credential,
-                }),
-            });
-
-            console.log("[Google] Backend HTTP status:", response.status);
-
-            const data = await response.json();
-
-            console.log("[Google] Backend response:", data);
-
-            if (!response.ok || data.status !== 200) {
-                console.error(
-                    "[Google] Backend rejected login:",
-                    data.message || "Google login failed"
-                );
-                return;
-            }
-
-            console.log("[Google] Authentication successful.");
-            console.log("[Google] JWT received:", !!data.token);
-            console.log("[Google] User:", data.user);
-
-            localStorage.setItem("access_token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
-
-            console.log("[Google] Navigating to home...");
-            navigate("/");
-        } catch (error) {
-            console.error("[Google] Backend request failed:", error);
-        }
+    const handleGoogleLogin = () => {
+        window.location.href =
+            `${API_BASE_URL}/api/auth/google/login`;
     };
 
-    const handleGoogleError = () => {
-        console.error("=================================");
-        console.error("[Google] GOOGLE LOGIN ERROR");
-        console.error("[Google] GoogleLogin onError fired");
-        console.error("=================================");
-    };
-
+    // =========================================================
+    // EMAIL / PASSWORD LOGIN
+    // =========================================================
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password,
-                }),
-            });
+            const response = await fetch(
+                `${API_BASE_URL}/api/auth/login`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: formData.email,
+                        password: formData.password,
+                    }),
+                }
+            );
 
             const data = await response.json();
 
-            // Backend returns HTTP 200 even on failure, so check data.status too
+            // Backend returns HTTP 200 even on failure,
+            // so check data.status too.
             if (!response.ok || data.status !== 200) {
-                console.error(data.message || "Login failed");
+                console.error(
+                    data.message || "Login failed"
+                );
                 return;
             }
 
             console.log("Login successful:", data);
-            localStorage.setItem("access_token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
+
+            localStorage.setItem(
+                "access_token",
+                data.token
+            );
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
+
             navigate("/");
         } catch (error) {
-            console.error("Login failed:", error);
+            console.error(
+                "Login failed:",
+                error
+            );
         }
     };
 
     return (
         <main className="min-h-screen bg-[#f4faff] px-4 py-6 sm:px-6 lg:px-8">
             <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl items-center justify-center">
+
                 <div className="grid w-full overflow-hidden rounded-4xl border border-sky-100 bg-white shadow-[0_25px_80px_rgba(14,165,233,0.12)] lg:grid-cols-[1.05fr_0.95fr]">
 
                     {/* ================================================= */}
@@ -151,13 +117,18 @@ const Login = () => {
                     <section className="relative hidden overflow-hidden bg-linear-to-br from-sky-600 via-sky-500 to-cyan-400 p-10 lg:flex xl:p-14">
 
                         {/* Decorative circles */}
+
                         <div className="absolute -right-28 -top-28 h-80 w-80 rounded-full bg-white/10" />
+
                         <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-cyan-300/10" />
+
                         <div className="absolute right-20 top-1/2 h-32 w-32 rounded-full bg-white/5" />
+
 
                         <div className="relative z-10 flex w-full flex-col justify-between">
 
                             {/* Brand */}
+
                             <div>
                                 <Link
                                     to="/"
@@ -172,7 +143,10 @@ const Login = () => {
 
                                     <div>
                                         <h1 className="text-2xl font-extrabold tracking-tight text-white">
-                                            Scholar<span className="text-cyan-100">X</span>
+                                            Scholar
+                                            <span className="text-cyan-100">
+                                                X
+                                            </span>
                                         </h1>
 
                                         <p className="text-[11px] font-medium tracking-wide text-sky-100">
@@ -182,20 +156,26 @@ const Login = () => {
                                 </Link>
                             </div>
 
+
                             {/* Main content */}
+
                             <div className="my-auto max-w-xl py-8">
 
-                                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md shadow-sm hover:shadow-lg hover:scale-101 transition-all duration-300">
+                                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:scale-101 hover:shadow-lg">
                                     <Sparkles size={15} />
+
                                     AI-powered scholarship guidance
                                 </div>
 
+
                                 <h2 className="text-4xl font-extrabold leading-[1.15] tracking-tight text-white xl:text-5xl">
                                     Your scholarship journey starts{" "}
+
                                     <span className="text-cyan-100">
                                         here.
                                     </span>
                                 </h2>
+
 
                                 <p className="mt-6 max-w-lg text-base leading-7 text-sky-50/90">
                                     Discover scholarships, understand your
@@ -204,10 +184,15 @@ const Login = () => {
                                     destination.
                                 </p>
 
+
                                 {/* Feature cards */}
+
                                 <div className="mt-9 space-y-4">
 
-                                    <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                    {/* Feature 1 */}
+
+                                    <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+
                                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15">
                                             <CheckCircle2
                                                 size={20}
@@ -225,9 +210,14 @@ const Login = () => {
                                                 match your profile.
                                             </p>
                                         </div>
+
                                     </div>
 
-                                    <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+
+                                    {/* Feature 2 */}
+
+                                    <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+
                                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15">
                                             <Globe2
                                                 size={20}
@@ -245,9 +235,14 @@ const Login = () => {
                                                 leading study destinations.
                                             </p>
                                         </div>
+
                                     </div>
 
-                                    <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+
+                                    {/* Feature 3 */}
+
+                                    <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+
                                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15">
                                             <ShieldCheck
                                                 size={20}
@@ -265,13 +260,17 @@ const Login = () => {
                                                 in one place.
                                             </p>
                                         </div>
+
                                     </div>
 
                                 </div>
                             </div>
 
+
                             {/* Bottom */}
+
                             <div className="flex items-center justify-between border-t border-white/15 pt-6">
+
                                 <p className="text-sm text-sky-100/90">
                                     Plan. Track. Submit.
                                 </p>
@@ -280,8 +279,11 @@ const Login = () => {
                                     <Sparkles size={14} />
                                     ScholarX AI
                                 </div>
+
                             </div>
+
                         </div>
+
                     </section>
 
 
@@ -294,11 +296,14 @@ const Login = () => {
                         <div className="w-full max-w-md">
 
                             {/* Mobile brand */}
+
                             <div className="mb-10 flex justify-center lg:hidden">
+
                                 <Link
                                     to="/"
                                     className="inline-flex items-center gap-3"
                                 >
+
                                     <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-50">
                                         <GraduationCap
                                             size={25}
@@ -308,19 +313,26 @@ const Login = () => {
 
                                     <div>
                                         <h1 className="text-2xl font-extrabold tracking-tight text-slate-800">
-                                            Scholar<span className="text-sky-500">X</span>
+                                            Scholar
+                                            <span className="text-sky-500">
+                                                X
+                                            </span>
                                         </h1>
 
                                         <p className="text-[10px] font-medium tracking-wide text-slate-400">
                                             AI-POWERED SCHOLARSHIP GUIDANCE SYSTEM
                                         </p>
                                     </div>
+
                                 </Link>
+
                             </div>
 
 
                             {/* Heading */}
+
                             <div className="mb-8 flex flex-col items-center justify-center">
+
                                 <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-50">
                                     <LockKeyhole
                                         size={21}
@@ -336,17 +348,21 @@ const Login = () => {
                                     Sign in to continue your scholarship
                                     journey with ScholarX.
                                 </p>
+
                             </div>
 
 
                             {/* Form */}
+
                             <form
                                 onSubmit={handleSubmit}
                                 className="space-y-5"
                             >
 
                                 {/* Email */}
+
                                 <div>
+
                                     <label
                                         htmlFor="email"
                                         className="mb-2 block text-sm font-semibold text-slate-700"
@@ -355,6 +371,7 @@ const Login = () => {
                                     </label>
 
                                     <div className="group relative">
+
                                         <Mail
                                             size={19}
                                             className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-sky-500"
@@ -385,13 +402,18 @@ const Login = () => {
                                                 focus:ring-sky-100
                                             "
                                         />
+
                                     </div>
+
                                 </div>
 
 
                                 {/* Password */}
+
                                 <div>
+
                                     <div className="mb-2 flex items-center justify-between">
+
                                         <label
                                             htmlFor="password"
                                             className="block text-sm font-semibold text-slate-700"
@@ -405,9 +427,12 @@ const Login = () => {
                                         >
                                             Forgot password?
                                         </Link>
+
                                     </div>
 
+
                                     <div className="group relative">
+
                                         <LockKeyhole
                                             size={19}
                                             className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-sky-500"
@@ -443,6 +468,7 @@ const Login = () => {
                                             "
                                         />
 
+
                                         <button
                                             type="button"
                                             onClick={() =>
@@ -455,7 +481,8 @@ const Login = () => {
                                                 top-1/2
                                                 flex h-9 w-9
                                                 -translate-y-1/2
-                                                items-center justify-center
+                                                items-center
+                                                justify-center
                                                 rounded-lg
                                                 text-slate-400
                                                 transition
@@ -468,20 +495,26 @@ const Login = () => {
                                                     : "Show password"
                                             }
                                         >
+
                                             {showPassword ? (
                                                 <EyeOff size={18} />
                                             ) : (
                                                 <Eye size={18} />
                                             )}
+
                                         </button>
+
                                     </div>
+
                                 </div>
 
 
                                 {/* Remember */}
+
                                 <div className="flex items-center justify-between pt-1">
 
                                     <label className="flex cursor-pointer items-center gap-2.5">
+
                                         <input
                                             type="checkbox"
                                             checked={rememberMe}
@@ -504,16 +537,23 @@ const Login = () => {
                                         <span className="text-sm text-slate-500">
                                             Remember me
                                         </span>
+
                                     </label>
 
+
                                     <span className="flex items-center gap-1.5 text-xs text-slate-400">
+
                                         <ShieldCheck size={14} />
+
                                         Secure login
+
                                     </span>
+
                                 </div>
 
 
                                 {/* Login button */}
+
                                 <button
                                     type="submit"
                                     className="
@@ -540,13 +580,16 @@ const Login = () => {
                                         size={18}
                                         className="transition-transform duration-200 group-hover:translate-x-1"
                                     />
+
                                 </button>
 
                             </form>
 
 
                             {/* Divider */}
+
                             <div className="my-7 flex items-center gap-4">
+
                                 <div className="h-px flex-1 bg-slate-200" />
 
                                 <span className="text-xs font-medium text-slate-400">
@@ -554,122 +597,126 @@ const Login = () => {
                                 </span>
 
                                 <div className="h-px flex-1 bg-slate-200" />
+
                             </div>
 
 
                             {/* Social buttons */}
+
                             <div className="grid grid-cols-2 gap-3">
+
                                 {/* Google */}
-                                <div className="relative">
-                                    {/* Custom ScholarX Google button */}
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            console.log("=================================");
-                                            console.log("[Google] CUSTOM GOOGLE BUTTON CLICKED");
-                                            console.log("[Google] googleButtonRef:", googleButtonRef.current);
 
-                                            const googleButton =
-                                                googleButtonRef.current?.querySelector(
-                                                    "div[role='button']"
-                                                );
+                                <button
+                                    type="button"
+                                    onClick={handleGoogleLogin}
+                                    className="
+                                        flex h-12 w-full items-center
+                                        justify-center gap-2.5
+                                        rounded-xl
+                                        border border-slate-200
+                                        bg-white
+                                        text-sm font-semibold
+                                        text-slate-600
+                                        transition-all duration-200
+                                        hover:border-sky-200
+                                        hover:bg-sky-50/50
+                                        hover:shadow-sm
+                                        active:scale-[0.98]
+                                    "
+                                >
 
-                                            console.log("[Google] Generated Google button:", googleButton);
+                                    <FcGoogle size={21} />
 
-                                            if (!googleButton) {
-                                                console.error(
-                                                    "[Google] Could not find generated Google button."
-                                                );
-                                                return;
-                                            }
+                                    <span>
+                                        Google
+                                    </span>
 
-                                            console.log("[Google] Clicking generated Google button...");
-                                            googleButton.click();
-                                        }}
-                                    >
-                                        <FcGoogle size={21} />
-                                        <span>Google</span>
-                                    </button>
+                                </button>
 
-                                    {/* Hidden Google Login */}
-                                    <div
-                                        ref={googleButtonRef}
-                                        className="
-            absolute
-            left-[-9999px]
-            top-[-9999px]
-        "
-                                    >
-                                        <GoogleLogin
-                                            onSuccess={handleGoogleSuccess}
-                                            onError={handleGoogleError}
-                                            useOneTap={false}
-                                        />
-                                    </div>
-                                </div>
 
                                 {/* Facebook */}
+
                                 <button
                                     type="button"
                                     className="
-                                                flex h-12 items-center
-                                                justify-center gap-2.5
-                                                rounded-xl
-                                                border border-slate-200
-                                                bg-white
-                                                text-sm font-semibold
-                                                text-slate-600
-                                                transition-all duration-200
-                                                hover:border-sky-200
-                                                hover:bg-sky-50/50
-                                                hover:shadow-sm
-                                                active:scale-[0.98]
-                                            "
+                                        flex h-12 w-full items-center
+                                        justify-center gap-2.5
+                                        rounded-xl
+                                        border border-slate-200
+                                        bg-white
+                                        text-sm font-semibold
+                                        text-slate-600
+                                        transition-all duration-200
+                                        hover:border-sky-200
+                                        hover:bg-sky-50/50
+                                        hover:shadow-sm
+                                        active:scale-[0.98]
+                                    "
                                 >
+
                                     <FaFacebookF
                                         size={19}
                                         className="text-[#1877F2]"
                                     />
-                                    <span>Facebook</span>
+
+                                    <span>
+                                        Facebook
+                                    </span>
+
                                 </button>
+
                             </div>
 
 
                             {/* Register */}
+
                             <p className="mt-8 text-center text-sm text-slate-500">
+
                                 Don't have a ScholarX account?{" "}
+
                                 <Link
                                     to="/register"
                                     className="font-bold text-sky-600 transition-colors hover:text-sky-700"
                                 >
                                     Create an account
                                 </Link>
+
                             </p>
 
 
                             {/* Footer */}
+
                             <p className="mt-8 text-center text-[11px] leading-5 text-slate-400">
+
                                 By continuing, you agree to ScholarX's{" "}
+
                                 <Link
                                     to="/terms-of-service"
                                     className="font-medium text-slate-500 hover:text-sky-600"
                                 >
                                     Terms of Service
                                 </Link>{" "}
+
                                 and{" "}
+
                                 <Link
                                     to="/privacy-policy"
                                     className="font-medium text-slate-500 hover:text-sky-600"
                                 >
                                     Privacy Policy
                                 </Link>
+
                                 .
+
                             </p>
 
                         </div>
+
                     </section>
 
                 </div>
+
             </div>
         </main>
     );
