@@ -37,12 +37,20 @@ export default function OAuthGoogleCallback() {
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(
-                        data.detail ||
-                        data.message ||
-                        "Google login failed."
-                    );
-                }
+                    let errorMessage = "Google login failed.";
+
+                    if (typeof data.detail === "string") {
+                        errorMessage = data.detail;
+                    } else if (Array.isArray(data.detail)) {
+                        errorMessage = data.detail
+                            .map((item) => item.msg)
+                            .join(", ");
+                    } else if (typeof data.message === "string") {
+                        errorMessage = data.message;
+                    }
+
+                    throw new Error(errorMessage);
+                }   
 
                 if (!data.token) {
                     throw new Error(

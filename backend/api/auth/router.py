@@ -5,7 +5,7 @@ from fastapi import APIRouter
 from api.auth.register import register_user
 from api.auth.login import login_user
 from api.auth.google import exchange_google_code, google_callback, google_login
-from database.schema.auth_schemas import GoogleLoginRequest, RegisterRequest,LoginRequest
+from database.schema.auth_schemas import GoogleExchangeRequest, RegisterRequest,LoginRequest
 
 
 router = APIRouter(
@@ -47,5 +47,5 @@ def google_callback_route(code: str, state: str = None):
 
 
 @router.post("/google/exchange")
-def google_exchange_route(code: str):
-    return exchange_google_code(code)
+def google_exchange_route(data: GoogleExchangeRequest):
+    return exchange_google_code(data.code)
