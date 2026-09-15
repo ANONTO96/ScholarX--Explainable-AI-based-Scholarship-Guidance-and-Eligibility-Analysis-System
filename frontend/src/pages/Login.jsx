@@ -40,11 +40,26 @@ const Login = () => {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const handleGoogleSuccess = async (credentialResponse) => {
+        console.log("=================================");
+        console.log("[Google] SUCCESS CALLBACK FIRED");
+        console.log("[Google] credentialResponse:", credentialResponse);
+        console.log(
+            "[Google] credential exists:",
+            !!credentialResponse?.credential
+        );
+        console.log("=================================");
+
         try {
             if (!credentialResponse?.credential) {
-                console.error("Google credential was not received.");
+                console.error("[Google] No credential received from Google.");
                 return;
             }
+
+            console.log("[Google] Sending credential to backend...");
+            console.log(
+                "[Google] API:",
+                `${API_BASE_URL}/api/auth/google`
+            );
 
             const response = await fetch(`${API_BASE_URL}/api/auth/google`, {
                 method: "POST",
@@ -56,25 +71,41 @@ const Login = () => {
                 }),
             });
 
+            console.log("[Google] Backend HTTP status:", response.status);
+
             const data = await response.json();
 
+            console.log("[Google] Backend response:", data);
+
             if (!response.ok || data.status !== 200) {
-                console.error(data.message || "Google login failed");
+                console.error(
+                    "[Google] Backend rejected login:",
+                    data.message || "Google login failed"
+                );
                 return;
             }
 
-            console.log("Google authentication successful. JWT received:", data);
+            console.log("[Google] Authentication successful.");
+            console.log("[Google] JWT received:", !!data.token);
+            console.log("[Google] User:", data.user);
+
             localStorage.setItem("access_token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
+
+            console.log("[Google] Navigating to home...");
             navigate("/");
         } catch (error) {
-            console.error("Google authentication failed:", error);
+            console.error("[Google] Backend request failed:", error);
         }
     };
 
     const handleGoogleError = () => {
-        console.error("Google Sign-In failed.");
+        console.error("=================================");
+        console.error("[Google] GOOGLE LOGIN ERROR");
+        console.error("[Google] GoogleLogin onError fired");
+        console.error("=================================");
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -534,24 +565,27 @@ const Login = () => {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            googleButtonRef.current
-                                                ?.querySelector("div[role='button']")
-                                                ?.click();
+                                            console.log("=================================");
+                                            console.log("[Google] CUSTOM GOOGLE BUTTON CLICKED");
+                                            console.log("[Google] googleButtonRef:", googleButtonRef.current);
+
+                                            const googleButton =
+                                                googleButtonRef.current?.querySelector(
+                                                    "div[role='button']"
+                                                );
+
+                                            console.log("[Google] Generated Google button:", googleButton);
+
+                                            if (!googleButton) {
+                                                console.error(
+                                                    "[Google] Could not find generated Google button."
+                                                );
+                                                return;
+                                            }
+
+                                            console.log("[Google] Clicking generated Google button...");
+                                            googleButton.click();
                                         }}
-                                        className="
-            flex h-12 w-full items-center
-            justify-center gap-2.5
-            rounded-xl
-            border border-slate-200
-            bg-white
-            text-sm font-semibold
-            text-slate-600
-            transition-all duration-200
-            hover:border-sky-200
-            hover:bg-sky-50/50
-            hover:shadow-sm
-            active:scale-[0.98]
-        "
                                     >
                                         <FcGoogle size={21} />
                                         <span>Google</span>
