@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import {
     ArrowRight,
@@ -18,6 +18,7 @@ import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
     const navigate = useNavigate();
+    const googleButtonRef = useRef(null);
 
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
@@ -529,34 +530,46 @@ const Login = () => {
                             <div className="grid grid-cols-2 gap-3">
                                 {/* Google */}
                                 <div className="relative">
+                                    {/* Custom ScholarX Google button */}
                                     <button
                                         type="button"
+                                        onClick={() => {
+                                            googleButtonRef.current
+                                                ?.querySelector("div[role='button']")
+                                                ?.click();
+                                        }}
                                         className="
-                                            flex h-12 w-full items-center
-                                            justify-center gap-2.5
-                                            rounded-xl
-                                            border border-slate-200
-                                            bg-white
-                                            text-sm font-semibold
-                                            text-slate-600
-                                            transition-all duration-200
-                                            hover:border-sky-200
-                                            hover:bg-sky-50/50
-                                            hover:shadow-sm
-                                            active:scale-[0.98]
-                                        "
+            flex h-12 w-full items-center
+            justify-center gap-2.5
+            rounded-xl
+            border border-slate-200
+            bg-white
+            text-sm font-semibold
+            text-slate-600
+            transition-all duration-200
+            hover:border-sky-200
+            hover:bg-sky-50/50
+            hover:shadow-sm
+            active:scale-[0.98]
+        "
                                     >
                                         <FcGoogle size={21} />
                                         <span>Google</span>
                                     </button>
 
-                                    {/* Invisible Google authentication layer */}
-                                    <div className="absolute inset-0 z-10 overflow-hidden opacity-0">
+                                    {/* Hidden Google Login */}
+                                    <div
+                                        ref={googleButtonRef}
+                                        className="
+            absolute
+            left-[-9999px]
+            top-[-9999px]
+        "
+                                    >
                                         <GoogleLogin
                                             onSuccess={handleGoogleSuccess}
                                             onError={handleGoogleError}
                                             useOneTap={false}
-                                            width="100%"
                                         />
                                     </div>
                                 </div>
