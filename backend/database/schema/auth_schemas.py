@@ -12,3 +12,6 @@ class LoginRequest(BaseModel):
 
 class GoogleLoginRequest(BaseModel):
     credential: str
+
+class GoogleExchangeRequest(BaseModel):
+    code: str
