@@ -86,7 +86,7 @@ const Login = () => {
             console.log("Login successful:", data);
 
             localStorage.setItem(
-                "access_token",
+                "token",
                 data.token
             );
 

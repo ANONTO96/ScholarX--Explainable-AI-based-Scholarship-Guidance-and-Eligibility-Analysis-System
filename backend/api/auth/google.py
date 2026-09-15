@@ -235,8 +235,14 @@ def google_callback(code: str, state: str = None):
     auth_code = secrets.token_urlsafe(48)
 
     GOOGLE_AUTH_CODES[auth_code] = {
-        "token": token,
-        "expires_at": time.time() + 60
+    "token": token,
+    "user": {
+        "id": user["id"],
+        "name": user["name"],
+        "email": user["email"],
+        "role": user["role"]
+    },
+    "expires_at": time.time() + 60
     }
 
     redirect_url = (
@@ -277,5 +283,6 @@ def exchange_google_code(code: str):
     return {
         "status": 200,
         "message": "Google login successful",
-        "token": auth_data["token"]
+        "token": auth_data["token"],
+         "user": auth_data["user"]
     }
