@@ -1,8 +1,10 @@
+import code
+
 from fastapi import APIRouter
 
 from api.auth.register import register_user
 from api.auth.login import login_user
-from api.auth.google import login_with_google
+from api.auth.google import exchange_google_code, google_callback, google_login
 from database.schema.auth_schemas import GoogleLoginRequest, RegisterRequest,LoginRequest
 
 
@@ -34,6 +36,16 @@ def login(data: LoginRequest):
         data.password
     )
 
-@router.post("/google")
-def google_login(data: GoogleLoginRequest):
-    return login_with_google(data.credential)
+@router.get("/google/login")
+def google_login_route():
+    return google_login()
+
+
+@router.get("/google/callback")
+def google_callback_route(code: str, state: str = None):
+    return google_callback(code, state)
+
+
+@router.post("/google/exchange")
+def google_exchange_route(code: str):
+    return exchange_google_code(code)

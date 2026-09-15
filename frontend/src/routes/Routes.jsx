@@ -40,7 +40,7 @@ import Applications from "../pages/Dashboard/Applications";
 import Deadlines from "../pages/Dashboard/Deadlines";
 import Documents from "../pages/Dashboard/Documents";
 import Settings from "../pages/Dashboard/Settings";
-
+import OAuthGoogleCallback from "../pages/OAuthGoogleCallback";
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +80,7 @@ export const router = createBrowserRouter([
   },
   { path: "logIn", Component: Login },
   { path: "register", Component: Register },
+  { path: "oauth/google/callback", Component: OAuthGoogleCallback },
   {
         path: "dashboard",
         element: <DashboardLayout />,
