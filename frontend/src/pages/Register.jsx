@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import {
     ArrowRight,
@@ -16,66 +16,22 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 
-// Backend Features
-import { GoogleLogin } from "@react-oauth/google";
-
 const Register = () => {
     const navigate = useNavigate();
-    const googleButtonRef = useRef(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-    const handleGoogleSuccess = async (credentialResponse) => {
-        try {
-            if (!credentialResponse?.credential) {
-                console.error("Google credential was not received.");
-                return;
-            }
+    // =========================================================
+    // Google OAuth
+    // =========================================================
 
-            const response = await fetch(
-                `${API_BASE_URL}/api/auth/google`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        credential: credentialResponse.credential,
-                    }),
-                }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                console.error(data);
-                return;
-            }
-
-            // Store JWT returned by FastAPI
-            console.log("Google authentication successful. JWT received:", data);
-            localStorage.setItem("access_token", data.token);
-
-            // Optional user information
-            if (data.user) {
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(data.user)
-                );
-            }
-
-            navigate("/");
-        } catch (error) {
-            console.error("Google authentication failed:", error);
-        }
+    const handleGoogleRegister = () => {
+        window.location.href =
+            `${API_BASE_URL}/api/auth/google/login`;
     };
 
-    const handleGoogleError = () => {
-        console.error("Google Sign-In failed.");
-    };
-
-
-
+    // =========================================================
     // Manual Registration Form State
+    // =========================================================
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -109,7 +65,6 @@ const Register = () => {
             return;
         }
 
-        // Add your registration/authentication logic here
         try {
             const response = await fetch(
                 `${API_BASE_URL}/api/auth/register`,
@@ -134,15 +89,26 @@ const Register = () => {
             }
 
             console.log("Registration successful:", data);
-            // After successful registration
-            localStorage.setItem("access_token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
+
+            localStorage.setItem(
+                "access_token",
+                data.token
+            );
+
+            if (data.user) {
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
+            }
+
             navigate("/");
         } catch (error) {
-            console.error("Registration failed:", error);
+            console.error(
+                "Registration failed:",
+                error
+            );
         }
-
-
     };
 
     return (
@@ -624,50 +590,28 @@ const Register = () => {
                             <div className="grid grid-cols-2 gap-3">
 
                                 {/* Google */}
-                                <div className="relative">
-                                    {/* Custom ScholarX Google button */}
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            googleButtonRef.current
-                                                ?.querySelector("div[role='button']")
-                                                ?.click();
-                                        }}
-                                        className="
-            flex h-12 w-full items-center
-            justify-center gap-2.5
-            rounded-xl
-            border border-slate-200
-            bg-white
-            text-sm font-semibold
-            text-slate-600
-            transition-all duration-200
-            hover:border-sky-200
-            hover:bg-sky-50/50
-            hover:shadow-sm
-            active:scale-[0.98]
-        "
-                                    >
-                                        <FcGoogle size={21} />
-                                        <span>Google</span>
-                                    </button>
+                                <button
+                                    type="button"
+                                    onClick={handleGoogleRegister}
+                                    className="
+                                        flex h-12 w-full items-center
+                                        justify-center gap-2.5
+                                        rounded-xl
+                                        border border-slate-200
+                                        bg-white
+                                        text-sm font-semibold
+                                        text-slate-600
+                                        transition-all duration-200
+                                        hover:border-sky-200
+                                        hover:bg-sky-50/50
+                                        hover:shadow-sm
+                                        active:scale-[0.98]
+                                    "
+                                >
+                                    <FcGoogle size={21} />
 
-                                    {/* Hidden Google authentication button */}
-                                    <div
-                                        ref={googleButtonRef}
-                                        className="
-            absolute
-            left-[-9999px]
-            top-[-9999px]
-        "
-                                    >
-                                        <GoogleLogin
-                                            onSuccess={handleGoogleSuccess}
-                                            onError={handleGoogleError}
-                                            useOneTap={false}
-                                        />
-                                    </div>
-                                </div>
+                                    <span>Google</span>
+                                </button>
 
                                 {/* Facebook */}
                                 <button
@@ -765,7 +709,6 @@ const Register = () => {
                                     <Sparkles size={15} />
                                     Begin your scholarship journey
                                 </div>
-
 
                                 <h2 className="text-4xl font-extrabold leading-[1.15] tracking-tight text-white xl:text-5xl">
                                     One account.
