@@ -91,7 +91,7 @@ const Register = () => {
             console.log("Registration successful:", data);
 
             localStorage.setItem(
-                "access_token",
+                "token",
                 data.token
             );
 
