@@ -22,10 +22,10 @@ const Contact = () => {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
 
-            <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-7xl sm:px-6">
 
                 {/* CTA Banner */}
-                <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-10 text-white shadow-2xl">
+                <div className="relative overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
 
                     <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
                     <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
@@ -97,7 +97,7 @@ duration-300">
 
                     {/* Form */}
 
-                    <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-lg lg:col-span-3">
+                    <div className="mx-3 sm:mx-0 rounded-3xl border border-slate-200 bg-white p-6 lg:p-8 shadow-lg lg:col-span-3">
 
                         <h3 className="text-3xl font-bold">
                             Send us a Message
@@ -158,7 +158,7 @@ duration-300">
 
                     {/* Contact Card */}
 
-                    <div className="rounded-3xl mt-16 border border-white/60 bg-white/70 backdrop-blur-xl p-8 shadow-xl">
+                    <div className="sm:rounded-3xl mt-16 border border-white/60 bg-white/70 backdrop-blur-xl p-3 sm:p-6 lg:p-8 shadow-xl">
                         <div className="flex flex-col items-center justify-center gap-3 mb-8">
                             <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold">
                                 Let's Connect
@@ -303,7 +303,7 @@ duration-300">
 
                 {/* Bottom Stats */}
 
-                <div className="mt-16 grid gap-6 md:grid-cols-3">
+                <div className="mt-16 grid gap-6 md:grid-cols-3 px-3 sm:px-0">
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-md transition hover:-translate-y-1 hover:shadow-xl">
                         <h3 className="text-3xl font-bold text-blue-600">

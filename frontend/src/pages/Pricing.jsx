@@ -277,7 +277,7 @@ export default function Pricing() {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
 
         {/* Heading */}
 
@@ -470,7 +470,7 @@ group-hover:shadow-lg ${plan.featured
 
       {/* plan comparison table section */}
 
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12 ">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-24 pb-12 ">
 
         <div className="text-center max-w-3xl mx-auto">
 
@@ -694,8 +694,8 @@ group-hover:shadow-lg ${plan.featured
       </div>
 
       {/* CTA Banner */}
-      <div className="max-w-7xl mx-auto px-6 ">
-                <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-10 text-white shadow-2xl">
+      <div className="max-w-7xl mx-auto sm:px-6 ">
+                <div className="relative overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
 
                     <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
                     <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>

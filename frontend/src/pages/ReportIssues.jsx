@@ -341,7 +341,7 @@ export default function ReportIssue() {
             {/* CONTENT */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-12 lg:px-8 lg:py-16">
                 {/* ===================================================== */}
                 {/* REPORT ISSUE */}
                 {/* ===================================================== */}
@@ -801,8 +801,8 @@ export default function ReportIssue() {
             {/* SUPPORT BANNER */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
-    <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 via-indigo-600 to-sky-600 px-6 py-10 sm:px-10">
+            <section className="mx-auto max-w-7xl sm:px-6 pb-16 lg:px-8">
+    <div className="relative overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 via-indigo-600 to-sky-600 px-6 py-10 sm:px-10">
         {/* Sky + Indigo glow */}
         <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-sky-500/20 blur-3xl" />
 

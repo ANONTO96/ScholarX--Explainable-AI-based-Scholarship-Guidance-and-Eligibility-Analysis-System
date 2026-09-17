@@ -92,7 +92,7 @@ const CountryDetails = () => {
 
             {/* facts bar */}
             <section className="relative z-10 mx-auto -mt-12 max-w-7xl px-6">
-                <div className="grid grid-cols-2 overflow-hidden rounded-2xl bg-white shadow-xl md:grid-cols-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 overflow-hidden rounded-2xl bg-white shadow-xl">
 
                     <div className="p-6 text-center hover:bg-slate-50">
                         <p className="text-sm text-slate-500">
@@ -156,7 +156,7 @@ const CountryDetails = () => {
             </section>
 
             {/* Why choose this country */}
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 {/* Section heading */}
                 <div className="max-w-3xl">
@@ -230,7 +230,7 @@ const CountryDetails = () => {
                 <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-amber-200/20 blur-3xl" />
                 <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-blue-200/20 blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-6">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
 
                     {/* Heading */}
                     <div className="max-w-3xl">
@@ -407,7 +407,7 @@ group-hover:scale-110">
             </section>
 
             {/* Admission requirements */}
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
 
@@ -582,7 +582,7 @@ group-hover:scale-110">
                 {/* Decorative background */}
                 <div className="absolute -right-32 top-20 h-72 w-72 rounded-full bg-blue-200/20 blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-6">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
 
                     {/* Heading */}
                     <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
@@ -716,7 +716,7 @@ group-hover:scale-110">
             </section>
 
             {/* Scholarships */}
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="max-w-3xl">
 
@@ -814,7 +814,7 @@ group-hover:scale-110">
                 <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
                 <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-6">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="grid gap-8 lg:grid-cols-2">
 
@@ -994,7 +994,7 @@ group-hover:scale-110">
             </section>
 
             {/* Pros & Cons */}
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 {/* Heading */}
                 <div className="max-w-3xl">
@@ -1126,9 +1126,9 @@ group-hover:scale-110">
             </section>
 
             {/* CTA banner */}
-            <section className="mx-auto max-w-7xl px-6 pb-20">
+            <section className="mx-auto max-w-7xl sm:px-6 pb-20">
 
-                <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-10 text-white shadow-2xl">
+                <div className="relative overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
 
                     <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
                     <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>

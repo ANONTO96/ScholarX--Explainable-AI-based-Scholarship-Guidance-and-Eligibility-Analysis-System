@@ -1027,7 +1027,6 @@ export default function Applications() {
                         p-6
                         text-white
                         shadow-lg
-                        sm:p-8
                     "
                 >
 

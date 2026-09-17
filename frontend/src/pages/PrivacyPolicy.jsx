@@ -155,7 +155,7 @@ export default function PrivacyPolicy() {
             {/* PRIVACY HIGHLIGHTS */}
             {/* ========================================================= */}
             <section className="relative z-10 -mt-8">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
                     <div className="grid gap-4 md:grid-cols-3">
                         {highlights.map((item) => (
                             <InfoCard
@@ -172,7 +172,7 @@ export default function PrivacyPolicy() {
             {/* ========================================================= */}
             {/* CONTENT */}
             {/* ========================================================= */}
-            <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-16 lg:px-8 lg:py-20">
                 <div className="grid gap-12 lg:grid-cols-[240px_minmax(0,1fr)]">
                     {/* ================================================= */}
                     {/* SIDEBAR */}
@@ -755,7 +755,7 @@ export default function PrivacyPolicy() {
             {/* FINAL CTA */}
             {/* ========================================================= */}
             <section className="border-t border-slate-200 bg-white">
-                <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6 py-14 lg:px-8">
                     <div className="flex flex-col gap-6 rounded-3xl bg-slate-950 p-7 sm:p-10 lg:flex-row lg:items-center lg:justify-between">
                         <div className="max-w-xl">
                             <div className="mb-3 flex items-center gap-2 text-sky-400">

@@ -464,7 +464,8 @@ function DocumentCard({
                 rounded-2xl
                 border
                 bg-white
-                p-4
+                p-3
+                sm:p-6
                 shadow-sm
                 transition-all
                 duration-200
@@ -1574,7 +1575,7 @@ export default function Documents() {
 
     return (
         <div className="min-h-screen bg-slate-50/70">
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl py-6 sm:px-3 lg:px-8">
                 {/* ================================================= */}
                 {/* Header                                             */}
                 {/* ================================================= */}

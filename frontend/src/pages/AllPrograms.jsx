@@ -82,7 +82,7 @@ const AllPrograms = () => {
         <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
-      <div className="relative max-w-7xl mx-auto px-5 pt-40 pb-20">
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 pt-40">
 
         {/* Hero */}
         <div className="text-center">
@@ -169,7 +169,7 @@ const AllPrograms = () => {
         </div>
 
         {/* Stats */}
-        <div className="flex justify-center gap-4 mt-14">
+        <div className="flex justify-center gap-2 sm:gap-4 mt-14">
 
           <NavLink
             to="/programs"
@@ -178,12 +178,12 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-6 py-3 rounded-full transition ${activeTab === "programs"
+            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "programs"
                 ? "bg-sky-500 text-white"
                 : "bg-white text-slate-700 hover:bg-slate-100"
               }`}
           >
-            {programs.length} Programs
+            {programs.length} <span>Programs</span>
           </NavLink>
 
           <NavLink
@@ -193,12 +193,12 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-6 py-3 rounded-full transition ${activeTab === "universities"
+            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "universities"
                 ? "bg-sky-500 text-white"
                 : "bg-white text-slate-700 hover:bg-slate-100"
               }`}
           >
-            {universities.length} Universities
+            {universities.length} <span>Universities</span>
           </NavLink>
 
           <NavLink
@@ -208,12 +208,12 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-6 py-3 rounded-full transition ${activeTab === "opportunities"
+            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "opportunities"
               ? "bg-sky-500 text-white"
               : "bg-white text-slate-700 hover:bg-slate-100"
               }`}
           >
-            {opportunities.length} Opportunities
+            {opportunities.length} <span>Opportunities</span>
           </NavLink>
 
         </div>
@@ -305,8 +305,11 @@ const AllPrograms = () => {
           </div>
         )}
 
-        {/* CTA Banner */}
-        <div className="relative mt-14 overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-10 text-white shadow-2xl">
+      </div>
+
+      {/* CTA Banner */}
+      <div className="max-w-7xl mx-auto sm:px-6 pb-20">
+        <div className="relative mt-14 overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
 
           <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
           <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
@@ -371,7 +374,6 @@ duration-300">
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

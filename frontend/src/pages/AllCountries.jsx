@@ -37,30 +37,30 @@ const stats = [
 ];
 
 const actions = [
-  {
-    title: "Chat on WhatsApp",
-    desc: "Fastest way to reach us",
-    icon: MessageCircleMore,
-    color: "bg-green-500",
-    route: "https://wa.me/8801XXXXXXXXX",
-    type: "external",
-  },
-  {
-    title: "Email Support",
-    desc: "Detailed questions & documents",
-    icon: Mail,
-    color: "bg-blue-500",
-    route: "mailto:support@scholarx.com",
-    type: "external",
-  },
-  {
-    title: "Book Consultation",
-    desc: "Meet an education expert consultant",
-    icon: CalendarCheck,
-    color: "bg-violet-500",
-    route: "/book-consultation",
-    type: "internal",
-  },
+    {
+        title: "Chat on WhatsApp",
+        desc: "Fastest way to reach us",
+        icon: MessageCircleMore,
+        color: "bg-green-500",
+        route: "https://wa.me/8801XXXXXXXXX",
+        type: "external",
+    },
+    {
+        title: "Email Support",
+        desc: "Detailed questions & documents",
+        icon: Mail,
+        color: "bg-blue-500",
+        route: "mailto:support@scholarx.com",
+        type: "external",
+    },
+    {
+        title: "Book Consultation",
+        desc: "Meet an education expert consultant",
+        icon: CalendarCheck,
+        color: "bg-violet-500",
+        route: "/book-consultation",
+        type: "internal",
+    },
 ];
 
 export default function AllCountries() {
@@ -73,17 +73,17 @@ export default function AllCountries() {
 
     const navigate = useNavigate();
 
-// routing for support banner actions
-const handleActionClick = (action) => {
-  if (action.type === "internal") {
-    navigate(action.route);
-    return;
-  }
+    // routing for support banner actions
+    const handleActionClick = (action) => {
+        if (action.type === "internal") {
+            navigate(action.route);
+            return;
+        }
 
-  if (action.type === "external") {
-    window.open(action.route, "_blank", "noopener,noreferrer");
-  }
-};
+        if (action.type === "external") {
+            window.open(action.route, "_blank", "noopener,noreferrer");
+        }
+    };
 
     return (
         <section className="bg-gray-50">
@@ -150,7 +150,7 @@ const handleActionClick = (action) => {
             {/* FACT BAR */}
             <section className="relative z-20 mx-auto -mt-12 max-w-7xl px-6">
 
-                <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
+                <div className="grid sm:grid-cols-2 mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
 
                     {/* Fact 1 */}
                     <div className="group border-b border-slate-100 p-6 transition hover:bg-blue-50/50 md:border-b-0 md:border-r">
@@ -177,7 +177,7 @@ const handleActionClick = (action) => {
 
 
                     {/* Fact 2 */}
-                   <div className="group border-b border-slate-100 p-6 transition hover:bg-emerald-50/50 md:border-b-0 md:border-r">
+                    <div className="group border-b border-slate-100 p-6 transition hover:bg-emerald-50/50 md:border-b-0 md:border-r">
 
                         <div className="flex items-center gap-4">
 
@@ -253,7 +253,7 @@ const handleActionClick = (action) => {
 
             {/* CONTENT */}
 
-            <div className="max-w-7xl mx-auto px-6 py-20">
+            <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-20">
 
                 {/* Heading */}
 
@@ -438,194 +438,140 @@ const handleActionClick = (action) => {
                     ))}
                 </div>
 
-                {/* help section */}
+            </div>
 
-                <div className="mt-20">
-                    <div className="mx-auto max-w-7xl">
+            {/* help section */}
 
-                        <div className="mb-14 text-center">
+            <div className="mt-20 pb-20">
+                <div className="mx-auto max-w-7xl sm:px-6">
 
-                            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600">
-                                Instant Support
-                            </span>
+                    <div className="mb-14 text-center">
 
-                            <h2 className="mt-6 text-4xl font-extrabold">
-                                Get Help Whenever You Need It
-                            </h2>
+                        <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600">
+                            Instant Support
+                        </span>
 
-                            <p className="mx-auto mt-4 max-w-2xl text-slate-500">
-                                Whether you have questions about universities, scholarships,
-                                visas or your ScholarX account, our consultants and AI assistant
-                                are always ready to help.
-                            </p>
+                        <h2 className="mt-6 text-4xl font-extrabold">
+                            Get Help Whenever You Need It
+                        </h2>
 
-                        </div>
+                        <p className="mx-auto mt-4 max-w-2xl text-slate-500">
+                            Whether you have questions about universities, scholarships,
+                            visas or your ScholarX account, our consultants and AI assistant
+                            are always ready to help.
+                        </p>
 
-                        <div className="relative overflow-hidden rounded-[36px] bg-linear-to-br from-blue-600 via-indigo-600 to-violet-700 p-7 shadow-2xl lg:p-14">
+                    </div>
 
-                            {/* Glow */}
+                    <div className="relative overflow-hidden sm:rounded-[36px] bg-linear-to-br from-blue-600 via-indigo-600 to-violet-700 p-6 lg:p-8 shadow-2xl">
 
-                            <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
-                            <div className="absolute -left-24 bottom-0 h-60 w-60 rounded-full bg-cyan-300/10 blur-3xl"></div>
+                        {/* Glow */}
 
-                            <div className="relative grid gap-10 lg:grid-cols-2">
+                        <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+                        <div className="absolute -left-24 bottom-0 h-60 w-60 rounded-full bg-cyan-300/10 blur-3xl"></div>
 
-                                {/* LEFT */}
+                        <div className="relative grid gap-10 lg:grid-cols-2">
 
-                                <div>
+                            {/* LEFT */}
 
-                                    <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white backdrop-blur">
+                            <div>
 
-                                        <Sparkles size={18} />
+                                <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white backdrop-blur">
 
-                                        Always Here For You
+                                    <Sparkles size={18} />
 
-                                    </div>
-
-                                    <h3 className="mt-6 text-4xl font-bold leading-tight text-white">
-
-                                        Need help choosing the right destination?
-
-                                    </h3>
-
-                                    <p className="mt-4 max-w-lg leading-8 text-blue-100">
-
-                                        Our experienced education consultants can help you shortlist universities, compare tuition fees, discover scholarships, prepare your application and guide you through the visa process.
-
-                                    </p>
-
-                                    <div className="mt-10 space-y-5">
-
-                                        {actions.map((item) => {
-
-                                            const Icon = item.icon;
-
-                                            return (
-
-                                                <button
-                                                    key={item.title}
-                                                    onClick={() => handleActionClick(item)}
-                                                    className="group flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-5 text-left text-white backdrop-blur transition hover:bg-white/20"
-                                                >
-
-                                                    <div className="flex items-center gap-5">
-
-                                                        <div className={`${item.color} rounded-xl p-3 text-white`}>
-
-                                                            <Icon size={24} />
-
-                                                        </div>
-
-                                                        <div>
-
-                                                            <h4 className="font-semibold">
-
-                                                                {item.title}
-
-                                                            </h4>
-
-                                                            <p className="text-sm text-blue-100">
-
-                                                                {item.desc}
-
-                                                            </p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <ArrowRight
-                                                        size={20}
-                                                        className="transition group-hover:translate-x-1"
-                                                    />
-
-                                                </button>
-
-                                            );
-
-                                        })}
-
-                                    </div>
+                                    Always Here For You
 
                                 </div>
 
-                                {/* RIGHT */}
+                                <h3 className="mt-6 text-4xl font-bold leading-tight text-white">
 
-                                <div className="flex flex-col gap-6">
+                                    Need help choosing the right destination?
 
-                                    {/* Consultant */}
+                                </h3>
 
-                                    <div className="rounded-3xl border border-white/20 bg-white/10 p-7 backdrop-blur">
+                                <p className="mt-4 max-w-lg leading-8 text-blue-100">
 
-                                        <div className="flex items-center justify-between">
+                                    Our experienced education consultants can help you shortlist universities, compare tuition fees, discover scholarships, prepare your application and guide you through the visa process.
 
-                                            <div className="flex items-center gap-4">
+                                </p>
 
-                                                <div className="relative">
+                                <div className="mt-10 space-y-5">
 
-                                                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600">
+                                    {actions.map((item) => {
 
-                                                        <UserRound size={32} />
+                                        const Icon = item.icon;
+
+                                        return (
+
+                                            <button
+                                                key={item.title}
+                                                onClick={() => handleActionClick(item)}
+                                                className="group flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-5 text-left text-white backdrop-blur transition hover:bg-white/20"
+                                            >
+
+                                                <div className="flex items-center gap-5">
+
+                                                    <div className={`${item.color} rounded-xl p-3 text-white`}>
+
+                                                        <Icon size={24} />
 
                                                     </div>
 
-                                                    <span className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-500"></span>
+                                                    <div>
+
+                                                        <h4 className="font-semibold">
+
+                                                            {item.title}
+
+                                                        </h4>
+
+                                                        <p className="text-sm text-blue-100">
+
+                                                            {item.desc}
+
+                                                        </p>
+
+                                                    </div>
 
                                                 </div>
 
-                                                <div>
+                                                <ArrowRight
+                                                    size={20}
+                                                    className="transition group-hover:translate-x-1"
+                                                />
 
-                                                    <h4 className="text-xl font-bold text-white">
+                                            </button>
 
-                                                        Education Consultant
+                                        );
 
-                                                    </h4>
+                                    })}
 
-                                                    <p className="text-blue-100">
+                                </div>
 
-                                                        Available Now
+                            </div>
 
-                                                    </p>
+                            {/* RIGHT */}
 
-                                                </div>
+                            <div className="flex flex-col gap-6">
 
-                                            </div>
+                                {/* Consultant */}
 
-                                            <div className="rounded-full inline-flex gap-1 bg-green-500/20 px-3 py-1 text-sm font-medium text-green-300">
+                                <div className="rounded-3xl border border-white/20 bg-white/10 p-7 backdrop-blur">
 
-                                                ● <span>Online</span>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div className="mt-7 rounded-2xl bg-white/10 p-5">
-
-                                            <p className="leading-7 text-blue-50">
-
-                                                👋 Hello! Looking for the perfect university or scholarship?
-                                                Our consultants usually reply within a few minutes.
-
-                                            </p>
-                                        </div>
-
-                                        <button className="mt-6 w-full rounded-2xl bg-white py-4 font-semibold text-blue-700 transition hover:scale-102">
-
-                                            Start Conversation
-
-                                        </button>
-
-                                    </div>
-
-                                    {/* AI */}
-
-                                    <div className="rounded-3xl border border-cyan-300/30 bg-linear-to-r from-cyan-400/20 to-blue-500/20 p-7 backdrop-blur">
+                                    <div className="flex items-center justify-between">
 
                                         <div className="flex items-center gap-4">
 
-                                            <div className="rounded-2xl bg-sky-400 p-3 text-white">
+                                            <div className="relative">
 
-                                                <Bot size={28} />
+                                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600">
+
+                                                    <UserRound size={32} />
+
+                                                </div>
+
+                                                <span className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-500"></span>
 
                                             </div>
 
@@ -633,13 +579,13 @@ const handleActionClick = (action) => {
 
                                                 <h4 className="text-xl font-bold text-white">
 
-                                                    ScholarX AI Assistant
+                                                    Education Consultant
 
                                                 </h4>
 
                                                 <p className="text-blue-100">
 
-                                                    Available 24/7
+                                                    Available Now
 
                                                 </p>
 
@@ -647,137 +593,191 @@ const handleActionClick = (action) => {
 
                                         </div>
 
-                                        <p className="mt-6 leading-7 text-blue-50">
+                                        <div className="rounded-full inline-flex gap-1 bg-green-500/20 px-3 py-1 text-sm font-medium text-green-300">
 
-                                            Get instant answers about eligibility, scholarships,
-                                            universities and application requirements anytime.
-
-                                        </p>
-
-                                        <button
-                                         type="button" onClick={openChatbot} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
-
-                                            Ask AI Assistant
-
-                                            <ArrowRight size={18} />
-
-                                        </button
-                                        >
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {/* Service Cards */}
-
-                            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-
-                                <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-blue-300/40 hover:bg-white/10">
-
-                                    <div className="mb-4 inline-flex rounded-xl bg-blue-500/20 p-3 text-cyan-300">
-                                        <GraduationCap size={24} />
-                                    </div>
-
-                                    <h4 className="font-semibold text-white">
-                                        University Selection
-                                    </h4>
-
-                                    <p className="mt-2 text-sm leading-6 text-blue-100">
-                                        Find universities that perfectly match your profile and future goals.
-                                    </p>
-
-                                </div>
-
-                                <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/40 hover:bg-white/10">
-
-                                    <div className="mb-4 inline-flex rounded-xl bg-amber-500/20 p-3 text-amber-300">
-                                        <BadgeDollarSign size={24} />
-                                    </div>
-
-                                    <h4 className="font-semibold text-white">
-                                        Scholarship Guidance
-                                    </h4>
-
-                                    <p className="mt-2 text-sm leading-6 text-blue-100">
-                                        Explore scholarships and funding opportunities to reduce tuition costs.
-                                    </p>
-
-                                </div>
-
-                                <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/40 hover:bg-white/10">
-
-                                    <div className="mb-4 inline-flex rounded-xl bg-cyan-500/20 p-3 text-cyan-300">
-                                        <Plane size={24} />
-                                    </div>
-
-                                    <h4 className="font-semibold text-white">
-                                        Visa Assistance
-                                    </h4>
-
-                                    <p className="mt-2 text-sm leading-6 text-blue-100">
-                                        Complete support for documentation, interviews and visa preparation.
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-                            {/* Bottom Stats */}
-
-                            <div className="relative mt-12 grid gap-5 border-t border-white/15 pt-10 md:grid-cols-3">
-
-                                {stats.map((item) => {
-
-                                    const Icon = item.icon;
-
-                                    return (
-
-                                        <div
-                                            key={item.title}
-                                            className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-gray-400"
-                                        >
-
-                                            <div className="flex items-center gap-4">
-
-                                                <div className="rounded-xl bg-white/15 p-3 text-white">
-
-                                                    <Icon size={24} />
-
-                                                </div>
-
-                                                <div>
-
-                                                    <p className="text-sm text-blue-100">
-
-                                                        {item.title}
-
-                                                    </p>
-
-                                                    <h4 className="mt-1 text-3xl font-bold text-white">
-
-                                                        {item.value}
-
-                                                    </h4>
-
-                                                </div>
-
-                                            </div>
+                                            ● <span>Online</span>
 
                                         </div>
 
-                                    );
+                                    </div>
 
-                                })}
+                                    <div className="mt-7 rounded-2xl bg-white/10 p-5">
+
+                                        <p className="leading-7 text-blue-50">
+
+                                            👋 Hello! Looking for the perfect university or scholarship?
+                                            Our consultants usually reply within a few minutes.
+
+                                        </p>
+                                    </div>
+
+                                    <button className="mt-6 w-full rounded-2xl bg-white py-4 font-semibold text-blue-700 transition hover:scale-102">
+
+                                        Start Conversation
+
+                                    </button>
+
+                                </div>
+
+                                {/* AI */}
+
+                                <div className="rounded-3xl border border-cyan-300/30 bg-linear-to-r from-cyan-400/20 to-blue-500/20 p-7 backdrop-blur">
+
+                                    <div className="flex items-center gap-4">
+
+                                        <div className="rounded-2xl bg-sky-400 p-3 text-white">
+
+                                            <Bot size={28} />
+
+                                        </div>
+
+                                        <div>
+
+                                            <h4 className="text-xl font-bold text-white">
+
+                                                ScholarX AI Assistant
+
+                                            </h4>
+
+                                            <p className="text-blue-100">
+
+                                                Available 24/7
+
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <p className="mt-6 leading-7 text-blue-50">
+
+                                        Get instant answers about eligibility, scholarships,
+                                        universities and application requirements anytime.
+
+                                    </p>
+
+                                    <button
+                                        type="button" onClick={openChatbot} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-6 py-3 font-semibold text-white transition hover:scale-104">
+
+                                        Ask AI Assistant
+
+                                        <ArrowRight size={18} />
+
+                                    </button
+                                    >
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
-                </div>
+                        {/* Service Cards */}
 
+                        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+
+                            <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-blue-300/40 hover:bg-white/10">
+
+                                <div className="mb-4 inline-flex rounded-xl bg-blue-500/20 p-3 text-cyan-300">
+                                    <GraduationCap size={24} />
+                                </div>
+
+                                <h4 className="font-semibold text-white">
+                                    University Selection
+                                </h4>
+
+                                <p className="mt-2 text-sm leading-6 text-blue-100">
+                                    Find universities that perfectly match your profile and future goals.
+                                </p>
+
+                            </div>
+
+                            <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/40 hover:bg-white/10">
+
+                                <div className="mb-4 inline-flex rounded-xl bg-amber-500/20 p-3 text-amber-300">
+                                    <BadgeDollarSign size={24} />
+                                </div>
+
+                                <h4 className="font-semibold text-white">
+                                    Scholarship Guidance
+                                </h4>
+
+                                <p className="mt-2 text-sm leading-6 text-blue-100">
+                                    Explore scholarships and funding opportunities to reduce tuition costs.
+                                </p>
+
+                            </div>
+
+                            <div className="group rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/40 hover:bg-white/10">
+
+                                <div className="mb-4 inline-flex rounded-xl bg-cyan-500/20 p-3 text-cyan-300">
+                                    <Plane size={24} />
+                                </div>
+
+                                <h4 className="font-semibold text-white">
+                                    Visa Assistance
+                                </h4>
+
+                                <p className="mt-2 text-sm leading-6 text-blue-100">
+                                    Complete support for documentation, interviews and visa preparation.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {/* Bottom Stats */}
+
+                        <div className="relative mt-12 grid gap-5 border-t border-white/15 pt-10 md:grid-cols-3">
+
+                            {stats.map((item) => {
+
+                                const Icon = item.icon;
+
+                                return (
+
+                                    <div
+                                        key={item.title}
+                                        className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-gray-400"
+                                    >
+
+                                        <div className="flex items-center gap-4">
+
+                                            <div className="rounded-xl bg-white/15 p-3 text-white">
+
+                                                <Icon size={24} />
+
+                                            </div>
+
+                                            <div>
+
+                                                <p className="text-sm text-blue-100">
+
+                                                    {item.title}
+
+                                                </p>
+
+                                                <h4 className="mt-1 text-3xl font-bold text-white">
+
+                                                    {item.value}
+
+                                                </h4>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                );
+
+                            })}
+
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </section>
     );

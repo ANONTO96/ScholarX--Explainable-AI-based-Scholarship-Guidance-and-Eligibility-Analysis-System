@@ -162,7 +162,7 @@ const ProgramDetails = () => {
 
             <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-6">
 
-                <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
+                <div className="grid sm:grid-cols-2 w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
 
                     {/* Duration */}
                     <div className="group border-b border-slate-100 p-6 transition hover:bg-blue-50/50 md:border-b-0 md:border-r">
@@ -267,7 +267,7 @@ const ProgramDetails = () => {
             {/* ABOUT THE PROGRAM */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-20">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-20">
 
                 <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
 
@@ -358,7 +358,7 @@ const ProgramDetails = () => {
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -453,7 +453,7 @@ const ProgramDetails = () => {
             {/* ADMISSION REQUIREMENTS */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr]">
 
@@ -629,7 +629,7 @@ group-hover:scale-110
                 <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-amber-200/20 blur-3xl" />
                 <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-blue-200/20 blur-3xl" />
 
-                <div className="relative overflow-hidden mx-auto max-w-7xl px-6">
+                <div className="relative overflow-hidden mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -803,7 +803,7 @@ group-hover:scale-110">
             {/* CAREER OPPORTUNITIES */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
 
@@ -931,7 +931,7 @@ group-hover:scale-110">
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -1011,7 +1011,7 @@ group-hover:scale-110">
             {/* TOP UNIVERSITIES */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="max-w-3xl">
 
@@ -1088,7 +1088,7 @@ group-hover:scale-110">
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
 
@@ -1184,7 +1184,7 @@ group-hover:scale-110">
             {/* WHY CHOOSE THIS PROGRAM */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="max-w-3xl">
 
@@ -1253,7 +1253,7 @@ group-hover:scale-110">
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
 
@@ -1327,8 +1327,8 @@ group-hover:scale-110">
             {/* FINAL CTA */}
             {/* ========================================================= */}
 
-            <section className=" bg-slate-50 px-6 pb-20">
-                <div className="relative overflow-hidden mx-auto max-w-308 rounded-3xl bg-linear-to-br from-slate-950 via-blue-950 to-blue-800 py-24">
+            <section className=" bg-slate-50 sm:px-6 pb-20">
+                <div className="relative overflow-hidden mx-auto max-w-308 sm:rounded-3xl bg-linear-to-br from-slate-950 via-blue-950 to-blue-800 py-24">
 
                     {/* Decorative circles */}
                     <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10" />

@@ -196,7 +196,7 @@ const smallArticles = articlesToShow.slice(1);
         size={55}
       />
 
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           {/* Left */}
 

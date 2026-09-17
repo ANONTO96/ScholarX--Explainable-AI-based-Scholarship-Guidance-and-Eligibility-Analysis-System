@@ -143,7 +143,7 @@ const DashboardOverview = () => {
       </section>
 
       {/* Profile completion */}
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-sky-50">
