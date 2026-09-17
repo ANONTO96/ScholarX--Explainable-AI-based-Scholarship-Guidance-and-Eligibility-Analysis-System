@@ -887,7 +887,7 @@ export default function EligibilityAnalysis() {
             {/* PROFILE SUMMARY                                        */}
             {/* ===================================================== */}
 
-            <section className="relative z-20 mx-auto -mt-12 max-w-7xl px-6 sm:px-8 lg:px-10">
+            <section className="relative z-20 mx-auto -mt-12 max-w-7xl px-3 sm:px-6 lg:px-8">
 
                 <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
 
@@ -1013,7 +1013,7 @@ export default function EligibilityAnalysis() {
             {/* RESULT SUMMARY                                         */}
             {/* ===================================================== */}
 
-            <section className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 lg:px-10">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 pt-16 lg:px-8">
 
                 <div className="grid gap-4 sm:grid-cols-3">
 
@@ -1172,7 +1172,7 @@ export default function EligibilityAnalysis() {
             {/* OPPORTUNITIES                                          */}
             {/* ===================================================== */}
 
-            <section className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-20 lg:px-8">
 
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
 
@@ -1312,9 +1312,9 @@ export default function EligibilityAnalysis() {
             {/* CTA                                                     */}
             {/* ===================================================== */}
 
-            <section className="mx-auto max-w-7xl bg-white px-6 pb-12 sm:px-8">
+            <section className="mx-auto max-w-7xl bg-white sm:px-6 pb-12 lg:px-8">
 
-                <div className="relative overflow-hidden rounded-3xl bg-slate-950">
+                <div className="relative overflow-hidden sm:rounded-3xl bg-slate-950">
 
                     <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-sky-600/20 blur-3xl" />
 

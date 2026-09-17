@@ -393,7 +393,7 @@ const Navbar = () => {
 
             {isOpen && (
 
-              <ul className="absolute right-0 mt-2 menu bg-base-100 rounded-box shadow w-52 z-100"
+              <ul className="absolute right-0 mt-2 sm:mt-3 menu bg-base-100 rounded-box shadow w-58 z-100"
                 onClick={() => setIsOpen(false)}>
 
                 <li><NavLink to="/" className={({ isActive }) =>

@@ -309,7 +309,7 @@ const OpportunityDetails = () => {
             {/* FACT BAR */}
             {/* ========================================================= */}
 
-            <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-6">
+            <section className="relative z-10 mx-auto -mt-10 max-w-7xl sm:px-6">
 
                 <div className="mx-auto grid w-[90%] overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl sm:w-full sm:grid-cols-2 lg:grid-cols-4">
 
@@ -417,7 +417,7 @@ const OpportunityDetails = () => {
             {/* ABOUT THE OPPORTUNITY */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-20">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-20">
 
                 <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
 
@@ -544,7 +544,7 @@ const OpportunityDetails = () => {
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -697,7 +697,7 @@ const OpportunityDetails = () => {
 
                 <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-blue-200/20 blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-6">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -818,7 +818,7 @@ const OpportunityDetails = () => {
             {/* ELIGIBILITY */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
 
@@ -1097,7 +1097,7 @@ const OpportunityDetails = () => {
             {eligibility.additionalRequirements?.length > 0 && (
                 <section className="bg-slate-50 py-24">
 
-                    <div className="mx-auto max-w-7xl px-6">
+                    <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                         <div className="max-w-3xl">
 
@@ -1214,7 +1214,7 @@ const OpportunityDetails = () => {
             {/* APPLICATION PREPARATION */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
 
@@ -1361,7 +1361,7 @@ const OpportunityDetails = () => {
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -1459,7 +1459,7 @@ const OpportunityDetails = () => {
             {/* THINGS TO CONSIDER */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
 
@@ -1542,7 +1542,7 @@ const OpportunityDetails = () => {
             {/* OFFICIAL WEBSITE */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 pb-10">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 pb-10">
 
                 <div className="group flex flex-col gap-5 rounded-3xl border border-blue-200 bg-blue-50/60 p-7 sm:flex-row sm:items-center sm:justify-between">
 
@@ -1594,9 +1594,9 @@ const OpportunityDetails = () => {
             {/* FINAL CTA */}
             {/* ========================================================= */}
 
-            <section className="bg-slate-50 px-6 pb-20">
+            <section className="bg-slate-50 sm:px-6 py-20">
 
-                <div className="relative mx-auto max-w-308 overflow-hidden rounded-3xl bg-linear-to-br from-slate-950 via-blue-950 to-blue-800 py-24">
+                <div className="relative mx-auto max-w-308 overflow-hidden sm:rounded-3xl bg-linear-to-br from-slate-950 via-blue-950 to-blue-800 py-24">
 
                     {/* Decorative circles */}
                     <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10" />

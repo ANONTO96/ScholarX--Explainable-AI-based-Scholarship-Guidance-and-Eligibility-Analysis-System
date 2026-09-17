@@ -207,7 +207,7 @@ export default function LearnMoreAboutScholarshipSearch() {
             {/* INTRO FACT BAR */}
             {/* ========================================================= */}
 
-            <section className="relative z-20 mx-auto -mt-12 max-w-6xl px-6">
+            <section className="relative z-20 mx-auto -mt-12 max-w-6xl px-3 sm:px-6 lg:px-8">
                 <div className="grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl sm:grid-cols-3">
                     <div className="border-b border-slate-200 p-6 text-center sm:border-b-0 sm:border-r hover:bg-indigo-50/20">
                         <Search
@@ -248,7 +248,7 @@ export default function LearnMoreAboutScholarshipSearch() {
             {/* WHAT IS SCHOLARSHIP SEARCH */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24 lg:px-8">
                 <div className="grid items-center gap-14 lg:grid-cols-2">
                     <div>
                         <div className="mb-4 flex items-center gap-3">
@@ -357,7 +357,7 @@ export default function LearnMoreAboutScholarshipSearch() {
                 id="how-it-works"
                 className="border-y border-slate-200 bg-white"
             >
-                <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6 py-24 lg:px-8">
                     <div className="mx-auto max-w-3xl text-center">
                         <span className="text-sm font-bold uppercase tracking-[0.18em] text-indigo-600">
                             How to search
@@ -437,7 +437,7 @@ export default function LearnMoreAboutScholarshipSearch() {
             {/* SCHOLARSHIP TYPES */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24 lg:px-8">
                 <div className="max-w-2xl">
                     <div className="mb-4 flex items-center gap-3">
                         <span className="h-px w-8 bg-indigo-600" />
@@ -488,7 +488,7 @@ export default function LearnMoreAboutScholarshipSearch() {
             {/* ========================================================= */}
 
             <section className="bg-[#e5f3ff]">
-                <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6 py-24 lg:px-8">
                     <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
                         <div>
                             <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-[#3A2C2C] bg-white shadow-[2px_3px_0px_0px_#3A2C2C]">
@@ -542,7 +542,7 @@ export default function LearnMoreAboutScholarshipSearch() {
             {/* TIPS */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24 lg:px-8">
                 <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
                     <div>
                         <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
@@ -585,8 +585,8 @@ export default function LearnMoreAboutScholarshipSearch() {
             {/* FINAL CTA */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 sm:px-8 pb-12">
-                <div className="relative overflow-hidden rounded-3xl border-t border-slate-200 bg-slate-950">
+            <section className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12">
+                <div className="relative overflow-hidden sm:rounded-3xl border-t border-slate-200 bg-slate-950">
                 <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
 
                     <div className="absolute -bottom-24 left-20 h-64 w-64 rounded-full bg-purple-600/20 blur-3xl" />

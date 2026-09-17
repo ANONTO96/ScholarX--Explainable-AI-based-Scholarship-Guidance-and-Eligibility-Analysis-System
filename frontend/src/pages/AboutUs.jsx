@@ -284,7 +284,7 @@ export default function AboutUs() {
       {/* FACT BAR */}
       {/* ========================================================= */}
 
-      <section className="relative z-10 mx-auto -mt-10 lg:-mt-15 max-w-7xl px-6">
+      <section className="relative z-10 mx-auto -mt-10 lg:-mt-15 max-w-7xl sm:px-6">
 
         <div className="grid sm:grid-cols-2 w-[90%] sm:w-full mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl lg:grid-cols-4">
           {stats.map((stat) => {
@@ -320,7 +320,7 @@ export default function AboutUs() {
       {/* ========================================================= */}
 
       <section className="bg-white py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             {/* Visual */}
             <div className="relative">
@@ -458,7 +458,7 @@ export default function AboutUs() {
       {/* ========================================================= */}
 
       <section className="border-y border-slate-200 bg-slate-50/70 py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 text-sky-600 px-4 py-2 text-xs font-semibold shadow-sm">
               <Workflow className="h-3.5 w-3.5" />
@@ -518,7 +518,7 @@ export default function AboutUs() {
       {/* ========================================================= */}
 
       <section className="bg-white py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-4xl bg-slate-950 px-7 py-14 sm:px-12 lg:px-16 lg:py-16">
             <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl" />
             <div className="absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
@@ -559,7 +559,7 @@ export default function AboutUs() {
       {/* ========================================================= */}
 
       <section className="bg-slate-50 py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr]">
             {/* Heading */}
             <div>
@@ -612,7 +612,7 @@ export default function AboutUs() {
       {/* ========================================================= */}
 
       <section className="bg-white py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 text-sky-600 px-4 py-2 text-xs font-semibold shadow-sm">
               <Award className="h-3.5 w-3.5" />

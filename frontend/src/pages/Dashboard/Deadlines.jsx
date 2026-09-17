@@ -972,8 +972,7 @@ export default function Deadlines() {
                     from-sky-50
                     via-white
                     to-blue-50
-                    p-5
-                    sm:p-7
+                    p-6
                 "
             >
                 {/* Decorative shapes */}
@@ -1128,6 +1127,7 @@ export default function Deadlines() {
                     border-slate-200
                     bg-white
                     p-3
+                    sm:p-6
                     shadow-sm
                 "
             >

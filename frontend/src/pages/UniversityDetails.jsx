@@ -488,7 +488,7 @@ const UniversityDetails = () => {
                     mx-auto
                     -mt-10
                     max-w-7xl
-                    px-6
+                    sm:px-6
                 "
             >
 
@@ -753,7 +753,7 @@ const UniversityDetails = () => {
             {/* ABOUT UNIVERSITY */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-20">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-20">
 
                 <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
 
@@ -1011,7 +1011,7 @@ const UniversityDetails = () => {
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -1177,7 +1177,7 @@ const UniversityDetails = () => {
             {/* ADMISSION */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr]">
 
@@ -1553,7 +1553,7 @@ const UniversityDetails = () => {
                 />
 
 
-                <div className="relative mx-auto max-w-7xl px-6">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -1878,7 +1878,7 @@ const UniversityDetails = () => {
             {/* CAMPUS & STUDENT LIFE */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
 
@@ -2075,7 +2075,7 @@ const UniversityDetails = () => {
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -2344,7 +2344,7 @@ const UniversityDetails = () => {
             {/* SCHOLARSHIPS */}
             {/* ========================================================= */}
 
-            <section className="mx-auto max-w-7xl px-6 py-24">
+            <section className="mx-auto max-w-7xl px-3 sm:px-6 py-24">
 
                 <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
 
@@ -2547,7 +2547,7 @@ const UniversityDetails = () => {
 
             <section className="bg-slate-50 py-24">
 
-                <div className="mx-auto max-w-7xl px-6">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
                     <div className="max-w-3xl">
 
@@ -2705,8 +2705,8 @@ const UniversityDetails = () => {
             {/* FINAL CTA */}
             {/* ========================================================= */}
 
-            <section className=" bg-slate-50 px-6 pb-20">
-                <div className="relative overflow-hidden mx-auto max-w-308 rounded-3xl bg-linear-to-br from-slate-950
+            <section className=" bg-slate-50 sm:px-6 pb-20">
+                <div className="relative overflow-hidden mx-auto max-w-308 sm:rounded-3xl bg-linear-to-br from-slate-950
                         via-sky-950
                         to-sky-800 py-24">
 

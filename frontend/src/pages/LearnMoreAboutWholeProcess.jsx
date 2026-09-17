@@ -169,7 +169,7 @@ const LearnMoreAboutWholeProcess = () => {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-40 pb-20 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-3 sm:px-6 pt-40 pb-20 lg:px-8">
           <div className="max-w-4xl">
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-slate-300">
@@ -298,7 +298,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section id="process" className="bg-white py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-600">
               The ScholarX Journey
@@ -358,7 +358,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="border-y border-slate-200 bg-slate-50 py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr]">
             {/* Left */}
             <div>
@@ -430,7 +430,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-white py-16">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-indigo-100 bg-indigo-50/50 p-8 lg:p-10">
             <div className="flex gap-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white">
@@ -478,7 +478,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-slate-950 py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
             {/* Cards */}
             <div className="order-2 lg:order-1 grid gap-4 sm:grid-cols-2">
@@ -559,7 +559,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-slate-950 pb-20">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-white/10 bg-white/4 p-8 lg:p-10">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
@@ -598,7 +598,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-white py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr]">
             {/* Content */}
             <div>
@@ -671,7 +671,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-slate-50 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-600">
               Before You Start
@@ -740,7 +740,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-white py-20">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
               <span className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -779,7 +779,7 @@ const LearnMoreAboutWholeProcess = () => {
       {/* ========================================================= */}
 
       <section className="bg-slate-50 py-20">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-3 sm:px-6 lg:px-8">
           <div className="text-center">
             <span className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-600">
               Complete Workflow
