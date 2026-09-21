@@ -169,9 +169,19 @@ const Navbar = () => {
     shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
         {/* logo and name */}
         <div className="">
-          <NavLink to="/" className="btn btn-ghost font-semibold text-2xl">
-            <img className="w-7 h-7" src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000" alt="logo" />
-            ScholarX
+          <NavLink
+            to="/"
+            className="btn btn-ghost gap-2 px-2 text-2xl font-bold"
+          >
+            <img
+              className="h-7 w-7"
+              src="https://img.icons8.com/?size=100&id=yk4uIl5Ci0uA&format=png&color=0284C7"
+              alt="ScholarX logo"
+            />
+
+            <span className="font-[Outfit] tracking-tight">
+              Scholar<span className="text-sky-500">X</span>
+            </span>
           </NavLink>
         </div>
         {/*desktop center navigation */}
@@ -334,6 +344,11 @@ const Navbar = () => {
                       ? "text-sky-600 font-semibold"
                       : "text-gray-700 hover:text-sky-600"
                   }>Support</NavLink></li>
+                  <li><NavLink to="/about-us" className={({ isActive }) =>
+                    isActive
+                      ? "text-sky-600 font-semibold"
+                      : "text-gray-700 hover:text-sky-600"
+                  }>About us</NavLink></li>
                   <li><NavLink to="/contact" className={({ isActive }) =>
                     isActive
                       ? "text-sky-600 font-semibold"
@@ -343,10 +358,10 @@ const Navbar = () => {
               </details>
             </li>
             <li><NavLink to="/dashboard" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-bold"
-                    : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-                }>Dashboard</NavLink></li>
+              isActive
+                ? "text-sky-600 font-bold"
+                : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+            }>Dashboard</NavLink></li>
           </ul>
         </div>
         {/* user actions */}
@@ -521,11 +536,18 @@ const Navbar = () => {
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>FAQ</NavLink></li>
+
                     <li><NavLink to="/support" className={({ isActive }) =>
                       isActive
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>Support</NavLink></li>
+
+                    <li><NavLink to="/about-us" className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }>About us</NavLink></li>
 
                     <li><NavLink to="/contact" className={({ isActive }) =>
                       isActive
@@ -541,7 +563,7 @@ const Navbar = () => {
                     ? "text-sky-600 font-bold"
                     : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
                 }>Dashboard</NavLink></li>
-                        </ul>
+              </ul>
 
             )}
 

@@ -126,7 +126,7 @@ export default function AllCountries() {
                             the world's leading education hubs.
                         </p>
 
-                        <div className="flex gap-5 mt-8">
+                        <div className="flex flex-wrap gap-5 mt-8">
 
                             <div className="bg-white/10 backdrop-blur rounded-2xl px-6 py-5">
                                 <h2 className="text-3xl font-bold">16</h2>
@@ -134,13 +134,18 @@ export default function AllCountries() {
                             </div>
 
                             <div className="bg-white/10 backdrop-blur rounded-2xl px-6 py-5">
-                                <h2 className="text-3xl font-bold">300+</h2>
+                                <h2 className="text-3xl font-bold">96+</h2>
                                 <p className="text-gray-300">Universities</p>
                             </div>
 
                             <div className="bg-white/10 backdrop-blur rounded-2xl px-6 py-5">
-                                <h2 className="text-3xl font-bold">5000+</h2>
+                                <h2 className="text-3xl font-bold">26+</h2>
                                 <p className="text-gray-300">Programs</p>
+                            </div>
+
+                            <div className="bg-white/10 backdrop-blur rounded-2xl px-6 py-5">
+                                <h2 className="text-3xl font-bold">32+</h2>
+                                <p className="text-gray-300">Opportunities</p>
                             </div>
 
                         </div>

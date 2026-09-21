@@ -30,6 +30,7 @@ import {
 } from "react";
 
 import toast from "react-hot-toast";
+import { NavLink } from "react-router";
 
 /* ========================================================= */
 /* Constants                                                   */
@@ -678,7 +679,7 @@ export default function Settings() {
 
     return (
         <div className="min-h-screen bg-slate-50/70">
-            <div className="mx-auto max-w-6xl py-6 sm:px-3 lg:px-8">
+            <div className="mx-auto max-w-6xl py-6 lg:py-8">
 
                 {/* ================================================= */}
                 {/* Header                                             */}
@@ -864,7 +865,7 @@ export default function Settings() {
                             </div>
                         </div>
 
-                        <button
+                        <NavLink to="/dashboard/profile"
                             type="button"
                             onClick={() =>
                                 toast(
@@ -894,7 +895,7 @@ export default function Settings() {
                             <UserRound className="h-3.5 w-3.5" />
                             Edit Profile
                             <ChevronRight className="h-3 w-3" />
-                        </button>
+                        </NavLink>
                     </div>
 
                     <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4 sm:grid-cols-4">
@@ -1138,12 +1139,6 @@ export default function Settings() {
                                     </option>
                                     <option value="BDT">
                                         BDT (৳)
-                                    </option>
-                                    <option value="EUR">
-                                        EUR (€)
-                                    </option>
-                                    <option value="GBP">
-                                        GBP (£)
                                     </option>
                                 </SettingsSelect>
                             </SettingRow>
@@ -1534,7 +1529,7 @@ export default function Settings() {
                             </div>
                         </div>
 
-                        <button
+                        <NavLink to="/support"
                             type="button"
                             onClick={() =>
                                 toast(
@@ -1561,7 +1556,7 @@ export default function Settings() {
                         >
                             Contact Support
                             <ChevronRight className="h-3.5 w-3.5" />
-                        </button>
+                        </NavLink>
                     </div>
                 </section>
 

@@ -1009,7 +1009,7 @@ export default function Applications() {
 
 
     return (
-        <div className="min-h-screen pb-12">
+        <div className="min-h-screen mx-auto max-w-6xl py-6 lg:py-8">
 
             {/* =================================================
                 PAGE HEADER

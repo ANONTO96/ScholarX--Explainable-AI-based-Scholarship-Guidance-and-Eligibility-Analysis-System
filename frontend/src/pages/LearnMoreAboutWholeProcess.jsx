@@ -200,7 +200,7 @@ const LearnMoreAboutWholeProcess = () => {
 
               <a
                 href="#process"
-                className="group inline-flex items-center gap-2 rounded-xl text-white border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl text-white border border-white/30 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
               >
                 Explore the Process
                 <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

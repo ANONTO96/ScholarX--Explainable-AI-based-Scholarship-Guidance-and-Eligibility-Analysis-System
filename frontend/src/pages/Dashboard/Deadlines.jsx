@@ -955,7 +955,7 @@ export default function Deadlines() {
     };
 
     return (
-        <div className="min-h-full">
+        <div className="min-h-screen mx-auto max-w-6xl py-6 lg:py-8">
             {/* ================================================= */}
             {/* Header */}
             {/* ================================================= */}

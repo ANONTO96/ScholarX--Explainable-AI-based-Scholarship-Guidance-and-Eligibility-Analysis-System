@@ -7,7 +7,7 @@ const Footer = () => {
           {/* top */}
             <div className="place-items-center pt-10">
   <img
-    src="https://img.icons8.com/?size=100&id=sN8OKT5sSTJM&format=png&color=000000"
+    src="https://img.icons8.com/?size=100&id=yk4uIl5Ci0uA&format=png&color=0284C7"
     alt="ScholarX"
     className="h-16 w-auto"
   />

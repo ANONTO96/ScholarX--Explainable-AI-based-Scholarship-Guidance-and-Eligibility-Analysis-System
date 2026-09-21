@@ -130,7 +130,7 @@ const DashboardLayout = () => {
             </div>
 
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-xl font-bold font-[Outfit] tracking-tight text-slate-900">
                 Scholar<span className="text-sky-500">X</span>
               </h1>
 
