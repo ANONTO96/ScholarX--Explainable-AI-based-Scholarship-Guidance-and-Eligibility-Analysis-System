@@ -178,7 +178,7 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "programs"
+            className={`px-4 sm:px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "programs"
                 ? "bg-sky-500 text-white"
                 : "bg-white text-slate-700 hover:bg-slate-100"
               }`}

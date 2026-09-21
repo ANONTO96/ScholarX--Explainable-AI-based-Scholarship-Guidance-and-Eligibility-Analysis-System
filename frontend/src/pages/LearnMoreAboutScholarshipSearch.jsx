@@ -144,7 +144,7 @@ export default function LearnMoreAboutScholarshipSearch() {
 
                 <div className="absolute -right-32 -top-20 h-96 w-96 rounded-full bg-indigo-200/40 blur-3xl" />
 
-                <div className="absolute right-[25%] lg:right-[30%] top-20 lg:top-25 rotate-12 text-blue-200">
+                <div className="absolute right-[30%] lg:right-[35%] top-20 lg:top-25 rotate-12 text-blue-200">
                     <Sparkles size={70} strokeWidth={1.5} />
                 </div>
 
@@ -152,7 +152,7 @@ export default function LearnMoreAboutScholarshipSearch() {
                     <BookOpen size={75} strokeWidth={1.2} />
                 </div>
 
-                <div className="absolute bottom-12 right-[8%] text-indigo-200">
+                <div className="absolute bottom-20 right-[8%] text-indigo-200">
                     <GraduationCap size={80} strokeWidth={1.2} />
                 </div>
 

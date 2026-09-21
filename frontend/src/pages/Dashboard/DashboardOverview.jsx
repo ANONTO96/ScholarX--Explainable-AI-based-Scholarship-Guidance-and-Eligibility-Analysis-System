@@ -95,7 +95,7 @@ const DashboardOverview = () => {
   ];
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6">
+    <div className="mx-auto max-w-6xl py-6 lg:py-8 space-y-6">
       {/* Welcome */}
       <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-sky-500 via-sky-500 to-cyan-500 p-6 text-white shadow-xl shadow-sky-100 sm:p-8">
         <div className="relative z-10 max-w-2xl">
@@ -148,28 +148,28 @@ const DashboardOverview = () => {
           <div className="flex items-center gap-4">
             <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-sky-50">
               <svg
-                className="absolute inset-0 h-14 w-14 -rotate-90"
-                viewBox="0 0 36 36"
-              >
-                <path
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  className="text-slate-100"
-                />
+      className="absolute h-14 w-14 -rotate-90"
+      viewBox="0 0 36 36"
+    >
+      <path
+        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        className="text-slate-100"
+      />
 
-                <path
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeDasharray="82, 100"
-                  className="text-sky-500"
-                />
-              </svg>
+      <path
+        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeDasharray="82, 100"
+        className="text-sky-500"
+      />
+    </svg>
 
-              <span className="text-sm font-bold text-sky-600">
+              <span className="relative z-10 text-sm font-bold text-sky-600">
                 82%
               </span>
             </div>

@@ -1163,7 +1163,7 @@ export default function Matches() {
 
     return (
         <div className="min-h-screen bg-slate-50/70">
-            <div className="mx-auto max-w-7xl sm:py-6 sm:px-3 lg:px-6 lg:py-8">
+            <div className="mx-auto max-w-6xl py-6 lg:py-8">
 
                 {/* =================================================
                     HEADER

@@ -327,8 +327,8 @@ export default function AboutUs() {
               <div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-indigo-200 blur-2xl" />
               <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-sky-200 blur-2xl" />
 
-              <div className="relative rounded-4xl border border-slate-200 bg-slate-50 p-5">
-                <div className="rounded-3xl bg-slate-950 p-7 sm:p-9">
+              <div className="relative rounded-4xl border border-slate-200 bg-slate-50 p-3 sm:p-6">
+                <div className="rounded-3xl bg-slate-950 p-3 sm:p-6">
                   <div className="flex items-center gap-3">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10">
                       <Lightbulb className="h-5 w-5 text-sky-400" />
@@ -351,28 +351,28 @@ export default function AboutUs() {
                   </div>
 
                   <div className="mt-10 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-white/10 bg-white/4 p-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/4 p-3 sm:p-4">
                       <p className="text-2xl font-bold text-white">Discover</p>
                       <p className="mt-1 text-xs text-slate-500">
                         Find possibilities
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/4 p-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/4 p-3 sm:p-4">
                       <p className="text-2xl font-bold text-white">Decide</p>
                       <p className="mt-1 text-xs text-slate-500">
                         Understand your fit
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/4 p-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/4 p-3 sm:p-4">
                       <p className="text-2xl font-bold text-white">Plan</p>
                       <p className="mt-1 text-xs text-slate-500">
                         Know your next step
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/4 p-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/4 p-3 sm:p-4">
                       <p className="text-2xl font-bold text-white">Achieve</p>
                       <p className="mt-1 text-xs text-slate-500">
                         Move forward
