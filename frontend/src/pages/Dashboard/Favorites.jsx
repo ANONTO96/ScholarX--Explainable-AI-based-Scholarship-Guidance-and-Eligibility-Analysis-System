@@ -12,17 +12,11 @@ import {
     XCircle,
     CircleAlert,
 } from "lucide-react";
+
 import { NavLink } from "react-router";
 import { useMemo, useState } from "react";
 
-import opportunities from "../../data/opportunities";
-import { studentProfile } from "../../data/studentProfile";
-import { analyzeOpportunity } from "../../utils/eligibility";
-
-import {
-    getFavorites,
-    removeFavorite,
-} from "../../utils/favorites";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 
 /* ========================================================= */
@@ -705,7 +699,6 @@ function FavoriteCard({
 }
 
 
-
 /* ========================================================= */
 /* EMPTY STATE                                               */
 /* ========================================================= */
@@ -749,58 +742,16 @@ function EmptyFavorites() {
 
 export default function Favorites() {
 
-    const [
-        favorites,
-        setFavorites,
-    ] = useState(() =>
-        getFavorites()
-    );
+    const {
+        favoriteMatches,
+        removeFavorite,
+    } = useDashboard();
+
 
     const [
         search,
         setSearch,
     ] = useState("");
-
-
-    /* =====================================================
-       GET FAVORITE OPPORTUNITIES
-    ===================================================== */
-
-    const favoriteMatches =
-        useMemo(() => {
-
-            const favoriteSet =
-                new Set(
-                    favorites
-                );
-
-            return (
-                opportunities || []
-            )
-                .filter(
-                    (opportunity) =>
-                        favoriteSet.has(
-                            opportunity.id
-                        )
-                )
-                .map(
-                    (opportunity) => {
-
-                        const evaluated =
-                            analyzeOpportunity(
-                                opportunity,
-                                studentProfile
-                            );
-
-                        return {
-                            opportunity,
-                            analysis:
-                                evaluated.analysis,
-                        };
-                    }
-                );
-
-        }, [favorites]);
 
 
     /* =====================================================
@@ -862,22 +813,6 @@ export default function Favorites() {
             favoriteMatches,
             search,
         ]);
-
-
-    /* =====================================================
-       REMOVE FAVORITE
-    ===================================================== */
-
-    const handleRemove =
-        (id) => {
-
-            const updated =
-                removeFavorite(id);
-
-            setFavorites(
-                updated
-            );
-        };
 
 
     /* =====================================================
@@ -958,62 +893,66 @@ export default function Favorites() {
 
                         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
 
-    {/* Saved */}
-    <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
+                            {/* Saved */}
 
-        <p className="text-2xl font-bold">
-            {favoriteMatches.length}
-        </p>
+                            <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
 
-        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
-            Saved
-        </p>
+                                <p className="text-2xl font-bold">
+                                    {favoriteMatches.length}
+                                </p>
 
-    </div>
+                                <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
+                                    Saved
+                                </p>
 
-
-    {/* Strong */}
-    <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
-
-        <p className="text-2xl font-bold">
-            {strongCount}
-        </p>
-
-        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
-            Strong
-        </p>
-
-    </div>
+                            </div>
 
 
-    {/* Review */}
-    <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
+                            {/* Strong */}
 
-        <p className="text-2xl font-bold">
-            {reviewCount}
-        </p>
+                            <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
 
-        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
-            Review
-        </p>
+                                <p className="text-2xl font-bold">
+                                    {strongCount}
+                                </p>
 
-    </div>
+                                <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
+                                    Strong
+                                </p>
+
+                            </div>
 
 
-    {/* Not Eligible */}
-    <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
+                            {/* Review */}
 
-        <p className="text-2xl font-bold">
-            {notEligibleCount}
-        </p>
+                            <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
 
-        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
-            Not Eligible
-        </p>
+                                <p className="text-2xl font-bold">
+                                    {reviewCount}
+                                </p>
 
-    </div>
+                                <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
+                                    Review
+                                </p>
 
-</div>
+                            </div>
+
+
+                            {/* Not Eligible */}
+
+                            <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-center backdrop-blur">
+
+                                <p className="text-2xl font-bold">
+                                    {notEligibleCount}
+                                </p>
+
+                                <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-sky-100">
+                                    Not Eligible
+                                </p>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -1100,7 +1039,7 @@ export default function Favorites() {
                                         item
                                     }
                                     onRemove={
-                                        handleRemove
+                                        removeFavorite
                                     }
                                 />
 

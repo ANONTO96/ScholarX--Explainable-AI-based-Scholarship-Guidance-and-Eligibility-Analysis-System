@@ -32,16 +32,11 @@ import {
     useState,
 } from "react";
 
-import opportunities from "../../data/opportunities.json";
-
 import {
-    addDocument,
-     addCustomDocument,
-    getCustomDocuments,
     getDocumentFile,
-    getDocumentMetadata,
-    removeChecklistDocument,
 } from "../../data/documents";
+
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 /* ========================================================= */
 /* Checklist                                                  */
@@ -175,26 +170,26 @@ const DEFAULT_DOCUMENTS = [
 
 // MUST be outside Documents
 const DOCUMENT_CATEGORY_ICONS = {
-  identity: IdCard,
-  academic: GraduationCap,
-  financial: WalletCards,
-  application: FileText,
-  language: FileCheck2,
-  visa: Landmark,
-  default: FolderOpen,
+    identity: IdCard,
+    academic: GraduationCap,
+    financial: WalletCards,
+    application: FileText,
+    language: FileCheck2,
+    visa: Landmark,
+    default: FolderOpen,
 };
 
 const DocumentCategoryIcon = ({
-  category,
-  className = "h-5 w-5",
+    category,
+    className = "h-5 w-5",
 }) => {
-  const categoryKey = String(category || "").toLowerCase();
+    const categoryKey = String(category || "").toLowerCase();
 
-  const Icon =
-    DOCUMENT_CATEGORY_ICONS[categoryKey] ||
-    DOCUMENT_CATEGORY_ICONS.default;
+    const Icon =
+        DOCUMENT_CATEGORY_ICONS[categoryKey] ||
+        DOCUMENT_CATEGORY_ICONS.default;
 
-  return <Icon className={className} />;
+    return <Icon className={className} />;
 };
 
 /* ========================================================= */
@@ -495,10 +490,12 @@ function DocumentCard({
                 >
                     {uploaded ? (
                         <CheckCircle2 className="h-5 w-5" />
-                    ) : (<DocumentCategoryIcon
-    category={document.category}
-    className="h-5 w-5"
-  /> )}
+                    ) : (
+                        <DocumentCategoryIcon
+                            category={document.category}
+                            className="h-5 w-5"
+                        />
+                    )}
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -1148,16 +1145,14 @@ function AddDocumentForm({
 /* ========================================================= */
 
 export default function Documents() {
-    const [
-    customDocuments,
-    setCustomDocuments,
-] = useState(() =>
-    getCustomDocuments()
-);
-    const [documents, setDocuments] =
-        useState(() =>
-            getDocumentMetadata()
-        );
+    const {
+        opportunities,
+        documents,
+        customDocuments,
+        addDocument,
+        addCustomDocument,
+        removeChecklistDocument,
+    } = useDashboard();
 
     const [
         selectedOpportunity,
@@ -1185,39 +1180,37 @@ export default function Documents() {
     /* ===================================================== */
 
     const opportunityOptions =
-        useMemo(() => {
-            return opportunities || [];
-        }, []);
+        opportunities || [];
 
     /* ===================================================== */
     /* Build Checklist                                        */
     /* ===================================================== */
 
     const checklist =
-    useMemo(() => {
-        const defaults =
-            DEFAULT_DOCUMENTS.map(
-                (document) => ({
-                    ...document,
-                    checklistId:
-                        document.id,
-                })
-            );
+        useMemo(() => {
+            const defaults =
+                DEFAULT_DOCUMENTS.map(
+                    (document) => ({
+                        ...document,
+                        checklistId:
+                            document.id,
+                    })
+                );
 
-        const customs =
-            customDocuments.map(
-                (document) => ({
-                    ...document,
-                    checklistId:
-                        document.id,
-                })
-            );
+            const customs =
+                customDocuments.map(
+                    (document) => ({
+                        ...document,
+                        checklistId:
+                            document.id,
+                    })
+                );
 
-        return [
-            ...defaults,
-            ...customs,
-        ];
-    }, [customDocuments]);
+            return [
+                ...defaults,
+                ...customs,
+            ];
+        }, [customDocuments]);
 
     /* ===================================================== */
     /* Uploaded Map                                           */
@@ -1372,56 +1365,8 @@ export default function Documents() {
             file
         ) => {
             try {
-                const updated =
-                    await addDocument(
-                        {
-                            checklistId:
-                                document.checklistId ||
-                                document.id,
-
-                            name:
-                                document.name,
-
-                            description:
-                                document.description,
-
-                            category:
-                                document.category,
-
-                            required:
-                                document.required,
-
-                            custom:
-                                document.custom ||
-                                false,
-
-                            opportunityId:
-                                selectedOpportunity !==
-                                "all"
-                                    ? selectedOpportunity
-                                    : null,
-                        },
-                        file
-                    );
-
-                setDocuments(
-                    updated
-                );
-            } catch (error) {
-                console.error(
-                    "Failed to upload document:",
-                    error
-                );
-
-                toast.error("Failed to save the document. Please try again.");
-            }
-        };
-
-    const handleMarkAdded =
-        async (document) => {
-            try {
-                const updated =
-                    await addDocument({
+                await addDocument(
+                    {
                         checklistId:
                             document.checklistId ||
                             document.id,
@@ -1447,11 +1392,49 @@ export default function Documents() {
                             "all"
                                 ? selectedOpportunity
                                 : null,
-                    });
-
-                setDocuments(
-                    updated
+                    },
+                    file
                 );
+            } catch (error) {
+                console.error(
+                    "Failed to upload document:",
+                    error
+                );
+
+                toast.error("Failed to save the document. Please try again.");
+            }
+        };
+
+    const handleMarkAdded =
+        async (document) => {
+            try {
+                await addDocument({
+                    checklistId:
+                        document.checklistId ||
+                        document.id,
+
+                    name:
+                        document.name,
+
+                    description:
+                        document.description,
+
+                    category:
+                        document.category,
+
+                    required:
+                        document.required,
+
+                    custom:
+                        document.custom ||
+                        false,
+
+                    opportunityId:
+                        selectedOpportunity !==
+                        "all"
+                            ? selectedOpportunity
+                            : null,
+                });
             } catch (error) {
                 console.error(
                     "Failed to mark document:",
@@ -1472,14 +1455,9 @@ export default function Documents() {
             }
 
             try {
-                const updated =
-                    await removeChecklistDocument(
-                        document.checklistId ||
-                            document.id
-                    );
-
-                setDocuments(
-                    updated
+                await removeChecklistDocument(
+                    document.checklistId ||
+                        document.id
                 );
             } catch (error) {
                 console.error(
@@ -1490,20 +1468,15 @@ export default function Documents() {
         };
 
     const handleAddCustom =
-    (document) => {
-        const updated =
+        (document) => {
             addCustomDocument(
                 document
             );
 
-        setCustomDocuments(
-            updated
-        );
-
-        setShowAddForm(
-            false
-        );
-    };
+            setShowAddForm(
+                false
+            );
+        };
 
     /* ===================================================== */
     /* View PDF                                                */
@@ -1516,8 +1489,8 @@ export default function Documents() {
                     !document.fileName
                 ) {
                     toast.error(
-    "This document was manually marked as added and has no PDF file."
-);
+                        "This document was manually marked as added and has no PDF file."
+                    );
 
                     return;
                 }
@@ -2194,7 +2167,6 @@ export default function Documents() {
                                 category,
                                 categoryDocuments,
                             ]) => {
-
                                 return (
                                     <section
                                         key={

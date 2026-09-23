@@ -13,86 +13,196 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { NavLink } from "react-router";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 const DashboardOverview = () => {
+  const {
+    profileCompletion,
+    matches: evaluatedMatches,
+    matchStats,
+    favorites,
+    applications,
+    deadlines: dashboardDeadlines,
+    applicationStats,
+  } = useDashboard();
+
+  /*
+   * =========================================================
+   * Overview Data
+   * =========================================================
+   */
+
+  // Top 3 matches from the centralized eligibility results
+  const topMatches = [...evaluatedMatches]
+    .sort((a, b) => {
+      const scoreA =
+        a.analysis?.score ??
+        a.analysis?.matchScore ??
+        0;
+
+      const scoreB =
+        b.analysis?.score ??
+        b.analysis?.matchScore ??
+        0;
+
+      return scoreB - scoreA;
+    })
+    .slice(0, 3)
+    .map(({ opportunity, analysis }) => ({
+      id: opportunity.id,
+      title: opportunity.title,
+      provider:
+        opportunity.provider ||
+        opportunity.organization ||
+        "Scholarship Provider",
+      country:
+        opportunity.country ||
+        opportunity.destination ||
+        "—",
+      degree:
+        opportunity.degree ||
+        opportunity.studyLevel ||
+        "—",
+      funding:
+        opportunity.funding ||
+        opportunity.fundingType ||
+        "Funding information unavailable",
+      score:
+        analysis?.score ??
+        analysis?.matchScore ??
+        0,
+      deadline: opportunity.deadline,
+    }));
+
+  // Upcoming deadlines from the centralized provider
+  const upcomingDeadlines = dashboardDeadlines
+    .slice(0, 3)
+    .map(({ opportunity, deadlineDate, daysRemaining }) => ({
+      id: opportunity.id,
+      title: opportunity.title,
+      date: deadlineDate,
+      daysRemaining,
+    }));
+
+  /*
+   * =========================================================
+   * Statistics
+   * =========================================================
+   */
+
+  const deadlinesWithin30Days =
+    dashboardDeadlines.filter(
+      ({ daysRemaining }) =>
+        daysRemaining >= 0 &&
+        daysRemaining <= 30
+    ).length;
+
   const stats = [
     {
       label: "Scholarship Matches",
-      value: "24",
+      value: String(matchStats.strong).padStart(2, "0"),
       description: "Strong matches found",
       icon: Target,
       href: "/dashboard/matches",
     },
     {
       label: "Favorites",
-      value: "08",
+      value: String(favorites.length).padStart(2, "0"),
       description: "Scholarships saved",
       icon: Heart,
       href: "/dashboard/favorites",
     },
     {
       label: "Applications",
-      value: "03",
+      value: String(
+        applicationStats?.active ??
+        applications.filter(
+          (app) =>
+            app.status === "planning" ||
+            app.status === "applying"
+        ).length
+      ).padStart(2, "0"),
       description: "Currently active",
       icon: FileCheck2,
       href: "/dashboard/applications",
     },
     {
       label: "Upcoming Deadlines",
-      value: "05",
+      value: String(
+        deadlinesWithin30Days
+      ).padStart(2, "0"),
       description: "Within 30 days",
       icon: CalendarDays,
       href: "/dashboard/deadlines",
     },
   ];
 
-  const matches = [
-    {
-      title: "DAAD Scholarship 2027",
-      provider: "DAAD",
-      country: "Germany",
-      degree: "Master",
-      funding: "Fully Funded",
-      score: 94,
-      deadline: "Oct 15, 2027",
-    },
-    {
-      title: "Australia Awards Scholarship",
-      provider: "Australian Government",
-      country: "Australia",
-      degree: "Master",
-      funding: "Fully Funded",
-      score: 89,
-      deadline: "Apr 30, 2027",
-    },
-    {
-      title: "Global Excellence Scholarship",
-      provider: "University Program",
-      country: "Australia",
-      degree: "Master",
-      funding: "Partial Funding",
-      score: 84,
-      deadline: "Nov 20, 2027",
-    },
-  ];
+  /*
+   * =========================================================
+   * Helpers
+   * =========================================================
+   */
 
-  const deadlines = [
-    {
-      title: "DAAD Scholarship 2027",
-      date: "Oct 15",
-      days: "42 days left",
-    },
-    {
-      title: "Global Excellence Scholarship",
-      date: "Nov 20",
-      days: "78 days left",
-    },
-    {
-      title: "University Research Grant",
-      date: "Dec 05",
-      days: "93 days left",
-    },
-  ];
+  const formatDeadline = (deadline) => {
+    if (!deadline) {
+      return "Deadline unavailable";
+    }
+
+    const date = new Date(
+      `${deadline}T23:59:59`
+    );
+
+    if (Number.isNaN(date.getTime())) {
+      return deadline;
+    }
+
+    return date.toLocaleDateString(
+      "en-US",
+      {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }
+    );
+  };
+
+  const getDeadlineMonth = (date) => {
+    if (!date) {
+      return "";
+    }
+
+    return date.toLocaleDateString(
+      "en-US",
+      {
+        month: "short",
+      }
+    );
+  };
+
+  const getDeadlineDay = (date) => {
+    if (!date) {
+      return "";
+    }
+
+    return date.toLocaleDateString(
+      "en-US",
+      {
+        day: "2-digit",
+      }
+    );
+  };
+
+  const getDaysLabel = (daysRemaining) => {
+    if (daysRemaining === 0) {
+      return "Due today";
+    }
+
+    if (daysRemaining === 1) {
+      return "1 day left";
+    }
+
+    return `${daysRemaining} days left`;
+  };
 
   return (
     <div className="mx-auto max-w-6xl py-6 lg:py-8 space-y-6">
@@ -148,29 +258,29 @@ const DashboardOverview = () => {
           <div className="flex items-center gap-4">
             <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-sky-50">
               <svg
-      className="absolute h-14 w-14 -rotate-90"
-      viewBox="0 0 36 36"
-    >
-      <path
-        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3"
-        className="text-slate-100"
-      />
+                className="absolute h-14 w-14 -rotate-90"
+                viewBox="0 0 36 36"
+              >
+                <path
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  className="text-slate-100"
+                />
 
-      <path
-        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeDasharray="82, 100"
-        className="text-sky-500"
-      />
-    </svg>
+                <path
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeDasharray={`${profileCompletion}, 100`}
+                  className="text-sky-500"
+                />
+              </svg>
 
               <span className="relative z-10 text-sm font-bold text-sky-600">
-                82%
+                {profileCompletion.percentage}%
               </span>
             </div>
 
@@ -196,7 +306,12 @@ const DashboardOverview = () => {
         </div>
 
         <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100">
-          <div className="h-full w-[82%] rounded-full bg-sky-500" />
+          <div
+            className="h-full rounded-full bg-sky-500"
+            style={{
+              width: `${profileCompletion}%`,
+            }}
+          />
         </div>
       </section>
 
@@ -263,9 +378,9 @@ const DashboardOverview = () => {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {matches.map((match) => (
+            {topMatches.map((match) => (
               <div
-                key={match.title}
+                key={match.id}
                 className="p-5 transition hover:bg-slate-50 sm:px-6"
               >
                 <div className="flex gap-4">
@@ -299,7 +414,7 @@ const DashboardOverview = () => {
 
                       <span className="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-500">
                         <Clock3 className="h-3 w-3" />
-                        {match.deadline}
+                        {formatDeadline(match.deadline)}
                       </span>
                     </div>
                   </div>
@@ -335,18 +450,22 @@ const DashboardOverview = () => {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {deadlines.map((deadline) => (
+            {upcomingDeadlines.map((deadline) => (
               <div
-                key={deadline.title}
+                key={deadline.id}
                 className="flex gap-4 p-5"
               >
                 <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-sky-50">
                   <span className="text-[10px] font-bold uppercase text-sky-500">
-                    Sep
+                    {getDeadlineMonth(
+                      deadline.date
+                    )}
                   </span>
 
                   <span className="text-lg font-bold leading-none text-sky-700">
-                    {deadline.date.split(" ")[1]}
+                    {getDeadlineDay(
+                      deadline.date
+                    )}
                   </span>
                 </div>
 
@@ -357,7 +476,9 @@ const DashboardOverview = () => {
 
                   <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
                     <Clock3 className="h-3 w-3" />
-                    {deadline.days}
+                    {getDaysLabel(
+                      deadline.daysRemaining
+                    )}
                   </p>
                 </div>
               </div>
@@ -386,18 +507,25 @@ const DashboardOverview = () => {
             </div>
 
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-lg font-bold text-emerald-600">
-              87%
+              {matchStats.total > 0
+                ? Math.round(
+                    (matchStats.strong /
+                      matchStats.total) *
+                      100
+                  )
+                : 0}
+              %
             </div>
           </div>
 
           <div className="mt-6 space-y-3">
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">
-                Requirements passed
+                Strong matches found
               </span>
 
               <span className="font-bold text-emerald-600">
-                12
+                {matchStats.strong}
               </span>
             </div>
 
@@ -407,7 +535,7 @@ const DashboardOverview = () => {
               </span>
 
               <span className="font-bold text-amber-500">
-                3
+                {matchStats.review}
               </span>
             </div>
 
@@ -417,7 +545,7 @@ const DashboardOverview = () => {
               </span>
 
               <span className="font-bold text-rose-500">
-                1
+                {matchStats.notEligible}
               </span>
             </div>
           </div>

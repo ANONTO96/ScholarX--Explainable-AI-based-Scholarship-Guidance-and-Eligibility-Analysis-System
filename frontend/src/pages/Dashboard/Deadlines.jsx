@@ -21,7 +21,7 @@ import {
     useState,
 } from "react";
 
-import opportunities from "../../data/opportunities.json";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 /* ========================================================= */
 /* Constants */
@@ -759,6 +759,10 @@ function EmptyState({
 /* ========================================================= */
 
 export default function Deadlines() {
+    const {
+        deadlines,
+    } = useDashboard();
+
     const [search, setSearch] =
         useState("");
 
@@ -777,18 +781,18 @@ export default function Deadlines() {
 
     const deadlineOpportunities =
         useMemo(() => {
-            return (opportunities || [])
-                .map((opportunity) => ({
-                    ...opportunity,
-                    deadlineDate:
-                        parseDeadline(
-                            opportunity.deadline
-                        ),
-                    daysRemaining:
-                        getDaysRemaining(
-                            opportunity.deadline
-                        ),
-                }))
+            return (deadlines || [])
+                .map(
+                    ({
+                        opportunity,
+                        deadlineDate,
+                        daysRemaining,
+                    }) => ({
+                        ...opportunity,
+                        deadlineDate,
+                        daysRemaining,
+                    })
+                )
                 .filter(
                     (opportunity) =>
                         opportunity.deadlineDate
@@ -803,7 +807,7 @@ export default function Deadlines() {
                         a.deadlineDate -
                         b.deadlineDate
                 );
-        }, []);
+        }, [deadlines]);
 
     /* ----------------------------------------------------- */
     /* Statistics */
