@@ -15,17 +15,11 @@ import {
     TrendingUp,
     XCircle,
 } from "lucide-react";
+
 import { NavLink } from "react-router";
 import { useMemo, useState } from "react";
 
-import opportunities from "../../data/opportunities";
-import { studentProfile } from "../../data/studentProfile";
-
-// IMPORTANT:
-// Use your existing canonical eligibility engine.
-// Adjust this import path if your engine is stored elsewhere.
-import { analyzeOpportunity } from "../../utils/eligibility";
-import { getFavorites, toggleFavorite as toggleStoredFavorite, } from "../../utils/favorites";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 
 /* ========================================================= */
@@ -443,21 +437,26 @@ function MatchCard({
 
     return (
         <article className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100/40">
+
             {/* Accent */}
+
             <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
 
             <div className="p-5 sm:p-6">
+
                 {/* =========================================
                     Header
                 ========================================== */}
 
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex min-w-0 gap-4">
+
                         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
                             <Award className="h-6 w-6" />
                         </div>
 
                         <div className="min-w-0">
+
                             <div className="flex flex-wrap items-center gap-2">
                                 <h3 className="text-base font-bold leading-6 text-slate-900 sm:text-lg">
                                     {
@@ -469,6 +468,7 @@ function MatchCard({
                             <p className="mt-1 text-sm text-slate-500">
                                 {provider}
                             </p>
+
                         </div>
                     </div>
 
@@ -499,14 +499,18 @@ function MatchCard({
                             }
                         />
                     </button>
+
                 </div>
+
 
                 {/* =========================================
                     Scholarship Details + Score
                 ========================================== */}
 
                 <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-center">
+
                     <div className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
+
                         <InfoItem
                             icon={Globe2}
                             label="Country"
@@ -540,12 +544,15 @@ function MatchCard({
                                 deadline
                             )}
                         />
+
                     </div>
 
                     <MatchScore
                         score={score}
                     />
+
                 </div>
+
 
                 {/* =========================================
                     Status
@@ -554,7 +561,9 @@ function MatchCard({
                 <div
                     className={`mt-5 flex flex-col gap-3 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between ${config.badge}`}
                 >
+
                     <div className="flex items-center gap-3">
+
                         <div
                             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${config.iconBg}`}
                         >
@@ -562,6 +571,7 @@ function MatchCard({
                         </div>
 
                         <div>
+
                             <p className="text-sm font-bold">
                                 {
                                     config.label
@@ -574,6 +584,7 @@ function MatchCard({
                                     config.description
                                 }
                             </p>
+
                         </div>
                     </div>
 
@@ -587,14 +598,18 @@ function MatchCard({
                             }
                         </span>
                     )}
+
                 </div>
+
 
                 {/* =========================================
                     Requirement Summary
                 ========================================== */}
 
                 <div className="mt-5">
+
                     <div className="mb-2 flex items-center justify-between">
+
                         <p className="text-sm font-semibold text-slate-700">
                             Requirement Summary
                         </p>
@@ -607,9 +622,11 @@ function MatchCard({
                             }{" "}
                             evaluated
                         </span>
+
                     </div>
 
                     <div className="grid grid-cols-3 gap-2">
+
                         <RequirementStat
                             icon={
                                 CheckCircle2
@@ -645,14 +662,17 @@ function MatchCard({
                             }
                             className="bg-rose-50 text-rose-600"
                         />
+
                     </div>
                 </div>
+
 
                 {/* =========================================
                     Actions
                 ========================================== */}
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+
                     <NavLink
                         to={
                             opportunityPath
@@ -672,7 +692,9 @@ function MatchCard({
 
                         View Scholarship
                     </NavLink>
+
                 </div>
+
             </div>
         </article>
     );
@@ -689,6 +711,7 @@ function EmptyState({
 }) {
     return (
         <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
+
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-500">
                 <Search className="h-7 w-7" />
             </div>
@@ -716,6 +739,7 @@ function EmptyState({
                     Clear Filters
                 </button>
             )}
+
         </div>
     );
 }
@@ -726,6 +750,24 @@ function EmptyState({
 /* ========================================================= */
 
 export default function Matches() {
+
+    /* =====================================================
+       CENTRALIZED DASHBOARD DATA
+    ===================================================== */
+
+    const {
+        matches,
+        favorites,
+        toggleFavorite,
+        profileReadiness,
+        matchStats,
+    } = useDashboard();
+
+
+    /* =====================================================
+       PAGE-LOCAL UI STATE
+    ===================================================== */
+
     const [
         search,
         setSearch,
@@ -756,167 +798,36 @@ export default function Matches() {
         setShowFilters,
     ] = useState(false);
 
-    const [favorites, setFavorites] =
-    useState(() => getFavorites());
-
 
     /* =====================================================
-       CANONICAL MATCH ANALYSIS
+       CENTRALIZED MATCH DATA
 
-       IMPORTANT:
+       Eligibility analysis is already performed inside
+       DashboardProvider.
 
        There is NO eligibility logic here.
-
-       Your existing engine is the only source of truth.
     ===================================================== */
 
-    const evaluatedMatches = useMemo(() => {
-    return (opportunities || []).map((opportunity) => {
-        const evaluated = analyzeOpportunity(
-            opportunity,
-            studentProfile
-        );
-
-        return {
-            opportunity,
-            analysis: evaluated.analysis,
-        };
-    });
-}, []);
+    const evaluatedMatches = matches;
 
 
     /* =====================================================
        SUMMARY
+
+       Uses centralized match statistics from Provider.
     ===================================================== */
 
-    const summary =
-        useMemo(() => {
-            return {
-                total:
-                    evaluatedMatches.length,
-
-                strong:
-                    evaluatedMatches.filter(
-                        ({
-                            analysis,
-                        }) =>
-                            analysis.status ===
-                            "strong"
-                    ).length,
-
-                review:
-                    evaluatedMatches.filter(
-                        ({
-                            analysis,
-                        }) =>
-                            analysis.status ===
-                            "review"
-                    ).length,
-
-                notEligible:
-                    evaluatedMatches.filter(
-                        ({
-                            analysis,
-                        }) =>
-                            analysis.status ===
-                            "not-eligible"
-                    ).length,
-            };
-        }, [
-            evaluatedMatches,
-        ]);
+    const summary = matchStats;
 
 
     /* =====================================================
        PROFILE READINESS
 
-       This is UI-only.
-       It does NOT affect eligibility scores.
+       Uses centralized profile readiness from Provider.
     ===================================================== */
 
-    const profileReadiness =
-        useMemo(() => {
-            const checks = [
-                Boolean(
-                    studentProfile.personal
-                        ?.name
-                ),
-
-                Boolean(
-                    studentProfile.personal
-                        ?.email
-                ),
-
-                Boolean(
-                    studentProfile.personal
-                        ?.nationality
-                ),
-
-                Boolean(
-                    studentProfile.personal
-                        ?.age
-                ),
-
-                Boolean(
-                    studentProfile.academic
-                        ?.studyLevel
-                ),
-
-                Boolean(
-                    studentProfile.academic
-                        ?.fieldOfStudy
-                ),
-
-                studentProfile.academic
-                    ?.academicPerformance !==
-                    null &&
-                    studentProfile.academic
-                        ?.academicPerformance !==
-                        undefined,
-
-                Boolean(
-                    studentProfile.english
-                        ?.test
-                ),
-
-                studentProfile.english
-                    ?.score !== null &&
-                    studentProfile.english
-                        ?.score !==
-                        undefined,
-
-                Boolean(
-                    studentProfile.preferences
-                        ?.studyDestination
-                ),
-
-                studentProfile.preferences
-                    ?.annualBudget
-                    ?.amount !== null &&
-                    studentProfile.preferences
-                        ?.annualBudget
-                        ?.amount !==
-                        undefined,
-
-                studentProfile.experience
-                    ?.workExperienceMonths !==
-                    null &&
-                    studentProfile.experience
-                        ?.workExperienceMonths !==
-                        undefined,
-            ];
-
-            const completed =
-                checks.filter(
-                    Boolean
-                ).length;
-
-            return Math.round(
-                (completed /
-                    checks.length) *
-                    100
-            );
-        }, []);
+    const readinessPercentage =
+        profileReadiness?.percentage ?? 0;
 
 
     /* =====================================================
@@ -978,6 +889,7 @@ export default function Matches() {
                         opportunity,
                         analysis,
                     }) => {
+
                         const title =
                             normalize(
                                 opportunity.title ||
@@ -1050,6 +962,7 @@ export default function Matches() {
                 ...result,
             ].sort(
                 (a, b) => {
+
                     if (
                         sortBy ===
                         "score"
@@ -1121,16 +1034,8 @@ export default function Matches() {
 
 
     /* =====================================================
-       FAVORITES
+       CLEAR FILTERS
     ===================================================== */
-
-    const toggleFavorite = (id) => {
-    const updated =
-        toggleStoredFavorite(id);
-
-    setFavorites(updated);
-};
-
 
     const clearFilters =
         () => {
@@ -1163,6 +1068,7 @@ export default function Matches() {
 
     return (
         <div className="min-h-screen bg-slate-50/70">
+
             <div className="mx-auto max-w-6xl py-6 lg:py-8">
 
                 {/* =================================================
@@ -1184,11 +1090,13 @@ export default function Matches() {
                         <div className="max-w-2xl">
 
                             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur">
+
                                 <Sparkles className="h-4 w-4" />
 
                                 <span className="text-xs font-semibold">
                                     AI-Powered Matchmaking
                                 </span>
+
                             </div>
 
                             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
@@ -1198,6 +1106,7 @@ export default function Matches() {
                             <p className="mt-3 max-w-xl text-sm leading-6 text-sky-50 sm:text-base">
                                 ScholarX compares your student profile with scholarship requirements and helps you discover opportunities that fit your goals.
                             </p>
+
                         </div>
 
 
@@ -1208,25 +1117,32 @@ export default function Matches() {
                             <div className="flex items-center justify-between">
 
                                 <div className="flex items-center gap-2">
+
                                     <Target className="h-5 w-5" />
 
                                     <span className="text-sm font-semibold">
                                         Profile readiness
                                     </span>
+
                                 </div>
 
                                 <span className="text-lg font-bold">
-                                    {profileReadiness}%
+                                    {
+                                        readinessPercentage
+                                    }%
                                 </span>
+
                             </div>
 
                             <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/20">
+
                                 <div
                                     className="h-full rounded-full bg-white transition-all duration-500"
                                     style={{
-                                        width: `${profileReadiness}%`,
+                                        width: `${readinessPercentage}%`,
                                     }}
                                 />
+
                             </div>
 
                             <div className="mt-3 flex items-center justify-between gap-3 text-xs text-sky-100">
@@ -1243,8 +1159,11 @@ export default function Matches() {
                                 </NavLink>
 
                             </div>
+
                         </div>
+
                     </div>
+
                 </section>
 
 
@@ -1328,6 +1247,7 @@ export default function Matches() {
                                 placeholder="Search scholarships, providers, countries..."
                                 className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100"
                             />
+
                         </div>
 
 
@@ -1460,6 +1380,7 @@ export default function Matches() {
                             }
                             className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 md:hidden"
                         >
+
                             <SlidersHorizontal className="h-4 w-4" />
 
                             Filters
@@ -1471,6 +1392,7 @@ export default function Matches() {
                                         : ""
                                 }`}
                             />
+
                         </button>
 
                     </div>
@@ -1606,23 +1528,31 @@ export default function Matches() {
                 <div className="mt-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 
                     <div>
+
                         <h2 className="text-lg font-bold text-slate-900">
                             Your Matches
                         </h2>
 
                         <p className="mt-1 text-sm text-slate-500">
+
                             Showing{" "}
+
                             <span className="font-semibold text-slate-700">
                                 {
                                     filteredMatches.length
                                 }
                             </span>{" "}
+
                             of{" "}
+
                             {
                                 evaluatedMatches.length
                             }{" "}
+
                             opportunities
+
                         </p>
+
                     </div>
 
 
@@ -1700,6 +1630,7 @@ export default function Matches() {
                         </div>
 
                         <div>
+
                             <p className="text-sm font-semibold text-sky-900">
                                 How your match score works
                             </p>
@@ -1707,6 +1638,7 @@ export default function Matches() {
                             <p className="mt-1 text-xs leading-5 text-sky-700">
                                 Match scores are generated from the same eligibility engine used by ScholarX Eligibility Analysis. Mandatory requirements carry greater importance, while preferred criteria contribute to overall fit and competitiveness.
                             </p>
+
                         </div>
 
                     </div>

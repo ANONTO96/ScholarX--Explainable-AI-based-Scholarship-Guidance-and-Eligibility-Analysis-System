@@ -324,8 +324,8 @@ export default function AboutUs() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             {/* Visual */}
             <div className="relative">
-              <div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-indigo-200 blur-2xl" />
-              <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-sky-200 blur-2xl" />
+              <div className="absolute left-0 sm:-left-6 -top-6 h-32 w-32 rounded-full bg-indigo-200 blur-2xl" />
+              <div className="absolute -bottom-6 right-0 sm:-right-6 h-32 w-32 rounded-full bg-sky-200 blur-2xl" />
 
               <div className="relative rounded-4xl border border-slate-200 bg-slate-50 p-3 sm:p-6">
                 <div className="rounded-3xl bg-slate-950 p-3 sm:p-6">
@@ -419,7 +419,7 @@ export default function AboutUs() {
                 </p>
               </div>
 
-              <div className="mt-8 flex items-center gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-3">
 
                 <div className="flex items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50">

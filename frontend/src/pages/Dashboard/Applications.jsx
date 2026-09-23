@@ -22,11 +22,7 @@ import {
 
 import { useMemo, useState } from "react";
 
-import {
-    addApplication,
-    getApplications,
-    removeApplication,
-} from "../../data/applications";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 
 /* ========================================================= */
@@ -773,12 +769,13 @@ function DetailItem({
 
 export default function Applications() {
 
-    const [
+    const {
         applications,
-        setApplications,
-    ] = useState(
-        () => getApplications()
-    );
+        addApplication,
+        removeApplication,
+        applicationStats,
+    } = useDashboard();
+
 
     const [
         isFormOpen,
@@ -801,6 +798,19 @@ export default function Applications() {
     ] = useState(
         INITIAL_FORM
     );
+
+
+    /* ===================================================== */
+    /* STATS                                                 */
+    /* ===================================================== */
+
+    const {
+        total: totalCount,
+        active: activeCount,
+        submitted: submittedCount,
+        underReview: reviewCount,
+        accepted: acceptedCount,
+    } = applicationStats;
 
 
     /* ===================================================== */
@@ -839,54 +849,51 @@ export default function Applications() {
             return;
         }
 
-        const updated =
-            addApplication({
-                ...form,
+        addApplication({
+            ...form,
 
-                scholarshipName:
-                    form.scholarshipName.trim(),
+            scholarshipName:
+                form.scholarshipName.trim(),
 
-                university:
-                    form.university.trim(),
+            university:
+                form.university.trim(),
 
-                provider:
-                    form.provider.trim(),
+            provider:
+                form.provider.trim(),
 
-                country:
-                    form.country.trim(),
+            country:
+                form.country.trim(),
 
-                city:
-                    form.city.trim(),
+            city:
+                form.city.trim(),
 
-                degree:
-                    form.degree.trim(),
+            degree:
+                form.degree.trim(),
 
-                fieldOfStudy:
-                    form.fieldOfStudy.trim(),
+            fieldOfStudy:
+                form.fieldOfStudy.trim(),
 
-                applicationPortal:
-                    form.applicationPortal.trim(),
+            applicationPortal:
+                form.applicationPortal.trim(),
 
-                applicationId:
-                    form.applicationId.trim(),
+            applicationId:
+                form.applicationId.trim(),
 
-                contactName:
-                    form.contactName.trim(),
+            contactName:
+                form.contactName.trim(),
 
-                contactEmail:
-                    form.contactEmail.trim(),
+            contactEmail:
+                form.contactEmail.trim(),
 
-                contactPhone:
-                    form.contactPhone.trim(),
+            contactPhone:
+                form.contactPhone.trim(),
 
-                documents:
-                    form.documents.trim(),
+            documents:
+                form.documents.trim(),
 
-                notes:
-                    form.notes.trim(),
-            });
-
-        setApplications(updated);
+            notes:
+                form.notes.trim(),
+        });
 
         setForm(
             INITIAL_FORM
@@ -913,10 +920,7 @@ export default function Applications() {
             return;
         }
 
-        const updated =
-            removeApplication(id);
-
-        setApplications(updated);
+        removeApplication(id);
     };
 
 
@@ -968,44 +972,6 @@ export default function Applications() {
             search,
             statusFilter,
         ]);
-
-
-    /* ===================================================== */
-    /* STATS                                                 */
-    /* ===================================================== */
-
-    const totalCount =
-        applications.length;
-
-    const activeCount =
-        applications.filter(
-            (application) =>
-                application.status ===
-                    "planning" ||
-                application.status ===
-                    "applying"
-        ).length;
-
-    const submittedCount =
-        applications.filter(
-            (application) =>
-                application.status ===
-                    "submitted"
-        ).length;
-
-    const reviewCount =
-        applications.filter(
-            (application) =>
-                application.status ===
-                "under-review"
-        ).length;
-
-    const acceptedCount =
-        applications.filter(
-            (application) =>
-                application.status ===
-                "accepted"
-        ).length;
 
 
     return (
@@ -1152,7 +1118,7 @@ export default function Applications() {
 
             {isFormOpen && (
                 <section
-                id="application-form"
+                    id="application-form"
                     className="
                         mb-8
                         overflow-hidden
@@ -2268,17 +2234,21 @@ function EmptyApplications({
                 <button
                     type="button"
                     onClick={() => {
-    onAdd();
+                        onAdd();
 
-    setTimeout(() => {
-        document
-            .getElementById("application-form")
-            ?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
-    }, 100);
-}}
+                        setTimeout(() => {
+                            document
+                                .getElementById(
+                                    "application-form"
+                                )
+                                ?.scrollIntoView({
+                                    behavior:
+                                        "smooth",
+                                    block:
+                                        "start",
+                                });
+                        }, 100);
+                    }}
                     className="
                         mt-5
                         inline-flex

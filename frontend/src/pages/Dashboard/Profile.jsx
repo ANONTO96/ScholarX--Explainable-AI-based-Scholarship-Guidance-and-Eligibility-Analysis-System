@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 import {
   Award,
   BriefcaseBusiness,
@@ -22,8 +23,7 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router";
 
-import { calculateProfileCompletion } from "../../utils/profileCompletion";
-import studentProfile from "../../data/studentProfile";
+
 
 /* ============================================================
    DEFAULT FORM STRUCTURE
@@ -228,33 +228,17 @@ const formDataToProfile = (formData) => {
 ============================================================ */
 
 const Profile = () => {
-  // ---------------------------------------------------------
-  // CURRENT DEVELOPMENT MODE
-  // ---------------------------------------------------------
-  // Using the mock profile until real user onboarding/profile
-  // persistence is implemented.
 
-  const [profile, setProfile] = useState(studentProfile);
+  const {
+    profile,
+    updateProfile,
+    profileCompletion,
+} = useDashboard();
 
-  const [formData, setFormData] = useState(
-    profileToFormData(studentProfile)
-  );
+const [formData, setFormData] = useState(
+    profileToFormData(profile)
+);
 
-  // ---------------------------------------------------------
-  // ACTUAL NEW-USER FLOW — ENABLE LATER
-  // ---------------------------------------------------------
-  // const [profile, setProfile] = useState(null);
-  // const [formData, setFormData] = useState(emptyFormData);
-  //
-  // After the user completes the profile form:
-  //
-  // const normalizedProfile = formDataToProfile(formData);
-  // setProfile(normalizedProfile);
-  //
-  // Later, this normalized profile should come from the
-  // authenticated user's saved profile instead of
-  // studentProfile.js.
-  // ---------------------------------------------------------
 
   const [editing, setEditing] =
     useState(false);
@@ -262,13 +246,6 @@ const Profile = () => {
   const [saved, setSaved] =
     useState(false);
 
-
-  /* ==========================================================
-     PROFILE COMPLETION
-  ========================================================== */
-
-  const profileCompletion =
-    calculateProfileCompletion(profile);
 
 
   /* ==========================================================
@@ -291,18 +268,6 @@ const Profile = () => {
     setEditing(false);
   };
 
-  /* ==========================================================
-     CLOSE EDIT MODE
-  ========================================================== 
-
-  const handleSave = () => {
-  const normalizedProfile = formDataToProfile(formData);
-
-  setProfile(normalizedProfile);
-  setIsEditing(false);
-};
-*/
-
 
   /* ==========================================================
      HANDLE INPUT
@@ -324,7 +289,7 @@ const Profile = () => {
     const normalizedProfile =
       formDataToProfile(formData);
 
-    setProfile(normalizedProfile);
+    updateProfile(normalizedProfile);
 
     setEditing(false);
     setSaved(true);
@@ -527,7 +492,7 @@ const Profile = () => {
                 </span>
 
                 <span className="text-sm font-bold text-sky-600">
-                  {profileCompletion}%
+                  {profileCompletion.percentage}%
                 </span>
 
               </div>
@@ -537,8 +502,8 @@ const Profile = () => {
                 <div
                   className="h-full rounded-full bg-sky-500 transition-all duration-500"
                   style={{
-                    width: `${profileCompletion}%`,
-                  }}
+  width: `${profileCompletion.percentage}%`,
+}}
                 />
 
               </div>

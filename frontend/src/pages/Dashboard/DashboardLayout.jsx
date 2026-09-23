@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { NavLink, Outlet } from "react-router";
 import { useState } from "react";
+import { DashboardProvider } from "../../context/Dashboard/DashboardProvider";
+
 
 const DashboardLayout = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -94,7 +96,8 @@ const DashboardLayout = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f5f9fc] text-slate-900">
+    <DashboardProvider>
+      <div className="min-h-screen bg-[#f5f9fc] text-slate-900">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -483,23 +486,22 @@ const DashboardLayout = () => {
 </div>
 
             {/* Profile */}
-            <button
-              type="button"
+            <NavLink to="/dashboard/profile"
               className="hidden items-center gap-3 rounded-xl border border-slate-200 bg-white px-2 py-1.5 sm:flex"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 text-xs font-bold text-sky-600">
                 TA
               </div>
 
-              <NavLink to="/dashboard/profile"className="text-left">
+              <div className="text-left">
                 <p className="text-xs font-semibold text-slate-800">
                   Student
                 </p>
                 <p className="text-[10px] text-slate-400">
                   My Account
                 </p>
+              </div>
               </NavLink>
-            </button>
           </div>
         </header>
 
@@ -509,6 +511,8 @@ const DashboardLayout = () => {
         </main>
       </div>
     </div>
+    </DashboardProvider>
+    
   );
 };
 

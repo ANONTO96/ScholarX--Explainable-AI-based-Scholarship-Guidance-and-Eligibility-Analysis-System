@@ -1,4 +1,12 @@
 export const calculateProfileCompletion = (profile) => {
+  if (!profile) {
+    return {
+      completed: 0,
+      total: 0,
+      percentage: 0,
+    };
+  }
+
   const checks = [
     Boolean(profile.personal?.name),
     Boolean(profile.personal?.email),
@@ -8,15 +16,19 @@ export const calculateProfileCompletion = (profile) => {
     Boolean(profile.academic?.studyLevel),
     Boolean(profile.academic?.completedDegrees?.length),
     Boolean(profile.academic?.fieldOfStudy),
-    profile.academic?.academicPerformance !== undefined,
+    profile.academic?.academicPerformance !== undefined &&
+      profile.academic?.academicPerformance !== "",
 
     Boolean(profile.english?.test),
-    profile.english?.score !== undefined,
+    profile.english?.score !== undefined &&
+      profile.english?.score !== "",
 
     Boolean(profile.preferences?.studyDestination),
-    Boolean(profile.preferences?.annualBudget?.amount),
+    profile.preferences?.annualBudget?.amount !== undefined &&
+      profile.preferences?.annualBudget?.amount !== "",
 
-    profile.experience?.workExperienceMonths !== undefined,
+    profile.experience?.workExperienceMonths !== undefined &&
+      profile.experience?.workExperienceMonths !== "",
     Boolean(profile.experience?.achievements?.length),
 
     profile.additional?.internationalStudent !== undefined,
@@ -24,6 +36,14 @@ export const calculateProfileCompletion = (profile) => {
   ];
 
   const completed = checks.filter(Boolean).length;
+  const total = checks.length;
 
-  return Math.round((completed / checks.length) * 100);
+  return {
+    completed,
+    total,
+    percentage:
+      total > 0
+        ? Math.round((completed / total) * 100)
+        : 0,
+  };
 };

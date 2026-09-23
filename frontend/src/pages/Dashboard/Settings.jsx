@@ -32,103 +32,7 @@ import {
 import toast from "react-hot-toast";
 import { NavLink } from "react-router";
 
-/* ========================================================= */
-/* Constants                                                   */
-/* ========================================================= */
-
-const SETTINGS_STORAGE_KEY =
-    "scholarx-settings";
-
-const DEFAULT_SETTINGS = {
-    notifications: {
-        applicationDeadlines: true,
-        scholarshipUpdates: true,
-        documentReminders: true,
-        eligibilityUpdates: true,
-        emailNotifications: true,
-    },
-
-    preferences: {
-        language: "English",
-        currency: "USD",
-        timezone: "Asia/Dhaka",
-    },
-
-    appearance: {
-        theme: "system",
-    },
-
-    privacy: {
-        profileVisibility: "private",
-        personalizedRecommendations: true,
-    },
-};
-
-/* ========================================================= */
-/* Helpers                                                     */
-/* ========================================================= */
-
-function loadSettings() {
-    try {
-        const saved =
-            localStorage.getItem(
-                SETTINGS_STORAGE_KEY
-            );
-
-        if (!saved) {
-            return DEFAULT_SETTINGS;
-        }
-
-        const parsed =
-            JSON.parse(saved);
-
-        return {
-            ...DEFAULT_SETTINGS,
-            ...parsed,
-            notifications: {
-                ...DEFAULT_SETTINGS.notifications,
-                ...(parsed.notifications || {}),
-            },
-            preferences: {
-                ...DEFAULT_SETTINGS.preferences,
-                ...(parsed.preferences || {}),
-            },
-            appearance: {
-                ...DEFAULT_SETTINGS.appearance,
-                ...(parsed.appearance || {}),
-            },
-            privacy: {
-                ...DEFAULT_SETTINGS.privacy,
-                ...(parsed.privacy || {}),
-            },
-        };
-    } catch (error) {
-        console.error(
-            "Failed to load ScholarX settings:",
-            error
-        );
-
-        return DEFAULT_SETTINGS;
-    }
-}
-
-function saveSettings(settings) {
-    try {
-        localStorage.setItem(
-            SETTINGS_STORAGE_KEY,
-            JSON.stringify(settings)
-        );
-
-        return true;
-    } catch (error) {
-        console.error(
-            "Failed to save ScholarX settings:",
-            error
-        );
-
-        return false;
-    }
-}
+import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 /* ========================================================= */
 /* Section Header                                               */
@@ -534,17 +438,13 @@ function DangerModal({
 /* ========================================================= */
 
 export default function Settings() {
-    const [
+    const {
         settings,
-        setSettings,
-    ] = useState(() =>
-        loadSettings()
-    );
-
-    const [
-        hasChanges,
-        setHasChanges,
-    ] = useState(false);
+        hasSettingsChanges: hasChanges,
+        updateSettings,
+        saveSettings,
+        resetSettings,
+    } = useDashboard();
 
     const [
         showResetModal,
@@ -567,54 +467,38 @@ export default function Settings() {
 
     const updateNotification =
         (key, value) => {
-            setSettings((current) => ({
-                ...current,
-                notifications: {
-                    ...current.notifications,
-                    [key]: value,
-                },
-            }));
-
-            setHasChanges(true);
+            updateSettings(
+                "notifications",
+                key,
+                value
+            );
         };
 
     const updatePreference =
         (key, value) => {
-            setSettings((current) => ({
-                ...current,
-                preferences: {
-                    ...current.preferences,
-                    [key]: value,
-                },
-            }));
-
-            setHasChanges(true);
+            updateSettings(
+                "preferences",
+                key,
+                value
+            );
         };
 
     const updateAppearance =
         (key, value) => {
-            setSettings((current) => ({
-                ...current,
-                appearance: {
-                    ...current.appearance,
-                    [key]: value,
-                },
-            }));
-
-            setHasChanges(true);
+            updateSettings(
+                "appearance",
+                key,
+                value
+            );
         };
 
     const updatePrivacy =
         (key, value) => {
-            setSettings((current) => ({
-                ...current,
-                privacy: {
-                    ...current.privacy,
-                    [key]: value,
-                },
-            }));
-
-            setHasChanges(true);
+            updateSettings(
+                "privacy",
+                key,
+                value
+            );
         };
 
     /* ===================================================== */
@@ -623,7 +507,7 @@ export default function Settings() {
 
     const handleSave = () => {
         const success =
-            saveSettings(settings);
+            saveSettings();
 
         if (!success) {
             toast.error(
@@ -632,8 +516,6 @@ export default function Settings() {
 
             return;
         }
-
-        setHasChanges(false);
 
         toast.success(
             "Settings saved successfully."
@@ -645,31 +527,8 @@ export default function Settings() {
     /* ===================================================== */
 
     const handleReset = () => {
-        const freshSettings = {
-            ...DEFAULT_SETTINGS,
-            notifications: {
-                ...DEFAULT_SETTINGS.notifications,
-            },
-            preferences: {
-                ...DEFAULT_SETTINGS.preferences,
-            },
-            appearance: {
-                ...DEFAULT_SETTINGS.appearance,
-            },
-            privacy: {
-                ...DEFAULT_SETTINGS.privacy,
-            },
-        };
+        resetSettings();
 
-        setSettings(
-            freshSettings
-        );
-
-        saveSettings(
-            freshSettings
-        );
-
-        setHasChanges(false);
         setShowResetModal(false);
 
         toast.success(
