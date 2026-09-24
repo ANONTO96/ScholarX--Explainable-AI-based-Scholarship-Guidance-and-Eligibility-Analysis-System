@@ -408,8 +408,26 @@ const Navbar = () => {
 
             {isOpen && (
 
-              <ul className="absolute right-0 mt-2 sm:mt-3 menu bg-base-100 rounded-box shadow w-58 z-100"
-                onClick={() => setIsOpen(false)}>
+              <ul
+  className="
+    absolute right-0 mt-2 sm:mt-3
+    menu
+    w-64
+    max-h-[calc(100vh-90px)]
+    flex-nowrap
+    overflow-y-auto
+    overflow-x-hidden
+    rounded-2xl
+    bg-base-100
+    shadow-xl
+    z-100
+  "
+  onClick={(e) => {
+    if (e.target.closest("a")) {
+      setIsOpen(false);
+    }
+  }}
+>
 
                 <li><NavLink to="/" className={({ isActive }) =>
                   isActive
@@ -429,7 +447,7 @@ const Navbar = () => {
                     : "text-gray-700 hover:text-sky-600"
                 }>Countries</NavLink>
                   <ul className="p-2">
-                    {countries.slice(0, 4).map((country) => (
+                    {countries.slice(0, 3).map((country) => (
                       <li key={country.slug}>
                         <NavLink
                           to={`/countries/${country.slug}`}
@@ -492,11 +510,6 @@ const Navbar = () => {
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>Computer Science</NavLink></li>
-                    <li><NavLink to="/programDetails/civil-engineering" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Civil Engineering</NavLink></li>
 
                     <li><NavLink to="/programDetails/nursing" className={({ isActive }) =>
                       isActive

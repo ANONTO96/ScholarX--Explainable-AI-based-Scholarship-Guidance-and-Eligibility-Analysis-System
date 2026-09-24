@@ -132,16 +132,107 @@ const saveStoredSettings = (settings) => {
 
 export const DashboardProvider = ({ children }) => {
     const [currentTime, setCurrentTime] = useState(() =>
-    new Date().getTime()
-);
+        new Date().getTime()
+    );
 
-useEffect(() => {
-    const interval = setInterval(() => {
-        setCurrentTime(new Date().getTime());
-    }, 60000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date().getTime());
+        }, 60000);
 
-    return () => clearInterval(interval);
-}, []);
+        return () => clearInterval(interval);
+    }, []);
+
+    // =========================
+    // Notifications
+    // =========================
+
+    const [notifications, setNotifications] = useState([
+        {
+            id: "notification-match-1",
+            type: "match",
+            title: "New scholarship match",
+            message:
+                "A scholarship opportunity has been matched to your profile.",
+            time: "2 hours ago",
+            unread: true,
+            link: "/dashboard/matches",
+        },
+        {
+            id: "notification-deadline-1",
+            type: "deadline",
+            title: "Scholarship deadline approaching",
+            message:
+                "One of your matched scholarship opportunities has an upcoming deadline.",
+            time: "1 day ago",
+            unread: true,
+            link: "/dashboard/deadlines",
+        },
+        {
+            id: "notification-application-1",
+            type: "application",
+            title: "Application update",
+            message:
+                "Your scholarship application status has been updated.",
+            time: "2 days ago",
+            unread: false,
+            link: "/dashboard/applications",
+        },
+        {
+            id: "notification-profile-1",
+            type: "profile",
+            title: "Complete your profile",
+            message:
+                "Complete more of your profile to improve your scholarship matches.",
+            time: "3 days ago",
+            unread: true,
+            link: "/dashboard/profile",
+        },
+    ]);
+
+    const markNotificationRead = (notificationId) => {
+        setNotifications((current) =>
+            current.map((notification) =>
+                notification.id === notificationId
+                    ? {
+                        ...notification,
+                        unread: false,
+                    }
+                    : notification
+            )
+        );
+    };
+
+    const markAllNotificationsRead = () => {
+        setNotifications((current) =>
+            current.map((notification) => ({
+                ...notification,
+                unread: false,
+            }))
+        );
+    };
+
+    const addNotification = (notification) => {
+        const newNotification = {
+            id:
+                notification.id ||
+                `notification-${Date.now()}`,
+            type: notification.type || "general",
+            title: notification.title || "New notification",
+            message: notification.message || "",
+            time: notification.time || "Just now",
+            unread: notification.unread ?? true,
+            link:
+                notification.link ||
+                "/dashboard/notifications",
+        };
+
+        setNotifications((current) => [
+            newNotification,
+            ...current,
+        ]);
+    };
+
     // =========================
     // Profile
     // =========================
@@ -332,40 +423,40 @@ useEffect(() => {
     // =========================
 
     const deadlines = useMemo(() => {
-    return (opportunities || [])
-        .map((opportunity) => {
-            const date = new Date(
-                `${opportunity.deadline}T23:59:59`
+        return (opportunities || [])
+            .map((opportunity) => {
+                const date = new Date(
+                    `${opportunity.deadline}T23:59:59`
+                );
+
+                if (Number.isNaN(date.getTime())) {
+                    return null;
+                }
+
+                const daysRemaining = Math.ceil(
+                    (
+                        date.getTime() -
+                        currentTime
+                    ) /
+                    (1000 * 60 * 60 * 24)
+                );
+
+                return {
+                    opportunity,
+                    deadlineDate: date,
+                    daysRemaining,
+                };
+            })
+            .filter(
+                (item) =>
+                    item &&
+                    item.daysRemaining >= 0
+            )
+            .sort(
+                (a, b) =>
+                    a.deadlineDate - b.deadlineDate
             );
-
-            if (Number.isNaN(date.getTime())) {
-                return null;
-            }
-
-            const daysRemaining = Math.ceil(
-                (
-                    date.getTime() -
-                    currentTime
-                ) /
-                (1000 * 60 * 60 * 24)
-            );
-
-            return {
-                opportunity,
-                deadlineDate: date,
-                daysRemaining,
-            };
-        })
-        .filter(
-            (item) =>
-                item &&
-                item.daysRemaining >= 0
-        )
-        .sort(
-            (a, b) =>
-                a.deadlineDate - b.deadlineDate
-        );
-}, [currentTime]);
+    }, [currentTime]);
 
     // =========================
     // Documents
@@ -551,6 +642,12 @@ useEffect(() => {
                 updateSettings,
                 saveSettings,
                 resetSettings,
+
+                // Notifications
+                notifications,
+                markNotificationRead,
+                markAllNotificationsRead,
+                addNotification,
 
                 // Dashboard
                 dashboardStats,
