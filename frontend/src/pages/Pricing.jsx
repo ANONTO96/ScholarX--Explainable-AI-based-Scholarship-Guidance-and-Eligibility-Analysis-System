@@ -329,7 +329,7 @@ export default function Pricing() {
 
         {/* Cards */}
 
-        <div className="mt-14 grid gap-10 lg:gap-8 sm:w-[75%] lg:w-full mx-auto lg:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-14 grid gap-12 lg:gap-8 sm:w-[75%] lg:w-full mx-auto lg:grid-cols-2 xl:grid-cols-3">
 
           {plans.map((plan) => {
             const Icon = plan.icon;
@@ -337,7 +337,7 @@ export default function Pricing() {
             return (
               <div
                 key={plan.name}
-                className={`group relative flex flex-col rounded-3xl border bg-white p-8 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl ${plan.featured
+                className={`group relative flex flex-col rounded-3xl border shadow-sm bg-white p-8 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl ${plan.featured
                   ? "scale-[1.03] border-sky-600 shadow-2xl"
                   : plan.premium
                     ? "border-purple-300"
@@ -592,13 +592,13 @@ group-hover:shadow-lg ${plan.featured
             >
               {/* Accordion Header */}
               <button
-  onClick={() =>
-    setOpenCategory((prev) =>
-      prev === section.id ? "" : section.id
-    )
-  }
-  className="flex w-full items-center justify-between bg-gray-50 px-5 py-4 text-left"
->
+                onClick={() =>
+                  setOpenCategory((prev) =>
+                    prev === section.id ? "" : section.id
+                  )
+                }
+                className="flex w-full items-center justify-between bg-gray-50 px-5 py-4 text-left"
+              >
                 <h3 className="font-semibold text-gray-900">
                   {section.category}
                 </h3>
@@ -695,71 +695,71 @@ group-hover:shadow-lg ${plan.featured
 
       {/* CTA Banner */}
       <div className="max-w-7xl mx-auto sm:px-6 ">
-                <div className="relative overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
+        <div className="relative overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
 
-                    <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
-                    <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
+          <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
 
-                    <div className="relative flex flex-col items-center justify-between gap-8 lg:flex-row">
+          <div className="relative flex flex-col items-center justify-between gap-8 lg:flex-row">
 
-                        <div className="max-w-2xl">
-                            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm backdrop-blur">
-                                <Sparkles size={16} />
-                                ScholarX Support
-                            </div>
+            <div className="max-w-2xl">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm backdrop-blur">
+                <Sparkles size={16} />
+                ScholarX Support
+              </div>
 
-                            <h2 className="text-4xl font-bold">
-                                Need Help Planning Your Study Abroad Journey?
-                            </h2>
+              <h2 className="text-4xl font-bold">
+                Need Help Planning Your Study Abroad Journey?
+              </h2>
 
-                            <p className="mt-4 text-blue-100 leading-relaxed">
-                                Whether you're choosing a university, applying for scholarships,
-                                or preparing your visa documents, our consultants are here to
-                                guide you every step of the way.
-                            </p>
-                        </div>
+              <p className="mt-4 text-blue-100 leading-relaxed">
+                Whether you're choosing a university, applying for scholarships,
+                or preparing your visa documents, our consultants are here to
+                guide you every step of the way.
+              </p>
+            </div>
 
-                        <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-blue-100">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-blue-100">
 
-    <div className="flex items-center gap-2">
-        ✓ Free Consultation
-    </div>
+              <div className="flex items-center gap-2">
+                ✓ Free Consultation
+              </div>
 
-    <div className="flex items-center gap-2">
-        ✓ Response within 24 hours
-    </div>
+              <div className="flex items-center gap-2">
+                ✓ Response within 24 hours
+              </div>
 
-    <div className="flex items-center gap-2">
-        ✓ Trusted by Students
-    </div>
+              <div className="flex items-center gap-2">
+                ✓ Trusted by Students
+              </div>
 
-</div>
+            </div>
 
-                        <div className="flex flex-wrap justify-center gap-4">
-                            <NavLink to="/book-consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
+            <div className="flex flex-wrap justify-center gap-4">
+              <NavLink to="/book-consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all
 duration-300">
-                                <span className="flex items-center gap-2">
-                                    <CalendarCheck size={18} />
-                                    Book Consultation
-                                </span>
-                            </NavLink>
+                <span className="flex items-center gap-2">
+                  <CalendarCheck size={18} />
+                  Book Consultation
+                </span>
+              </NavLink>
 
-                            <button type="button" onClick={openChatbot} className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+              <button type="button" onClick={openChatbot} className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all
 duration-300">
-                                <span className="flex items-center gap-2">
-                                    <MessageSquareText size={18} />
-                                    Chat with AI
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <span className="flex items-center gap-2">
+                  <MessageSquareText size={18} />
+                  Chat with AI
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

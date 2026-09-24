@@ -804,8 +804,6 @@ export default function Matches() {
 
        Eligibility analysis is already performed inside
        DashboardProvider.
-
-       There is NO eligibility logic here.
     ===================================================== */
 
     const evaluatedMatches = matches;

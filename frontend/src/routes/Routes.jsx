@@ -39,6 +39,7 @@ import Favorites from "../pages/Dashboard/Favorites";
 import Applications from "../pages/Dashboard/Applications";
 import Deadlines from "../pages/Dashboard/Deadlines";
 import Documents from "../pages/Dashboard/Documents";
+import Notifications from "../pages/Dashboard/Notifications";
 import Settings from "../pages/Dashboard/Settings";
 import OAuthGoogleCallback from "../pages/OAuthGoogleCallback";
 
@@ -118,6 +119,11 @@ export const router = createBrowserRouter([
           {
             path: "documents",
             element: <Documents></Documents>,
+          },
+
+          {
+            path: "notifications",
+            element: <Notifications></Notifications>
           },
           
           {
