@@ -15,68 +15,74 @@ import { useChatbot } from "../context/AiChatbot/useChatbot";
 const features = [
   {
     icon: Sparkles,
-    title: "AI Eligibility Checker",
+    title: "Smart Eligibility Checker",
     description:
-      "Instantly discover which universities and scholarships match your academic profile.",
+      "Analyze your academic profile against scholarship requirements to understand your eligibility and identify missing criteria.",
     items: [
       "Instant eligibility analysis",
-      "Scholarship prediction",
+      "Personalized match scores",
       "Requirement gap detection",
+      "Clear eligibility explanations",
     ],
   },
   {
     icon: GraduationCap,
-    title: "Smart University Matching",
+    title: "AI-Powered Assistant",
     description:
-      "Receive personalized university recommendations based on your goals, budget, and grades.",
+      "Get instant assistance from our AI chatbot to understand eligibility results, scholarship requirements, and your next steps.",
     items: [
-      "2000+ universities",
-      "Budget-friendly options",
-      "Country comparison",
+      "Eligibility result explanations",
+      "Scholarship requirement guidance",
+      "Personalized study-abroad guidance",
+      "Instant answers to your questions",
     ],
   },
   {
     icon: BadgeDollarSign,
-    title: "Scholarship Finder",
+    title: "Study Abroad Explorer",
     description:
-      "Search thousands of scholarships and discover funding opportunities tailored for you.",
+      "Explore countries, universities, academic programs, and scholarship opportunities while accessing essential details to plan your study-abroad journey.",
     items: [
-      "Merit scholarships",
-      "Need-based funding",
-      "Deadline reminders",
+      "University and program search",
+      "Scholarship opportunity discovery",
+      "Tuition and funding details",
+      "Country-specific information",
     ],
   },
   {
     icon: FileCheck2,
-    title: "Document Review",
+    title: "Scholarship Application Tracker",
     description:
-      "Improve your SOP, CV, and application documents before submission.",
+      "Stay organized throughout your scholarship journey by tracking deadlines, managing applications, and keeping important documents on your checklist.",
     items: [
-      "SOP review",
-      "Resume optimization",
-      "Document verification",
+      "Scholarship deadline tracking",
+      "Application status management",
+      "Document checklist management",
+      "Favorite scholarship saving",
     ],
   },
   {
     icon: Plane,
     title: "Visa Assistance",
     description:
-      "Professional guidance from visa preparation to interview support.",
+      "Explore essential visa information and preparation resources to better understand the requirements for studying abroad.",
     items: [
-      "Visa checklist",
-      "Interview preparation",
-      "Application support",
+      "Visa requirement information",
+      "Visa preparation guidance",
+      "Country-specific visa resources",
+      "Pre-departure preparation",
     ],
   },
   {
     icon: Users,
     title: "Expert Consultation",
     description:
-      "Connect with experienced education consultants for one-on-one guidance.",
+      "Get direction for your study-abroad journey with access to educational guidance and resources for making informed decisions.",
     items: [
-      "Personal consultation",
+      "Study-abroad guidance",
       "Country-specific advice",
-      "Fast response",
+      "Application preparation tips",
+      "Scholarship planning support",
     ],
   },
 ];

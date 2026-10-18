@@ -121,7 +121,7 @@ export default function AboutUs() {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-40 pb-20 lg:pb-25">
           <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
             {/* Left */}
             <div>
@@ -210,7 +210,7 @@ export default function AboutUs() {
                           Eligibility Score
                         </p>
                         <p className="mt-1 text-4xl font-bold text-white">
-                          96%
+                          100%
                         </p>
                       </div>
 
@@ -220,7 +220,7 @@ export default function AboutUs() {
                     </div>
 
                     <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-800">
-                      <div className="h-full w-[86%] rounded-full bg-linear-to-r from-indigo-500 via-blue-500 to-sky-500" />
+                      <div className="h-full w-full rounded-full bg-linear-to-r from-indigo-500 via-blue-500 to-sky-500" />
                     </div>
                   </div>
 
@@ -277,7 +277,7 @@ export default function AboutUs() {
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* ========================================================= */}
@@ -295,7 +295,7 @@ export default function AboutUs() {
                 key={stat.label}
                 className="group flex items-center gap-4 px-5 py-7 lg:px-8"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600 group-hover:text-white group-hover:bg-sky-600">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600 group-hover:text-white group-hover:bg-sky-600 transition-all duration-300">
                   <Icon className="h-5 w-5" />
                 </div>
 
@@ -489,11 +489,11 @@ export default function AboutUs() {
 
                   <div className="relative">
                     <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600 transition-colors group-hover:bg-sky-600 group-hover:text-white">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600 transition-colors duration-300 group-hover:bg-sky-600 group-hover:text-white">
                         <Icon className="h-5 w-5" />
                       </div>
 
-                      <span className="text-sm font-semibold text-slate-300 rounded-md p-0.5 group-hover:text-white group-hover:bg-sky-600 transition-all">
+                      <span className="text-sm font-semibold text-slate-300 rounded-md p-0.5 group-hover:text-white group-hover:bg-sky-600 transition-all duration-300">
                         0{index + 1}
                       </span>
                     </div>
@@ -588,7 +588,7 @@ export default function AboutUs() {
                     key={value.title}
                     className="group rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200/50"
                   >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600 group-hover:text-white group-hover:bg-sky-600">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600 group-hover:text-white group-hover:bg-sky-600 transition-all duration-300">
                       <Icon className="h-5 w-5" />
                     </div>
 

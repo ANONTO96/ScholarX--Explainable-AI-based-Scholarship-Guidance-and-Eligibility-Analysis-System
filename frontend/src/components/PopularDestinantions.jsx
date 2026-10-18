@@ -1,6 +1,6 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { NavLink } from "react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import usa from "../assets/usa.avif"
 import uk from "../assets/uk.avif"
 import canada from "../assets/canada.avif"
@@ -119,26 +119,65 @@ const countries = [
 ];
 
 const PopularDestinations = () => {
-  const visibleCards = 6;
-  const [startIndex, setStartIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+const dragRef = useRef({
+  isDragging: false,
+  startX: 0,
+  scrollLeft: 0,
+  hasMoved: false,
+});
 
-  const handleNext = () => {
-    setStartIndex((prev) => (prev + 1) % countries.length);
+const [isDragging, setIsDragging] = useState(false);
+
+const scrollCards = (direction) => {
+  if (!scrollContainerRef.current) return;
+
+  scrollContainerRef.current.scrollBy({
+    left: direction * 280,
+    behavior: "smooth",
+  });
+};
+
+const handleMouseDown = (e) => {
+  if (e.button !== 0) return;
+
+  dragRef.current = {
+    isDragging: true,
+    startX: e.pageX,
+    scrollLeft: scrollContainerRef.current.scrollLeft,
+    hasMoved: false,
   };
 
-  const handlePrev = () => {
-    setStartIndex(
-      (prev) => (prev - 1 + countries.length) % countries.length
-    );
-  };
+  setIsDragging(true);
+};
 
-  const visibleCountries = [];
+const handleMouseMove = (e) => {
+  if (!dragRef.current.isDragging) return;
 
-  for (let i = 0; i < visibleCards; i++) {
-    visibleCountries.push(
-      countries[(startIndex + i) % countries.length]
-    );
+  const distance = e.pageX - dragRef.current.startX;
+
+  if (Math.abs(distance) > 5) {
+    dragRef.current.hasMoved = true;
   }
+
+  if (dragRef.current.hasMoved) {
+    scrollContainerRef.current.scrollLeft =
+      dragRef.current.scrollLeft - distance;
+  }
+};
+
+const handleMouseUp = () => {
+  dragRef.current.isDragging = false;
+  setIsDragging(false);
+};
+
+const handleCardClick = (e) => {
+  if (dragRef.current.hasMoved) {
+    e.preventDefault();
+    e.stopPropagation();
+    dragRef.current.hasMoved = false;
+  }
+};
   return (
     <section className="pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
@@ -155,58 +194,80 @@ const PopularDestinations = () => {
         </div>
 
         {/* Cards */}
-        <div className="overflow-hidden">
-          <div className="flex gap-6 transition-transform duration-500">
-            {visibleCountries.map((country) => (
-              <NavLink
-                key={country.id}
-                to={`/countries/${country.slug}`}
-                className="group shrink-0 w-52 md:w-71"
-              >
-                <div className="overflow-hidden rounded-3xl">
-                  <img
-                    src={country.image}
-                    alt={country.name}
-                    className="h-48 w-full object-cover transition duration-500 group-hover:scale-110"
-                  />
-                </div>
-
-                <h3 className="mt-4 text-center text-xl font-semibold">
-                  {country.name}
-                </h3>
-              </NavLink>
-            ))}
-          </div>
+<div
+  ref={scrollContainerRef}
+  onMouseDown={handleMouseDown}
+  onMouseMove={handleMouseMove}
+  onMouseUp={handleMouseUp}
+  onMouseLeave={handleMouseUp}
+  onClickCapture={handleCardClick}
+  className={`overflow-x-auto overflow-y-hidden
+    scrollbar-none [&::-webkit-scrollbar]:hidden
+    touch-pan-x select-none
+    ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+>
+  <div className="flex w-max gap-5 pb-2">
+    {countries.map((country) => (
+      <NavLink
+        key={country.id}
+        to={`/countries/${country.slug}`}
+        draggable={false}
+        className="group shrink-0 w-52 md:w-71"
+      >
+        <div className="overflow-hidden rounded-3xl">
+          <img
+            src={country.image}
+            alt={country.name}
+            draggable={false}
+            className="h-48 w-full object-cover transition duration-500 group-hover:scale-110"
+          />
         </div>
 
-        {/* Bottom */}
-        <div className="mt-14 flex items-center justify-between">
-          <div className="w-27">
-          </div>
-          <NavLink
-            to="/countries"
-            className="group flex items-center gap-2 font-semibold rounded-4xl border border-gray-300 px-5 py-3 text-gray-900 hover:scale-104 hover:border-gray-300 hover:text-blue-500 transition"
-          >
-            Show All
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </NavLink>
+        <h3 className="mt-4 text-center text-xl font-semibold">
+          {country.name}
+        </h3>
+      </NavLink>
+    ))}
+  </div>
+</div>
 
-          <div className="flex gap-4">
-            <button
-              onClick={handlePrev}
-              className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition"
-            >
-              <ChevronLeft />
-            </button>
+         {/* Bottom */}
+<div className="mt-10 sm:mt-12 flex flex-col-reverse sm:flex-row items-center justify-between gap-5">
 
-            <button
-              onClick={handleNext}
-              className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition"
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </div>
+  {/* Scroll hint */}
+  <p className="hidden lg:block text-sm text-gray-500">
+    Drag to explore destinations
+  </p>
+
+  {/* Show All */}
+  <NavLink
+    to="/countries"
+    className="group inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-900 transition-all duration-300 hover:border-blue-500 hover:text-blue-600 hover:shadow-sm"
+  >
+    Explore all destinations
+    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+  </NavLink>
+
+  {/* Navigation */}
+  <div className="flex items-center gap-3">
+    <button
+      onClick={() => scrollCards(-1)}
+      aria-label="Scroll destinations left"
+      className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-300 text-gray-700 transition-all duration-300 hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600 active:scale-95"
+    >
+      <ChevronLeft className="h-5 w-5" />
+    </button>
+
+    <button
+      onClick={() => scrollCards(1)}
+      aria-label="Scroll destinations right"
+      className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-300 text-gray-700 transition-all duration-300 hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600 active:scale-95"
+    >
+      <ChevronRight className="h-5 w-5" />
+    </button>
+  </div>
+
+</div>
       </div>
     </section>
   );
