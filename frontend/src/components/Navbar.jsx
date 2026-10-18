@@ -1,13 +1,56 @@
-import { Menu, X, ArrowRight, ChevronDown, } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, ArrowRight, ChevronDown, LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ReactCountryFlag from "react-country-flag";
+import { useNavigate } from "react-router";
 
 
 const Navbar = () => {
   // state for mobile dropdown icon
   const [isOpen, setIsOpen] = useState(false);
-  // for closing dropdown menu
+  // navigation after logout
+  const navigate = useNavigate();
+  // user authentication state
+  const [user, setUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("user"));
+    } catch {
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    const syncUser = () => {
+      const token = localStorage.getItem("token");
+
+      try {
+        const storedUser = JSON.parse(
+          localStorage.getItem("user")
+        );
+
+        setUser(token && storedUser ? storedUser : null);
+      } catch {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener("storage", syncUser);
+
+    return () => {
+      window.removeEventListener("storage", syncUser);
+    };
+  }, []);
+
+  // logout function
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setUser(null);
+    setIsOpen(false);
+
+    navigate("/", { replace: true });
+  };
 
 
   const countries = [
@@ -160,10 +203,9 @@ const Navbar = () => {
   ];
   return (
     <nav className="fixed inset-x-0 z-50 w-full pt-1 px-2">
-      <div className="flex w-full xl:w-[90%] mx-auto px-2 lg:px-3 py-2 lg:py-3 items-center justify-between rounded-2xl
+      <div className="flex w-full xl:w-[90%] mx-auto px-2 py-2 md:px-3 md:py-3 items-center justify-between rounded-2xl
     border border-white/20
-    bg-white/30
-    lg:bg-white/60
+    bg-white/40
     backdrop-blur-md
     backdrop-saturate-150
     shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
@@ -185,7 +227,7 @@ const Navbar = () => {
           </NavLink>
         </div>
         {/*desktop center navigation */}
-        <div className=" hidden lg:flex">
+        <div className=" hidden xl:flex">
           <ul className="menu menu-horizontal">
             <li><NavLink to="/" className={({ isActive }) =>
               isActive
@@ -320,6 +362,11 @@ const Navbar = () => {
                 </NavLink>
               </div>
             </li>
+            <li><NavLink to="/opportunities" className={({ isActive }) =>
+              isActive
+                ? "text-sky-600 font-semibold"
+                : "text-gray-800 hover:text-sky-600"
+            }>Opportunities</NavLink></li>
             <li><NavLink to="/pricing" className={({ isActive }) =>
               isActive
                 ? "text-sky-600 font-semibold"
@@ -357,40 +404,51 @@ const Navbar = () => {
                 </ul>
               </details>
             </li>
-            <li><NavLink to="/dashboard" className={({ isActive }) =>
-              isActive
-                ? "text-sky-600 font-bold"
-                : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-            }>Dashboard</NavLink></li>
+            {user && (
+              <li>
+                <NavLink to="/dashboard" className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-bold"
+                    : "font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+                }>
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
         {/* user actions */}
-        <div className="flex items-center gap-1">
-          <NavLink to="/login"
-            className="px-2 py-1 sm:px-3 sm:py-2 shrink-0 text-lg rounded-xl
+        <div className="flex items-center gap-2">
+
+          {!user && (
+            <>
+              <NavLink to="/login"
+                className="px-2 py-1 md:px-3 lg:py-2 shrink-0 text-lg rounded-xl
                bg-gray-100 text-black
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]
                transition-all duration-200
                hover:translate-y-0.5
                hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
-          >
-            Log in
-          </NavLink>
+              >
+                Log in
+              </NavLink>
 
-          <NavLink to="/signup"
-            className="px-2 py-1 sm:px-3 sm:py-2 shrink-0 text-lg rounded-xl
+              <NavLink to="/signup"
+                className="px-2 py-1 md:px-3 lg:py-2 shrink-0 text-lg rounded-xl
                bg-[#DCEEFF] text-black
                border border-[#3A2C2C]
                shadow-[2px_3px_0px_0px_#3A2C2C]
                transition-all duration-200
                hover:translate-y-0.5
                hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
-          >
-            Sign up
-          </NavLink>
+              >
+                Sign up
+              </NavLink>
+            </>
+          )}
           {/* mobile dropdown */}
-          <div className="relative lg:hidden">
+          <div className="relative xl:hidden">
 
             <button
 
@@ -409,7 +467,7 @@ const Navbar = () => {
             {isOpen && (
 
               <ul
-  className="
+                className="
     absolute right-0 mt-2 sm:mt-3
     menu
     w-64
@@ -422,12 +480,12 @@ const Navbar = () => {
     shadow-xl
     z-100
   "
-  onClick={(e) => {
-    if (e.target.closest("a")) {
-      setIsOpen(false);
-    }
-  }}
->
+                onClick={(e) => {
+                  if (e.target.closest("a")) {
+                    setIsOpen(false);
+                  }
+                }}
+              >
 
                 <li><NavLink to="/" className={({ isActive }) =>
                   isActive
@@ -525,6 +583,12 @@ const Navbar = () => {
                   </ul>
                 </li>
 
+                <li><NavLink to="/opportunities" className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-semibold"
+                    : "text-gray-700 hover:text-sky-600"
+                }>Opportunities</NavLink ></li>
+
                 <li><NavLink to="/pricing" className={({ isActive }) =>
                   isActive
                     ? "text-sky-600 font-semibold"
@@ -571,11 +635,34 @@ const Navbar = () => {
                   </ul>
 
                 </li>
-                <li><NavLink to="/dashboard" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-bold"
-                    : " font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-                }>Dashboard</NavLink></li>
+                {user && (
+                  <>
+                    <li>
+                      <NavLink
+                        to="/dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-bold"
+                            : "font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+                        }
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+
+                    <li className="mt-1 border-t border-gray-100 pt-2">
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 hover:bg-red-600 hover:text-white active:bg-red-100"
+                      >
+                        <LogOut size={18} strokeWidth={2} />
+                        <span>Log out</span>
+                      </button>
+                    </li>
+                  </>
+                )}
               </ul>
 
             )}
