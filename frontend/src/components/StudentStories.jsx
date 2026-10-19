@@ -52,7 +52,7 @@ export default function StudentStories() {
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:scale-103 transition-all border border-gray-200 hover:border-sky-100 flex flex-col justify-between min-h-90"
+              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:scale-102 transition-all duration-300 border border-gray-200 hover:border-sky-100 flex flex-col justify-between min-h-90"
             >
               {/* Logo */}
               <div className="mb-8">
