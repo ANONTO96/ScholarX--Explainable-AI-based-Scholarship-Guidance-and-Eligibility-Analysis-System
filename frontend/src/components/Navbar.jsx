@@ -1,4 +1,4 @@
-import { Menu, X, ArrowRight, ChevronDown, LogOut } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, LogOut, UserRound, } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ReactCountryFlag from "react-country-flag";
@@ -404,17 +404,6 @@ const Navbar = () => {
                 </ul>
               </details>
             </li>
-            {user && (
-              <li>
-                <NavLink to="/dashboard" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-bold"
-                    : "font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-                }>
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
           </ul>
         </div>
         {/* user actions */}
@@ -447,6 +436,71 @@ const Navbar = () => {
               </NavLink>
             </>
           )}
+
+          {/* Desktop profile dropdown */}
+          {user && (
+            <div className="dropdown dropdown-end hidden xl:block">
+
+              <button
+                type="button"
+                tabIndex={0}
+                aria-label="Open profile menu"
+                className="group flex items-center gap-1.5 rounded-full border border-sky-200/80 bg-white/80 p-1.5 pr-2 shadow-sm transition-all duration-300 hover:border-sky-400 hover:bg-sky-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-sky-500 to-blue-600 text-white shadow-sm transition-transform duration-300">
+                  <UserRound size={19} strokeWidth={2} />
+                </span>
+
+                <ChevronDown
+                  size={16}
+                  className="text-slate-500 transition-transform duration-200 group-hover:text-sky-600 group-focus:rotate-180"
+                />
+              </button>
+
+
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu z-50 mt-3 w-64 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl"
+              >
+                {/* User information */}
+            <li className="pointer-events-none mb-1 border-b border-slate-100 px-3 py-3">
+                <span className="block truncate font-semibold text-slate-800">
+                    {user.name || "ScholarX User"}
+                </span>
+                {user.email && (
+                    <span className="block truncate text-xs text-slate-500">
+                        {user.email}
+                    </span>
+                )}
+            </li>
+
+                {/* Dashboard */}
+                <li>
+                  <NavLink
+                        to="/dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className="font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+                        
+                      >
+                        Dashboard
+                      </NavLink>
+                </li>
+
+                {/* Logout */}
+                <li className="mt-1 border-t border-slate-100 pt-2">
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-3 rounded-xl py-2.5 text-red-600 transition-colors bg-red-100 hover:bg-red-500 hover:text-white"
+                  >
+                    <LogOut size={18} />
+                    Log out
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
+
           {/* mobile dropdown */}
           <div className="relative xl:hidden">
 
@@ -655,7 +709,7 @@ const Navbar = () => {
                       <button
                         type="button"
                         onClick={handleLogout}
-                        className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 hover:bg-red-600 hover:text-white active:bg-red-100"
+                        className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 hover:bg-red-500 hover:text-white"
                       >
                         <LogOut size={18} strokeWidth={2} />
                         <span>Log out</span>

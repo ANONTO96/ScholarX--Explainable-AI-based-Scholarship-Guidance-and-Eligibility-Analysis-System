@@ -108,7 +108,7 @@ export default function PrivacyPolicy() {
                     />
                 </div>
 
-                <div className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-40 pb-20 lg:pb-25">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-25 pb-20 md:pt-35 lg:pb-25">
 
                     <div className="max-w-4xl">
                         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-sm font-semibold text-sky-300">

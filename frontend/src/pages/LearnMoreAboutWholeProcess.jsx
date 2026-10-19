@@ -169,7 +169,7 @@ const LearnMoreAboutWholeProcess = () => {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-3 sm:px-6 pt-40 pb-20 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-25 pb-20 md:pt-35 lg:pb-25">
           <div className="max-w-4xl">
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-slate-300">
