@@ -745,7 +745,7 @@ export default function AboutUs() {
 
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <NavLink
-              to="/eligibility-analysis"
+              to="/dashboard/eligibility-analysis"
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-indigo-500"
             >
               Start with ScholarX

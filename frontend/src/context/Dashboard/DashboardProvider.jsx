@@ -296,6 +296,16 @@ export const DashboardProvider = ({ children }) => {
         });
     }, [profile]);
 
+    // Full eligibility-analysis records shared by both dashboard pages.
+    // Matches keeps its existing { opportunity, analysis } shape; this
+    // flattened shape preserves the data contract used by EligibilityAnalysis.
+    const eligibilityOpportunities = useMemo(() => {
+        return matches.map(({ opportunity, analysis }) => ({
+            ...opportunity,
+            analysis,
+        }));
+    }, [matches]);
+
     const strongMatches = useMemo(() => {
         return matches.filter(
             ({ analysis }) =>
@@ -612,6 +622,7 @@ export const DashboardProvider = ({ children }) => {
                 reviewMatches,
                 notEligibleMatches,
                 matchStats,
+                eligibilityOpportunities,
 
                 // Favorites
                 favorites,

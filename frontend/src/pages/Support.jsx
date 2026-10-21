@@ -177,7 +177,7 @@ const Support = () => {
     }
   };
   return (
-    <section className="bg-linear-to-b from-slate-50 via-white to-white pt-40 pb-20">
+    <section className="bg-linear-to-b from-slate-50 via-white to-white pt-23 md:pt-25 lg:pt-27 xl:pt-29 pb-20">
       <div className="mx-auto max-w-7xl px-3 sm:px-6">
 
         {/* ---------------- HERO ---------------- */}
