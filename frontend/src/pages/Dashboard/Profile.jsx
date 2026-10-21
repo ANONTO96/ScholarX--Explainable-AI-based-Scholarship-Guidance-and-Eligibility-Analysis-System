@@ -369,7 +369,7 @@ const [formData, setFormData] = useState(
 
 
   return (
-    <div className="mx-auto max-w-6xl py-6 lg:py-8 space-y-6">
+    <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
 
       {/* =====================================================
           PAGE HEADER

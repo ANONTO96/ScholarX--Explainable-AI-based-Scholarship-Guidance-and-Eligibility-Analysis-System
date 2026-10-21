@@ -37,7 +37,7 @@ const TimelineSection = () => {
       description:
         "The system sequences your applications by deadline and probability. You always know exactly what to work on next.",
       image: plan,
-      link: "/eligibility-analysis",
+      link: "/dashboard/eligibility-analysis",
     },
     {
       tag: "Track",

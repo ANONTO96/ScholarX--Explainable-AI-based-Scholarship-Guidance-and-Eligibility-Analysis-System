@@ -246,7 +246,7 @@ const UniversityDetails = () => {
                             min-h-140
                             max-w-7xl
                             items-center
-                            px-6
+                            px-3 sm:px-6
                             pt-40
                             pb-20
                         "
@@ -400,7 +400,7 @@ const UniversityDetails = () => {
                             <div className="mt-9 flex flex-wrap gap-4">
 
                                 <NavLink
-                                    to="/eligibility-analysis"
+                                    to="/dashboard/eligibility-analysis"
                                     className="
                                         group
                                         inline-flex
@@ -2736,7 +2736,7 @@ const UniversityDetails = () => {
 
                         <div className="mt-9 flex flex-wrap justify-center gap-4">
 
-                            <NavLink to="/eligibility-analysis" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-sky-500">
+                            <NavLink to="/dashboard/eligibility-analysis" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-sky-500">
                                 <span className="flex items-center gap-2">
                                     <BadgeCheck size={18} />
                                     Check My Eligibility

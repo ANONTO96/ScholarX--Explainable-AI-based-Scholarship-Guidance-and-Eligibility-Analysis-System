@@ -52,7 +52,7 @@ const Notifications = () => {
     };
 
     return (
-        <div className="mx-auto max-w-6xl py-6 lg:py-8">
+        <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
             {/* Header */}
             <div className="mb-6">
 

@@ -49,7 +49,7 @@ const CountryDetails = () => {
 
                 <div className="absolute inset-0 bg-linear-to-r from-slate-950/90 via-slate-900/70 to-slate-900/30" />
 
-                <div className="relative mx-auto max-w-7xl px-6 pt-40 pb-20 lg:pb-25 lg:pt-45">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6 pt-40 pb-20 lg:pb-25 lg:pt-45">
                     <div className="max-w-3xl text-white">
 
                         <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-md">
@@ -70,7 +70,7 @@ const CountryDetails = () => {
 
                         <div className="mt-8 flex flex-wrap gap-3">
                             <NavLink
-                                to="/eligibility-analysis"
+                                to="/dashboard/eligibility-analysis"
                                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500"
                             ><BadgeCheck size={18} />
                                 Check My Eligibility
@@ -1178,7 +1178,7 @@ duration-300">
                                 </span>
                             </NavLink>
 
-                            <NavLink to="/eligibility-analysis" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
+                            <NavLink to="/dashboard/eligibility-analysis" className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
 hover:shadow-xl
 active:translate-y-0
 transition-all

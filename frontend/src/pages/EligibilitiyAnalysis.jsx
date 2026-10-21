@@ -14,11 +14,8 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router";
 import { useMemo, useState } from "react";
+import { useDashboard } from "../context/Dashboard/useDashboard";
 
-import opportunities from "../data/opportunities.json";
-import studentProfile from "../data/studentProfile";
-
-import {analyzeOpportunity,} from "../utils/eligibility";
 
 /* ========================================================= */
 /* STATUS CONFIG                                             */
@@ -726,58 +723,19 @@ export default function EligibilityAnalysis() {
         setActiveFilter,
     ] = useState("all");
 
+    // Eligibility results and profile are owned by DashboardProvider.
+    // This page only manages its local filter and presentation state.
+    const {
+        profile,
+        eligibilityOpportunities: analyzedOpportunities,
+        matchStats,
+    } = useDashboard();
 
-    const analyzedOpportunities = useMemo(
-    () =>
-        opportunities.map((opportunity) =>
-            analyzeOpportunity(
-                opportunity,
-                studentProfile
-            )
-        ),
-    []
-);
-
-
-    /* ========================================================= */
-    /* COUNTS                                                    */
-    /* ========================================================= */
-
-    const counts =
-        useMemo(() => {
-
-            return {
-                strong:
-                    analyzedOpportunities.filter(
-                        (item) =>
-                            item
-                                .analysis
-                                .status ===
-                            "strong"
-                    ).length,
-
-                review:
-                    analyzedOpportunities.filter(
-                        (item) =>
-                            item
-                                .analysis
-                                .status ===
-                            "review"
-                    ).length,
-
-                notEligible:
-                    analyzedOpportunities.filter(
-                        (item) =>
-                            item
-                                .analysis
-                                .status ===
-                            "not-eligible"
-                    ).length,
-            };
-
-        }, [
-            analyzedOpportunities,
-        ]);
+    const counts = {
+        strong: matchStats.strong,
+        review: matchStats.review,
+        notEligible: matchStats.notEligible,
+    };
 
 
     /* ========================================================= */
@@ -928,46 +886,46 @@ export default function EligibilityAnalysis() {
     `GPA ${
         Number.isFinite(
             Number(
-                studentProfile?.academic
+                profile?.academic
                     ?.academicPerformance
             )
         )
             ? Number(
-                  studentProfile.academic
+                  profile.academic
                       .academicPerformance
               ).toFixed(2)
             : "Not specified"
     }`,
 
-    studentProfile?.academic?.studyLevel ||
+    profile?.academic?.studyLevel ||
         "Study level not specified",
 
-    studentProfile?.academic?.fieldOfStudy ||
+    profile?.academic?.fieldOfStudy ||
         "Field not specified",
 
-    studentProfile?.preferences?.studyDestination ||
+    profile?.preferences?.studyDestination ||
         "Destination not specified",
 
     `${
-        studentProfile?.english?.test ||
+        profile?.english?.test ||
         "English"
     } ${
         Number.isFinite(
             Number(
-                studentProfile?.english?.score
+                profile?.english?.score
             )
         )
             ? Number(
-                  studentProfile.english.score
+                  profile.english.score
               ).toFixed(1)
             : "N/A"
     }`,
 
-    studentProfile?.personal?.nationality ||
+    profile?.personal?.nationality ||
         "Nationality not specified",
 
     `Age ${
-        studentProfile?.personal?.age ??
+        profile?.personal?.age ??
         "N/A"
     }`,
 ].map((item) => (
@@ -1345,7 +1303,7 @@ export default function EligibilityAnalysis() {
                         <div className="mt-8 flex flex-wrap justify-center gap-3">
 
                             <NavLink
-                                to="/profile"
+                                to="/dashboard/profile"
                                 className="group inline-flex items-center gap-2 rounded-xl border border-[#3A2C2C] bg-white px-6 py-3 font-bold text-slate-950 shadow-[2px_3px_0px_0px_#3A2C2C] transition-all hover:-translate-y-1"
                             >
 

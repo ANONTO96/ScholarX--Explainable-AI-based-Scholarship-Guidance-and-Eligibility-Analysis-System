@@ -2,7 +2,8 @@ import { ArrowRight } from "lucide-react";
 import heroImg3 from "../assets/hero3.png";
 import { NavLink } from "react-router";
 
-const EligibilityAnalysis = () => {
+const Analyze
+ = () => {
     return (
         <section className="pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
@@ -28,7 +29,7 @@ const EligibilityAnalysis = () => {
             </p>
             {/* Buttons */}
             <div className="mt-5 flex items-center gap-5">
-              <NavLink to="/eligibility-analysis"
+              <NavLink to="/dashboard/eligibility-analysis"
                 className="px-3 py-1 sm:px-4 sm:py-2 rounded-lg
                            bg-gray-100
                            border border-[#3A2C2C]
@@ -64,4 +65,5 @@ const EligibilityAnalysis = () => {
     );
 };
 
-export default EligibilityAnalysis;
+export default Analyze
+;

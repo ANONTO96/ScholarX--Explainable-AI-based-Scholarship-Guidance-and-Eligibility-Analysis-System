@@ -205,7 +205,7 @@ const DashboardOverview = () => {
   };
 
   return (
-    <div className="mx-auto max-w-6xl py-6 lg:py-8 space-y-6">
+    <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
       {/* Welcome */}
       <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-sky-500 via-sky-500 to-cyan-500 p-6 text-white shadow-xl shadow-sky-100 sm:p-8">
         <div className="relative z-10 max-w-2xl">

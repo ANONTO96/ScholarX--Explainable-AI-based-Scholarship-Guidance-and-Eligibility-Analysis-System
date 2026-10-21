@@ -105,7 +105,7 @@ export default function AllCountries() {
             >
                 <div className="absolute inset-0 bg-linear-to-r from-[#0F172A]/85 via-[#1E3A8A]/60 to-[#2563EB]/40" />
 
-                <div className="relative max-w-7xl mx-auto h-full flex items-center px-6 py-20 lg:py-25">
+                <div className="relative max-w-7xl mx-auto h-full flex items-center px-3 sm:px-6 py-20 lg:py-25">
                     <div className="max-w-3xl text-white">
 
                         <span className="mb-6 mt-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
