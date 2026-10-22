@@ -5,6 +5,7 @@ load_dotenv()
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.auth.router import router as auth_router
+from api.profile import router as profile_router
 from database.connection import get_db_connection
 
 
@@ -49,3 +50,4 @@ app.include_router(home_router)
 
 app.include_router(auth_router)
 
+app.include_router(profile_router)

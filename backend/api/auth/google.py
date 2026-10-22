@@ -10,6 +10,7 @@ from fastapi import HTTPException
 from fastapi.responses import RedirectResponse
 
 from database.queries.auth_queries import (
+    create_student_profile,
     get_user_by_provider,
     get_user_by_email,
     create_user
@@ -202,14 +203,18 @@ def google_callback(code: str, state: str = None):
             password_hash=None,
             role="student",
             auth_provider="google",
-            provider_id=google_id
+            provider_id=google_id,
+            username=name.lower().replace(" ", "_") if name else None
         )
+
+        create_student_profile(user_id)
 
         user = {
             "id": user_id,
             "name": name or "Google User",
             "email": email,
-            "role": "student"
+            "role": "student",
+            "username": name.lower().replace(" ", "_") if name else None
         }
 
     # -----------------------------------------------------
@@ -219,7 +224,8 @@ def google_callback(code: str, state: str = None):
     payload = {
         "user_id": user["id"],
         "email": user["email"],
-        "role": user["role"]
+        "role": user["role"],
+        "username": user["username"],
     }
 
     token = jwt.encode(
@@ -240,7 +246,8 @@ def google_callback(code: str, state: str = None):
         "id": user["id"],
         "name": user["name"],
         "email": user["email"],
-        "role": user["role"]
+        "role": user["role"],
+        "username": user["username"]
     },
     "expires_at": time.time() + 60
     }
