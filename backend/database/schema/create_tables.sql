@@ -227,3 +227,167 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP
 );
+
+
+-- =========================================================
+-- End of User Table    
+-- =========================================================
+
+-- =========================================================
+CREATE TABLE student_destinations (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    country_code CHAR(2) NOT NULL,
+    priority_order SMALLINT NULL,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_student_destination_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    UNIQUE KEY uq_student_destination
+        (user_id, country_code)
+);
+
+CREATE TABLE student_degrees (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    degree_level VARCHAR(60) NOT NULL,
+    degree_title VARCHAR(150) NULL,
+    field_of_study VARCHAR(150) NULL,
+    institution_name VARCHAR(255) NULL,
+
+    completion_status VARCHAR(30) NOT NULL DEFAULT 'completed',
+    graduation_year SMALLINT NULL,
+    grade_value DECIMAL(6,2) NULL,
+    grade_scale DECIMAL(6,2) NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_student_degree_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    INDEX idx_degrees_user (user_id)
+);
+
+CREATE TABLE student_profile_attributes (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    attribute_key VARCHAR(100) NOT NULL,
+    attribute_value JSON NULL,
+
+    country_code CHAR(2) NULL,
+    source_type VARCHAR(30) DEFAULT 'student',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_profile_attribute_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    UNIQUE KEY uq_user_attribute_country
+        (user_id, attribute_key, country_code)
+);
+
+
+CREATE TABLE student_language_proficiencies (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    language_code VARCHAR(10) NOT NULL,
+    proficiency_type VARCHAR(30) NOT NULL,
+
+    test_name VARCHAR(80) NULL,
+    score_numeric DECIMAL(8,2) NULL,
+    score_text VARCHAR(50) NULL,
+    proficiency_level VARCHAR(30) NULL,
+
+    test_date DATE NULL,
+    expiry_date DATE NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_language_profile_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    INDEX idx_language_user (user_id),
+    INDEX idx_language_test (language_code, test_name)
+);
+
+
+CREATE TABLE student_profiles (
+    user_id INT NOT NULL,
+
+    nationality VARCHAR(100) NULL,
+    date_of_birth DATE NULL,
+
+    current_study_level VARCHAR(50) NULL,
+    field_of_study VARCHAR(150) NULL,
+
+    institution_name VARCHAR(255) NULL,
+    current_gpa DECIMAL(5,2) NULL,
+    gpa_scale DECIMAL(5,2) NULL,
+
+    annual_budget DECIMAL(12,2) NULL,
+    budget_currency CHAR(3) NULL,
+
+    work_experience_months INT NULL,
+    leadership_experience BOOLEAN NULL,
+    community_service BOOLEAN NULL,
+    research_experience BOOLEAN NULL,
+
+    international_student BOOLEAN NULL,
+    currently_enrolled BOOLEAN NULL,
+    gdsc_member BOOLEAN NULL,
+    university_team_member BOOLEAN NULL,
+
+    achievements JSON NULL,
+    innovation_projects JSON NULL,
+    partner_universities JSON NULL,
+
+    additional_information JSON NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (user_id),
+
+    CONSTRAINT fk_student_profiles_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_profile_gpa
+        CHECK (current_gpa IS NULL OR current_gpa >= 0),
+
+    CONSTRAINT chk_profile_gpa_scale
+        CHECK (gpa_scale IS NULL OR gpa_scale > 0),
+
+    CONSTRAINT chk_profile_budget
+        CHECK (annual_budget IS NULL OR annual_budget >= 0),
+
+    CONSTRAINT chk_profile_work_months
+        CHECK (
+            work_experience_months IS NULL
+            OR work_experience_months >= 0
+        )
+);

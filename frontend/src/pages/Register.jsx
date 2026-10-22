@@ -56,6 +56,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Form data:", formData);
 
         if (!agreeTerms) {
             return;

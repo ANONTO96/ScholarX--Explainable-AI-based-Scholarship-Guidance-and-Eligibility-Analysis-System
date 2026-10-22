@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDashboard } from "../../context/Dashboard/useDashboard";
 import {
   Award,
@@ -65,15 +65,38 @@ const emptyFormData = {
 
 
 /* ============================================================
+   LOCAL STORAGE USER HELPERS
+============================================================ */
+
+const getStoredUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem("user") || "{}");
+  } catch {
+    return {};
+  }
+};
+
+const setStoredUsername = (username) => {
+  const storedUser = getStoredUser();
+  localStorage.setItem(
+    "user",
+    JSON.stringify({ ...storedUser, username })
+  );
+};
+
+
+/* ============================================================
    CONVERT SCHOLARX PROFILE → FORM DATA
 ============================================================ */
 
 const profileToFormData = (profile) => {
+  const storedUser = getStoredUser();
   return {
-    name: profile.personal?.name || "",
-    email: profile.personal?.email || "",
+    username: profile.username || storedUser.username || "",
+    name: profile.personal?.name || storedUser.name || "",
+    email: profile.personal?.email || storedUser.email || "",
     nationality: profile.personal?.nationality || "",
-    age: profile.personal?.age ?? "",
+    dateOfBirth: profile.personal?.dateOfBirth || "",
 
     studyLevel: profile.academic?.studyLevel || "",
     completedDegrees:
@@ -81,7 +104,9 @@ const profileToFormData = (profile) => {
     fieldOfStudy:
       profile.academic?.fieldOfStudy || "",
     academicPerformance:
-      profile.academic?.academicPerformance ?? "",
+      profile.academic?.academicPerformance?.gpa ?? profile.academic?.academicPerformance ?? "",
+    gpaScale:
+      profile.academic?.academicPerformance?.scale ?? "4",
 
     englishTest: profile.english?.test || "",
     englishScore: profile.english?.score ?? "",
@@ -99,28 +124,28 @@ const profileToFormData = (profile) => {
       profile.experience?.workExperienceMonths ?? "",
 
     leadershipExperience:
-      profile.experience?.leadershipExperience || false,
+      profile.experience?.leadershipExperience ?? null,
 
     communityService:
-      profile.experience?.communityService || false,
+      profile.experience?.communityService ?? null,
 
     researchExperience:
-      profile.experience?.researchExperience || false,
+      profile.experience?.researchExperience ?? null,
 
     achievements:
       profile.experience?.achievements || [],
 
     internationalStudent:
-      profile.additional?.internationalStudent || false,
+      profile.additional?.internationalStudent ?? null,
 
     isStudent:
-      profile.additional?.isStudent || false,
+      profile.additional?.isStudent ?? null,
 
     gdscMember:
-      profile.additional?.gdscMember || false,
+      profile.additional?.gdscMember ?? null,
 
     universityTeam:
-      profile.additional?.universityTeam || false,
+      profile.additional?.universityTeam ?? null,
 
     partnerUniversities:
       profile.additional?.partnerUniversities || [],
@@ -141,9 +166,7 @@ const formDataToProfile = (formData) => {
       name: formData.name.trim(),
       email: formData.email.trim(),
       nationality: formData.nationality.trim(),
-      age: formData.age
-        ? Number(formData.age)
-        : "",
+      dateOfBirth: formData.dateOfBirth || null,
     },
 
     academic: {
@@ -154,10 +177,10 @@ const formDataToProfile = (formData) => {
       fieldOfStudy:
         formData.fieldOfStudy.trim(),
 
-      academicPerformance:
-        formData.academicPerformance !== ""
-          ? Number(formData.academicPerformance)
-          : "",
+      academicPerformance: {
+        gpa: formData.academicPerformance !== "" ? Number(formData.academicPerformance) : null,
+        scale: formData.gpaScale !== "" ? Number(formData.gpaScale) : null,
+      },
     },
 
     english: {
@@ -185,7 +208,7 @@ const formDataToProfile = (formData) => {
       workExperienceMonths:
         formData.workExperienceMonths !== ""
           ? Number(formData.workExperienceMonths)
-          : 0,
+          : null,
 
       leadershipExperience:
         formData.leadershipExperience,
@@ -224,6 +247,149 @@ const formDataToProfile = (formData) => {
 
 
 /* ============================================================
+   DATE AND LANGUAGE HELPERS
+============================================================ */
+
+const calculateAge = (dateOfBirth) => {
+  if (!dateOfBirth) return null;
+  const birth = new Date(`${dateOfBirth}T00:00:00`);
+  if (Number.isNaN(birth.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const beforeBirthday = today.getMonth() < birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
+  if (beforeBirthday) age -= 1;
+  return age >= 0 ? age : null;
+};
+
+const emptyLanguageQualification = () => ({
+  language_code: "ZH",
+  proficiency_type: "test",
+  test_name: "HSK",
+  score_numeric: "",
+  score_text: "",
+  proficiency_level: "HSK 1",
+  test_date: "",
+  expiry_date: "",
+});
+
+const LanguageQualificationsPanel = ({ apiBaseUrl, onCompletionChange }) => {
+  const [qualifications, setQualifications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  const loadQualifications = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Your session has expired. Please log in again.");
+      setLoading(false);
+      return;
+    }
+    try {
+      setLoading(true);
+      setError("");
+      const response = await fetch(`${apiBaseUrl}/api/profile/languages`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.detail || "Could not load language qualifications.");
+      setQualifications((body.qualifications || []).map((item) => ({
+        ...item,
+        score_numeric: item.score_numeric ?? "",
+        score_text: item.score_text ?? "",
+        test_date: item.test_date ?? "",
+        expiry_date: item.expiry_date ?? "",
+      })));
+      if (body.completion) onCompletionChange?.(body.completion);
+    } catch (err) {
+      setError(err.message || "Could not load language qualifications.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { loadQualifications(); /* load once on mount */ }, [apiBaseUrl]);
+
+  const updateQualification = (index, key, value) => {
+    setQualifications((current) => current.map((item, i) => i === index ? { ...item, [key]: value } : item));
+  };
+
+  const addQualification = () => setQualifications((current) => [...current, emptyLanguageQualification()]);
+  const removeQualification = (index) => setQualifications((current) => current.filter((_, i) => i !== index));
+
+  const saveQualifications = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) { setError("Your session has expired. Please log in again."); return; }
+    const cleaned = qualifications.filter((item) => item.language_code && item.proficiency_type).map((item) => ({
+      language_code: item.language_code.trim().toUpperCase(),
+      proficiency_type: item.proficiency_type,
+      test_name: item.test_name?.trim() || null,
+      score_numeric: item.score_numeric === "" || item.score_numeric == null ? null : Number(item.score_numeric),
+      score_text: item.score_text?.trim() || null,
+      proficiency_level: item.proficiency_level?.trim() || null,
+      test_date: item.test_date || null,
+      expiry_date: item.expiry_date || null,
+    }));
+    try {
+      setSaving(true); setError(""); setMessage("");
+      const response = await fetch(`${apiBaseUrl}/api/profile/languages`, {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ qualifications: cleaned }),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.detail || "Could not save language qualifications.");
+      setQualifications((body.qualifications || []).map((item) => ({
+        ...item, score_numeric: item.score_numeric ?? "", score_text: item.score_text ?? "",
+        test_date: item.test_date ?? "", expiry_date: item.expiry_date ?? "",
+      })));
+      if (body.completion) onCompletionChange?.(body.completion);
+      setMessage("Language qualifications saved successfully.");
+    } catch (err) {
+      setError(err.message || "Could not save language qualifications.");
+    } finally { setSaving(false); }
+  };
+
+  return (
+    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="flex flex-col gap-3 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600"><Languages className="h-5 w-5" /></div>
+          <div><h2 className="font-bold text-slate-900">Language Qualifications</h2><p className="mt-1 text-xs leading-5 text-slate-500">Manage HSK, IELTS, TOEFL, and other language tests independently from your main profile.</p></div>
+        </div>
+        <div className="flex gap-2">
+          <button type="button" onClick={addQualification} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"><Plus className="h-4 w-4" /> Add qualification</button>
+          <button type="button" onClick={saveQualifications} disabled={saving || loading} className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">{saving ? "Saving…" : "Save languages"}</button>
+        </div>
+      </div>
+      <div className="space-y-4 p-5 sm:p-6">
+        {loading && <p className="text-sm text-slate-500">Loading language qualifications…</p>}
+        {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+        {message && <p role="status" className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">{message}</p>}
+        {!loading && qualifications.length === 0 && <p className="rounded-xl bg-slate-50 px-4 py-5 text-sm text-slate-500">No language qualifications added yet. Add one if you have taken a language test; leave this section empty if you have not.</p>}
+        {qualifications.map((item, index) => (
+          <div key={item.id || `qualification-${index}`} className="rounded-xl border border-slate-200 p-4">
+            <div className="mb-4 flex items-center justify-between"><h3 className="text-sm font-semibold text-slate-800">Qualification {index + 1}</h3><button type="button" onClick={() => removeQualification(index)} aria-label={`Remove qualification ${index + 1}`} className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"><X className="h-4 w-4" /></button></div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <label className="block text-xs font-medium text-slate-600">Language<select value={item.language_code || ""} onChange={(e) => updateQualification(index, "language_code", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"><option value="ZH">Chinese</option><option value="EN">English</option><option value="FR">French</option><option value="DE">German</option><option value="JA">Japanese</option><option value="KO">Korean</option><option value="OTHER">Other</option></select></label>
+              <label className="block text-xs font-medium text-slate-600">Qualification type<select value={item.proficiency_type || "test"} onChange={(e) => updateQualification(index, "proficiency_type", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"><option value="test">Standardized test</option><option value="level">Proficiency level</option><option value="native">Native language</option><option value="course">Course certificate</option></select></label>
+              <label className="block text-xs font-medium text-slate-600">Test / certificate<select value={item.test_name || ""} onChange={(e) => updateQualification(index, "test_name", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"><option value="">Select test</option><option>HSK</option><option>IELTS</option><option>TOEFL</option><option>PTE</option><option>Duolingo English Test</option><option>MOI</option><option>Other</option></select></label>
+              <label className="block text-xs font-medium text-slate-600">Level (e.g. HSK 3)<input value={item.proficiency_level || ""} onChange={(e) => updateQualification(index, "proficiency_level", e.target.value)} placeholder="HSK 3 / B2 / C1" className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
+              <label className="block text-xs font-medium text-slate-600">Numeric score<input type="number" step="0.01" value={item.score_numeric} onChange={(e) => updateQualification(index, "score_numeric", e.target.value)} placeholder="Optional" className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
+              <label className="block text-xs font-medium text-slate-600">Text score / grade<input value={item.score_text || ""} onChange={(e) => updateQualification(index, "score_text", e.target.value)} placeholder="Optional" className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
+              <label className="block text-xs font-medium text-slate-600">Test date<input type="date" value={item.test_date || ""} onChange={(e) => updateQualification(index, "test_date", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
+              <label className="block text-xs font-medium text-slate-600">Expiry date<input type="date" value={item.expiry_date || ""} onChange={(e) => updateQualification(index, "expiry_date", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+/* ============================================================
    PROFILE
 ============================================================ */
 
@@ -233,18 +399,74 @@ const Profile = () => {
     profile,
     updateProfile,
     profileCompletion,
-} = useDashboard();
+  } = useDashboard();
 
-const [formData, setFormData] = useState(
-    profileToFormData(profile)
-);
+  const [formData, setFormData] = useState(() => profileToFormData(profile || {}));
+  const [editing, setEditing] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [profileError, setProfileError] = useState("");
+  const [completionData, setCompletionData] = useState(profileCompletion || { percentage: 0, completed: 0, total: 0, missing_fields: [] });
 
+  const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
+  const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/username`;
 
-  const [editing, setEditing] =
-    useState(false);
+  // The verified JWT identifies the student. Never send a user ID from localStorage.
+  useEffect(() => {
+    let cancelled = false;
 
-  const [saved, setSaved] =
-    useState(false);
+    const loadProfile = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setProfileError("Your session has expired. Please log in again.");
+        setLoadingProfile(false);
+        return;
+      }
+
+      try {
+        setLoadingProfile(true);
+        setProfileError("");
+        const response = await fetch(PROFILE_ENDPOINT, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(body.detail || body.message || "Could not load your profile.");
+        }
+
+        // The profile API should return { profile: <nested profile> } or the profile itself.
+        const serverProfile = body.profile ?? body.data ?? body;
+        if (body.completion) setCompletionData(body.completion);
+        const storedUser = getStoredUser();
+        const normalizedServerProfile = {
+          ...serverProfile,
+          username: serverProfile.username || body.user?.username || storedUser.username || "",
+          personal: {
+            ...serverProfile.personal,
+            name: body.user?.name || storedUser.name || "",
+            email: body.user?.email || storedUser.email || "",
+          },
+
+        };
+        if (!cancelled && normalizedServerProfile && typeof normalizedServerProfile === "object") {
+          updateProfile(normalizedServerProfile);
+          setFormData(profileToFormData(normalizedServerProfile));
+        }
+      } catch (error) {
+        if (!cancelled) setProfileError(error.message || "Could not load your profile.");
+      } finally {
+        if (!cancelled) setLoadingProfile(false);
+      }
+    };
+
+    loadProfile();
+    return () => { cancelled = true; };
+    // Avoid an infinite reload loop if Dashboard recreates updateProfile on each render.
+    // The endpoint is stable, so load once when this component mounts.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [PROFILE_ENDPOINT]);
 
 
 
@@ -285,18 +507,80 @@ const [formData, setFormData] = useState(
      SAVE PROFILE
   ========================================================== */
 
-  const handleSave = () => {
-    const normalizedProfile =
-      formDataToProfile(formData);
+  const handleSave = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setProfileError("Your session has expired. Please log in again.");
+      return;
+    }
 
-    updateProfile(normalizedProfile);
+    try {
+      setSavingProfile(true);
+      setProfileError("");
+      const storedUser = getStoredUser();
+      const nextUsername = (formData.username || "").trim();
+      const currentUsername = (storedUser.username || "").trim();
 
-    setEditing(false);
-    setSaved(true);
+      if (!nextUsername) {
+        throw new Error("Username cannot be empty.");
+      }
+      if (!/^[a-zA-Z0-9._-]{3,30}$/.test(nextUsername)) {
+        throw new Error("Username must be 3–30 characters and may contain letters, numbers, dots, underscores, or hyphens.");
+      }
 
-    setTimeout(() => {
-      setSaved(false);
-    }, 2500);
+      // Username is updated separately from profile details. The backend must
+      // verify the JWT and enforce uniqueness before changing the account.
+      if (nextUsername !== currentUsername) {
+        const usernameResponse = await fetch(PROFILE_ENDPOINT, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username: nextUsername }),
+        });
+        const usernameBody = await usernameResponse.json().catch(() => ({}));
+        if (!usernameResponse.ok) {
+          throw new Error(usernameBody.detail || usernameBody.message || "Could not update username.");
+        }
+        const confirmedUsername = usernameBody.username || usernameBody.user?.username || nextUsername;
+        setStoredUsername(confirmedUsername);
+        setFormData((prev) => ({ ...prev, username: confirmedUsername }));
+      }
+
+      const normalizedProfile = formDataToProfile(formData);
+      const response = await fetch(PROFILE_ENDPOINT, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(normalizedProfile),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(body.detail || body.message || "Could not save your profile.");
+      }
+
+      const savedProfile = body.profile ?? body.data ?? normalizedProfile;
+      if (body.completion) setCompletionData(body.completion);
+      const latestStoredUser = getStoredUser();
+      const confirmedUsername = savedProfile.username || latestStoredUser.username || formData.username;
+      if (confirmedUsername) setStoredUsername(confirmedUsername);
+      const completeSavedProfile = {
+        ...savedProfile,
+        username: confirmedUsername || "",
+      };
+      updateProfile(completeSavedProfile);
+      setFormData(profileToFormData(completeSavedProfile));
+      setEditing(false);
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2500);
+    } catch (error) {
+      setProfileError(error.message || "Could not save your profile.");
+    } finally {
+      setSavingProfile(false);
+    }
   };
 
 
@@ -363,13 +647,22 @@ const [formData, setFormData] = useState(
      LOADING / EMPTY SAFETY
   ========================================================== */
 
+  if (loadingProfile) {
+    return <div className="mx-auto max-w-6xl px-6 py-12 text-sm text-slate-500">Loading your profile…</div>;
+  }
+
   if (!profile) {
-    return null;
+    return <div className="mx-auto max-w-6xl px-6 py-12 text-sm text-slate-500">Your profile is not available yet.</div>;
   }
 
 
   return (
     <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
+      {profileError && (
+        <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {profileError}
+        </div>
+      )}
 
       {/* =====================================================
           PAGE HEADER
@@ -461,8 +754,13 @@ const [formData, setFormData] = useState(
                 <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
 
                   <span>
-                    {profile.personal.email ||
-                      "Email not added"}
+                    @{getStoredUser().username || formData.username || "username-not-set"}
+                  </span>
+
+                  <span className="hidden sm:inline">•</span>
+
+                  <span>
+                    {profile.personal.email || "Email not added"}
                   </span>
 
                   <span className="hidden sm:inline">
@@ -492,7 +790,7 @@ const [formData, setFormData] = useState(
                 </span>
 
                 <span className="text-sm font-bold text-sky-600">
-                  {profileCompletion.percentage}%
+                  {completionData.percentage ?? profileCompletion?.percentage ?? 0}%
                 </span>
 
               </div>
@@ -502,8 +800,8 @@ const [formData, setFormData] = useState(
                 <div
                   className="h-full rounded-full bg-sky-500 transition-all duration-500"
                   style={{
-  width: `${profileCompletion.percentage}%`,
-}}
+                    width: `${completionData.percentage ?? profileCompletion?.percentage ?? 0}%`,
+                  }}
                 />
 
               </div>
@@ -557,12 +855,16 @@ const [formData, setFormData] = useState(
 
         <InfoItem
           icon={UserRound}
+          label="Date of Birth"
+          value={profile.personal.dateOfBirth || "Not specified"}
+        />
+
+        <InfoItem
+          icon={UserRound}
           label="Age"
-          value={
-            profile.personal.age
-              ? `${profile.personal.age} years`
-              : "Not specified"
-          }
+          value={calculateAge(profile.personal.dateOfBirth) !== null
+            ? `${calculateAge(profile.personal.dateOfBirth)} years`
+            : "Not specified"}
         />
       </ProfileSection>
 
@@ -599,6 +901,12 @@ const [formData, setFormData] = useState(
         />
 
         <InfoItem
+          icon={School}
+          label="Institution Name"
+          value={profile.academic.institutionName || "Not specified"}
+        />
+
+        <InfoItem
           icon={Target}
           label="Field of Study"
           value={
@@ -611,44 +919,20 @@ const [formData, setFormData] = useState(
           icon={Award}
           label="Academic Performance"
           value={
-            profile.academic.academicPerformance !==
-              ""
-              ? `${profile.academic.academicPerformance} GPA`
-              : "Not specified"
+            profile.academic.academicPerformance?.gpa != null
+              ? `${profile.academic.academicPerformance.gpa} / ${profile.academic.academicPerformance.scale ?? "?"} GPA`
+              : profile.academic.academicPerformance !== "" && typeof profile.academic.academicPerformance !== "object"
+                ? `${profile.academic.academicPerformance} GPA`
+                : "Not specified"
           }
         />
       </ProfileSection>
 
 
-      {/* =====================================================
-          ENGLISH PROFICIENCY
-      ====================================================== */}
-
-      <ProfileSection
-        icon={Languages}
-        title="English Proficiency"
-        description="Your language proficiency helps ScholarX identify scholarships with compatible language requirements."
-      >
-        <InfoItem
-          icon={Languages}
-          label="English Test"
-          value={
-            profile.english.test ||
-            "Not specified"
-          }
-        />
-
-        <InfoItem
-          icon={Award}
-          label="Score"
-          value={
-            profile.english.score !== ""
-              ? profile.english.score
-              : "Not specified"
-          }
-        />
-      </ProfileSection>
-
+      <LanguageQualificationsPanel
+        apiBaseUrl={API_BASE_URL}
+        onCompletionChange={setCompletionData}
+      />
 
       {/* =====================================================
           STUDY PREFERENCES
@@ -900,6 +1184,7 @@ const [formData, setFormData] = useState(
           updateField={updateField}
           onSave={handleSave}
           onCancel={handleCancel}
+          saving={savingProfile}
         />
       )}
 
@@ -917,6 +1202,7 @@ const ProfileEditModal = ({
   updateField,
   onSave,
   onCancel,
+  saving = false,
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
@@ -963,6 +1249,14 @@ const ProfileEditModal = ({
             >
 
               <InputField
+                label="Username"
+                value={formData.username}
+                placeholder="Choose a unique username"
+                onChange={(value) => updateField("username", value)}
+              />
+              <p className="-mt-3 text-xs text-slate-500">3–30 characters. Letters, numbers, dots, underscores, and hyphens are allowed. Username availability is checked by the server.</p>
+
+              <InputField
                 label="Full Name"
                 value={formData.name}
                 placeholder="Enter your full name"
@@ -994,16 +1288,12 @@ const ProfileEditModal = ({
               />
 
               <InputField
-                label="Age"
-                type="number"
-                min="1"
-                max="100"
-                value={formData.age}
-                placeholder="Your age"
-                onChange={(value) =>
-                  updateField("age", value)
-                }
+                label="Date of Birth"
+                type="date"
+                value={formData.dateOfBirth}
+                onChange={(value) => updateField("dateOfBirth", value)}
               />
+              <p className="-mt-3 text-xs text-slate-500">Your age is calculated automatically from your date of birth for scholarship age requirements.</p>
 
             </EditSection>
 
@@ -1080,49 +1370,14 @@ const ProfileEditModal = ({
                 }
               />
 
-            </EditSection>
-
-
-            {/* =================================================
-                ENGLISH
-            ================================================== */}
-
-            <EditSection
-              title="English Proficiency"
-            >
-
-              <SelectField
-                label="English Test"
-                value={formData.englishTest}
-                onChange={(value) =>
-                  updateField(
-                    "englishTest",
-                    value
-                  )
-                }
-                options={[
-                  "IELTS",
-                  "TOEFL",
-                  "PTE",
-                  "Duolingo",
-                  "MOI",
-                  "Other",
-                ]}
-                placeholder="Select test"
-              />
-
               <InputField
-                label="Score"
+                label="GPA Scale"
                 type="number"
-                step="0.5"
-                value={formData.englishScore}
-                placeholder="e.g. 7.0"
-                onChange={(value) =>
-                  updateField(
-                    "englishScore",
-                    value
-                  )
-                }
+                step="0.01"
+                min="1"
+                value={formData.gpaScale}
+                placeholder="e.g. 4.00 or 5.00"
+                onChange={(value) => updateField("gpaScale", value)}
               />
 
             </EditSection>
@@ -1380,6 +1635,7 @@ const ProfileEditModal = ({
           <button
             type="button"
             onClick={onSave}
+            disabled={saving}
             className="
               rounded-xl bg-sky-500
               px-5 py-2.5
@@ -1389,7 +1645,7 @@ const ProfileEditModal = ({
               hover:bg-sky-600
             "
           >
-            Save Changes
+            {saving ? "Saving…" : "Save Changes"}
           </button>
 
         </div>
