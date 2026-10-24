@@ -89,7 +89,7 @@ const ProgramDetails = () => {
 
                     <div className="absolute -bottom-40 right-10 h-112.5 w-112.5 rounded-full border border-white/10" />
 
-                    <div className="relative mx-auto flex min-h-140 max-w-7xl items-center px-6 pt-40 pb-20">
+                    <div className="relative mx-auto flex min-h-140 max-w-7xl items-center px-3 sm:px-6 pt-40 pb-20">
 
                         <div className="max-w-4xl text-white">
 
@@ -130,7 +130,7 @@ const ProgramDetails = () => {
                             <div className="mt-9 flex flex-wrap gap-4">
 
                                 <NavLink
-                                    to="/eligibility-analysis"
+                                    to="/dashboard/eligibility-analysis"
                                     className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500"
                                 >
                                     <BadgeCheck size={18} />
@@ -1356,7 +1356,7 @@ group-hover:scale-110">
 
                         <div className="mt-9 flex flex-wrap justify-center gap-4">
 
-                            <NavLink to="/eligibility-analysis" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500">
+                            <NavLink to="/dashboard/eligibility-analysis" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500">
                                 <span className="flex items-center gap-2">
                                     <BadgeCheck size={18} />
                                     Check My Eligibility

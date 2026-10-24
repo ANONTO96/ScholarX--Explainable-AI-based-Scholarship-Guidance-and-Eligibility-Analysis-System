@@ -463,27 +463,27 @@ const Navbar = () => {
                 className="dropdown-content menu z-50 mt-3 w-64 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl"
               >
                 {/* User information */}
-            <li className="pointer-events-none mb-1 border-b border-slate-100 px-3 py-3">
-                <span className="block truncate font-semibold text-slate-800">
+                <li className="pointer-events-none mb-1 border-b border-slate-100 px-3 py-3">
+                  <span className="block truncate font-semibold text-slate-800">
                     {user.name || "ScholarX User"}
-                </span>
-                {user.email && (
+                  </span>
+                  {user.email && (
                     <span className="block truncate text-xs text-slate-500">
-                        {user.email}
+                      {user.email}
                     </span>
-                )}
-            </li>
+                  )}
+                </li>
 
                 {/* Dashboard */}
                 <li>
                   <NavLink
-                        to="/dashboard"
-                        onClick={() => setIsOpen(false)}
-                        className="font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-                        
-                      >
-                        Dashboard
-                      </NavLink>
+                    to="/dashboard"
+                    onClick={() => setIsOpen(false)}
+                    className="font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+
+                  >
+                    Dashboard
+                  </NavLink>
                 </li>
 
                 {/* Logout */}
@@ -525,7 +525,7 @@ const Navbar = () => {
     absolute right-0 mt-2 sm:mt-3
     menu
     w-64
-    max-h-[calc(100vh-90px)]
+    max-h-[calc(100vh-350px)]
     flex-nowrap
     overflow-y-auto
     overflow-x-hidden
@@ -540,6 +540,24 @@ const Navbar = () => {
                   }
                 }}
               >
+
+                {user && (
+                  <>
+                    <li>
+                      <NavLink
+                        to="/dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-bold"
+                            : "font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
+                        }
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                  </>
+                )}
 
                 <li><NavLink to="/" className={({ isActive }) =>
                   isActive
@@ -685,42 +703,25 @@ const Navbar = () => {
                         ? "text-sky-600 font-semibold"
                         : "text-gray-700 hover:text-sky-600"
                     }>Contact</NavLink></li>
-
                   </ul>
 
+                  {user && (
+                    <>
+                      <li className="mt-1 border-t border-gray-100 pt-3">
+                        <button
+                          type="button"
+                          onClick={handleLogout}
+                          className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 hover:bg-red-500 hover:text-white"
+                        >
+                          <LogOut size={18} strokeWidth={2} />
+                          <span>Log out</span>
+                        </button>
+                      </li>
+                    </>
+                  )}
                 </li>
-                {user && (
-                  <>
-                    <li>
-                      <NavLink
-                        to="/dashboard"
-                        onClick={() => setIsOpen(false)}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "text-sky-600 font-bold"
-                            : "font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-                        }
-                      >
-                        Dashboard
-                      </NavLink>
-                    </li>
-
-                    <li className="mt-1 border-t border-gray-100 pt-2">
-                      <button
-                        type="button"
-                        onClick={handleLogout}
-                        className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 hover:bg-red-500 hover:text-white"
-                      >
-                        <LogOut size={18} strokeWidth={2} />
-                        <span>Log out</span>
-                      </button>
-                    </li>
-                  </>
-                )}
               </ul>
-
             )}
-
           </div>
         </div>
       </div>

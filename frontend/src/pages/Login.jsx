@@ -28,6 +28,12 @@ const Login = () => {
 
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+    console.log("[LOGIN DEBUG]", {
+        apiBaseUrl: import.meta.env.VITE_API_BASE_URL,
+        endpoint: `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
+        method: "POST",
+    });
+
     // =========================================================
     // FORM CHANGE
     // =========================================================
@@ -84,6 +90,10 @@ const Login = () => {
             }
 
             console.log("Login successful:", data);
+            console.log("[AUTH RESPONSE]", {
+                status: response.status,
+                ok: response.ok,
+            });
 
             localStorage.setItem(
                 "token",
@@ -101,6 +111,7 @@ const Login = () => {
                 "Login failed:",
                 error
             );
+            console.error("[AUTH NETWORK ERROR]", error.message);
         }
     };
 

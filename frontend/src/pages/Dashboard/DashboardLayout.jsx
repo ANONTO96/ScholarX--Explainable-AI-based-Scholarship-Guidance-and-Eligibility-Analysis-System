@@ -14,11 +14,14 @@ import {
   Target,
   UserRound,
   X,
+  ArrowUp,
+  House,
 } from "lucide-react";
 import { NavLink, Outlet } from "react-router";
 import { useState } from "react";
 import { DashboardProvider } from "../../context/Dashboard/DashboardProvider";
 import { useDashboard } from "../../context/Dashboard/useDashboard";
+import ScrollToTop from "../../components/ReusableComp/ScrollToTop";
 
 const DashboardLayout = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -68,7 +71,7 @@ const DashboardLayout = () => {
     },
     {
       label: "Eligibility Analysis",
-      path: "/eligibility-analysis",
+      path: "/dashboard/eligibility-analysis",
       icon: GraduationCap,
     },
   ];
@@ -111,6 +114,7 @@ const DashboardContent = ({
 
   return (
     <div className="min-h-screen bg-[#f5f9fc] text-slate-900">
+      <ScrollToTop></ScrollToTop>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -128,10 +132,9 @@ const DashboardContent = ({
           bg-white
           transition-transform duration-300
           lg:translate-x-0
-          ${
-            sidebarOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
+          ${sidebarOpen
+            ? "translate-x-0"
+            : "-translate-x-full"
           }
         `}
       >
@@ -187,10 +190,9 @@ const DashboardContent = ({
                     rounded-xl px-3 py-3
                     text-sm font-medium
                     transition-all duration-200
-                    ${
-                      isActive
-                        ? "bg-sky-50 text-sky-600 shadow-sm"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ${isActive
+                      ? "bg-sky-50 text-sky-600 shadow-sm"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }
                     `
                   }
@@ -201,10 +203,9 @@ const DashboardContent = ({
                         className={`
                           flex h-9 w-9 items-center justify-center rounded-lg
                           transition
-                          ${
-                            isActive
-                              ? "bg-sky-500 text-white shadow-md shadow-sky-200"
-                              : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
+                          ${isActive
+                            ? "bg-sky-500 text-white shadow-md shadow-sky-200"
+                            : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
                           }
                         `}
                       >
@@ -220,10 +221,9 @@ const DashboardContent = ({
                           className={`
                             rounded-full px-2 py-0.5
                             text-[10px] font-bold
-                            ${
-                              isActive
-                                ? "bg-sky-100 text-sky-600"
-                                : "bg-slate-100 text-slate-500"
+                            ${isActive
+                              ? "bg-sky-100 text-sky-600"
+                              : "bg-slate-100 text-slate-500"
                             }
                           `}
                         >
@@ -279,10 +279,9 @@ const DashboardContent = ({
                     `
                     flex items-center gap-3 rounded-xl px-3 py-3
                     text-sm font-medium transition
-                    ${
-                      isActive
-                        ? "bg-sky-50 text-sky-600"
-                        : "text-slate-600 hover:bg-slate-50"
+                    ${isActive
+                      ? "bg-sky-50 text-sky-600"
+                      : "text-slate-600 hover:bg-slate-50"
                     }
                     `
                   }
@@ -361,10 +360,9 @@ const DashboardContent = ({
                   relative flex h-10 w-10 items-center justify-center
                   rounded-xl border bg-white
                   transition-all duration-200
-                  ${
-                    isNotificationOpen
-                      ? "border-sky-200 bg-sky-50 text-sky-600"
-                      : "border-slate-200 text-slate-500 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600"
+                  ${isNotificationOpen
+                    ? "border-sky-200 bg-sky-50 text-sky-600"
+                    : "border-slate-200 text-slate-500 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600"
                   }
                 `}
               >
@@ -373,8 +371,8 @@ const DashboardContent = ({
                 {notifications.some(
                   (notification) => notification.unread
                 ) && (
-                  <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-sky-500 ring-2 ring-white" />
-                )}
+                    <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-sky-500 ring-2 ring-white" />
+                  )}
               </button>
 
               {isNotificationOpen && (
@@ -399,14 +397,14 @@ const DashboardContent = ({
                     {notifications.some(
                       (notification) => notification.unread
                     ) && (
-                      <button
-                        type="button"
-                        onClick={markAllNotificationsRead}
-                        className="text-xs font-semibold text-sky-500 transition hover:text-sky-600"
-                      >
-                        Mark all read
-                      </button>
-                    )}
+                        <button
+                          type="button"
+                          onClick={markAllNotificationsRead}
+                          className="text-xs font-semibold text-sky-500 transition hover:text-sky-600"
+                        >
+                          Mark all read
+                        </button>
+                      )}
                   </div>
 
                   {/* Notification list */}
@@ -453,10 +451,9 @@ const DashboardContent = ({
                             className={`
                               flex w-full gap-3 border-b border-slate-100
                               px-5 py-4 text-left transition
-                              ${
-                                notification.unread
-                                  ? "bg-sky-50/50 hover:bg-sky-50"
-                                  : "bg-white hover:bg-slate-50"
+                              ${notification.unread
+                                ? "bg-sky-50/50 hover:bg-sky-50"
+                                : "bg-white hover:bg-slate-50"
                               }
                             `}
                           >
@@ -465,10 +462,9 @@ const DashboardContent = ({
                               className={`
                                 flex h-9 w-9 shrink-0 items-center justify-center
                                 rounded-xl
-                                ${
-                                  notification.unread
-                                    ? "bg-sky-100 text-sky-600"
-                                    : "bg-slate-100 text-slate-500"
+                                ${notification.unread
+                                  ? "bg-sky-100 text-sky-600"
+                                  : "bg-slate-100 text-slate-500"
                                 }
                               `}
                             >
@@ -542,10 +538,41 @@ const DashboardContent = ({
         </header>
 
         {/* Page content */}
-        <main className="min-h-[calc(100vh-5rem)] px-4 py-6 sm:px-6 lg:px-8">
+        <main className="min-h-[calc(100vh-5rem)]">
           <Outlet />
         </main>
       </div>
+
+
+      {/* Floating Dashboard Actions */}
+      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-center gap-3 sm:bottom-7 sm:right-7">
+        {/* Scroll to Top */}
+        <button
+          type="button"
+          onClick={() =>
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            })
+          }
+          aria-label="Scroll to top"
+          title="Scroll to top"
+          className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-sky-100 bg-white/95 text-sky-600 shadow-lg shadow-slate-900/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:bg-sky-500 hover:text-white hover:shadow-sky-200/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+        >
+          <ArrowUp className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+        </button>
+
+        {/* Go to Home */}
+        <NavLink
+          to="/"
+          aria-label="Go to ScholarX home"
+          title="Go to home"
+          className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-sky-100 bg-white/95 text-sky-600 shadow-lg shadow-slate-900/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:bg-sky-500 hover:text-white hover:shadow-sky-200/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+        >
+          <House className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+        </NavLink>
+      </div>
+
     </div>
   );
 };

@@ -50,7 +50,6 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       { index: true, Component: Home },
-      { path: "eligibility-analysis", Component: EligibilityAnalysis },
       { path: "learn-more-about-eligibility-analysis", Component: LearnMoreAboutEligibilityAnalysis },
       { path: "learn-more-about-scholarship-search", Component: LearnMoreAboutScholarshipSearch },
       { path: "learn-more-about-whole-process", Component: LearnMoreAboutWholeProcess },
@@ -124,6 +123,11 @@ export const router = createBrowserRouter([
           {
             path: "notifications",
             element: <Notifications></Notifications>
+          },
+
+          {
+            path: "eligibility-analysis",
+            element: <EligibilityAnalysis></EligibilityAnalysis>
           },
           
           {

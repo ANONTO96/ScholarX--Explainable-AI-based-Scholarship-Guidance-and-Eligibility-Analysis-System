@@ -45,7 +45,8 @@ def login_user(email, password):
     payload = {
         "user_id": user["id"],
         "email": user["email"],
-        "role": user["role"]
+        "role": user["role"],
+        "username": user["username"]
     }
 
     token = jwt.encode(
@@ -62,6 +63,7 @@ def login_user(email, password):
             "id": user["id"],
             "name": user["name"],
             "email": user["email"],
-            "role": user["role"]
+            "role": user["role"],
+            "username": user["username"]
         }
     }

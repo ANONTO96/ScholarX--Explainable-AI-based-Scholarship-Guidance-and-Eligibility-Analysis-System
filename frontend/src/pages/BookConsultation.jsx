@@ -121,7 +121,7 @@ export default function BookConsultation() {
           }}
         />
 
-                <div className="relative mx-auto max-w-7xl px-6 pt-40 pb-20 lg:px-8">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-25 pb-20 md:pt-35 lg:pb-25">
                     <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
                         {/* Hero content */}
                         <div>

@@ -1,5 +1,4 @@
 import CTASection from "../components/CTASection";
-import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import Hero from "../components/Hero";
 import PopularDestinations from "../components/PopularDestinantions";
 import RoadmapSection from "../components/RoadmapSection";
@@ -7,6 +6,7 @@ import ScholarshipSearchSection from "../components/ScholarshipSearchSection";
 import StudentStories from "../components/StudentStories";
 import SubMarquee from "../components/SubMarquee";
 import TimelineSection from "../components/TimelineSection";
+import Analyze from "../components/Analyze";
 
 const Home = () => {
     return (
@@ -14,7 +14,7 @@ const Home = () => {
         <Hero></Hero>
         <SubMarquee></SubMarquee>
         <ScholarshipSearchSection></ScholarshipSearchSection>
-        <EligibilityAnalysis></EligibilityAnalysis>
+        <Analyze></Analyze>
         <RoadmapSection></RoadmapSection>
         <TimelineSection></TimelineSection>
         <PopularDestinations></PopularDestinations>
