@@ -20,6 +20,12 @@ const Register = () => {
     const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+    console.log("[REGISTER DEBUG]", {
+        apiBaseUrl: import.meta.env.VITE_API_BASE_URL,
+        endpoint: `${import.meta.env.VITE_API_BASE_URL}/api/auth/register`,
+        method: "POST",
+    });
+
     // =========================================================
     // Google OAuth
     // =========================================================

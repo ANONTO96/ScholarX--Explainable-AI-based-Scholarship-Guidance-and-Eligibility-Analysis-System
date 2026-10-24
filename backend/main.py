@@ -1,16 +1,17 @@
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 load_dotenv()
 
 
 from fastapi import APIRouter, FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from api.auth.router import router as auth_router
 from api.profile import router as profile_router
 from database.connection import get_db_connection
 
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173","https://scholarx-web.vercel.app"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["https://www.myscholarx.com",
+        "https://myscholarx.com","http://localhost:5173","https://scholarx-web.vercel.app"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 home_router = APIRouter(tags=["Health Check"])
 @home_router.get("/")
@@ -51,3 +52,7 @@ app.include_router(home_router)
 app.include_router(auth_router)
 
 app.include_router(profile_router)
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/main
