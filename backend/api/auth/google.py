@@ -15,6 +15,11 @@ from database.queries.auth_queries import (
     get_user_by_email,
     create_user
 )
+from database.queries.oauth_queries import (
+    store_oauth_exchange_code,
+    consume_oauth_exchange_code,
+)
+from database.queries.auth_queries import get_user_by_id
 
 
 JWT_SECRET = os.getenv("JWT_SECRET")
@@ -26,12 +31,8 @@ GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 
 FRONTEND_URL = os.getenv(
-    "FRONTEND_URL",
-    "http://localhost:5173"
+    "FRONTEND_URL"
 )
-
-# Temporary OAuth authorization codes
-GOOGLE_AUTH_CODES = {}
 
 # =========================================================
 # GOOGLE OAUTH LOGIN
@@ -239,18 +240,10 @@ def google_callback(code: str, state: str = None):
     # -----------------------------------------------------
 
     auth_code = secrets.token_urlsafe(48)
-
-    GOOGLE_AUTH_CODES[auth_code] = {
-    "token": token,
-    "user": {
-        "id": user["id"],
-        "name": user["name"],
-        "email": user["email"],
-        "role": user["role"],
-        "username": user["username"]
-    },
-    "expires_at": time.time() + 60
-    }
+    store_oauth_exchange_code(
+    user_id=user["id"],
+    code=auth_code,
+    )
 
     redirect_url = (
         f"{FRONTEND_URL}/oauth/google/callback?"
@@ -263,33 +256,42 @@ def google_callback(code: str, state: str = None):
     )
 
 def exchange_google_code(code: str):
-
     if not code:
-        raise HTTPException(
-            status_code=400,
-            detail="OAuth code is required"
-        )
+        raise HTTPException(status_code=400, detail="Missing exchange code")
 
-    auth_data = GOOGLE_AUTH_CODES.get(code)
+    user_id = consume_oauth_exchange_code(code)
 
-    if not auth_data:
+    if user_id is None:
         raise HTTPException(
             status_code=401,
-            detail="Invalid or expired OAuth code"
+            detail="Invalid, expired, or already-used exchange code",
         )
 
-    # Remove immediately so the code can only be used once
-    del GOOGLE_AUTH_CODES[code]
+    user = get_user_by_id(user_id)
 
-    if time.time() > auth_data["expires_at"]:
-        raise HTTPException(
-            status_code=401,
-            detail="OAuth code has expired"
-        )
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+
+    payload = {
+        "user_id": user["id"],
+        "email": user["email"],
+        "role": user["role"],
+        "username": user["username"],
+    }
+
+    token = jwt.encode(
+        payload,
+        JWT_SECRET,
+        algorithm=JWT_ALGORITHM,
+    )
 
     return {
-        "status": 200,
-        "message": "Google login successful",
-        "token": auth_data["token"],
-         "user": auth_data["user"]
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {
+            "id": user["id"],
+            "email": user["email"],
+            "role": user["role"],
+            "username": user["username"],
+        },
     }
