@@ -274,6 +274,7 @@ def exchange_google_code(code: str):
 
     payload = {
         "user_id": user["id"],
+        "name": user["name"],
         "email": user["email"],
         "role": user["role"],
         "username": user["username"],
@@ -290,6 +291,7 @@ def exchange_google_code(code: str):
         "token_type": "bearer",
         "user": {
             "id": user["id"],
+            "name": user["name"],
             "email": user["email"],
             "role": user["role"],
             "username": user["username"],

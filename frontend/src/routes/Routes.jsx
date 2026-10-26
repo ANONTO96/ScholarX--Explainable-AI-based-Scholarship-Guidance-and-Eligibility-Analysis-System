@@ -43,6 +43,9 @@ import Notifications from "../pages/Dashboard/Notifications";
 import Settings from "../pages/Dashboard/Settings";
 import OAuthGoogleCallback from "../pages/OAuthGoogleCallback";
 
+// Scholarship
+import AllScholarships from "../pages/AllScholarships";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +59,7 @@ export const router = createBrowserRouter([
       { path: "features", Component: Features },
       { path: "countries", Component: AllCountries },
       { path: "/countries/:slug", Component: CountryDetails },
+      { path: "scholarships", Component: AllScholarships },
       { path: ":type", Component: AllPrograms },
       { path: "/programDetails/:slug", Component: ProgramDetails },
       { path: "/universityDetails/:slug", Component: UniversityDetails },
