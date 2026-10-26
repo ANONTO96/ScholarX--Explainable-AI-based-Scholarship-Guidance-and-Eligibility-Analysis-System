@@ -14,12 +14,14 @@ import {
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
+import Loader from "../components/ReusableComp/Loader";
 
 const Login = () => {
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -60,8 +62,13 @@ const Login = () => {
     // EMAIL / PASSWORD LOGIN
     // =========================================================
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (isLoading) return;
+
+        setIsLoading(true);
 
         try {
             const response = await fetch(
@@ -80,12 +87,9 @@ const Login = () => {
 
             const data = await response.json();
 
-            // Backend returns HTTP 200 even on failure,
-            // so check data.status too.
+            // Check both HTTP status and backend status.
             if (!response.ok || data.status !== 200) {
-                console.error(
-                    data.message || "Login failed"
-                );
+                console.error(data.message || "Login failed");
                 return;
             }
 
@@ -95,26 +99,26 @@ const Login = () => {
                 ok: response.ok,
             });
 
-            localStorage.setItem(
-                "token",
-                data.token
-            );
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data.user)
-            );
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
 
             navigate("/");
         } catch (error) {
-            console.error(
-                "Login failed:",
-                error
-            );
+            console.error("Login failed:", error);
             console.error("[AUTH NETWORK ERROR]", error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
+    if (isLoading) {
+        return (
+            <Loader
+                fullScreen
+                message="Signing you in..."
+            />
+        );
+    }
     return (
         <main className="min-h-screen bg-[#f4faff] px-4 py-6 sm:px-6 lg:px-8">
             <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl items-center justify-center">
@@ -565,25 +569,18 @@ const Login = () => {
 
                                 {/* Login button */}
 
+
                                 <button
                                     type="submit"
+                                    disabled={isLoading}
                                     className="
-                                        group
-                                        flex h-13 w-full
-                                        items-center justify-center gap-2
-                                        rounded-xl
-                                        bg-sky-500
-                                        px-5
-                                        text-sm font-bold text-white
-                                        shadow-lg
-                                        shadow-sky-500/20
-                                        transition-all
-                                        duration-200
-                                        hover:bg-sky-600
-                                        hover:shadow-xl
-                                        hover:shadow-sky-500/25
-                                        active:scale-[0.99]
-                                    "
+        group flex h-13 w-full items-center justify-center gap-2
+        rounded-xl bg-sky-500 px-5 text-sm font-bold text-white
+        shadow-lg shadow-sky-500/20 transition-all duration-200
+        hover:bg-sky-600 hover:shadow-xl hover:shadow-sky-500/25
+        active:scale-[0.99] disabled:cursor-not-allowed
+        disabled:opacity-70
+    "
                                 >
                                     Sign in
 
@@ -591,8 +588,8 @@ const Login = () => {
                                         size={18}
                                         className="transition-transform duration-200 group-hover:translate-x-1"
                                     />
-
                                 </button>
+
 
                             </form>
 
