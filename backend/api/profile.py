@@ -291,7 +291,7 @@ def _profile_response(cursor, user_id: int):
     return {"status": "success", "user": user, "profile": profile, "completion": _completion(profile, qualifications)}
 
 
-@router.get("/username")
+@router.get("/me")
 def get_profile(current_user: dict = Depends(get_current_user)):
     connection = _connection()
     cursor = connection.cursor(dictionary=True)
@@ -300,34 +300,17 @@ def get_profile(current_user: dict = Depends(get_current_user)):
         connection.commit()
         return _profile_response(cursor, current_user["user_id"])
     except HTTPException:
+        connection.rollback()
         raise
     except Error:
+        connection.rollback()
         raise HTTPException(status_code=500, detail="Unable to retrieve profile.")
     finally:
         cursor.close()
         connection.close()
 
 
-@router.post("/username")
-def create_profile(current_user: dict = Depends(get_current_user)):
-    connection = _connection()
-    cursor = connection.cursor(dictionary=True)
-    try:
-        _ensure_profile_exists(cursor, current_user["user_id"])
-        connection.commit()
-        return _profile_response(cursor, current_user["user_id"])
-    except HTTPException:
-        connection.rollback()
-        raise
-    except Error:
-        connection.rollback()
-        raise HTTPException(status_code=500, detail="Unable to create profile.")
-    finally:
-        cursor.close()
-        connection.close()
-
-
-@router.put("/username")
+@router.put("/me")
 def save_profile(profile: dict[str, Any], current_user: dict = Depends(get_current_user)):
     connection = _connection()
     cursor = connection.cursor(dictionary=True)
@@ -399,7 +382,7 @@ def save_language_qualifications(data: LanguageQualificationsRequest, current_us
         connection.close()
 
 
-@router.patch("/username")
+@router.patch("/me/username")
 def update_username(data: UsernameUpdateRequest, current_user: dict = Depends(get_current_user)):
     username = data.username.strip()
     if not re.fullmatch(r"[a-zA-Z0-9._-]{3,30}", username):

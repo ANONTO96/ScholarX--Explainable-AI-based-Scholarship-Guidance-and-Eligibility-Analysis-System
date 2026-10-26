@@ -391,3 +391,24 @@ CREATE TABLE student_profiles (
             OR work_experience_months >= 0
         )
 );
+
+
+CREATE TABLE IF NOT EXISTS `oauth_exchange_codes` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `user_id` INT(11) NOT NULL,
+    `code_hash` CHAR(64) NOT NULL,
+    `expires_at` DATETIME NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `code_hash` (`code_hash`),
+    KEY `idx_oauth_exchange_expires` (`expires_at`),
+    KEY `fk_oauth_exchange_user` (`user_id`),
+
+    CONSTRAINT `fk_oauth_exchange_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=latin1
+  COLLATE=latin1_swedish_ci;
