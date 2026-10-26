@@ -409,11 +409,7 @@ const Profile = () => {
   const [profileError, setProfileError] = useState("");
   const [completionData, setCompletionData] = useState(profileCompletion || { percentage: 0, completed: 0, total: 0, missing_fields: [] });
 
-<<<<<<< HEAD
   const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL).replace(/\/$/, "");
-=======
-  const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
->>>>>>> origin/main
   const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/username`;
 
   // The verified JWT identifies the student. Never send a user ID from localStorage.

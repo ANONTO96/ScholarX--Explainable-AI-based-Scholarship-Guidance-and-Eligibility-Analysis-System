@@ -52,7 +52,3 @@ app.include_router(home_router)
 app.include_router(auth_router)
 
 app.include_router(profile_router)
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
