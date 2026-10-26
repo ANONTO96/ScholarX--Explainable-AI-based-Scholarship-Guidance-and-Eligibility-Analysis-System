@@ -1,4 +1,4 @@
-# import mysql.connector 
+import mysql.connector 
 
 # def get_db_connection():
 #     database_config = {
