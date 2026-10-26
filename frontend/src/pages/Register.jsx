@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
+import Loader from "../components/ReusableComp/Loader";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -42,6 +43,11 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [agreeTerms, setAgreeTerms] = useState(false);
+    const [emailError, setEmailError] = useState("");
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [touched, setTouched] = useState({});
+    const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -51,26 +57,134 @@ const Register = () => {
         confirmPassword: "",
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
 
-        setFormData((prev) => ({
+    const passwordRules = [
+        {
+            label: "At least 8 characters",
+            test: (value) => value.length >= 8,
+        },
+        {
+            label: "One uppercase letter (A-Z)",
+            test: (value) => /[A-Z]/.test(value),
+        },
+        {
+            label: "One lowercase letter (a-z)",
+            test: (value) => /[a-z]/.test(value),
+        },
+        {
+            label: "One number (0-9)",
+            test: (value) => /[0-9]/.test(value),
+        },
+        {
+            label: "One symbol (e.g. !@#$%)",
+            test: (value) => /[^A-Za-z0-9]/.test(value),
+        },
+    ];
+
+    const validateField = (name, value, values = formData) => {
+        switch (name) {
+            case "firstName":
+            case "lastName":
+                return value.trim()
+                    ? ""
+                    : "This field is required.";
+
+            case "email":
+                if (!value.trim()) {
+                    return "Email address is required.";
+                }
+
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())) {
+                    return "Enter a valid email address, e.g. you@gmail.com.";
+                }
+
+                return "";
+
+            case "password": {
+                const failedRules = passwordRules
+                    .filter((rule) => !rule.test(value))
+                    .map((rule) => rule.label);
+
+                return failedRules.length
+                    ? `Password needs: ${failedRules.join(", ")}.`
+                    : "";
+            }
+
+            case "confirmPassword":
+                if (!value) {
+                    return "Please confirm your password.";
+                }
+
+                if (value !== values.password) {
+                    return "Passwords do not match.";
+                }
+
+                return "";
+
+            default:
+                return "";
+        }
+    };
+
+    const validationErrors = {
+        firstName: validateField("firstName", formData.firstName),
+        lastName: validateField("lastName", formData.lastName),
+        email: validateField("email", formData.email),
+        password: validateField("password", formData.password),
+        confirmPassword: validateField(
+            "confirmPassword",
+            formData.confirmPassword
+        ),
+    };
+
+    const showError = (field) =>
+        (touched[field] || attemptedSubmit) && validationErrors[field];
+
+
+    const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+
+  if (name === "email") {
+    setEmailError("");
+  }
+};
+
+    const handleBlur = (e) => {
+        const { name } = e.target;
+
+        setTouched((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: true,
         }));
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form data:", formData);
+        setAttemptedSubmit(true);
 
-        if (!agreeTerms) {
+        // Mark all fields as touched so errors are visible.
+        setTouched({
+            firstName: true,
+            lastName: true,
+            email: true,
+            password: true,
+            confirmPassword: true,
+        });
+
+        if (Object.values(validationErrors).some(Boolean) || !agreeTerms) {
             return;
         }
 
-        if (formData.password !== formData.confirmPassword) {
-            return;
-        }
+        if (isLoading) return;
+
+        setIsLoading(true);
 
         try {
             const response = await fetch(
@@ -82,7 +196,7 @@ const Register = () => {
                     },
                     body: JSON.stringify({
                         name: `${formData.firstName} ${formData.lastName}`.trim(),
-                        email: formData.email,
+                        email: formData.email.trim(),
                         password: formData.password,
                     }),
                 }
@@ -90,17 +204,24 @@ const Register = () => {
 
             const data = await response.json();
 
-            if (!response.ok) {
-                console.error(data);
-                return;
-            }
+if (!response.ok) {
+  if (
+    response.status === 409 ||
+    data.code === "EMAIL_ALREADY_REGISTERED"
+  ) {
+    setEmailError("This email is already registered.");
+    return;
+  }
+
+  console.error(data.message || "Registration failed.");
+  return;
+}
 
             console.log("Registration successful:", data);
 
-            localStorage.setItem(
-                "token",
-                data.token
-            );
+            if (data.token) {
+                localStorage.setItem("token", data.token);
+            }
 
             if (data.user) {
                 localStorage.setItem(
@@ -111,12 +232,21 @@ const Register = () => {
 
             navigate("/");
         } catch (error) {
-            console.error(
-                "Registration failed:",
-                error
-            );
+            console.error("Registration failed:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
+
+
+    if (isLoading) {
+        return (
+            <Loader
+                fullScreen
+                message="Creating your ScholarX account..."
+            />
+        );
+    }
 
     return (
         <main className="min-h-screen bg-[#f4faff] px-4 py-6 sm:px-6 lg:px-8">
@@ -220,6 +350,7 @@ const Register = () => {
                                                 name="firstName"
                                                 value={formData.firstName}
                                                 onChange={handleChange}
+                                                onBlur={handleBlur}
                                                 required
                                                 autoComplete="given-name"
                                                 className="
@@ -239,6 +370,11 @@ const Register = () => {
                                                 "
                                             />
                                         </div>
+                                        {showError("firstName") && (
+                                            <p className="mt-1.5 text-xs font-medium text-red-600" role="alert">
+                                                {validationErrors.firstName}
+                                            </p>
+                                        )}
                                     </div>
 
                                     {/* Last name */}
@@ -268,6 +404,7 @@ const Register = () => {
                                                 name="lastName"
                                                 value={formData.lastName}
                                                 onChange={handleChange}
+                                                onBlur={handleBlur}
                                                 required
                                                 autoComplete="family-name"
                                                 className="
@@ -287,6 +424,11 @@ const Register = () => {
                                                 "
                                             />
                                         </div>
+                                        {showError("lastName") && (
+                                            <p className="mt-1.5 text-xs font-medium text-red-600" role="alert">
+                                                {validationErrors.lastName}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -317,6 +459,7 @@ const Register = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
                                             placeholder="you@example.com"
                                             required
                                             autoComplete="email"
@@ -337,6 +480,20 @@ const Register = () => {
                                             "
                                         />
                                     </div>
+                                    {showError("email") && (
+                                        <p className="mt-1.5 text-xs font-medium text-red-600" role="alert">
+                                            {validationErrors.email}
+                                        </p>
+                                    )}
+
+                                    {emailError && (
+  <p
+    className="mt-1.5 text-xs font-medium text-red-600"
+    role="alert"
+  >
+    {emailError}
+  </p>
+)}
                                 </div>
 
                                 {/* Password */}
@@ -370,6 +527,7 @@ const Register = () => {
                                             name="password"
                                             value={formData.password}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
                                             placeholder="Create a password"
                                             required
                                             minLength={6}
@@ -422,6 +580,11 @@ const Register = () => {
                                             )}
                                         </button>
                                     </div>
+                                    {showError("password") && (
+                                        <p className="mt-1.5 text-xs leading-5 font-medium text-red-600" role="alert">
+                                            {validationErrors.password}
+                                        </p>
+                                    )}
                                 </div>
 
                                 {/* Confirm password */}
@@ -457,6 +620,7 @@ const Register = () => {
                                                 formData.confirmPassword
                                             }
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
                                             placeholder="Confirm your password"
                                             required
                                             autoComplete="new-password"
@@ -508,6 +672,11 @@ const Register = () => {
                                             )}
                                         </button>
                                     </div>
+                                    {showError("confirmPassword") && (
+                                        <p className="mt-1.5 text-xs font-medium text-red-600" role="alert">
+                                            {validationErrors.confirmPassword}
+                                        </p>
+                                    )}
                                 </div>
 
                                 {/* Terms */}
@@ -550,36 +719,33 @@ const Register = () => {
                                             .
                                         </span>
                                     </label>
+                                    {attemptedSubmit && !agreeTerms && (
+    <p className="mt-2 text-xs font-medium text-red-600" role="alert">
+        Please accept the Terms of Service and Privacy Policy to continue.
+    </p>
+)}
                                 </div>
 
                                 {/* Register button */}
                                 <button
-                                    type="submit"
-                                    className="
-                                        group mt-1
-                                        flex h-13 w-full
-                                        items-center justify-center gap-2
-                                        rounded-xl
-                                        bg-sky-500
-                                        px-5
-                                        text-sm font-bold text-white
-                                        shadow-lg
-                                        shadow-sky-500/20
-                                        transition-all
-                                        duration-200
-                                        hover:bg-sky-600
-                                        hover:shadow-xl
-                                        hover:shadow-sky-500/25
-                                        active:scale-[0.99]
-                                    "
-                                >
-                                    Create account
+    type="submit"
+    disabled={isLoading}
+    className="
+        group mt-1 flex h-13 w-full items-center justify-center gap-2
+        rounded-xl bg-sky-500 px-5 text-sm font-bold text-white
+        shadow-lg shadow-sky-500/20 transition-all duration-200
+        hover:bg-sky-600 hover:shadow-xl hover:shadow-sky-500/25
+        active:scale-[0.99] disabled:cursor-not-allowed
+        disabled:opacity-70
+    "
+>
+    Create account
 
-                                    <ArrowRight
-                                        size={18}
-                                        className="transition-transform duration-200 group-hover:translate-x-1"
-                                    />
-                                </button>
+    <ArrowRight
+        size={18}
+        className="transition-transform duration-200 group-hover:translate-x-1"
+    />
+</button>
                             </form>
 
                             {/* Divider */}

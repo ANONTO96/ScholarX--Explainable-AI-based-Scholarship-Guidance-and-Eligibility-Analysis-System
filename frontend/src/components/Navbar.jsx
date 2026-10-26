@@ -409,33 +409,47 @@ const Navbar = () => {
         {/* user actions */}
         <div className="flex items-center gap-2">
 
-          {!user && (
-            <>
-              <NavLink to="/login"
-                className="px-2 py-1 md:px-3 lg:py-2 shrink-0 text-lg rounded-xl
-               bg-gray-100 text-black
-               border border-[#3A2C2C]
-               shadow-[2px_3px_0px_0px_#3A2C2C]
-               transition-all duration-200
-               hover:translate-y-0.5
-               hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
-              >
-                Log in
-              </NavLink>
+          
+{!user && (
+  <>
+    <NavLink
+      to="/logIn"
+      className="
+        shrink-0 whitespace-nowrap rounded-lg
+        border border-[#3A2C2C]
+        bg-gray-100 text-black
+        px-2 py-1 text-sm
+        shadow-[1px_2px_0px_0px_#3A2C2C]
+        transition-all duration-200
+        hover:translate-y-0.5
+        hover:shadow-[1px_1px_0px_0px_#3A2C2C]
+        sm:rounded-xl sm:px-3 sm:py-1.5 sm:text-base
+        lg:py-2
+      "
+    >
+      Log in
+    </NavLink>
 
-              <NavLink to="/signup"
-                className="px-2 py-1 md:px-3 lg:py-2 shrink-0 text-lg rounded-xl
-               bg-[#DCEEFF] text-black
-               border border-[#3A2C2C]
-               shadow-[2px_3px_0px_0px_#3A2C2C]
-               transition-all duration-200
-               hover:translate-y-0.5
-               hover:shadow-[1px_2px_0px_0px_#3A2C2C]"
-              >
-                Sign up
-              </NavLink>
-            </>
-          )}
+    <NavLink
+      to="/register"
+      className="
+        shrink-0 whitespace-nowrap rounded-lg
+        border border-[#3A2C2C]
+        bg-[#DCEEFF] text-black
+        px-2 py-1 text-sm
+        shadow-[1px_2px_0px_0px_#3A2C2C]
+        transition-all duration-200
+        hover:translate-y-0.5
+        hover:shadow-[1px_1px_0px_0px_#3A2C2C]
+        sm:rounded-xl sm:px-3 sm:py-1.5 sm:text-base
+        lg:py-2
+      "
+    >
+      Sign up
+    </NavLink>
+  </>
+)}
+
 
           {/* Desktop profile dropdown */}
           {user && (
