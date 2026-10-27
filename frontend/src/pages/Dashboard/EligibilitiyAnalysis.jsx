@@ -14,7 +14,27 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router";
 import { useMemo, useState } from "react";
-import { useDashboard } from "../context/Dashboard/useDashboard";
+import { useDashboard } from "../../context/Dashboard/useDashboard";
+
+/* ========================================================= */
+/* HELPERS                                           */
+/* ========================================================= */
+
+function formatProfileNumber(value, decimals) {
+    if (
+        value === null ||
+        value === undefined ||
+        (typeof value === "string" && value.trim() === "")
+    ) {
+        return "Not specified";
+    }
+
+    const number = Number(value);
+
+    return Number.isFinite(number)
+        ? number.toFixed(decimals)
+        : "Not specified";
+}
 
 
 /* ========================================================= */
@@ -92,15 +112,14 @@ function RequirementCategoryBadge({
 }) {
     return (
         <span
-            className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                category ===
+            className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${category ===
                 "mandatory"
-                    ? "bg-sky-50 text-sky-600"
-                    : "bg-violet-50 text-violet-600"
-            }`}
+                ? "bg-sky-50 text-sky-600"
+                : "bg-violet-50 text-violet-600"
+                }`}
         >
             {category ===
-            "mandatory"
+                "mandatory"
                 ? "Mandatory"
                 : "Preferred"}
         </span>
@@ -121,9 +140,9 @@ function OpportunityCard({
 
     const config =
         statusConfig[
-            opportunity
-                .analysis
-                .status
+        opportunity
+            .analysis
+            .status
         ];
 
 
@@ -238,41 +257,32 @@ function OpportunityCard({
 
                     {/* Result */}
 
+
                     <div className="flex items-center gap-4 lg:flex-col lg:items-end">
-
-                        <div
-                            className={`flex h-14 w-14 items-center justify-center rounded-full border-4 ${config.badge}`}
-                        >
-
-                            <span
-                                className={`text-sm font-black ${config.score}`}
+                        <div className="flex flex-col items-center gap-1.5">
+                            <div
+                                className={`flex h-14 w-14 items-center justify-center rounded-full border-4 ${config.badge}`}
                             >
-                                {
-                                    opportunity
-                                        .analysis
-                                        .score
-                                }
-                                %
+                                <span className={`text-sm font-black ${config.score}`}>
+                                    {Number.isFinite(Number(opportunity.analysis.score))
+                                        ? Number(opportunity.analysis.score)
+                                        : 0}%
+                                </span>
+                            </div>
+
+                            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                                Fit Score
                             </span>
-
                         </div>
-
 
                         <div
                             className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold ${config.badge}`}
                         >
-
-                            <StatusIcon
-                                size={14}
-                            />
-
-                            {
-                                config.label
-                            }
-
+                            <StatusIcon size={14} />
+                            {config.label}
                         </div>
-
                     </div>
+
 
                 </div>
 
@@ -456,11 +466,10 @@ function OpportunityCard({
 
                     <ChevronDown
                         size={18}
-                        className={`transition-transform ${
-                            open
-                                ? "rotate-180"
-                                : ""
-                        }`}
+                        className={`transition-transform ${open
+                            ? "rotate-180"
+                            : ""
+                            }`}
                     />
 
                 </button>
@@ -553,15 +562,14 @@ function OpportunityCard({
                                                 {/* Status icon */}
 
                                                 <div
-                                                    className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                                                        passed
-                                                            ? "bg-emerald-50 text-emerald-600"
-                                                            : failed
-                                                                ? "bg-rose-50 text-rose-600"
-                                                                : review
-                                                                    ? "bg-amber-50 text-amber-600"
-                                                                    : "bg-amber-50 text-amber-600"
-                                                    }`}
+                                                    className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${passed
+                                                        ? "bg-emerald-50 text-emerald-600"
+                                                        : failed
+                                                            ? "bg-rose-50 text-rose-600"
+                                                            : review
+                                                                ? "bg-amber-50 text-amber-600"
+                                                                : "bg-amber-50 text-amber-600"
+                                                        }`}
                                                 >
 
                                                     {passed ? (
@@ -601,13 +609,12 @@ function OpportunityCard({
 
 
                                                         <span
-                                                            className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                                                                passed
-                                                                    ? "bg-emerald-50 text-emerald-600"
-                                                                    : failed
-                                                                        ? "bg-rose-50 text-rose-600"
-                                                                        : "bg-amber-50 text-amber-600"
-                                                            }`}
+                                                            className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${passed
+                                                                ? "bg-emerald-50 text-emerald-600"
+                                                                : failed
+                                                                    ? "bg-rose-50 text-rose-600"
+                                                                    : "bg-amber-50 text-amber-600"
+                                                                }`}
                                                         >
                                                             {
                                                                 statusLabel
@@ -664,9 +671,16 @@ function OpportunityCard({
                                 </p>
 
 
+
                                 <p className="mt-1 text-xs leading-5 text-slate-600">
-                                    Mandatory eligibility criteria account for 70% of the fit score and determine whether you can qualify. Preferred criteria account for 30% and measure how competitive your profile is. Missing a preferred criterion does not automatically make you ineligible.
+                                    The Scholarship Fit Score summarizes how closely your profile
+                                    aligns with the opportunity's configured requirements. Mandatory
+                                    criteria help determine eligibility, while preferred criteria
+                                    provide additional information about your profile fit. Missing
+                                    information may require verification. This score is not a
+                                    probability of receiving a scholarship or a guarantee of an award.
                                 </p>
+
 
                             </div>
 
@@ -727,6 +741,7 @@ export default function EligibilityAnalysis() {
     // This page only manages its local filter and presentation state.
     const {
         profile,
+        profileReadiness,
         eligibilityOpportunities: analyzedOpportunities,
         matchStats,
     } = useDashboard();
@@ -872,7 +887,9 @@ export default function EligibilityAnalysis() {
 
 
                                     <h2 className="text-xl font-black">
-                                        Computer Science Student
+                                        {profile?.academic?.fieldOfStudy
+                                            ? `${profile.academic.fieldOfStudy} Student`
+                                            : "Student Profile"}
                                     </h2>
 
                                 </div>
@@ -883,59 +900,40 @@ export default function EligibilityAnalysis() {
                             <div className="mt-5 flex flex-wrap gap-2">
 
                                 {[
-    `GPA ${
-        Number.isFinite(
-            Number(
-                profile?.academic
-                    ?.academicPerformance
-            )
-        )
-            ? Number(
-                  profile.academic
-                      .academicPerformance
-              ).toFixed(2)
-            : "Not specified"
-    }`,
+                                    `GPA ${formatProfileNumber(
+                                        profile?.academic?.academicPerformance,
+                                        2
+                                    )}`,
 
-    profile?.academic?.studyLevel ||
-        "Study level not specified",
+                                    profile?.academic?.studyLevel ||
+                                    "Study level not specified",
 
-    profile?.academic?.fieldOfStudy ||
-        "Field not specified",
+                                    profile?.academic?.fieldOfStudy ||
+                                    "Field not specified",
 
-    profile?.preferences?.studyDestination ||
-        "Destination not specified",
+                                    profile?.preferences?.studyDestination ||
+                                    "Destination not specified",
 
-    `${
-        profile?.english?.test ||
-        "English"
-    } ${
-        Number.isFinite(
-            Number(
-                profile?.english?.score
-            )
-        )
-            ? Number(
-                  profile.english.score
-              ).toFixed(1)
-            : "N/A"
-    }`,
+                                    `${profile?.english?.test || "English"} ${formatProfileNumber(
+                                        profile?.english?.score,
+                                        1
+                                    )
+                                    }`,
 
-    profile?.personal?.nationality ||
-        "Nationality not specified",
+                                    profile?.personal?.nationality ||
+                                    "Nationality not specified",
 
-    `Age ${
-        profile?.personal?.age ??
-        "N/A"
-    }`,
-].map((item) => (
-    <span
-        key={item}
-        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 transition-all hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg"
-    >
-        {item}
-    </span>
-))}
+                                    `Age ${profile?.personal?.age ??
+                                    "N/A"
+                                    }`,
+                                ].map((item) => (
+                                    <span
+                                        key={item}
+                                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 transition-all hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg"
+                                    >
+                                        {item}
+                                    </span>
+                                ))}
 
                             </div>
 
@@ -966,6 +964,72 @@ export default function EligibilityAnalysis() {
 
             </section>
 
+            {profileReadiness?.isReady ? (
+                <>
+                </>
+            ) : (
+                <section className="mx-auto max-w-7xl px-3 py-16 sm:px-6 lg:px-8">
+                    <div className="overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-xl">
+                        <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
+
+                        <div className="px-5 py-12 text-center sm:px-10 sm:py-16">
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
+                                <Target size={30} />
+                            </div>
+
+                            <h2 className="mt-5 text-2xl font-black tracking-tight text-slate-950">
+                                Complete Your Profile to Analyze Scholarships
+                            </h2>
+
+                            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-500">
+                                We need a few more details about your academic
+                                background, English proficiency, nationality,
+                                study destination, and budget before we can
+                                evaluate scholarship requirements meaningfully.
+                            </p>
+
+                            <div className="mx-auto mt-7 max-w-md rounded-2xl bg-slate-50 p-5 text-left">
+                                <div className="flex items-center justify-between gap-3">
+                                    <span className="text-sm font-bold text-slate-700">
+                                        Analysis readiness
+                                    </span>
+
+                                    <span className="text-sm font-black text-sky-600">
+                                        {profileReadiness?.completed ?? 0}/
+                                        {profileReadiness?.total ?? 10}
+                                    </span>
+                                </div>
+
+                                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+                                    <div
+                                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-600 transition-all duration-500"
+                                        style={{
+                                            width: `${profileReadiness?.percentage ?? 0}%`,
+                                        }}
+                                    />
+                                </div>
+
+                                <p className="mt-2 text-xs text-slate-500">
+                                    {profileReadiness?.percentage ?? 0}% of required analysis information completed
+                                </p>
+                            </div>
+
+                            <NavLink
+                                to="/dashboard/profile"
+                                className="mt-7 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-6 py-3 text-sm font-bold text-white shadow-sm shadow-sky-200 transition hover:bg-sky-600"
+                            >
+                                Complete My Profile
+                                <ArrowRight size={17} />
+                            </NavLink>
+
+                            <p className="mt-4 text-xs text-slate-400">
+                                Your name and email are not required for scholarship eligibility analysis.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            )}
+
 
             {/* ===================================================== */}
             {/* RESULT SUMMARY                                         */}
@@ -984,12 +1048,11 @@ export default function EligibilityAnalysis() {
                                 "strong"
                             )
                         }
-                        className={`rounded-2xl border p-5 text-left transition-all hover:-translate-y-1.5 hover:shadow-xl ${
-                            activeFilter ===
+                        className={`rounded-2xl border p-5 text-left transition-all hover:-translate-y-1.5 hover:shadow-xl ${activeFilter ===
                             "strong"
-                                ? "border-emerald-300 bg-emerald-50 shadow-lg"
-                                : "border-slate-200 bg-white hover:border-emerald-200 hover:shadow-lg"
-                        }`}
+                            ? "border-emerald-300 bg-emerald-50 shadow-lg"
+                            : "border-slate-200 bg-white hover:border-emerald-200 hover:shadow-lg"
+                            }`}
                     >
 
                         <div className="flex items-center justify-between">
@@ -1033,12 +1096,11 @@ export default function EligibilityAnalysis() {
                                 "review"
                             )
                         }
-                        className={`rounded-2xl border p-5 text-left transition-all hover:-translate-y-1.5 hover:shadow-xl ${
-                            activeFilter ===
+                        className={`rounded-2xl border p-5 text-left transition-all hover:-translate-y-1.5 hover:shadow-xl ${activeFilter ===
                             "review"
-                                ? "border-amber-300 bg-amber-50 shadow-lg"
-                                : "border-slate-200 bg-white hover:border-amber-200 hover:shadow-lg"
-                        }`}
+                            ? "border-amber-300 bg-amber-50 shadow-lg"
+                            : "border-slate-200 bg-white hover:border-amber-200 hover:shadow-lg"
+                            }`}
                     >
 
                         <div className="flex items-center justify-between">
@@ -1082,12 +1144,11 @@ export default function EligibilityAnalysis() {
                                 "not-eligible"
                             )
                         }
-                        className={`rounded-2xl border p-5 text-left transition-all hover:-translate-y-1.5 hover:shadow-xl ${
-                            activeFilter ===
+                        className={`rounded-2xl border p-5 text-left transition-all hover:-translate-y-1.5 hover:shadow-xl ${activeFilter ===
                             "not-eligible"
-                                ? "border-rose-300 bg-rose-50 shadow-lg"
-                                : "border-slate-200 bg-white hover:border-rose-200 hover:shadow-lg"
-                        }`}
+                            ? "border-rose-300 bg-rose-50 shadow-lg"
+                            : "border-slate-200 bg-white hover:border-rose-200 hover:shadow-lg"
+                            }`}
                     >
 
                         <div className="flex items-center justify-between">
@@ -1166,12 +1227,11 @@ export default function EligibilityAnalysis() {
                                 "all"
                             )
                         }
-                        className={`inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-bold transition ${
-                            activeFilter ===
+                        className={`inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-bold transition ${activeFilter ===
                             "all"
-                                ? "border-sky-200 bg-sky-50 text-sky-600"
-                                : "border-slate-200 bg-white text-slate-600 hover:border-sky-200"
-                        }`}
+                            ? "border-sky-200 bg-sky-50 text-sky-600"
+                            : "border-slate-200 bg-white text-slate-600 hover:border-sky-200"
+                            }`}
                     >
 
                         <Award
@@ -1188,7 +1248,7 @@ export default function EligibilityAnalysis() {
                 <div className="mt-10 space-y-5">
 
                     {filteredOpportunities.length >
-                    0 ? (
+                        0 ? (
 
                         filteredOpportunities.map(
                             (
