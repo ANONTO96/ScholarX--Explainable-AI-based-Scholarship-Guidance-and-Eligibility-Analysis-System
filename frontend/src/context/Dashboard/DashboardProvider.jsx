@@ -129,6 +129,23 @@ const saveStoredSettings = (settings) => {
     }
 };
 
+// =========================
+// Helpers
+// =========================
+
+const hasValue = (value) =>
+    value !== null &&
+    value !== undefined &&
+    (typeof value !== "string" || value.trim() !== "");
+
+const hasFiniteNumber = (value) => {
+    if (!hasValue(value)) return false;
+
+    const number = Number(value);
+
+    return Number.isFinite(number);
+};
+
 
 export const DashboardProvider = ({ children }) => {
     const [currentTime, setCurrentTime] = useState(() =>
@@ -247,54 +264,64 @@ export const DashboardProvider = ({ children }) => {
         return calculateProfileCompletion(profile);
     }, [profile]);
 
-    const profileReadiness = useMemo(() => {
-        const checks = [
-            Boolean(profile.personal?.name),
-            Boolean(profile.personal?.email),
-            Boolean(profile.personal?.nationality),
-            Boolean(profile.personal?.age),
+    
+const profileReadiness = useMemo(() => {
+    // These fields are relevant to scholarship comparison.
+    // Name and email remain part of profile completion,
+    // but they do not block eligibility analysis.
+    const checks = [
+        hasValue(profile?.personal?.nationality),
+        hasFiniteNumber(profile?.personal?.age),
 
-            Boolean(profile.academic?.studyLevel),
-            Boolean(profile.academic?.completedDegrees?.length),
-            Boolean(profile.academic?.fieldOfStudy),
-            profile.academic?.academicPerformance !== undefined,
+        hasValue(profile?.academic?.studyLevel),
+        Boolean(profile?.academic?.completedDegrees?.length),
+        hasValue(profile?.academic?.fieldOfStudy),
+        hasFiniteNumber(
+            profile?.academic?.academicPerformance
+        ),
 
-            Boolean(profile.english?.test),
-            profile.english?.score !== undefined,
+        hasValue(profile?.english?.test),
+        hasFiniteNumber(profile?.english?.score),
 
-            Boolean(profile.preferences?.studyDestination),
-            profile.preferences?.annualBudget?.amount !== undefined,
-        ];
+        hasValue(profile?.preferences?.studyDestination),
+        hasFiniteNumber(
+            profile?.preferences?.annualBudget?.amount
+        ),
+    ];
 
-        const completed = checks.filter(Boolean).length;
-        const total = checks.length;
+    const completed = checks.filter(Boolean).length;
+    const total = checks.length;
+
+    return {
+        completed,
+        total,
+        percentage: Math.round((completed / total) * 100),
+        isReady: checks.every(Boolean),
+    };
+}, [profile]);
+
+
+    // =========================
+// Matches & Eligibility
+// =========================
+
+const matches = useMemo(() => {
+    if (!profileReadiness.isReady) {
+        return [];
+    }
+
+    return opportunities.map((opportunity) => {
+        const evaluated = analyzeOpportunity(
+            opportunity,
+            profile
+        );
 
         return {
-            completed,
-            total,
-            percentage: Math.round(
-                (completed / total) * 100
-            ),
+            opportunity,
+            analysis: evaluated.analysis,
         };
-    }, [profile]);
-
-    // =========================
-    // Matches
-    // =========================
-
-    const matches = useMemo(() => {
-        return (opportunities || []).map((opportunity) => {
-            const evaluated = analyzeOpportunity(
-                opportunity,
-                profile
-            );
-
-            return {
-                opportunity,
-                analysis: evaluated.analysis,
-            };
-        });
-    }, [profile]);
+    });
+}, [profile, profileReadiness.isReady]);
 
     // Full eligibility-analysis records shared by both dashboard pages.
     // Matches keeps its existing { opportunity, analysis } shape; this

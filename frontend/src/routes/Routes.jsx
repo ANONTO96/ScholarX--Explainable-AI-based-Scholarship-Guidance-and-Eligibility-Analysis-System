@@ -21,7 +21,7 @@ import GeneralSupportFAQ from "../pages/GeneralSupportFAQ";
 import BookConsultation from "../pages/BookConsultation";
 import ReportIssue from "../pages/ReportIssues";
 import LearnMoreAboutScholarshipSearch from "../pages/LearnMoreAboutScholarshipSearch";
-import EligibilityAnalysis from "../pages/EligibilitiyAnalysis";
+import EligibilityAnalysis from "../pages/Dashboard/EligibilitiyAnalysis";
 import LearnMoreAboutEligibilityAnalysis from "../pages/LearnMoreAboutEligibilityAnalysis";
 import LearnMoreAboutWholeProcess from "../pages/LearnMoreAboutWholeProcess";
 import AboutUs from "../pages/AboutUs";

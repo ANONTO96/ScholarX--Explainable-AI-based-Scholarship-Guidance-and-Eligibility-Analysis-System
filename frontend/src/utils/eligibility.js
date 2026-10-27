@@ -3,6 +3,7 @@
 /* ========================================================= */
 
 function normalizeStudentProfile(profile = {}) {
+    profile = profile ?? {};
     return {
         // =========================================
         // PERSONAL
@@ -58,34 +59,34 @@ function normalizeStudentProfile(profile = {}) {
             profile.experience?.achievements ?? [],
 
         leadershipExperience:
-            profile.experience?.leadershipExperience ?? false,
+            profile.experience?.leadershipExperience ?? null,
 
         communityService:
-            profile.experience?.communityService ?? false,
+            profile.experience?.communityService ?? null,
 
         researchExperience:
-            profile.experience?.researchExperience ?? false,
+            profile.experience?.researchExperience ?? null,
 
         // =========================================
         // ADDITIONAL
         // =========================================
         internationalStudent:
-            profile.additional?.internationalStudent ?? false,
+            profile.additional?.internationalStudent ?? null,
 
         isStudent:
-            profile.additional?.isStudent ?? false,
+            profile.additional?.isStudent ?? null,
 
         partnerUniversities:
             profile.additional?.partnerUniversities ?? [],
 
         gdscMember:
-            profile.additional?.gdscMember ?? false,
+            profile.additional?.gdscMember ?? null,
 
         innovationProjects:
             profile.additional?.innovationProjects ?? [],
 
         universityTeam:
-            profile.additional?.universityTeam ?? false,
+            profile.additional?.universityTeam ?? null,
     };
 }
 
@@ -298,6 +299,25 @@ function createReviewResult({
 /* NUMERIC HELPER                                            */
 /* ========================================================= */
 
+function hasNumericValue(value) {
+    if (
+        value === null ||
+        value === undefined ||
+        typeof value === "boolean"
+    ) {
+        return false;
+    }
+
+    if (
+        typeof value === "string" &&
+        value.trim() === ""
+    ) {
+        return false;
+    }
+
+    return Number.isFinite(Number(value));
+}
+
 function getNumber(rule, keys) {
     for (const key of keys) {
         const value =
@@ -444,6 +464,16 @@ function evaluateNationality(
             studentProfile.nationality
         );
 
+        if (!studentNationality) {
+        return createReviewResult({
+            key: "nationality",
+            requirement,
+            category,
+            detail:
+                "Your nationality is missing. Complete your personal profile to verify nationality eligibility.",
+        });
+    }
+
     const matched =
         countries.includes(
             studentNationality
@@ -482,9 +512,21 @@ function evaluateInternationalStudent(
     category,
     studentProfile
 ) {
+        if (
+        typeof studentProfile.internationalStudent !==
+        "boolean"
+    ) {
+        return createReviewResult({
+            key: "internationalStudent",
+            requirement,
+            category,
+            detail:
+                "Your international student status is missing. Complete your profile to verify this requirement.",
+        });
+    }
+
     const matched =
-        studentProfile.internationalStudent ===
-        true;
+        studentProfile.internationalStudent === true;
 
     return createResult({
         type: matched
@@ -537,6 +579,16 @@ function evaluateStudyLevel(
         normalize(
             studentProfile.studyLevel
         );
+
+        if (!currentLevel) {
+        return createReviewResult({
+            key: "studyLevel",
+            requirement,
+            category,
+            detail:
+                "Your current study level is missing. Complete your academic profile to verify eligibility.",
+        });
+    }
 
     const matched =
         allowedLevels.includes(
@@ -601,6 +653,16 @@ function evaluateFieldOfStudy(
         normalize(
             studentProfile.fieldOfStudy
         );
+
+        if (!currentField) {
+        return createReviewResult({
+            key: "fieldOfStudy",
+            requirement,
+            category,
+            detail:
+                "Your field of study is missing. Complete your academic profile to verify this requirement.",
+        });
+    }
 
     if (
         allowedFields.includes(
@@ -710,24 +772,20 @@ function evaluateAcademicPerformance(
     category,
     studentProfile
 ) {
-    const studentGPA =
-        Number(
-            studentProfile.academicPerformance
-        );
+        const rawGPA =
+        studentProfile.academicPerformance;
 
-    if (
-        !Number.isFinite(
-            studentGPA
-        )
-    ) {
+    if (!hasNumericValue(rawGPA)) {
         return createReviewResult({
             key: "academicPerformance",
             requirement,
             category,
             detail:
-                "Your CGPA is not available in a valid numeric format.",
+                "Your CGPA is missing or invalid. Complete your academic profile to evaluate this requirement.",
         });
     }
+
+    const studentGPA = Number(rawGPA);
 
     const minimum =
         getNumber(
@@ -796,18 +854,12 @@ function evaluateEnglish(
                 ?.test
         );
 
-    const studentScore =
-        Number(
-            studentProfile
-                .english
-                ?.score
-        );
+        const rawScore =
+        studentProfile.english?.score;
 
     if (
         !studentTest ||
-        !Number.isFinite(
-            studentScore
-        )
+        !hasNumericValue(rawScore)
     ) {
         return createReviewResult({
             key: "english",
@@ -817,6 +869,8 @@ function evaluateEnglish(
                 "Your English test type or score is missing or invalid.",
         });
     }
+
+    const studentScore = Number(rawScore);
 
     const minimum =
         getNumber(
@@ -902,22 +956,19 @@ function evaluateAge(
     category,
     studentProfile
 ) {
-    const age =
-        Number(
-            studentProfile.age
-        );
+        const rawAge = studentProfile.age;
 
-    if (
-        !Number.isFinite(age)
-    ) {
+    if (!hasNumericValue(rawAge)) {
         return createReviewResult({
             key: "age",
             requirement,
             category,
             detail:
-                "Your age is not available in a valid numeric format.",
+                "Your age is missing or invalid. Complete your personal profile to evaluate this requirement.",
         });
     }
+
+    const age = Number(rawAge);
 
     const minimum =
         getNumber(
@@ -1011,24 +1062,20 @@ function evaluateWorkExperience(
     category,
     studentProfile
 ) {
-    const currentMonths =
-        Number(
-            studentProfile.workExperienceMonths
-        );
+        const rawMonths =
+        studentProfile.workExperienceMonths;
 
-    if (
-        !Number.isFinite(
-            currentMonths
-        )
-    ) {
+    if (!hasNumericValue(rawMonths)) {
         return createReviewResult({
             key: "workExperience",
             requirement,
             category,
             detail:
-                "Your work experience information is unavailable or invalid.",
+                "Your work experience information is missing or invalid.",
         });
     }
+
+    const currentMonths = Number(rawMonths);
 
     const minimum =
         getNumber(
@@ -1549,24 +1596,15 @@ function evaluateAnnualBudget(
     category,
     studentProfile
 ) {
-    const budget =
-        Number(
-            studentProfile
-                .annualBudget
-                ?.amount
-        );
+        const rawBudget =
+        studentProfile.annualBudget?.amount;
 
-    const currency =
-        normalize(
-            studentProfile
-                .annualBudget
-                ?.currency
-        );
+    const currency = normalize(
+        studentProfile.annualBudget?.currency
+    );
 
     if (
-        !Number.isFinite(
-            budget
-        ) ||
+        !hasNumericValue(rawBudget) ||
         !currency
     ) {
         return createReviewResult({
@@ -1574,9 +1612,11 @@ function evaluateAnnualBudget(
             requirement,
             category,
             detail:
-                "Your annual budget is not available in a valid amount/currency format.",
+                "Your annual budget is missing or invalid. Complete your study preferences to evaluate financial compatibility.",
         });
     }
+
+    const budget = Number(rawBudget);
 
     const minimum =
         getNumber(

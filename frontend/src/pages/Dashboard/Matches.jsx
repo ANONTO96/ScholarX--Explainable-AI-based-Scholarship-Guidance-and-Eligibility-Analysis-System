@@ -210,8 +210,8 @@ function MatchScore({ score }) {
                 </span>
 
                 <span className="text-[8px] font-semibold uppercase tracking-wide text-slate-400">
-                    Match
-                </span>
+    Fit
+</span>
             </div>
         </div>
     );
@@ -1164,6 +1164,69 @@ export default function Matches() {
 
                 </section>
 
+                {profileReadiness?.isReady ? (
+    <>    </>
+) : (
+    <section className="mt-6 overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
+        <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
+
+        <div className="px-5 py-10 text-center sm:px-8 sm:py-14">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
+                <Target className="h-8 w-8" />
+            </div>
+
+            <h2 className="mt-5 text-xl font-bold text-slate-900 sm:text-2xl">
+                Complete Your Profile to Unlock Matches
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
+                ScholarX needs a few more details about your academic
+                background, English proficiency, nationality, study
+                destination, and budget before it can evaluate scholarship
+                opportunities meaningfully.
+            </p>
+
+            <div className="mx-auto mt-6 max-w-md rounded-2xl bg-slate-50 p-4 text-left">
+                <div className="flex items-center justify-between gap-3">
+                    <span className="text-sm font-semibold text-slate-700">
+                        Analysis readiness
+                    </span>
+
+                    <span className="text-sm font-bold text-sky-600">
+                        {profileReadiness?.completed ?? 0}/
+                        {profileReadiness?.total ?? 10} checks
+                    </span>
+                </div>
+
+                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+                    <div
+                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-600 transition-all duration-500"
+                        style={{
+                            width: `${readinessPercentage}%`,
+                        }}
+                    />
+                </div>
+
+                <p className="mt-2 text-xs text-slate-500">
+                    {readinessPercentage}% of required analysis information completed
+                </p>
+            </div>
+
+            <NavLink
+                to="/dashboard/profile"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition hover:bg-sky-600"
+            >
+                Complete My Profile
+                <ArrowRight className="h-4 w-4" />
+            </NavLink>
+
+            <p className="mt-4 text-xs text-slate-400">
+                Your name and email do not affect scholarship eligibility analysis.
+            </p>
+        </div>
+    </section>
+)}
+
 
                 {/* =================================================
                     SUMMARY
@@ -1634,8 +1697,14 @@ export default function Matches() {
                             </p>
 
                             <p className="mt-1 text-xs leading-5 text-sky-700">
-                                Match scores are generated from the same eligibility engine used by ScholarX Eligibility Analysis. Mandatory requirements carry greater importance, while preferred criteria contribute to overall fit and competitiveness.
-                            </p>
+    The Scholarship Fit Score measures how closely your profile aligns
+    with the opportunity's configured requirements. Mandatory criteria,
+    preferred criteria, and information requiring verification affect
+    the evaluation. This score is not a probability of receiving a
+    scholarship or a guarantee of an award. Final decisions depend on
+    the provider's selection process, available funding, competition,
+    and other factors.
+</p>
 
                         </div>
 
