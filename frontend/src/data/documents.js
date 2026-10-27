@@ -131,8 +131,7 @@ export async function saveDocumentFile(
 export async function getDocumentFile(
     id
 ) {
-    const db =
-        await openDatabase();
+    const db = await openDatabase();
 
     return new Promise(
         (resolve, reject) => {

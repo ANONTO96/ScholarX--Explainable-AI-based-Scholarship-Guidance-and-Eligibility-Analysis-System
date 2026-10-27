@@ -409,8 +409,9 @@ const Profile = () => {
   const [profileError, setProfileError] = useState("");
   const [completionData, setCompletionData] = useState(profileCompletion || { percentage: 0, completed: 0, total: 0, missing_fields: [] });
 
-  const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL).replace(/\/$/, "");
-  const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/username`;
+  const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
+  const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/me`;
+  const USERNAME_ENDPOINT = `${API_BASE_URL}/api/profile/me/username`;
 
   // The verified JWT identifies the student. Never send a user ID from localStorage.
   useEffect(() => {
@@ -521,17 +522,21 @@ const Profile = () => {
       const nextUsername = (formData.username || "").trim();
       const currentUsername = (storedUser.username || "").trim();
 
-      if (!nextUsername) {
-        throw new Error("Username cannot be empty.");
-      }
-      if (!/^[a-zA-Z0-9._-]{3,30}$/.test(nextUsername)) {
-        throw new Error("Username must be 3–30 characters and may contain letters, numbers, dots, underscores, or hyphens.");
-      }
-
-      // Username is updated separately from profile details. The backend must
-      // verify the JWT and enforce uniqueness before changing the account.
+      // Validate username only when the user is actually changing it.
+      // Other profile fields (for example nationality) must remain saveable
+      // even if the account has a legacy username that no longer matches the
+      // current username rules.
       if (nextUsername !== currentUsername) {
-        const usernameResponse = await fetch(PROFILE_ENDPOINT, {
+        if (!nextUsername) {
+          throw new Error("Username cannot be empty.");
+        }
+        if (!/^[a-zA-Z0-9._-]{3,30}$/.test(nextUsername)) {
+          throw new Error("Username must be 3–30 characters and may contain letters, numbers, dots, underscores, or hyphens.");
+        }
+
+        // The backend identifies the account from the verified JWT and checks
+        // username uniqueness before changing it.
+        const usernameResponse = await fetch(USERNAME_ENDPOINT, {
           method: "PATCH",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -1266,13 +1271,12 @@ const ProfileEditModal = ({
               />
 
               <InputField
-                label="Email"
+                label="Email (account email cannot be changed here)"
                 type="email"
                 value={formData.email}
-                placeholder="Enter your email"
-                onChange={(value) =>
-                  updateField("email", value)
-                }
+                placeholder="Your account email"
+                readOnly
+                onChange={() => { }}
               />
 
               <InputField
@@ -1697,6 +1701,7 @@ const InputField = ({
   min,
   max,
   step,
+  readOnly = false,
 }) => {
   return (
     <label className="block">
@@ -1712,10 +1717,11 @@ const InputField = ({
         min={min}
         max={max}
         step={step}
-        onChange={(e) =>
-          onChange(e.target.value)
-        }
-        className="
+        readOnly={readOnly}
+        onChange={(e) => {
+          if (!readOnly) onChange(e.target.value);
+        }}
+        className={`
           w-full rounded-xl
           border border-slate-200
           bg-slate-50
@@ -1728,7 +1734,8 @@ const InputField = ({
           focus:bg-white
           focus:ring-2
           focus:ring-sky-100
-        "
+          ${readOnly ? "cursor-not-allowed bg-slate-100 text-slate-500" : ""}
+        `}
       />
 
     </label>
