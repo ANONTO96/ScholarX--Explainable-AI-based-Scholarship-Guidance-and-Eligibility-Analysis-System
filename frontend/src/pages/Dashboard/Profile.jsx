@@ -409,6 +409,7 @@ const Profile = () => {
   const [profileError, setProfileError] = useState("");
   const [completionData, setCompletionData] = useState(profileCompletion || { percentage: 0, completed: 0, total: 0, missing_fields: [] });
 
+  // this is the base URL for the ScholarX API, which can be configured via environment variables
   const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
   const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/me`;
   const USERNAME_ENDPOINT = `${API_BASE_URL}/api/profile/me/username`;
