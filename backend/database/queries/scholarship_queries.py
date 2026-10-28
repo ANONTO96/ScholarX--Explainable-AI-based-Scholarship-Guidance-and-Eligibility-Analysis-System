@@ -1,4 +1,5 @@
 from database.connection import get_db_connection
+from ai.common.date_utils import format_deadline
 import mysql.connector
 import json 
 
@@ -16,24 +17,31 @@ def insert_china_full_scholarship(final_data):
     sections_unchanged = 0
 
     try:
+        # Formate Date Month Date, Year 
+        final_data["last_date_to_apply"] = format_deadline(
+            final_data.get("last_date_to_apply")
+        )
         # --------------------------------------------------
         # Check whether the scholarship already exists
         # --------------------------------------------------
         cursor.execute(
             """
-            SELECT id,
-                   last_date_to_apply,
-                   official_website,
-                   bd_ambassy_website,
-                   scholarship_type
+            SELECT
+                id,
+                last_date_to_apply,
+                official_website,
+                bd_ambassy_website,
+                scholarship_type,
+                cities,
+                keywords
             FROM scholarships
             WHERE title = %s AND country = %s
             LIMIT 1
             """,
             (
                 final_data["scholarship_title"],
-                final_data["country"]
-            )
+                final_data["country"],
+            ),
         )
 
         existing = cursor.fetchone()
@@ -41,55 +49,58 @@ def insert_china_full_scholarship(final_data):
         if existing:
             scholarship_id = existing[0]
 
-            old_values = existing[1:]
+            old_values = existing[1:5]
+
+            # Crawler-managed fields only.
             new_values = (
-                final_data["last_date_to_apply"],
-                final_data["official_website"],
-                final_data["bd_ambassy_website"],
-                final_data["scholarship_type"]
+                final_data.get("last_date_to_apply"),
+                final_data.get("official_website"),
+                final_data.get("bd_ambassy_website"),
+                final_data.get("scholarship_type"),
             )
 
             if old_values != new_values:
                 cursor.execute(
                     """
                     UPDATE scholarships
-                    SET last_date_to_apply = %s,
+                    SET
+                        last_date_to_apply = %s,
                         official_website = %s,
                         bd_ambassy_website = %s,
                         scholarship_type = %s
                     WHERE id = %s
                     """,
-                    (*new_values, scholarship_id)
+                    (*new_values, scholarship_id),
                 )
                 updated += 1
             else:
                 unchanged += 1
 
         else:
-            # --------------------------------------------------
-            # Insert a new scholarship
-            # --------------------------------------------------
             cursor.execute(
                 """
-                INSERT INTO scholarships
-                (
+                INSERT INTO scholarships (
                     title,
                     country,
                     last_date_to_apply,
                     official_website,
                     bd_ambassy_website,
-                    scholarship_type
+                    scholarship_type,
+                    cities,
+                    keywords
                 )
-                VALUES (%s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     final_data["scholarship_title"],
                     final_data["country"],
-                    final_data["last_date_to_apply"],
-                    final_data["official_website"],
-                    final_data["bd_ambassy_website"],
-                    final_data["scholarship_type"]
-                )
+                    final_data.get("last_date_to_apply"),
+                    final_data.get("official_website"),
+                    final_data.get("bd_ambassy_website"),
+                    final_data.get("scholarship_type"),
+                    json.dumps(final_data.get("cities", []), ensure_ascii=False),
+                    json.dumps(final_data.get("keywords", []), ensure_ascii=False),
+                ),
             )
 
             scholarship_id = cursor.lastrowid
