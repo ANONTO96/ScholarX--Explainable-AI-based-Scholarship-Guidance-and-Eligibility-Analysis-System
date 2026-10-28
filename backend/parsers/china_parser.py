@@ -10,7 +10,7 @@ def parse_china_scholarship(html_of_campuschina_org, html_of_china_bd_ambassy):
 
     # Scholarship Title
     scholarship_title = soup_of_china_bd_ambassy.find(id="News_Body_Title").get_text().removeprefix("Announcement: ")
-    # print(scholarship_title)
+    print(scholarship_title)
 
 
     # --------------------------------------------------------------------------------------------------------------------------
@@ -140,6 +140,7 @@ def parse_china_scholarship(html_of_campuschina_org, html_of_china_bd_ambassy):
     # --------------------------------------------------------------------------------------------------------------------------
     final_data = {
         "country": "China",
+        "scholarship_type": "Government",
         "last_date_to_apply": last_date_to_apply_text,
         "official_website": "https://www.campuschina.org",
         "bd_ambassy_website": "https://bd.china-embassy.gov.cn",
