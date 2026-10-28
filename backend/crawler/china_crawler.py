@@ -26,11 +26,14 @@ final_data = parse_china_scholarship(html_of_campuschina_org, html_of_china_bd_a
 
 result = insert_china_full_scholarship(final_data)
 
-if result["status"] == 201:
-    print("Inserted successfully!")
-else:
-    print("Failed:", result["error"])
 
+if result["status"] in (200, 201, 204):
+    print(result["message"])
+    print("Scholarship ID:", result["scholarship_id"])
+    print("Scholarship:", result["scholarship"])
+    print("Sections:", result["sections"])
+else:
+    print("Failed:", result.get("error", "Unknown error"))
 
 
 # print(f"=== {final_data['scholarship_title']} ===")

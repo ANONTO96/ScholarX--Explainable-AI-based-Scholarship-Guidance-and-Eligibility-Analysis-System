@@ -3,69 +3,212 @@ import mysql.connector
 import json 
 
 
+
 def insert_china_full_scholarship(final_data):
     connection = get_db_connection()
     cursor = connection.cursor()
 
-    try:
-        # Insert scholarship
-        scholarship_query = """
-        INSERT INTO scholarships
-        (title, country, last_date_to_apply, official_website, bd_ambassy_website)
-        VALUES (%s, %s, %s, %s, %s)
-        """
+    inserted = 0
+    updated = 0
+    unchanged = 0
+    sections_inserted = 0
+    sections_updated = 0
+    sections_unchanged = 0
 
-        scholarship_values = (
-            final_data["scholarship_title"],
-            final_data["country"],
-            final_data["last_date_to_apply"],
-            final_data["official_website"],
-            final_data["bd_ambassy_website"]
+    try:
+        # --------------------------------------------------
+        # Check whether the scholarship already exists
+        # --------------------------------------------------
+        cursor.execute(
+            """
+            SELECT id,
+                   last_date_to_apply,
+                   official_website,
+                   bd_ambassy_website,
+                   scholarship_type
+            FROM scholarships
+            WHERE title = %s AND country = %s
+            LIMIT 1
+            """,
+            (
+                final_data["scholarship_title"],
+                final_data["country"]
+            )
         )
 
-        cursor.execute(scholarship_query, scholarship_values)
-        scholarship_id = cursor.lastrowid
+        existing = cursor.fetchone()
 
-        # Insert all sections
-        section_query = """
-        INSERT INTO scholarship_sections
-        (scholarship_id, section_title, section_content)
-        VALUES (%s, %s, %s)
-        """
+        if existing:
+            scholarship_id = existing[0]
+
+            old_values = existing[1:]
+            new_values = (
+                final_data["last_date_to_apply"],
+                final_data["official_website"],
+                final_data["bd_ambassy_website"],
+                final_data["scholarship_type"]
+            )
+
+            if old_values != new_values:
+                cursor.execute(
+                    """
+                    UPDATE scholarships
+                    SET last_date_to_apply = %s,
+                        official_website = %s,
+                        bd_ambassy_website = %s,
+                        scholarship_type = %s
+                    WHERE id = %s
+                    """,
+                    (*new_values, scholarship_id)
+                )
+                updated += 1
+            else:
+                unchanged += 1
+
+        else:
+            # --------------------------------------------------
+            # Insert a new scholarship
+            # --------------------------------------------------
+            cursor.execute(
+                """
+                INSERT INTO scholarships
+                (
+                    title,
+                    country,
+                    last_date_to_apply,
+                    official_website,
+                    bd_ambassy_website,
+                    scholarship_type
+                )
+                VALUES (%s, %s, %s, %s, %s, %s)
+                """,
+                (
+                    final_data["scholarship_title"],
+                    final_data["country"],
+                    final_data["last_date_to_apply"],
+                    final_data["official_website"],
+                    final_data["bd_ambassy_website"],
+                    final_data["scholarship_type"]
+                )
+            )
+
+            scholarship_id = cursor.lastrowid
+            inserted += 1
+
+        # --------------------------------------------------
+        # Insert or update scholarship sections
+        # --------------------------------------------------
+        cursor.execute(
+            """
+            SELECT id, section_title, section_content
+            FROM scholarship_sections
+            WHERE scholarship_id = %s
+            """,
+            (scholarship_id,)
+        )
+
+        existing_sections = {
+            row[1]: (row[0], row[2])
+            for row in cursor.fetchall()
+        }
+
+        current_section_titles = set()
 
         for section in final_data["sections"]:
-            values = (
-                scholarship_id,
-                section["section_title"],
-                section["content"]
-            )
-            cursor.execute(section_query, values)
+            section_title = section["section_title"]
+            section_content = section["content"]
 
-        # Commit everything together
+            current_section_titles.add(section_title)
+
+            if section_title in existing_sections:
+                section_id, old_content = existing_sections[section_title]
+
+                if old_content != section_content:
+                    cursor.execute(
+                        """
+                        UPDATE scholarship_sections
+                        SET section_content = %s
+                        WHERE id = %s
+                        """,
+                        (section_content, section_id)
+                    )
+                    sections_updated += 1
+                else:
+                    sections_unchanged += 1
+
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO scholarship_sections
+                    (
+                        scholarship_id,
+                        section_title,
+                        section_content
+                    )
+                    VALUES (%s, %s, %s)
+                    """,
+                    (
+                        scholarship_id,
+                        section_title,
+                        section_content
+                    )
+                )
+                sections_inserted += 1
+
+        # --------------------------------------------------
+        # Remove sections no longer present in parsed data
+        # --------------------------------------------------
+        for section_title in existing_sections:
+            if section_title not in current_section_titles:
+                cursor.execute(
+                    """
+                    DELETE FROM scholarship_sections
+                    WHERE id = %s
+                    """,
+                    (existing_sections[section_title][0],)
+                )
+
+                sections_updated += 1
+
         connection.commit()
 
-        return {
-            "status": 201,
-            "scholarship_id": scholarship_id
-        }
-    except mysql.connector.IntegrityError as err:
-        connection.rollback()
-        return {
-            "status": 409,
-            "error": "Scholarship already exists."
-        }
-    except mysql.connector.Error as err:
-        # Roll back everything if any query fails
-        connection.rollback()
+        # --------------------------------------------------
+        # Return processing result
+        # --------------------------------------------------
+        if inserted:
+            status = 201
+            message = "New scholarship inserted successfully."
+        elif updated or sections_inserted or sections_updated:
+            status = 200
+            message = "Scholarship data updated successfully."
+        else:
+            status = 204
+            message = "Scholarship data is already up to date."
 
         return {
-            "status": 500,
-            "error": str(err)
+            "status": status,
+            "message": message,
+            "scholarship_id": scholarship_id,
+            "scholarship": {
+                "inserted": inserted,
+                "updated": updated,
+                "unchanged": unchanged
+            },
+            "sections": {
+                "inserted": sections_inserted,
+                "updated": sections_updated,
+                "unchanged": sections_unchanged
+            }
         }
+
+    except mysql.connector.Error as err:
+        connection.rollback()
+        raise err
 
     finally:
         cursor.close()
         connection.close()
+
 
 
 # Get Scholarship section contents by scholarship_id
@@ -637,72 +780,76 @@ def insert_scholarship_documents(scholarship_id, documents):
         connection.close()
 
 
-# insert scholarship_benefits
-def insert_scholarship_coverage(
-    scholarship_id,
-    coverage
-):
 
+# Insert or update scholarship coverage
+def insert_scholarship_coverage(scholarship_id, coverage):
     connection = get_db_connection()
     cursor = connection.cursor()
 
     inserted = 0
+    updated = 0
+    skipped = 0
 
     try:
-
         for item in coverage:
-
             benefit_type = item["benefit_type"]
             description = item["description"]
 
             program_id = None
 
-            # -------------------------------------------------
             # Program-specific coverage
-            # -------------------------------------------------
-
-            if "program" in item:
-
+            if item.get("program"):
                 cursor.execute(
                     """
                     SELECT id
                     FROM scholarship_programs
                     WHERE scholarship_id = %s
-                    AND program_name = %s
+                      AND program_name = %s
                     LIMIT 1
                     """,
-                    (
-                        scholarship_id,
-                        item["program"]
-                    )
+                    (scholarship_id, item["program"])
                 )
 
                 result = cursor.fetchone()
 
                 if not result:
-
+                    skipped += 1
                     continue
 
                 program_id = result[0]
 
-            # -------------------------------------------------
-            # Optional fields based on benefit type
-            # -------------------------------------------------
-
+            # Optional fields
             amount = item.get("amount")
             currency = item.get("currency")
             period = item.get("period")
             coverage_value = item.get("coverage")
             applicability = item.get("applicability")
 
-            # -------------------------------------------------
-            # Insert coverage
-            # -------------------------------------------------
-
+            # Check whether the unique coverage record already exists.
             cursor.execute(
                 """
-                INSERT INTO scholarship_coverage
+                SELECT id
+                FROM scholarship_coverage
+                WHERE scholarship_id = %s
+                  AND program_id_key = %s
+                  AND benefit_type = %s
+                  AND description = %s
+                LIMIT 1
+                """,
                 (
+                    scholarship_id,
+                    program_id if program_id is not None else 0,
+                    benefit_type,
+                    description
+                )
+            )
+
+            existing = cursor.fetchone()
+
+            # Insert new record or update an existing record.
+            cursor.execute(
+                """
+                INSERT INTO scholarship_coverage (
                     scholarship_id,
                     program_id,
                     benefit_type,
@@ -713,18 +860,13 @@ def insert_scholarship_coverage(
                     coverage,
                     applicability
                 )
-                VALUES
-                (
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s
-                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ON DUPLICATE KEY UPDATE
+                    amount = VALUES(amount),
+                    currency = VALUES(currency),
+                    period = VALUES(period),
+                    coverage = VALUES(coverage),
+                    applicability = VALUES(applicability)
                 """,
                 (
                     scholarship_id,
@@ -739,24 +881,26 @@ def insert_scholarship_coverage(
                 )
             )
 
-            inserted += 1
+            if existing:
+                updated += 1
+            else:
+                inserted += 1
 
         connection.commit()
 
         return {
             "status": 200,
-            "message": "Coverage inserted successfully",
-            "inserted": inserted
+            "message": "Scholarship coverage processed successfully",
+            "inserted": inserted,
+            "updated": updated,
+            "skipped": skipped
         }
 
     except Exception:
-
         connection.rollback()
-
         raise
 
     finally:
-
         cursor.close()
         connection.close()
 

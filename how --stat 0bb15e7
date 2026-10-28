@@ -1,0 +1,30 @@
+* [33m229a11e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbackend[m[33m)[m Sync Profile Code
+* [33m0bb15e7[m Sync Profile Code
+[31m|[m *   [33mc007fac[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/backend[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #26 from ANONTO96/dev
+[31m|[m [32m|[m[33m\[m  
+[31m|[m [32m|[m * [33m8660191[m opt: analysis page modified with new rules
+[31m|[m [32m|[m *   [33m5000dc7[m Merge pull request #25 from ANONTO96/main
+[31m|[m [32m|[m [34m|[m[32m\[m  
+[31m|[m [32m|[m [34m|[m[32m/[m  
+[31m|[m [32m|[m[32m/[m[34m|[m   
+[31m|[m * [34m|[m [33m68706f4[m Merge pull request #24 from ANONTO96/dev
+[31m|[m [36m|[m[34m\[m[34m|[m 
+[31m|[m [36m|[m * [33m8bda467[m refactor: relocate data files to src/data
+[31m|[m [36m|[m[36m/[m  
+[31m|[m *   [33m1d89d7d[m Merge pull request #23 from aanafiu/main
+[31m|[m [1;32m|[m[1;33m\[m  
+[31m|[m [1;32m|[m * [33md6f4bc9[m Merge pull request #5 from aanafiu/backend
+[31m|[m [1;32m|[m[1;32m/[m[31m|[m 
+[31m|[m [1;32m|[m[31m/[m  
+[31m|[m[31m/[m[1;32m|[m   
+* [1;32m|[m [33m437acd2[m Profile Updates and Scholarship APis Created, USERNAME UPDATES AND PROFILE INFO ADS
+* [1;32m|[m [33m2256390[m Integrate latest team updates with local changes
+[1;32m|[m[1;32m/[m  
+*   [33m3524dd3[m Merge pull request #22 from ANONTO96/dev
+[1;36m|[m[31m\[m  
+[1;36m|[m * [33m2630f95[m feat: loader implemented, opt: chatbot upgraded with rule base keyword responses
+[1;36m|[m[1;36m/[m  
+*   [33mcb94c79[m Merge pull request #21 from aanafiu/main
+[32m|[m[33m\[m  
+[32m|[m * [33mf185838[m Auth Setup FullFil
+[32m|[m[32m/[m[35m|[m 
