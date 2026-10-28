@@ -45,6 +45,11 @@ import OAuthGoogleCallback from "../pages/OAuthGoogleCallback";
 
 // Scholarship
 import AllScholarships from "../pages/AllScholarships";
+import AdminLayout from "../components/Admin/AdminLayout";
+import AdminOverview from "../pages/Admin/AdminOverview";
+import ManageScholarships from "../pages/Admin/Scholarships/ManageScholarships";
+import CreateScholarship from "../pages/Admin/Scholarships/CreateScholarship";
+import EditScholarships from "../pages/Admin/Scholarships/EditScholarships";
 
 export const router = createBrowserRouter([
   {
@@ -140,4 +145,28 @@ export const router = createBrowserRouter([
           },
         ],
       },
+
+      {
+  path: "admin",
+  element: <AdminLayout />,
+  errorElement: <ErrorPage />,
+  children: [
+    {
+      index: true,
+      element: <AdminOverview />,
+    },
+    {
+      path: "scholarships",
+      element: <ManageScholarships />,
+    },
+    {
+      path: "scholarships/create",
+      element: <CreateScholarship />,
+    },
+    {
+      path: "scholarships/edit/:scholarshipId",
+      element: <EditScholarships />,
+    },
+  ],
+},
 ]);
