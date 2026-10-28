@@ -1,5 +1,6 @@
 .env
 venv
+.venv
 backend.zip
 .env.example
 
