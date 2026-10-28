@@ -21,6 +21,7 @@ def insert_china_full_scholarship(final_data):
         final_data["last_date_to_apply"] = format_deadline(
             final_data.get("last_date_to_apply")
         )
+        print("Final Data to Insert/Update:", final_data["last_date_to_apply"])
         # --------------------------------------------------
         # Check whether the scholarship already exists
         # --------------------------------------------------

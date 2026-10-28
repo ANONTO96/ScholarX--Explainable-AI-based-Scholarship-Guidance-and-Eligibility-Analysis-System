@@ -7,65 +7,81 @@ import {
   FileText,
   Globe,
   LoaderCircle,
-  Plus,
   Save,
-  Trash2,
 } from "lucide-react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const initialForm = {
+const emptyForm = {
   scholarship_title: "",
   country: "",
   last_date_to_apply: "",
   official_website: "",
   bd_ambassy_website: "",
-  sections: [{ section_title: "", content: "" }],
+  scholarship_type: "",
+  cities: "",
+  keywords: "",
+};
+
+const initialRelatedData = {
+  programs: "[]",
+  documents: "[]",
+  coverage: "[]",
+  contacts: "[]",
+};
+
+const relatedHelp = {
+  programs: `[
+  {
+    "program": "Master's",
+    "duration": "2 years",
+    "study_language": ["English"]
+  }
+]`,
+  documents: `[
+  {
+    "document_name": "Passport",
+    "requirement": "Valid passport",
+    "condition_text": null,
+    "mandatory": true,
+    "source_sentence": null
+  }
+]`,
+  coverage: `[
+  {
+    "benefit_type": "Tuition",
+    "description": "Full tuition coverage",
+    "program": null,
+    "amount": null,
+    "currency": null,
+    "period": null,
+    "coverage": "Full",
+    "applicability": null
+  }
+]`,
+  contacts: `[
+  {
+    "contact_type": "Official website",
+    "value": "https://example.com"
+  }
+]`,
 };
 
 const CreateScholarship = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState(initialForm);
+  const [formData, setFormData] = useState(emptyForm);
+  const [relatedData, setRelatedData] = useState(initialRelatedData);
   const [saving, setSaving] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setFormData((current) => ({
-      ...current,
-      [name]: value,
-    }));
+    setFormData((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSectionChange = (index, field, value) => {
-    setFormData((current) => ({
-      ...current,
-      sections: current.sections.map((section, sectionIndex) =>
-        sectionIndex === index
-          ? { ...section, [field]: value }
-          : section
-      ),
-    }));
-  };
-
-  const addSection = () => {
-    setFormData((current) => ({
-      ...current,
-      sections: [
-        ...current.sections,
-        { section_title: "", content: "" },
-      ],
-    }));
-  };
-
-  const removeSection = (index) => {
-    setFormData((current) => ({
-      ...current,
-      sections: current.sections.filter(
-        (_, sectionIndex) => sectionIndex !== index
-      ),
-    }));
+  const handleRelatedChange = (event) => {
+    const { name, value } = event.target;
+    setRelatedData((current) => ({ ...current, [name]: value }));
   };
 
   const handleSubmit = async (event) => {
@@ -76,34 +92,47 @@ const CreateScholarship = () => {
       return;
     }
 
-    const title = formData.scholarship_title.trim();
-
-    if (!title) {
+    if (!formData.scholarship_title.trim()) {
       toast.error("Scholarship title is required.");
       return;
     }
 
-    const sections = formData.sections.map((section) => ({
-      section_title: section.section_title.trim(),
-      content: section.content.trim(),
-    }));
+    let relatedPayload;
 
-    if (
-      sections.some(
-        (section) => !section.section_title || !section.content
-      )
-    ) {
-      toast.error("Complete or remove every empty content section.");
+    try {
+      relatedPayload = {
+        programs: JSON.parse(relatedData.programs),
+        documents: JSON.parse(relatedData.documents),
+        coverage: JSON.parse(relatedData.coverage),
+        contacts: JSON.parse(relatedData.contacts),
+      };
+
+      for (const [key, value] of Object.entries(relatedPayload)) {
+        if (!Array.isArray(value)) {
+          throw new Error(`${key} must be a JSON array.`);
+        }
+      }
+    } catch (error) {
+      toast.error(`Invalid related data: ${error.message}`);
       return;
     }
 
     const payload = {
-      scholarship_title: title,
+      scholarship_title: formData.scholarship_title.trim(),
       country: formData.country.trim() || null,
       last_date_to_apply: formData.last_date_to_apply || null,
       official_website: formData.official_website.trim() || null,
       bd_ambassy_website: formData.bd_ambassy_website.trim() || null,
-      sections,
+      scholarship_type: formData.scholarship_type.trim() || null,
+      cities: formData.cities
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean),
+      keywords: formData.keywords
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean),
+      ...relatedPayload,
     };
 
     setSaving(true);
@@ -113,10 +142,7 @@ const CreateScholarship = () => {
         `${API_BASE_URL}/api/admin/scholarships/`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // Add your existing authentication header here if required.
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
       );
@@ -124,10 +150,13 @@ const CreateScholarship = () => {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
+        const detail = result.detail;
         const message =
-          typeof result.detail === "string"
-            ? result.detail
-            : result.message || "Failed to create scholarship.";
+          typeof detail === "string"
+            ? detail
+            : Array.isArray(detail)
+              ? detail.map((item) => item.msg).join(", ")
+              : result.message || `Request failed (${response.status}).`;
 
         throw new Error(message);
       }
@@ -148,7 +177,6 @@ const CreateScholarship = () => {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
-      {/* Heading */}
       <div>
         <Link
           to="/admin/scholarships"
@@ -158,29 +186,24 @@ const CreateScholarship = () => {
           Back to scholarships
         </Link>
 
-        <div className="mt-4">
-          <h1 className="text-2xl font-bold text-slate-800">
-            Add Scholarship
-          </h1>
-          <p className="mt-1 text-sm text-slate-500">
-            Enter the opportunity details and information students need.
-          </p>
-        </div>
+        <h1 className="mt-4 text-2xl font-bold text-slate-800">
+          Add Scholarship
+        </h1>
+        <p className="mt-1 text-sm text-slate-500">
+          Add scholarship details and related records.
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Basic information */}
         <section className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm sm:p-7">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-5">
             <div className="rounded-xl bg-sky-50 p-3 text-sky-600">
               <Globe size={21} />
             </div>
             <div>
-              <h2 className="font-bold text-slate-800">
-                Basic Information
-              </h2>
+              <h2 className="font-bold text-slate-800">Basic Information</h2>
               <p className="mt-1 text-sm text-slate-500">
-                General scholarship details and official links.
+                General details, deadline, and official links.
               </p>
             </div>
           </div>
@@ -194,8 +217,8 @@ const CreateScholarship = () => {
                 onChange={handleChange}
                 required
                 maxLength={255}
-                placeholder="e.g. Chinese Government Scholarship"
                 className={inputClass}
+                placeholder="Chinese Government Scholarship"
               />
             </label>
 
@@ -205,8 +228,19 @@ const CreateScholarship = () => {
                 name="country"
                 value={formData.country}
                 onChange={handleChange}
-                placeholder="e.g. China"
                 className={inputClass}
+                placeholder="China"
+              />
+            </label>
+
+            <label className={labelClass}>
+              Scholarship type
+              <input
+                name="scholarship_type"
+                value={formData.scholarship_type}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Government, University, etc."
               />
             </label>
 
@@ -221,6 +255,34 @@ const CreateScholarship = () => {
               />
             </label>
 
+            <label className={labelClass}>
+              Cities
+              <input
+                name="cities"
+                value={formData.cities}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Beijing, Shanghai"
+              />
+              <span className="mt-1 block text-xs font-normal text-slate-500">
+                Separate values with commas.
+              </span>
+            </label>
+
+            <label className={`${labelClass} sm:col-span-2`}>
+              Keywords
+              <input
+                name="keywords"
+                value={formData.keywords}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Fully funded, Master's, Engineering"
+              />
+              <span className="mt-1 block text-xs font-normal text-slate-500">
+                Separate values with commas.
+              </span>
+            </label>
+
             <label className={`${labelClass} sm:col-span-2`}>
               Official scholarship website
               <input
@@ -228,8 +290,8 @@ const CreateScholarship = () => {
                 name="official_website"
                 value={formData.official_website}
                 onChange={handleChange}
-                placeholder="https://example.edu/scholarships"
                 className={inputClass}
+                placeholder="https://example.com"
               />
             </label>
 
@@ -240,104 +302,55 @@ const CreateScholarship = () => {
                 name="bd_ambassy_website"
                 value={formData.bd_ambassy_website}
                 onChange={handleChange}
-                placeholder="https://example.gov.bd"
                 className={inputClass}
+                placeholder="https://example.gov.bd"
               />
             </label>
           </div>
         </section>
 
-        {/* Content sections */}
         <section className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm sm:p-7">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-5">
-            <div className="flex items-center gap-3">
-              <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
-                <FileText size={21} />
-              </div>
-              <div>
-                <h2 className="font-bold text-slate-800">
-                  Scholarship Content
-                </h2>
-                <p className="mt-1 text-sm text-slate-500">
-                  Add sections such as overview, benefits, or application process.
-                </p>
-              </div>
+          <div className="flex items-center gap-3 border-b border-slate-100 pb-5">
+            <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
+              <FileText size={21} />
             </div>
-
-            <button
-              type="button"
-              onClick={addSection}
-              className="inline-flex items-center gap-2 rounded-xl border border-sky-200 px-3 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-50"
-            >
-              <Plus size={16} />
-              Add section
-            </button>
+            <div>
+              <h2 className="font-bold text-slate-800">Related Records</h2>
+              <p className="mt-1 text-sm text-slate-500">
+                Enter valid JSON arrays using the examples as a guide.
+              </p>
+            </div>
           </div>
 
-          <div className="mt-6 space-y-5">
-            {formData.sections.map((section, index) => (
-              <div
-                key={index}
-                className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 sm:p-5"
-              >
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <h3 className="text-sm font-bold text-slate-700">
-                    Section {index + 1}
-                  </h3>
-
-                  <button
-                    type="button"
-                    onClick={() => removeSection(index)}
-                    disabled={formData.sections.length === 1}
-                    title="Remove section"
-                    aria-label={`Remove section ${index + 1}`}
-                    className="rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-30"
-                  >
-                    <Trash2 size={17} />
-                  </button>
-                </div>
-
-                <label className={labelClass}>
-                  Section title *
-                  <input
-                    value={section.section_title}
-                    onChange={(event) =>
-                      handleSectionChange(
-                        index,
-                        "section_title",
-                        event.target.value
-                      )
-                    }
-                    required
-                    maxLength={255}
-                    placeholder="e.g. Scholarship Benefits"
-                    className={inputClass}
-                  />
-                </label>
-
-                <label className={`${labelClass} mt-4 block`}>
-                  Content *
-                  <textarea
-                    value={section.content}
-                    onChange={(event) =>
-                      handleSectionChange(
-                        index,
-                        "content",
-                        event.target.value
-                      )
-                    }
-                    required
-                    rows={5}
-                    placeholder="Describe the scholarship information..."
-                    className={`${inputClass} resize-y`}
-                  />
-                </label>
-              </div>
+          <div className="mt-6 space-y-6">
+            {Object.entries(relatedHelp).map(([key, example]) => (
+              <label key={key} className={`block ${labelClass}`}>
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+                <textarea
+                  name={key}
+                  value={relatedData[key]}
+                  onChange={handleRelatedChange}
+                  rows={7}
+                  spellCheck={false}
+                  className={`${inputClass} resize-y font-mono text-xs`}
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setRelatedData((current) => ({
+                      ...current,
+                      [key]: example,
+                    }))
+                  }
+                  className="mt-2 text-xs font-semibold text-sky-700 hover:text-indigo-700"
+                >
+                  Restore example
+                </button>
+              </label>
             ))}
           </div>
         </section>
 
-        {/* Form actions */}
         <div className="flex flex-col-reverse justify-end gap-3 sm:flex-row">
           <button
             type="button"
