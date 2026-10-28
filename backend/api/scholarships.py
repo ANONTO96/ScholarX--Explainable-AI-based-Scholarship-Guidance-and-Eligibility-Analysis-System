@@ -56,8 +56,12 @@ def get_scholarships(
                 last_date_to_apply,
                 official_website,
                 bd_ambassy_website,
-                created_at
+                created_at,
+                scholarship_type,
+                cities,
+                keywords
             FROM scholarships
+            
         """
 
         params = ()
