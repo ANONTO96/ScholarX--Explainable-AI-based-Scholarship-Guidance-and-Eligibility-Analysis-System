@@ -5,7 +5,6 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, base_dir)
 sys.path.insert(0, os.path.join(base_dir, "api"))
 
-# ভার্চুয়াল এনভায়রনমেন্টের সাইট-প্যাকেজ পাথ যুক্ত করা যেন মডিউল লোড মিস না হয়
 # venv_packages = "/home/myschola/virtualenv/scholarx_backend/3.11/lib/python3.11/site-packages"
 venv_packages = "/home/myschola/virtualenv/://myscholarx.com"
 if venv_packages not in sys.path:

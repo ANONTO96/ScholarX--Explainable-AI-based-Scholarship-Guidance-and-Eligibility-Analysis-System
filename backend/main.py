@@ -8,6 +8,7 @@ from api.auth.router import router as auth_router
 from api.profile import router as profile_router
 from api.scholarships import router as scholarships_router
 from api.admin_scholarships import router as admin_scholarships_router
+from api.student_documents import router as student_documents_router
 from database.connection import get_db_connection
 
 
@@ -56,6 +57,8 @@ app.include_router(home_router)
 app.include_router(auth_router)
 
 app.include_router(profile_router)
+
+app.include_router(student_documents_router)
 
 app.include_router(scholarships_router)
 

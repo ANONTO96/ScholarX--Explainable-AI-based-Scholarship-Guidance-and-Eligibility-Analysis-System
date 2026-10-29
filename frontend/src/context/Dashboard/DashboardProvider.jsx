@@ -23,12 +23,10 @@ import {
 } from "../../data/applications";
 
 import {
-    getDocumentMetadata,
-    addDocument as addStoredDocument,
-    addCustomDocument as addStoredCustomDocument,
-    getCustomDocuments,
-    removeChecklistDocument as removeStoredChecklistDocument,
-} from "../../data/documents";
+    getStudentDocuments,
+    saveStudentDocument,
+    deleteStudentDocument,
+} from "../../data/studentDocuments";
 
 
 // =========================
@@ -499,43 +497,88 @@ const matches = useMemo(() => {
     // Documents
     // =========================
 
-    const [documents, setDocuments] = useState(
-        () => getDocumentMetadata()
-    );
+    const [documents, setDocuments] = useState([]);
+    const [documentsLoading, setDocumentsLoading] = useState(true);
 
-    const [customDocuments, setCustomDocuments] = useState(
-        () => getCustomDocuments()
-    );
+    const normalizeDocuments = (items = []) =>
+        items.map((item) => ({
+            ...item,
+            id: item.id,
+            checklistId: item.checklist_id ?? item.checklistId,
+            fileName: item.original_filename ?? item.fileName ?? null,
+            fileSize: item.file_size_bytes ?? item.fileSize ?? null,
+            uploaded: Boolean(item.has_document ?? item.hasDocument ?? item.uploaded),
+            hasDocument: Boolean(item.has_document ?? item.hasDocument ?? item.uploaded),
+        }));
 
-    const addDocument = async (documentData, file) => {
-        const updated = await addStoredDocument(
-            documentData,
-            file
-        );
+    useEffect(() => {
+        let cancelled = false;
 
+        const loadDocuments = async () => {
+            try {
+                const savedDocuments = await getStudentDocuments();
+
+                if (!cancelled) {
+                    setDocuments(normalizeDocuments(savedDocuments));
+                }
+            } catch (error) {
+                if (!cancelled) {
+                    console.error("Failed to load student documents:", error);
+                }
+            } finally {
+                if (!cancelled) {
+                    setDocumentsLoading(false);
+                }
+            }
+        };
+
+        loadDocuments();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const addDocument = async (documentData, file = null) => {
+        const checklistId =
+            documentData.checklistId ?? documentData.checklist_id;
+
+        if (!checklistId) {
+            throw new Error("A document checklist ID is required.");
+        }
+
+        const hasDocument = file
+            ? true
+            : Boolean(
+                documentData.hasDocument ??
+                documentData.has_document ??
+                documentData.uploaded ??
+                true
+            );
+
+        await saveStudentDocument({
+            checklistId,
+            hasDocument,
+            file,
+        });
+
+        const savedDocuments = await getStudentDocuments();
+        const updated = normalizeDocuments(savedDocuments);
         setDocuments(updated);
 
         return updated;
     };
 
     const removeChecklistDocument = async (checklistId) => {
-        const updated =
-            await removeStoredChecklistDocument(
-                checklistId
-            );
+        await deleteStudentDocument(checklistId);
 
-        setDocuments(updated);
-
-        return updated;
-    };
-
-    const addCustomDocument = (document) => {
-        const updated =
-            addStoredCustomDocument(document);
-
-        setCustomDocuments(updated);
-
-        return updated;
+        setDocuments((current) =>
+            current.filter(
+                (document) =>
+                    document.checklistId !== checklistId &&
+                    document.checklist_id !== checklistId
+            )
+        );
     };
 
     // =========================
@@ -669,10 +712,9 @@ const matches = useMemo(() => {
 
                 // Documents
                 documents,
-                customDocuments,
+                documentsLoading,
                 addDocument,
                 removeChecklistDocument,
-                addCustomDocument,
 
                 // Settings
                 settings,

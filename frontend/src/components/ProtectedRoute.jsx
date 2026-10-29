@@ -1,6 +1,7 @@
 
 import { Navigate, Outlet, useLocation } from "react-router";
 import { useEffect, useState } from "react";
+import Loader from "./ReusableComp/Loader";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -61,7 +62,9 @@ export default function ProtectedRoute({ requiredRole }) {
   }, []);
 
   if (auth.loading) {
-    return <p>Checking permissions...</p>;
+    return <Loader 
+                fullScreen
+                message="Verifying The Person"/>;
   }
 
   if (!auth.user) {
