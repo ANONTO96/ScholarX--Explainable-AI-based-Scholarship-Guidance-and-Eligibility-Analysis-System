@@ -211,7 +211,7 @@ CREATE TABLE scholarship_contacts (
 -- =========================================================
 -- User Table
 -- =========================================================
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
 
     name VARCHAR(100) NOT NULL,
@@ -234,7 +234,7 @@ CREATE TABLE users (
 -- =========================================================
 
 -- =========================================================
-CREATE TABLE student_destinations (
+CREATE TABLE IF NOT EXISTS student_destinations (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
 
@@ -252,7 +252,7 @@ CREATE TABLE student_destinations (
         (user_id, country_code)
 );
 
-CREATE TABLE student_degrees (
+CREATE TABLE IF NOT EXISTS student_degrees (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
 
@@ -278,7 +278,7 @@ CREATE TABLE student_degrees (
     INDEX idx_degrees_user (user_id)
 );
 
-CREATE TABLE student_profile_attributes (
+CREATE TABLE IF NOT EXISTS student_profile_attributes (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
 
@@ -302,7 +302,7 @@ CREATE TABLE student_profile_attributes (
 );
 
 
-CREATE TABLE student_language_proficiencies (
+CREATE TABLE IF NOT EXISTS student_language_proficiencies (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
 
@@ -333,7 +333,7 @@ CREATE TABLE student_language_proficiencies (
 );
 
 
-CREATE TABLE student_profiles (
+CREATE TABLE IF NOT EXISTS student_profiles (
     user_id INT NOT NULL,
 
     nationality VARCHAR(100) NULL,
@@ -392,7 +392,37 @@ CREATE TABLE student_profiles (
         )
 );
 
+-- User Documentation Table
+CREATE TABLE IF NOT EXISTS user_documents (
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    checklist_id VARCHAR(100) NOT NULL,
 
+    has_document TINYINT(1) NOT NULL DEFAULT 0,
+
+    original_filename VARCHAR(255) NULL,
+    file_size_bytes INT UNSIGNED NULL,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_user_document (user_id, checklist_id),
+
+    CONSTRAINT fk_user_documents_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+
+
+
+-- =========================================================
+-- OAuth Exchange Codes Table
+-- =========================================================
 CREATE TABLE IF NOT EXISTS `oauth_exchange_codes` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `user_id` INT(11) NOT NULL,
