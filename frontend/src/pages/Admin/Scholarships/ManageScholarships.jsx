@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import {
@@ -12,8 +11,7 @@ import {
   RefreshCw,
   Search,
 } from "lucide-react";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { getScholarships } from "../../../services/adminScholarshipService";
 
 const PAGE_SIZE = 10;
 
@@ -27,62 +25,42 @@ const ManageScholarships = () => {
   const [countryFilter, setCountryFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchScholarships = useCallback(async () => {
-    if (!API_BASE_URL) {
-      setError("VITE_API_BASE_URL is not configured in your frontend environment.");
-      setLoading(false);
-      return;
-    }
+  const fetchScholarships = useCallback(async (signal) => {
+  setLoading(true);
+  setError("");
 
-    setLoading(true);
-    setError("");
+  try {
+    const records = await getScholarships({ signal });
 
-    try {
-      // Confirm this GET endpoint exists in your FastAPI backend.
-      const response = await fetch(
-        `${API_BASE_URL}/api/scholarships/`
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          response.status === 404
-            ? "The scholarship listing endpoint was not found. Check your FastAPI GET route."
-            : `Failed to load scholarships (HTTP ${response.status}).`
-        );
-      }
-
-      const result = await response.json();
-
-      // Supports either a direct array or { data: [...] }.
-      const records = Array.isArray(result)
-        ? result
-        : Array.isArray(result.data)
-          ? result.data
-          : null;
-
-      if (!records) {
-        throw new Error(
-          "Unexpected API response. Expected an array of scholarships or { data: [...] }."
-        );
-      }
-
+    if (!signal?.aborted) {
       setScholarships(records);
-    } catch (err) {
+    }
+  } catch (err) {
+    if (!signal?.aborted) {
       setError(
         err.message ||
           "Unable to load scholarships. Check that the backend is running."
       );
-    } finally {
+    }
+  } finally {
+    if (!signal?.aborted) {
       setLoading(false);
     }
-  }, []);
+  }
+}, []);
 
   useEffect(() => {
-  const timerId = setTimeout(() => {
-    fetchScholarships();
-  }, 0);
+  const controller = new AbortController();
 
-  return () => clearTimeout(timerId);
+  queueMicrotask(() => {
+    if (!controller.signal.aborted) {
+      fetchScholarships(controller.signal);
+    }
+  });
+
+  return () => {
+    controller.abort();
+  };
 }, [fetchScholarships]);
 
   const countries = useMemo(

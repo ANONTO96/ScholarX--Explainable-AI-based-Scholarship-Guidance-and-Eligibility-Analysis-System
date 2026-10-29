@@ -1,4 +1,4 @@
-
+import { createScholarship } from "../../../services/adminScholarshipService";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
@@ -12,7 +12,6 @@ import {
   Trash2,
 } from "lucide-react";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const initialForm = {
   scholarship_title: "",
@@ -68,78 +67,54 @@ const CreateScholarship = () => {
     }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (!API_BASE_URL) {
-      toast.error("VITE_API_BASE_URL is not configured.");
-      return;
-    }
+  const title = formData.scholarship_title.trim();
 
-    const title = formData.scholarship_title.trim();
+  if (!title) {
+    toast.error("Scholarship title is required.");
+    return;
+  }
 
-    if (!title) {
-      toast.error("Scholarship title is required.");
-      return;
-    }
+  const sections = formData.sections.map((section) => ({
+    section_title: section.section_title.trim(),
+    content: section.content.trim(),
+  }));
 
-    const sections = formData.sections.map((section) => ({
-      section_title: section.section_title.trim(),
-      content: section.content.trim(),
-    }));
+  if (
+    sections.some(
+      (section) => !section.section_title || !section.content
+    )
+  ) {
+    toast.error("Complete or remove every empty content section.");
+    return;
+  }
 
-    if (
-      sections.some(
-        (section) => !section.section_title || !section.content
-      )
-    ) {
-      toast.error("Complete or remove every empty content section.");
-      return;
-    }
-
-    const payload = {
-      scholarship_title: title,
-      country: formData.country.trim() || null,
-      last_date_to_apply: formData.last_date_to_apply || null,
-      official_website: formData.official_website.trim() || null,
-      bd_ambassy_website: formData.bd_ambassy_website.trim() || null,
-      sections,
-    };
-
-    setSaving(true);
-
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/admin/scholarships/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // Add your existing authentication header here if required.
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        const message =
-          typeof result.detail === "string"
-            ? result.detail
-            : result.message || "Failed to create scholarship.";
-
-        throw new Error(message);
-      }
-
-      toast.success("Scholarship created successfully.");
-      navigate("/admin/scholarships");
-    } catch (error) {
-      toast.error(error.message || "Unable to create scholarship.");
-    } finally {
-      setSaving(false);
-    }
+  const payload = {
+    scholarship_title: title,
+    country: formData.country.trim() || null,
+    last_date_to_apply: formData.last_date_to_apply || null,
+    official_website: formData.official_website.trim() || null,
+    bd_ambassy_website: formData.bd_ambassy_website.trim() || null,
+    sections,
   };
+
+  setSaving(true);
+
+  try {
+    await createScholarship(payload);
+
+    toast.success("Scholarship created successfully.");
+    navigate("/admin/scholarships");
+  } catch (error) {
+    toast.error(error.message || "Unable to create scholarship.");
+  } finally {
+    setSaving(false);
+  }
+};
+
 
   const inputClass =
     "mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100";
