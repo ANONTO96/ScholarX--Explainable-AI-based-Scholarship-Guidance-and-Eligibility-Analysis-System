@@ -40,7 +40,4 @@ def format_deadline(value: str | date | datetime | None) -> str | None:
         if parsed_date is None:
             raise ValueError(f"Unsupported deadline format: {value}")
 
-    return parsed_date.strftime("%B %d, %Y").replace(
-        f" {parsed_date.day:02d},",
-        f" {parsed_date.day},",
-    )
+    return parsed_date.strftime("%Y-%m-%d")
