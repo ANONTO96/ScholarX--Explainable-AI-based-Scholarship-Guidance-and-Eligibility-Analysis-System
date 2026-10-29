@@ -51,6 +51,9 @@ import ManageScholarships from "../pages/Admin/Scholarships/ManageScholarships";
 import CreateScholarship from "../pages/Admin/Scholarships/CreateScholarship";
 import EditScholarships from "../pages/Admin/Scholarships/EditScholarships";
 
+
+import ProtectedRoute from "../components/ProtectedRoute";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -90,82 +93,44 @@ export const router = createBrowserRouter([
   { path: "logIn", Component: Login },
   { path: "register", Component: Register },
   { path: "oauth/google/callback", Component: OAuthGoogleCallback },
-  {
-        path: "dashboard",
-        element: <DashboardLayout />,
-        children: [
-          {
-            index: true,
-            element: <DashboardOverview />,
-          },
 
-          {
-            path: "profile",
-            element: <Profile></Profile>,
-          },
-
-          {
-            path: "matches",
-            element: <Matches></Matches>,
-          },
-
-          {
-            path: "favorites",
-            element: <Favorites></Favorites>,
-          },
-
-          {
-            path: "applications",
-            element: <Applications></Applications>,
-          },
-
-          {
-            path: "deadlines",
-            element: <Deadlines></Deadlines>,
-          },
-
-          {
-            path: "documents",
-            element: <Documents></Documents>,
-          },
-
-          {
-            path: "notifications",
-            element: <Notifications></Notifications>
-          },
-
-          {
-            path: "eligibility-analysis",
-            element: <EligibilityAnalysis></EligibilityAnalysis>
-          },
-          
-          {
-            path: "settings",
-            element: <Settings></Settings>,
-          },
-        ],
-      },
-
-      {
-  path: "admin",
-  element: <AdminLayout />,
-  errorElement: <ErrorPage />,
+{
+  element: <ProtectedRoute />,
   children: [
     {
-      index: true,
-      element: <AdminOverview />,
+      path: "dashboard",
+      element: <DashboardLayout />,
+      children: [
+        { index: true, element: <DashboardOverview /> },
+        { path: "profile", element: <Profile /> },
+        { path: "matches", element: <Matches /> },
+        { path: "favorites", element: <Favorites /> },
+        { path: "applications", element: <Applications /> },
+        { path: "deadlines", element: <Deadlines /> },
+        { path: "documents", element: <Documents /> },
+        { path: "notifications", element: <Notifications /> },
+        { path: "eligibility-analysis", element: <EligibilityAnalysis /> },
+        { path: "settings", element: <Settings /> },
+      ],
     },
+  ],
+},
+{
+  element: <ProtectedRoute requiredRole="admin" />,
+  children: [
     {
-      path: "scholarships",
-      element: <ManageScholarships />,
-    },
-    {
-      path: "scholarships/create",
-      element: <CreateScholarship />,
-    },
-    {
-      path: "scholarships/edit/:scholarshipId",
-      element: <EditScholarships />,
+      path: "admin",
+      element: <AdminLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        { index: true, element: <AdminOverview /> },
+        { path: "scholarships", element: <ManageScholarships /> },
+        { path: "scholarships/create", element: <CreateScholarship /> },
+        {
+          path: "scholarships/:scholarshipId",
+          element: <EditScholarships />,
+        },
+      ],
     },
   ],
 },

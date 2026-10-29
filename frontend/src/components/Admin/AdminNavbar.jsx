@@ -14,7 +14,7 @@ const AdminNavbar = ({ onMenuClick }) => {
 
   const title =
     pageTitles[location.pathname] ||
-    (location.pathname.startsWith("/admin/scholarships/edit/")
+    (location.pathname.startsWith("/admin/scholarships/")
       ? "Edit Scholarship"
       : "Admin Dashboard");
 
