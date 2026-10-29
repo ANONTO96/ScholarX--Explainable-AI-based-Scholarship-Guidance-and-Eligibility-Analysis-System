@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
@@ -8,8 +7,11 @@ import {
   LoaderCircle,
   Save,
 } from "lucide-react";
+import {
+  getScholarshipById,
+  updateScholarship,
+} from "../../../services/adminScholarshipService";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const initialForm = {
   scholarship_title: "",
@@ -30,66 +32,53 @@ const EditScholarship = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    let cancelled = false;
+  let cancelled = false;
 
-    const loadScholarship = async () => {
-      if (!API_BASE_URL) {
-        if (!cancelled) {
-          setError("VITE_API_BASE_URL is not configured.");
-          setLoading(false);
-        }
-        return;
+  const loadScholarship = async () => {
+    try {
+      const result = await getScholarshipById(scholarshipId);
+      const record = result?.data ?? result?.scholarship ?? result;
+
+      if (
+        !record ||
+        typeof record !== "object" ||
+        Array.isArray(record)
+      ) {
+        throw new Error("Invalid scholarship data returned by the server.");
       }
 
-      try {
-        // This assumes a GET-by-ID endpoint exists.
-        const response = await fetch(
-          `${API_BASE_URL}/api/scholarships/${scholarshipId}`
-        );
+      const form = {
+        scholarship_title:
+          record.title ?? record.scholarship_title ?? "",
+        country: record.country ?? "",
+        last_date_to_apply: record.last_date_to_apply
+          ? String(record.last_date_to_apply).slice(0, 10)
+          : "",
+        official_website: record.official_website ?? "",
+        bd_ambassy_website: record.bd_ambassy_website ?? "",
+      };
 
-        if (!response.ok) {
-          throw new Error(
-            response.status === 404
-              ? "Scholarship not found. Confirm your backend GET-by-ID route."
-              : `Unable to load scholarship (HTTP ${response.status}).`
-          );
-        }
-
-        const result = await response.json();
-        const record = result.data ?? result.scholarship ?? result;
-
-        const form = {
-          scholarship_title:
-            record.title ?? record.scholarship_title ?? "",
-          country: record.country ?? "",
-          last_date_to_apply: record.last_date_to_apply
-            ? String(record.last_date_to_apply).slice(0, 10)
-            : "",
-          official_website: record.official_website ?? "",
-          bd_ambassy_website: record.bd_ambassy_website ?? "",
-        };
-
-        if (!cancelled) {
-          setFormData(form);
-          setOriginalData(form);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err.message || "Failed to load scholarship.");
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+      if (!cancelled) {
+        setFormData(form);
+        setOriginalData(form);
       }
-    };
+    } catch (err) {
+      if (!cancelled) {
+        setError(err.message || "Failed to load scholarship.");
+      }
+    } finally {
+      if (!cancelled) {
+        setLoading(false);
+      }
+    }
+  };
 
-    loadScholarship();
+  loadScholarship();
 
-    return () => {
-      cancelled = true;
-    };
-  }, [scholarshipId]);
+  return () => {
+    cancelled = true;
+  };
+}, [scholarshipId]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -101,71 +90,46 @@ const EditScholarship = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (!API_BASE_URL) {
-      toast.error("VITE_API_BASE_URL is not configured.");
-      return;
+  const title = formData.scholarship_title.trim();
+
+  if (!title) {
+    toast.error("Scholarship title is required.");
+    return;
+  }
+
+  const payload = {};
+
+  Object.keys(formData).forEach((field) => {
+    const value =
+      field === "scholarship_title"
+        ? title
+        : formData[field].trim();
+
+    if (value !== originalData[field]) {
+      payload[field] = value || null;
     }
+  });
 
-    const title = formData.scholarship_title.trim();
+  if (Object.keys(payload).length === 0) {
+    toast("No changes to save.");
+    return;
+  }
 
-    if (!title) {
-      toast.error("Scholarship title is required.");
-      return;
-    }
+  setSaving(true);
 
-    const payload = {};
+  try {
+    await updateScholarship(scholarshipId, payload);
 
-    Object.keys(formData).forEach((field) => {
-      const value =
-        field === "scholarship_title"
-          ? title
-          : formData[field].trim();
-
-      if (value !== originalData[field]) {
-        payload[field] = value || null;
-      }
-    });
-
-    if (Object.keys(payload).length === 0) {
-      toast("No changes to save.");
-      return;
-    }
-
-    setSaving(true);
-
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/admin/scholarships/${scholarshipId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            // Add your existing authentication header here if required.
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(
-          typeof result.detail === "string"
-            ? result.detail
-            : result.message || "Failed to update scholarship."
-        );
-      }
-
-      toast.success("Scholarship updated successfully.");
-      navigate("/admin/scholarships");
-    } catch (err) {
-      toast.error(err.message || "Unable to update scholarship.");
-    } finally {
-      setSaving(false);
-    }
-  };
+    toast.success("Scholarship updated successfully.");
+    navigate("/admin/scholarships");
+  } catch (err) {
+    toast.error(err.message || "Unable to update scholarship.");
+  } finally {
+    setSaving(false);
+  }
+};
 
   const inputClass =
     "mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100";
