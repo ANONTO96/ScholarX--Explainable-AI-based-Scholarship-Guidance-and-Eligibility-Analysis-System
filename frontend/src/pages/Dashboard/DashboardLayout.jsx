@@ -242,7 +242,7 @@ const DashboardContent = ({
           </nav>
 
           {/* AI Assistant Card */}
-          <div className="mt-8 rounded-2xl bg-linear-to-br from-sky-500 via-blue-500 to-indigo-500 p-5 text-white shadow-lg shadow-sky-100">
+          <div className="mt-8 rounded-2xl bg-linear-to-br from-sky-500 to-cyan-500 p-5 text-white shadow-lg shadow-sky-100">
             <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20">
               <Sparkles className="h-5 w-5" />
             </div>

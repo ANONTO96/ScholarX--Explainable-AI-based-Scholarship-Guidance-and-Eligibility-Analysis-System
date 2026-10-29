@@ -81,9 +81,11 @@ const AdminOverview = () => {
           </div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10" />
-        <div className="absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-white/5" />
+        <GraduationCap
+          size={190}
+          strokeWidth={0.8}
+          className="absolute -bottom-12 -right-8 hidden text-white/10 sm:block"
+        />
       </section>
 
       {/* Statistics */}
@@ -101,7 +103,7 @@ const AdminOverview = () => {
           {stats.map(({ label, value, description, icon: Icon, color }) => (
             <article
               key={label}
-              className="group rounded-2xl border border-sky-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -113,7 +115,7 @@ const AdminOverview = () => {
                   </p>
                 </div>
 
-                <div className={`rounded-xl p-3 ${color} group-hover:rotate-7 group-hover:scale-115 transition-all duration-300`}>
+                <div className={`rounded-xl p-3 ${color}`}>
                   <Icon size={21} />
                 </div>
               </div>

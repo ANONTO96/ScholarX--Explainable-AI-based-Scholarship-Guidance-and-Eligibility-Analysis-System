@@ -207,7 +207,7 @@ const DashboardOverview = () => {
   return (
     <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
       {/* Welcome */}
-      <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-sky-500 via-blue-600 to-indigo-600 p-6 text-white shadow-xl shadow-sky-100 sm:p-8">
+      <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-sky-500 via-sky-500 to-cyan-500 p-6 text-white shadow-xl shadow-sky-100 sm:p-8">
         <div className="relative z-10 max-w-2xl">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15">
@@ -248,8 +248,8 @@ const DashboardOverview = () => {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/15" />
-        <div className="absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-white/10" />
+        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10" />
+        <div className="absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-white/5" />
       </section>
 
       {/* Profile completion */}
@@ -551,7 +551,7 @@ const DashboardOverview = () => {
           </div>
 
           <NavLink
-            to="/dashboard/eligibility-analysis"
+            to="/eligibility-analysis"
             className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
             View Full Analysis
