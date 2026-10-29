@@ -359,9 +359,9 @@ const LanguageQualificationsPanel = ({ apiBaseUrl, onCompletionChange }) => {
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600"><Languages className="h-5 w-5" /></div>
           <div><h2 className="font-bold text-slate-900">Language Qualifications</h2><p className="mt-1 text-xs leading-5 text-slate-500">Manage HSK, IELTS, TOEFL, and other language tests independently from your main profile.</p></div>
         </div>
-        <div className="flex flex-wrap gap-2 sm:shrink-0">
-          <button type="button" onClick={addQualification} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"><Plus className="h-4 w-4" /> Add qualification</button>
-          <button type="button" onClick={saveQualifications} disabled={saving || loading} className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60">{saving ? "Saving…" : "Save languages"}</button>
+        <div className="flex gap-2">
+          <button type="button" onClick={addQualification} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"><Plus className="h-4 w-4" /> Add qualification</button>
+          <button type="button" onClick={saveQualifications} disabled={saving || loading} className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">{saving ? "Saving…" : "Save languages"}</button>
         </div>
       </div>
       <div className="space-y-4 p-5 sm:p-6">
@@ -447,8 +447,8 @@ const Profile = () => {
           username: serverProfile.username || body.user?.username || storedUser.username || "",
           personal: {
             ...serverProfile.personal,
-            name: body.user?.name || storedUser.name || serverProfile.personal?.name || "",
-email: body.user?.email || storedUser.email || serverProfile.personal?.email || "",
+            name: body.user?.name || storedUser.name || "",
+            email: body.user?.email || storedUser.email || "",
           },
 
         };
@@ -595,7 +595,8 @@ email: body.user?.email || storedUser.email || serverProfile.personal?.email || 
   ========================================================== */
 
   const formatBudget = () => {
-    const budget = profile.preferences?.annualBudget ?? {};
+    const budget =
+      profile.preferences.annualBudget;
 
     if (
       budget.amount === "" ||
@@ -612,7 +613,8 @@ email: body.user?.email || storedUser.email || serverProfile.personal?.email || 
 
 
   const formatWorkExperience = () => {
-    const months = profile.experience?.workExperienceMonths ?? {};
+    const months =
+      profile.experience.workExperienceMonths;
 
     if (
       months === "" ||
@@ -727,7 +729,7 @@ email: body.user?.email || storedUser.email || serverProfile.personal?.email || 
 
       <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
 
-        <div className="h-15 bg-linear-to-br from-sky-500 via-blue-500 to-indigo-500" />
+        <div className="h-15 bg-linear-to-r from-sky-500 via-sky-500 to-cyan-500" />
 
         <div className="px-5 py-6 sm:px-6">
 
@@ -799,33 +801,16 @@ email: body.user?.email || storedUser.email || serverProfile.personal?.email || 
 
               </div>
 
-              <div
-  className="h-2 overflow-hidden rounded-full bg-slate-100"
-  role="progressbar"
-  aria-label="Profile completion"
-  aria-valuemin={0}
-  aria-valuemax={100}
-  aria-valuenow={Math.min(
-    100,
-    Math.max(
-      0,
-      Number(completionData.percentage ?? profileCompletion?.percentage ?? 0)
-    )
-  )}
->
-  <div
-    className="h-full rounded-full bg-sky-500 transition-all duration-500"
-    style={{
-      width: `${Math.min(
-        100,
-        Math.max(
-          0,
-          Number(completionData.percentage ?? profileCompletion?.percentage ?? 0)
-        )
-      )}%`,
-    }}
-  />
-</div>
+              <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+
+                <div
+                  className="h-full rounded-full bg-sky-500 transition-all duration-500"
+                  style={{
+                    width: `${completionData.percentage ?? profileCompletion?.percentage ?? 0}%`,
+                  }}
+                />
+
+              </div>
 
               <p className="mt-2 text-[11px] text-slate-400">
                 A complete profile gives ScholarX more data
@@ -1172,15 +1157,14 @@ email: body.user?.email || storedUser.email || serverProfile.personal?.email || 
           <NavLink
             to="/dashboard/matches"
             className="
-  flex w-full shrink-0 items-center justify-center gap-2
-  rounded-xl bg-sky-500
-  px-5 py-3
-  text-sm font-bold text-white
-  shadow-lg shadow-sky-500/20
-  transition
-  hover:bg-sky-400
-  sm:w-auto
-"
+              flex shrink-0 items-center justify-center gap-2
+              rounded-xl bg-sky-500
+              px-5 py-3
+              text-sm font-bold text-white
+              shadow-lg shadow-sky-500/20
+              transition
+              hover:bg-sky-400
+            "
           >
             Explore Matches
 
@@ -1637,7 +1621,7 @@ const ProfileEditModal = ({
 
         {/* Footer */}
 
-        <div className="flex shrink-0 flex-col-reverse gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:flex-row sm:justify-end sm:gap-3 sm:px-6">
+        <div className="flex shrink-0 justify-end gap-3 border-t border-slate-100 bg-white px-5 py-4 sm:px-6">
 
           <button
             type="button"

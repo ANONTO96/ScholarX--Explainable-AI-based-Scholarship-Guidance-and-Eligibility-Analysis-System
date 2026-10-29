@@ -74,7 +74,7 @@ function getDaysLeft(date) {
 
     return Math.ceil(
         difference /
-        (1000 * 60 * 60 * 24)
+            (1000 * 60 * 60 * 24)
     );
 }
 
@@ -156,7 +156,7 @@ function MatchScore({ score }) {
         circumference -
         (Math.min(Math.max(score, 0), 100) /
             100) *
-        circumference;
+            circumference;
 
     let scoreColor = "text-rose-500";
 
@@ -210,8 +210,8 @@ function MatchScore({ score }) {
                 </span>
 
                 <span className="text-[8px] font-semibold uppercase tracking-wide text-slate-400">
-                    Fit
-                </span>
+    Fit
+</span>
             </div>
         </div>
     );
@@ -327,10 +327,11 @@ function FilterSelect({
 }) {
     return (
         <div
-            className={`relative ${fullWidth
+            className={`relative ${
+                fullWidth
                     ? "w-full"
                     : ""
-                }`}
+            }`}
         >
             <Icon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
@@ -341,10 +342,11 @@ function FilterSelect({
                         event.target.value
                     )
                 }
-                className={`h-11 appearance-none rounded-xl border border-slate-200 bg-white pl-9 pr-9 text-xs font-semibold text-slate-600 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100 ${fullWidth
+                className={`h-11 appearance-none rounded-xl border border-slate-200 bg-white pl-9 pr-9 text-xs font-semibold text-slate-600 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100 ${
+                    fullWidth
                         ? "w-full"
                         : "min-w-36.25"
-                    }`}
+                }`}
             >
                 {options.map(
                     (option) => (
@@ -423,10 +425,10 @@ function MatchCard({
             opportunity.degree
         )
             ? opportunity.degree.join(
-                ", "
-            )
+                  ", "
+              )
             : opportunity.degree ||
-            "Not specified";
+              "Not specified";
 
     const opportunityPath =
         opportunity.slug
@@ -477,10 +479,11 @@ function MatchCard({
                                 opportunity.id
                             )
                         }
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition ${isFavorite
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition ${
+                            isFavorite
                                 ? "border-rose-200 bg-rose-50 text-rose-500"
                                 : "border-slate-200 bg-white text-slate-400 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-500"
-                            }`}
+                        }`}
                         aria-label={
                             isFavorite
                                 ? "Remove from favorites"
@@ -587,14 +590,14 @@ function MatchCard({
 
                     {daysLeft !==
                         null && (
-                            <span className="shrink-0 text-xs font-bold">
-                                {
-                                    getDeadlineLabel(
-                                        deadline
-                                    )
-                                }
-                            </span>
-                        )}
+                        <span className="shrink-0 text-xs font-bold">
+                            {
+                                getDeadlineLabel(
+                                    deadline
+                                )
+                            }
+                        </span>
+                    )}
 
                 </div>
 
@@ -888,13 +891,13 @@ export default function Matches() {
                         const title =
                             normalize(
                                 opportunity.title ||
-                                opportunity.name
+                                    opportunity.name
                             );
 
                         const provider =
                             normalize(
                                 opportunity.provider ||
-                                opportunity.organization
+                                    opportunity.organization
                             );
 
                         const country =
@@ -924,25 +927,25 @@ export default function Matches() {
 
                         const matchesStatus =
                             statusFilter ===
-                            "all" ||
+                                "all" ||
                             analysis.status ===
-                            statusFilter;
+                                statusFilter;
 
                         const matchesCountry =
                             countryFilter ===
-                            "all" ||
+                                "all" ||
                             country ===
-                            normalize(
-                                countryFilter
-                            );
+                                normalize(
+                                    countryFilter
+                                );
 
                         const matchesFunding =
                             fundingFilter ===
-                            "all" ||
+                                "all" ||
                             funding ===
-                            normalize(
-                                fundingFilter
-                            );
+                                normalize(
+                                    fundingFilter
+                                );
 
                         return (
                             matchesSearch &&
@@ -978,14 +981,14 @@ export default function Matches() {
                             new Date(
                                 a.opportunity
                                     .deadline ||
-                                "9999-12-31"
+                                    "9999-12-31"
                             ).getTime();
 
                         const second =
                             new Date(
                                 b.opportunity
                                     .deadline ||
-                                "9999-12-31"
+                                    "9999-12-31"
                             ).getTime();
 
                         return (
@@ -1001,16 +1004,16 @@ export default function Matches() {
                         return String(
                             a.opportunity
                                 .title ||
-                            a.opportunity
-                                .name ||
-                            ""
+                                a.opportunity
+                                    .name ||
+                                ""
                         ).localeCompare(
                             String(
                                 b.opportunity
                                     .title ||
-                                b.opportunity
-                                    .name ||
-                                ""
+                                    b.opportunity
+                                        .name ||
+                                    ""
                             )
                         );
                     }
@@ -1162,67 +1165,67 @@ export default function Matches() {
                 </section>
 
                 {profileReadiness?.isReady ? (
-                    <>    </>
-                ) : (
-                    <section className="mt-6 overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
-                        <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
+    <>    </>
+) : (
+    <section className="mt-6 overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
+        <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
 
-                        <div className="px-5 py-10 text-center sm:px-8 sm:py-14">
-                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
-                                <Target className="h-8 w-8" />
-                            </div>
+        <div className="px-5 py-10 text-center sm:px-8 sm:py-14">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
+                <Target className="h-8 w-8" />
+            </div>
 
-                            <h2 className="mt-5 text-xl font-bold text-slate-900 sm:text-2xl">
-                                Complete Your Profile to Unlock Matches
-                            </h2>
+            <h2 className="mt-5 text-xl font-bold text-slate-900 sm:text-2xl">
+                Complete Your Profile to Unlock Matches
+            </h2>
 
-                            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
-                                ScholarX needs a few more details about your academic
-                                background, English proficiency, nationality, study
-                                destination, and budget before it can evaluate scholarship
-                                opportunities meaningfully.
-                            </p>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
+                ScholarX needs a few more details about your academic
+                background, English proficiency, nationality, study
+                destination, and budget before it can evaluate scholarship
+                opportunities meaningfully.
+            </p>
 
-                            <div className="mx-auto mt-6 max-w-md rounded-2xl bg-slate-50 p-4 text-left">
-                                <div className="flex items-center justify-between gap-3">
-                                    <span className="text-sm font-semibold text-slate-700">
-                                        Analysis readiness
-                                    </span>
+            <div className="mx-auto mt-6 max-w-md rounded-2xl bg-slate-50 p-4 text-left">
+                <div className="flex items-center justify-between gap-3">
+                    <span className="text-sm font-semibold text-slate-700">
+                        Analysis readiness
+                    </span>
 
-                                    <span className="text-sm font-bold text-sky-600">
-                                        {profileReadiness?.completed ?? 0}/
-                                        {profileReadiness?.total ?? 10} checks
-                                    </span>
-                                </div>
+                    <span className="text-sm font-bold text-sky-600">
+                        {profileReadiness?.completed ?? 0}/
+                        {profileReadiness?.total ?? 10} checks
+                    </span>
+                </div>
 
-                                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
-                                    <div
-                                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-600 transition-all duration-500"
-                                        style={{
-                                            width: `${readinessPercentage}%`,
-                                        }}
-                                    />
-                                </div>
+                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+                    <div
+                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-600 transition-all duration-500"
+                        style={{
+                            width: `${readinessPercentage}%`,
+                        }}
+                    />
+                </div>
 
-                                <p className="mt-2 text-xs text-slate-500">
-                                    {readinessPercentage}% of required analysis information completed
-                                </p>
-                            </div>
+                <p className="mt-2 text-xs text-slate-500">
+                    {readinessPercentage}% of required analysis information completed
+                </p>
+            </div>
 
-                            <NavLink
-                                to="/dashboard/profile"
-                                className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition hover:bg-sky-600"
-                            >
-                                Complete My Profile
-                                <ArrowRight className="h-4 w-4" />
-                            </NavLink>
+            <NavLink
+                to="/dashboard/profile"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition hover:bg-sky-600"
+            >
+                Complete My Profile
+                <ArrowRight className="h-4 w-4" />
+            </NavLink>
 
-                            <p className="mt-4 text-xs text-slate-400">
-                                Your name and email do not affect scholarship eligibility analysis.
-                            </p>
-                        </div>
-                    </section>
-                )}
+            <p className="mt-4 text-xs text-slate-400">
+                Your name and email do not affect scholarship eligibility analysis.
+            </p>
+        </div>
+    </section>
+)}
 
 
                 {/* =================================================
@@ -1444,10 +1447,11 @@ export default function Matches() {
                             Filters
 
                             <ChevronDown
-                                className={`h-4 w-4 transition-transform ${showFilters
+                                className={`h-4 w-4 transition-transform ${
+                                    showFilters
                                         ? "rotate-180"
                                         : ""
-                                    }`}
+                                }`}
                             />
 
                         </button>
@@ -1635,7 +1639,7 @@ export default function Matches() {
                 <section className="mt-4 space-y-4">
 
                     {filteredMatches.length >
-                        0 ? (
+                    0 ? (
                         filteredMatches.map(
                             (
                                 item
@@ -1680,32 +1684,32 @@ export default function Matches() {
 
                 {filteredMatches.length >
                     0 && (
-                        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-sky-100 bg-sky-50 p-4">
+                    <div className="mt-6 flex items-start gap-3 rounded-2xl border border-sky-100 bg-sky-50 p-4">
 
-                            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-sky-500">
-                                <Sparkles className="h-4 w-4" />
-                            </div>
+                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-sky-500">
+                            <Sparkles className="h-4 w-4" />
+                        </div>
 
-                            <div>
+                        <div>
 
-                                <p className="text-sm font-semibold text-sky-900">
-                                    How your match score works
-                                </p>
+                            <p className="text-sm font-semibold text-sky-900">
+                                How your match score works
+                            </p>
 
-                                <p className="mt-1 text-xs leading-5 text-sky-700">
-                                    The Scholarship Fit Score measures how closely your profile aligns
-                                    with the opportunity's configured requirements. Mandatory criteria,
-                                    preferred criteria, and information requiring verification affect
-                                    the evaluation. This score is not a probability of receiving a
-                                    scholarship or a guarantee of an award. Final decisions depend on
-                                    the provider's selection process, available funding, competition,
-                                    and other factors.
-                                </p>
-
-                            </div>
+                            <p className="mt-1 text-xs leading-5 text-sky-700">
+    The Scholarship Fit Score measures how closely your profile aligns
+    with the opportunity's configured requirements. Mandatory criteria,
+    preferred criteria, and information requiring verification affect
+    the evaluation. This score is not a probability of receiving a
+    scholarship or a guarantee of an award. Final decisions depend on
+    the provider's selection process, available funding, competition,
+    and other factors.
+</p>
 
                         </div>
-                    )}
+
+                    </div>
+                )}
 
             </div>
         </div>
