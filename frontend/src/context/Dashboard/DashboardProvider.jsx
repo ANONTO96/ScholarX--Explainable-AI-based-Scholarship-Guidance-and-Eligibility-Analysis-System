@@ -935,6 +935,8 @@ export const DashboardProvider = ({ children }) => {
             file
         );
 
+        const savedDocuments = await getStudentDocuments();
+        const updated = normalizeDocuments(savedDocuments);
         setDocuments(updated);
 
         return updated;
@@ -1219,10 +1221,9 @@ export const DashboardProvider = ({ children }) => {
 
                 // Documents
                 documents,
-                customDocuments,
+                documentsLoading,
                 addDocument,
                 removeChecklistDocument,
-                addCustomDocument,
 
                 // Settings
                 settings,

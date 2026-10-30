@@ -5,8 +5,6 @@ import {
     CheckCircle2,
     ChevronDown,
     Clock3,
-    Download,
-    Eye,
     FileCheck2,
     FileText,
     FolderOpen,
@@ -14,7 +12,6 @@ import {
     IdCard,
     Landmark,
     Mail,
-    Plus,
     RefreshCw,
     Search,
     ShieldCheck,
@@ -22,7 +19,6 @@ import {
     Upload,
     UserRound,
     WalletCards,
-    X,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -31,10 +27,6 @@ import {
     useRef,
     useState,
 } from "react";
-
-import {
-    getDocumentFile,
-} from "../../data/documents";
 
 import { useDashboard } from "../../context/Dashboard/useDashboard";
 
@@ -402,7 +394,6 @@ function DocumentCard({
     onUpload,
     onRemove,
     onMarkAdded,
-    onView,
 }) {
     const inputRef =
         useRef(null);
@@ -606,37 +597,8 @@ function DocumentCard({
                         />
 
                         {uploaded ? (
-                            <>
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        onView(
-                                            uploaded
-                                        )
-                                    }
-                                    className="
-                                        inline-flex
-                                        h-9
-                                        items-center
-                                        gap-1.5
-                                        rounded-lg
-                                        border
-                                        border-slate-200
-                                        bg-white
-                                        px-3
-                                        text-[10px]
-                                        font-bold
-                                        text-slate-600
-                                        transition
-                                        hover:border-sky-200
-                                        hover:text-sky-600
-                                    "
-                                >
-                                    <Eye className="h-3.5 w-3.5" />
-                                    View
-                                </button>
-
-                                <button
+                            <div key="document-added-actions" className="contents">
+<button
                                     type="button"
                                     onClick={() =>
                                         inputRef.current?.click()
@@ -659,7 +621,7 @@ function DocumentCard({
                                     "
                                 >
                                     <RefreshCw className="h-3.5 w-3.5" />
-                                    Replace
+                                    Update PDF details
                                 </button>
 
                                 <button
@@ -686,9 +648,9 @@ function DocumentCard({
                                     <Trash2 className="h-3.5 w-3.5" />
                                     Remove
                                 </button>
-                            </>
+                            </div>
                         ) : (
-                            <>
+                            <div key="document-missing-actions" className="contents">
                                 <button
                                     type="button"
                                     onClick={() =>
@@ -712,7 +674,7 @@ function DocumentCard({
                                     "
                                 >
                                     <Upload className="h-3.5 w-3.5" />
-                                    Upload PDF
+                                    Record PDF details
                                 </button>
 
                                 <button
@@ -744,7 +706,7 @@ function DocumentCard({
                                     <Check className="h-3.5 w-3.5" />
                                     Mark as Added
                                 </button>
-                            </>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -757,9 +719,7 @@ function DocumentCard({
 /* Empty State                                                 */
 /* ========================================================= */
 
-function EmptyDocuments({
-    onAdd,
-}) {
+function EmptyDocuments() {
     return (
         <div
             className="
@@ -794,348 +754,8 @@ function EmptyDocuments({
             </h3>
 
             <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-slate-400">
-                Start building your application
-                document collection by adding a
-                document to your checklist.
+Try changing your search term or selecting a different category.
             </p>
-
-            <button
-                type="button"
-                onClick={onAdd}
-                className="
-                    mt-5
-                    inline-flex
-                    h-10
-                    items-center
-                    gap-2
-                    rounded-xl
-                    bg-sky-500
-                    px-4
-                    text-xs
-                    font-bold
-                    text-white
-                    shadow-sm
-                    shadow-sky-100
-                    transition
-                    hover:bg-sky-600
-                "
-            >
-                <Plus className="h-4 w-4" />
-                Add Document
-            </button>
-        </div>
-    );
-}
-
-/* ========================================================= */
-/* Add Custom Document Form                                    */
-/* ========================================================= */
-
-function AddDocumentForm({
-    onClose,
-    onAdd,
-}) {
-    const [name, setName] =
-        useState("");
-
-    const [category, setCategory] =
-        useState("Application");
-
-    const [description, setDescription] =
-        useState("");
-
-    const [required, setRequired] =
-        useState(true);
-
-    const handleSubmit =
-        (event) => {
-            event.preventDefault();
-
-            if (!name.trim()) {
-                return;
-            }
-
-            onAdd({
-                id: `custom-${Date.now()}`,
-                name: name.trim(),
-                description:
-                    description.trim() ||
-                    "Custom application document.",
-                category,
-                required,
-                custom: true,
-            });
-        };
-
-    return (
-        <div
-            className="
-                fixed
-                inset-0
-                z-50
-                flex
-                items-center
-                justify-center
-                bg-slate-950/40
-                p-4
-                backdrop-blur-sm
-            "
-        >
-            <div
-                className="
-                    w-full
-                    max-w-lg
-                    overflow-hidden
-                    rounded-2xl
-                    border
-                    border-slate-200
-                    bg-white
-                    shadow-2xl
-                "
-            >
-                <div
-                    className="
-                        flex
-                        items-center
-                        justify-between
-                        border-b
-                        border-slate-100
-                        px-5
-                        py-4
-                    "
-                >
-                    <div>
-                        <h2 className="text-sm font-bold text-slate-900">
-                            Add Custom Document
-                        </h2>
-
-                        <p className="mt-0.5 text-[10px] text-slate-400">
-                            Add another document to
-                            your checklist.
-                        </p>
-                    </div>
-
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="
-                            flex
-                            h-8
-                            w-8
-                            items-center
-                            justify-center
-                            rounded-lg
-                            text-slate-400
-                            transition
-                            hover:bg-slate-100
-                            hover:text-slate-700
-                        "
-                    >
-                        <X className="h-4 w-4" />
-                    </button>
-                </div>
-
-                <form
-                    onSubmit={
-                        handleSubmit
-                    }
-                    className="p-5"
-                >
-                    <div>
-                        <label className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                            Document Name
-                        </label>
-
-                        <input
-                            value={name}
-                            onChange={(event) =>
-                                setName(
-                                    event.target.value
-                                )
-                            }
-                            placeholder="e.g. Birth Certificate"
-                            className="
-                                mt-2
-                                h-10
-                                w-full
-                                rounded-xl
-                                border
-                                border-slate-200
-                                px-3
-                                text-xs
-                                font-medium
-                                text-slate-700
-                                outline-none
-                                transition
-                                focus:border-sky-400
-                                focus:ring-4
-                                focus:ring-sky-100
-                            "
-                        />
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                            Category
-                        </label>
-
-                        <select
-                            value={category}
-                            onChange={(event) =>
-                                setCategory(
-                                    event.target.value
-                                )
-                            }
-                            className="
-                                mt-2
-                                h-10
-                                w-full
-                                rounded-xl
-                                border
-                                border-slate-200
-                                bg-white
-                                px-3
-                                text-xs
-                                font-medium
-                                text-slate-700
-                                outline-none
-                                focus:border-sky-400
-                                focus:ring-4
-                                focus:ring-sky-100
-                            "
-                        >
-                            <option>
-                                Identity
-                            </option>
-                            <option>
-                                Academic
-                            </option>
-                            <option>
-                                Application
-                            </option>
-                            <option>
-                                Language
-                            </option>
-                            <option>
-                                Financial
-                            </option>
-                            <option>
-                                Visa
-                            </option>
-                            <option>
-                                Other
-                            </option>
-                        </select>
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                            Description
-                        </label>
-
-                        <textarea
-                            value={
-                                description
-                            }
-                            onChange={(event) =>
-                                setDescription(
-                                    event.target.value
-                                )
-                            }
-                            rows={3}
-                            placeholder="What is this document for?"
-                            className="
-                                mt-2
-                                w-full
-                                resize-none
-                                rounded-xl
-                                border
-                                border-slate-200
-                                px-3
-                                py-2.5
-                                text-xs
-                                font-medium
-                                text-slate-700
-                                outline-none
-                                focus:border-sky-400
-                                focus:ring-4
-                                focus:ring-sky-100
-                            "
-                        />
-                    </div>
-
-                    <label className="mt-4 flex cursor-pointer items-center gap-2">
-                        <input
-                            type="checkbox"
-                            checked={
-                                required
-                            }
-                            onChange={(event) =>
-                                setRequired(
-                                    event.target
-                                        .checked
-                                )
-                            }
-                            className="
-                                h-4
-                                w-4
-                                rounded
-                                border-slate-300
-                                text-sky-500
-                                focus:ring-sky-400
-                            "
-                        />
-
-                        <span className="text-xs font-semibold text-slate-600">
-                            Required for application
-                        </span>
-                    </label>
-
-                    <div className="mt-6 flex justify-end gap-2">
-                        <button
-                            type="button"
-                            onClick={
-                                onClose
-                            }
-                            className="
-                                h-10
-                                rounded-xl
-                                border
-                                border-slate-200
-                                px-4
-                                text-xs
-                                font-bold
-                                text-slate-600
-                                hover:bg-slate-50
-                            "
-                        >
-                            Cancel
-                        </button>
-
-                        <button
-                            type="submit"
-                            className="
-                                inline-flex
-                                h-10
-                                items-center
-                                gap-2
-                                rounded-xl
-                                bg-sky-500
-                                px-4
-                                text-xs
-                                font-bold
-                                text-white
-                                shadow-sm
-                                shadow-sky-100
-                                hover:bg-sky-600
-                            "
-                        >
-                            <Plus className="h-4 w-4" />
-                            Add Document
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
     );
 }
@@ -1146,18 +766,11 @@ function AddDocumentForm({
 
 export default function Documents() {
     const {
-        opportunities,
         documents,
-        customDocuments,
+        documentsLoading,
         addDocument,
-        addCustomDocument,
         removeChecklistDocument,
     } = useDashboard();
-
-    const [
-        selectedOpportunity,
-        setSelectedOpportunity,
-    ] = useState("all");
 
     const [search, setSearch] =
         useState("");
@@ -1167,50 +780,23 @@ export default function Documents() {
         setCategoryFilter,
     ] = useState("all");
 
-    const [
-        showAddForm,
-        setShowAddForm,
-    ] = useState(false);
-
-    const [viewingDocument, setViewingDocument] =
+    const [pendingRemoval, setPendingRemoval] =
         useState(null);
 
-    /* ===================================================== */
-    /* Opportunity Options                                    */
-    /* ===================================================== */
-
-    const opportunityOptions =
-        opportunities || [];
+    const [removingDocument, setRemovingDocument] =
+        useState(false);
 
     /* ===================================================== */
     /* Build Checklist                                        */
     /* ===================================================== */
 
-    const checklist =
-        useMemo(() => {
-            const defaults =
-                DEFAULT_DOCUMENTS.map(
-                    (document) => ({
-                        ...document,
-                        checklistId:
-                            document.id,
-                    })
-                );
-
-            const customs =
-                customDocuments.map(
-                    (document) => ({
-                        ...document,
-                        checklistId:
-                            document.id,
-                    })
-                );
-
-            return [
-                ...defaults,
-                ...customs,
-            ];
-        }, [customDocuments]);
+    const checklist = useMemo(
+        () => DEFAULT_DOCUMENTS.map((document) => ({
+            ...document,
+            checklistId: document.id,
+        })),
+        []
+    );
 
     /* ===================================================== */
     /* Uploaded Map                                           */
@@ -1367,6 +953,7 @@ export default function Documents() {
             try {
                 await addDocument(
                     {
+                        hasDocument: true,
                         checklistId:
                             document.checklistId ||
                             document.id,
@@ -1382,26 +969,17 @@ export default function Documents() {
 
                         required:
                             document.required,
-
-                        custom:
-                            document.custom ||
-                            false,
-
-                        opportunityId:
-                            selectedOpportunity !==
-                            "all"
-                                ? selectedOpportunity
-                                : null,
                     },
                     file
                 );
+                toast.success("Document status and PDF details saved. The PDF file itself was not uploaded.");
             } catch (error) {
                 console.error(
                     "Failed to upload document:",
                     error
                 );
 
-                toast.error("Failed to save the document. Please try again.");
+                toast.error(error.message || "Failed to save the document. Please try again.");
             }
         };
 
@@ -1409,6 +987,7 @@ export default function Documents() {
         async (document) => {
             try {
                 await addDocument({
+                    hasDocument: true,
                     checklistId:
                         document.checklistId ||
                         document.id,
@@ -1424,18 +1003,10 @@ export default function Documents() {
 
                     required:
                         document.required,
-
-                    custom:
-                        document.custom ||
-                        false,
-
-                    opportunityId:
-                        selectedOpportunity !==
-                        "all"
-                            ? selectedOpportunity
-                            : null,
                 });
+                toast.success("Document marked as gathered.");
             } catch (error) {
+                toast.error(error.message || "Failed to update document status.");
                 console.error(
                     "Failed to mark document:",
                     error
@@ -1443,87 +1014,30 @@ export default function Documents() {
             }
         };
 
-    const handleRemove =
-        async (document) => {
-            const confirmed =
-                window.confirm(
-                    `Remove "${document.name}" from your gathered documents?`
-                );
+    const handleRemove = (document) => {
+        setPendingRemoval(document);
+    };
 
-            if (!confirmed) {
-                return;
-            }
+    const confirmRemove = async () => {
+        if (!pendingRemoval || removingDocument) {
+            return;
+        }
 
-            try {
-                await removeChecklistDocument(
-                    document.checklistId ||
-                        document.id
-                );
-            } catch (error) {
-                console.error(
-                    "Failed to remove document:",
-                    error
-                );
-            }
-        };
+        setRemovingDocument(true);
 
-    const handleAddCustom =
-        (document) => {
-            addCustomDocument(
-                document
+        try {
+            await removeChecklistDocument(
+                pendingRemoval.checklistId || pendingRemoval.id
             );
-
-            setShowAddForm(
-                false
-            );
-        };
-
-    /* ===================================================== */
-    /* View PDF                                                */
-    /* ===================================================== */
-
-    const handleView =
-        async (document) => {
-            try {
-                if (
-                    !document.fileName
-                ) {
-                    toast.error(
-                        "This document was manually marked as added and has no PDF file."
-                    );
-
-                    return;
-                }
-
-                const file =
-                    await getDocumentFile(
-                        document.id
-                    );
-
-                if (!file) {
-                    toast.error("The PDF file could not be found.");
-
-                    return;
-                }
-
-                const url =
-                    URL.createObjectURL(
-                        file
-                    );
-
-                setViewingDocument({
-                    ...document,
-                    url,
-                });
-            } catch (error) {
-                console.error(
-                    "Failed to open document:",
-                    error
-                );
-
-                toast.error("Unable to open this PDF.");
-            }
-        };
+            toast.success("Document status removed.");
+            setPendingRemoval(null);
+        } catch (error) {
+            toast.error(error.message || "Failed to remove document status.");
+            console.error("Failed to remove document:", error);
+        } finally {
+            setRemovingDocument(false);
+        }
+    };
 
     /* ===================================================== */
     /* Categories                                              */
@@ -1615,45 +1129,9 @@ export default function Documents() {
                                     text-slate-500
                                 "
                             >
-                                Keep every important
-                                document organized,
-                                upload your PDFs, and
-                                track your application
-                                readiness from one place.
+                                Track the documents you have gathered and monitor your application readiness. PDF selections currently save metadata only; the actual files are not uploaded.
                             </p>
                         </div>
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setShowAddForm(
-                                    true
-                                )
-                            }
-                            className="
-                                inline-flex
-                                h-11
-                                shrink-0
-                                items-center
-                                justify-center
-                                gap-2
-                                rounded-xl
-                                bg-sky-500
-                                px-5
-                                text-xs
-                                font-bold
-                                text-white
-                                shadow-sm
-                                shadow-sky-200
-                                transition
-                                hover:bg-sky-600
-                                hover:shadow-md
-                            "
-                        >
-                            <Plus className="h-4 w-4" />
-
-                            Add Document
-                        </button>
                     </div>
 
                     <div
@@ -1683,113 +1161,6 @@ export default function Documents() {
                             blur-3xl
                         "
                     />
-                </div>
-
-                {/* ================================================= */}
-                {/* Target Opportunity                               */}
-                {/* ================================================= */}
-
-                <div
-                    className="
-                        mt-6
-                        rounded-2xl
-                        border
-                        border-slate-200
-                        bg-white
-                        p-4
-                        shadow-sm
-                    "
-                >
-                    <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                        <div>
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                Application Target
-                            </p>
-
-                            <h2 className="mt-1 text-sm font-bold text-slate-900">
-                                Which opportunity are you preparing for?
-                            </h2>
-
-                            <p className="mt-1 text-[11px] text-slate-400">
-                                Use this to keep your
-                                document preparation
-                                focused on a specific
-                                scholarship or university.
-                            </p>
-                        </div>
-
-                        <div className="relative w-full lg:w-96">
-                            <select
-                                value={
-                                    selectedOpportunity
-                                }
-                                onChange={(
-                                    event
-                                ) =>
-                                    setSelectedOpportunity(
-                                        event
-                                            .target
-                                            .value
-                                    )
-                                }
-                                className="
-                                    h-11
-                                    w-full
-                                    appearance-none
-                                    rounded-xl
-                                    border
-                                    border-slate-200
-                                    bg-white
-                                    px-3
-                                    pr-10
-                                    text-xs
-                                    font-semibold
-                                    text-slate-700
-                                    outline-none
-                                    transition
-                                    focus:border-sky-400
-                                    focus:ring-4
-                                    focus:ring-sky-100
-                                "
-                            >
-                                <option value="all">
-                                    General Document Collection
-                                </option>
-
-                                {opportunityOptions.map(
-                                    (
-                                        opportunity
-                                    ) => (
-                                        <option
-                                            key={
-                                                opportunity.id
-                                            }
-                                            value={
-                                                opportunity.id
-                                            }
-                                        >
-                                            {
-                                                opportunity.title
-                                            }
-                                        </option>
-                                    )
-                                )}
-                            </select>
-
-                            <ChevronDown
-                                className="
-                                    pointer-events-none
-                                    absolute
-                                    right-3
-                                    top-1/2
-                                    h-4
-                                    w-4
-                                    -translate-y-1/2
-                                    text-slate-400
-                                "
-                            />
-                        </div>
-                    </div>
                 </div>
 
                 {/* ================================================= */}
@@ -2082,36 +1453,6 @@ export default function Documents() {
                             )
                         )}
                     </FilterSelect>
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setShowAddForm(
-                                true
-                            )
-                        }
-                        className="
-                            inline-flex
-                            h-10
-                            items-center
-                            justify-center
-                            gap-2
-                            rounded-xl
-                            border
-                            border-sky-200
-                            bg-sky-50
-                            px-4
-                            text-xs
-                            font-bold
-                            text-sky-600
-                            transition
-                            hover:bg-sky-100
-                        "
-                    >
-                        <Plus className="h-3.5 w-3.5" />
-
-                        Custom
-                    </button>
                 </div>
 
                 {/* ================================================= */}
@@ -2129,9 +1470,7 @@ export default function Documents() {
                         </h2>
 
                         <p className="mt-1 text-xs text-slate-400">
-                            Upload your PDF or manually
-                            mark a document as already
-                            gathered.
+                            Record PDF details or manually mark a document as gathered. PDF file storage is not enabled yet.
                         </p>
                     </div>
 
@@ -2149,15 +1488,13 @@ export default function Documents() {
                 {/* Documents                                         */}
                 {/* ================================================= */}
 
-                {filteredDocuments.length ===
-                0 ? (
-                    <EmptyDocuments
-                        onAdd={() =>
-                            setShowAddForm(
-                                true
-                            )
-                        }
-                    />
+                {documentsLoading ? (
+                    <div className="rounded-2xl border border-slate-200 bg-white px-6 py-14 text-center">
+                        <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-sky-500" />
+                        <p className="mt-4 text-sm font-semibold text-slate-700">Loading your document checklist...</p>
+                    </div>
+                ) : filteredDocuments.length === 0 ? (
+                    <EmptyDocuments />
                 ) : (
                     <div className="space-y-8">
                         {Object.entries(
@@ -2237,9 +1574,6 @@ export default function Documents() {
                                                         onMarkAdded={
                                                             handleMarkAdded
                                                         }
-                                                        onView={
-                                                            handleView
-                                                        }
                                                     />
                                                 )
                                             )}
@@ -2248,6 +1582,59 @@ export default function Documents() {
                                 );
                             }
                         )}
+                    </div>
+                )}
+
+                {/* Remove confirmation modal (DaisyUI) */}
+                {pendingRemoval && (
+                    <div
+                        className="modal modal-open"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="remove-document-title"
+                        onMouseDown={(event) => {
+                            if (event.target === event.currentTarget && !removingDocument) {
+                                setPendingRemoval(null);
+                            }
+                        }}
+                    >
+                        <div className="modal-box max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl">
+                            <div className="flex items-start gap-3">
+                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+                                    <Trash2 className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h3 id="remove-document-title" className="text-base font-bold text-slate-900">
+                                        Remove document status?
+                                    </h3>
+                                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                                        Remove <span className="font-semibold text-slate-800">{pendingRemoval.name}</span> from your gathered documents? This will remove its saved checklist status.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="modal-action mt-6 flex gap-2">
+                                <button
+                                    type="button"
+                                    className="btn rounded-xl border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                                    onClick={() => setPendingRemoval(null)}
+                                    disabled={removingDocument}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn rounded-xl border-0 bg-rose-600 text-white hover:bg-rose-700"
+                                    onClick={confirmRemove}
+                                    disabled={removingDocument}
+                                >
+                                    {removingDocument ? (
+                                        <><span className="loading loading-spinner loading-sm" /> Removing...</>
+                                    ) : (
+                                        <><Trash2 className="h-4 w-4" /> Remove status</>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 )}
 
@@ -2289,153 +1676,13 @@ export default function Documents() {
                             </h3>
 
                             <p className="mt-1 text-[11px] leading-5 text-slate-500">
-                                A document marked as
-                                gathered counts toward
-                                your readiness percentage.
-                                Uploading the PDF is
-                                recommended so your
-                                application materials stay
-                                organized in ScholarX.
+                                A document marked as gathered counts toward your readiness percentage. The current backend stores checklist status and PDF metadata only, not the PDF file itself.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* ===================================================== */}
-            {/* Add Custom Document Modal                            */}
-            {/* ===================================================== */}
-
-            {showAddForm && (
-                <AddDocumentForm
-                    onClose={() =>
-                        setShowAddForm(
-                            false
-                        )
-                    }
-                    onAdd={
-                        handleAddCustom
-                    }
-                />
-            )}
-
-            {/* ===================================================== */}
-            {/* PDF Viewer                                            */}
-            {/* ===================================================== */}
-
-            {viewingDocument && (
-                <div
-                    className="
-                        fixed
-                        inset-0
-                        z-60
-                        flex
-                        flex-col
-                        bg-slate-950/90
-                        backdrop-blur-sm
-                    "
-                >
-                    <div
-                        className="
-                            flex
-                            items-center
-                            justify-between
-                            border-b
-                            border-white/10
-                            bg-slate-950
-                            px-4
-                            py-3
-                        "
-                    >
-                        <div className="min-w-0">
-                            <p className="truncate text-xs font-bold text-white">
-                                {
-                                    viewingDocument.name
-                                }
-                            </p>
-
-                            <p className="mt-0.5 text-[10px] text-slate-400">
-                                {
-                                    viewingDocument.fileName
-                                }
-                            </p>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <a
-                                href={
-                                    viewingDocument.url
-                                }
-                                download={
-                                    viewingDocument.fileName
-                                }
-                                className="
-                                    inline-flex
-                                    h-9
-                                    items-center
-                                    gap-1.5
-                                    rounded-lg
-                                    bg-white/10
-                                    px-3
-                                    text-[10px]
-                                    font-bold
-                                    text-white
-                                    transition
-                                    hover:bg-white/20
-                                "
-                            >
-                                <Download className="h-3.5 w-3.5" />
-
-                                Download
-                            </a>
-
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    URL.revokeObjectURL(
-                                        viewingDocument.url
-                                    );
-
-                                    setViewingDocument(
-                                        null
-                                    );
-                                }}
-                                className="
-                                    flex
-                                    h-9
-                                    w-9
-                                    items-center
-                                    justify-center
-                                    rounded-lg
-                                    bg-white/10
-                                    text-white
-                                    transition
-                                    hover:bg-white/20
-                                "
-                            >
-                                <X className="h-4 w-4" />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="min-h-0 flex-1 p-3">
-                        <iframe
-                            title={
-                                viewingDocument.name
-                            }
-                            src={
-                                viewingDocument.url
-                            }
-                            className="
-                                h-full
-                                w-full
-                                rounded-xl
-                                bg-white
-                            "
-                        />
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
