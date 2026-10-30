@@ -1,3 +1,4 @@
+
 import {
   ArrowRight,
   Award,
@@ -18,13 +19,33 @@ import { useDashboard } from "../../context/Dashboard/useDashboard";
 const DashboardOverview = () => {
   const {
     profileCompletion,
-    matches: evaluatedMatches,
-    matchStats,
-    favorites,
-    applications,
-    deadlines: dashboardDeadlines,
+    matches: evaluatedMatches = [],
+    matchStats = {
+      strong: 0,
+      review: 0,
+      notEligible: 0,
+      total: 0,
+    },
+    favorites = [],
+    applications = [],
+    deadlines: dashboardDeadlines = [],
     applicationStats,
   } = useDashboard();
+
+  /*
+   * =========================================================
+   * Profile Completion
+   * =========================================================
+   */
+
+  // profileCompletion is an object, so extract its percentage.
+  const completionPercentage = Math.min(
+    100,
+    Math.max(
+      0,
+      Number(profileCompletion?.percentage) || 0
+    )
+  );
 
   /*
    * =========================================================
@@ -32,7 +53,7 @@ const DashboardOverview = () => {
    * =========================================================
    */
 
-  // Top 3 matches from the centralized eligibility results
+  // Top 3 matches from centralized eligibility results.
   const topMatches = [...evaluatedMatches]
     .sort((a, b) => {
       const scoreA =
@@ -74,7 +95,7 @@ const DashboardOverview = () => {
       deadline: opportunity.deadline,
     }));
 
-  // Upcoming deadlines from the centralized provider
+  // Upcoming deadlines from centralized DashboardProvider.
   const upcomingDeadlines = dashboardDeadlines
     .slice(0, 3)
     .map(({ opportunity, deadlineDate, daysRemaining }) => ({
@@ -90,12 +111,11 @@ const DashboardOverview = () => {
    * =========================================================
    */
 
-  const deadlinesWithin30Days =
-    dashboardDeadlines.filter(
-      ({ daysRemaining }) =>
-        daysRemaining >= 0 &&
-        daysRemaining <= 30
-    ).length;
+  const deadlinesWithin30Days = dashboardDeadlines.filter(
+    ({ daysRemaining }) =>
+      daysRemaining >= 0 &&
+      daysRemaining <= 30
+  ).length;
 
   const stats = [
     {
@@ -116,11 +136,11 @@ const DashboardOverview = () => {
       label: "Applications",
       value: String(
         applicationStats?.active ??
-        applications.filter(
-          (app) =>
-            app.status === "planning" ||
-            app.status === "applying"
-        ).length
+          applications.filter(
+            (app) =>
+              app.status === "planning" ||
+              app.status === "applying"
+          ).length
       ).padStart(2, "0"),
       description: "Currently active",
       icon: FileCheck2,
@@ -128,9 +148,7 @@ const DashboardOverview = () => {
     },
     {
       label: "Upcoming Deadlines",
-      value: String(
-        deadlinesWithin30Days
-      ).padStart(2, "0"),
+      value: String(deadlinesWithin30Days).padStart(2, "0"),
       description: "Within 30 days",
       icon: CalendarDays,
       href: "/dashboard/deadlines",
@@ -148,48 +166,33 @@ const DashboardOverview = () => {
       return "Deadline unavailable";
     }
 
-    const date = new Date(
-      `${deadline}T23:59:59`
-    );
+    const date = new Date(`${deadline}T23:59:59`);
 
     if (Number.isNaN(date.getTime())) {
       return deadline;
     }
 
-    return date.toLocaleDateString(
-      "en-US",
-      {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      }
-    );
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   };
 
   const getDeadlineMonth = (date) => {
-    if (!date) {
-      return "";
-    }
+    if (!date) return "";
 
-    return date.toLocaleDateString(
-      "en-US",
-      {
-        month: "short",
-      }
-    );
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+    });
   };
 
   const getDeadlineDay = (date) => {
-    if (!date) {
-      return "";
-    }
+    if (!date) return "";
 
-    return date.toLocaleDateString(
-      "en-US",
-      {
-        day: "2-digit",
-      }
-    );
+    return date.toLocaleDateString("en-US", {
+      day: "2-digit",
+    });
   };
 
   const getDaysLabel = (daysRemaining) => {
@@ -205,7 +208,7 @@ const DashboardOverview = () => {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6 px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       {/* Welcome */}
       <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-sky-500 via-sky-500 to-cyan-500 p-6 text-white shadow-xl shadow-sky-100 sm:p-8">
         <div className="relative z-10 max-w-2xl">
@@ -252,7 +255,7 @@ const DashboardOverview = () => {
         <div className="absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-white/5" />
       </section>
 
-      {/* Profile completion */}
+      {/* Profile Completion */}
       <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
@@ -274,13 +277,13 @@ const DashboardOverview = () => {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="3"
-                  strokeDasharray={`${profileCompletion}, 100`}
+                  strokeDasharray={`${completionPercentage}, 100`}
                   className="text-sky-500"
                 />
               </svg>
 
               <span className="relative z-10 text-sm font-bold text-sky-600">
-                {profileCompletion.percentage}%
+                {completionPercentage}%
               </span>
             </div>
 
@@ -307,9 +310,9 @@ const DashboardOverview = () => {
 
         <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100">
           <div
-            className="h-full rounded-full bg-sky-500"
+            className="h-full rounded-full bg-sky-500 transition-all duration-500"
             style={{
-              width: `${profileCompletion}%`,
+              width: `${completionPercentage}%`,
             }}
           />
         </div>
@@ -327,7 +330,7 @@ const DashboardOverview = () => {
               className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-sky-200 hover:shadow-lg"
             >
               <div className="flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-500 group-hover:text-white group-hover:bg-sky-600 group-hover:rotate-3 transition-all duration-300">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-500 transition-all duration-300 group-hover:rotate-3 group-hover:bg-sky-600 group-hover:text-white">
                   <Icon className="h-5 w-5" />
                 </div>
 
@@ -350,7 +353,7 @@ const DashboardOverview = () => {
         })}
       </section>
 
-      {/* Main grid */}
+      {/* Main Grid */}
       <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
         {/* Matchmaking */}
         <section className="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -378,49 +381,71 @@ const DashboardOverview = () => {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {topMatches.map((match) => (
-              <div
-                key={match.id}
-                className="p-5 transition hover:bg-slate-50 sm:px-6"
-              >
-                <div className="flex gap-4">
-                  <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-500 sm:flex">
-                    <Award className="h-6 w-6" />
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <h3 className="font-bold text-slate-900">
-                          {match.title}
-                        </h3>
-
-                        <p className="mt-1 text-xs text-slate-400">
-                          {match.provider} · {match.country} ·{" "}
-                          {match.degree}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 self-start rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-600">
-                        <TrendingUp className="h-3.5 w-3.5" />
-                        {match.score}% match
-                      </div>
+            {topMatches.length > 0 ? (
+              topMatches.map((match) => (
+                <div
+                  key={match.id}
+                  className="p-5 transition hover:bg-slate-50 sm:px-6"
+                >
+                  <div className="flex gap-4">
+                    <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-500 sm:flex">
+                      <Award className="h-6 w-6" />
                     </div>
 
-                    <div className="mt-4 flex flex-wrap items-center gap-2">
-                      <span className="rounded-md bg-sky-50 px-2 py-1 text-[11px] font-semibold text-sky-600">
-                        {match.funding}
-                      </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <h3 className="font-bold text-slate-900">
+                            {match.title}
+                          </h3>
 
-                      <span className="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-500">
-                        <Clock3 className="h-3 w-3" />
-                        {formatDeadline(match.deadline)}
-                      </span>
+                          <p className="mt-1 text-xs text-slate-400">
+                            {match.provider} · {match.country} ·{" "}
+                            {match.degree}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 self-start rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-600">
+                          <TrendingUp className="h-3.5 w-3.5" />
+                          {match.score}% match
+                        </div>
+                      </div>
+
+                      <div className="mt-4 flex flex-wrap items-center gap-2">
+                        <span className="rounded-md bg-sky-50 px-2 py-1 text-[11px] font-semibold text-sky-600">
+                          {match.funding}
+                        </span>
+
+                        <span className="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-500">
+                          <Clock3 className="h-3 w-3" />
+                          {formatDeadline(match.deadline)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="px-5 py-10 text-center sm:px-6">
+                <Target className="mx-auto h-8 w-8 text-slate-300" />
+
+                <p className="mt-3 text-sm font-semibold text-slate-600">
+                  No scholarship matches available yet.
+                </p>
+
+                <p className="mt-1 text-xs text-slate-400">
+                  Complete your profile to discover relevant opportunities.
+                </p>
+
+                <NavLink
+                  to="/dashboard/profile"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-sky-600 hover:text-sky-700"
+                >
+                  Complete profile
+                  <ArrowRight className="h-4 w-4" />
+                </NavLink>
               </div>
-            ))}
+            )}
           </div>
         </section>
 
@@ -450,44 +475,44 @@ const DashboardOverview = () => {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {upcomingDeadlines.map((deadline) => (
-              <div
-                key={deadline.id}
-                className="flex gap-4 p-5"
-              >
-                <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-sky-50">
-                  <span className="text-[10px] font-bold uppercase text-sky-500">
-                    {getDeadlineMonth(
-                      deadline.date
-                    )}
-                  </span>
+            {upcomingDeadlines.length > 0 ? (
+              upcomingDeadlines.map((deadline) => (
+                <div
+                  key={deadline.id}
+                  className="flex gap-4 p-5"
+                >
+                  <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-sky-50">
+                    <span className="text-[10px] font-bold uppercase text-sky-500">
+                      {getDeadlineMonth(deadline.date)}
+                    </span>
 
-                  <span className="text-lg font-bold leading-none text-sky-700">
-                    {getDeadlineDay(
-                      deadline.date
-                    )}
-                  </span>
+                    <span className="text-lg font-bold leading-none text-sky-700">
+                      {getDeadlineDay(deadline.date)}
+                    </span>
+                  </div>
+
+                  <div className="min-w-0">
+                    <h3 className="truncate text-sm font-bold text-slate-800">
+                      {deadline.title}
+                    </h3>
+
+                    <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
+                      <Clock3 className="h-3 w-3" />
+                      {getDaysLabel(deadline.daysRemaining)}
+                    </p>
+                  </div>
                 </div>
-
-                <div className="min-w-0">
-                  <h3 className="truncate text-sm font-bold text-slate-800">
-                    {deadline.title}
-                  </h3>
-
-                  <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
-                    <Clock3 className="h-3 w-3" />
-                    {getDaysLabel(
-                      deadline.daysRemaining
-                    )}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="px-5 py-10 text-center text-sm text-slate-400">
+                No upcoming deadlines found.
+              </p>
+            )}
           </div>
         </section>
       </div>
 
-      {/* Bottom section */}
+      {/* Bottom Section */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Eligibility */}
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -509,9 +534,7 @@ const DashboardOverview = () => {
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-lg font-bold text-emerald-600">
               {matchStats.total > 0
                 ? Math.round(
-                    (matchStats.strong /
-                      matchStats.total) *
-                      100
+                    (matchStats.strong / matchStats.total) * 100
                   )
                 : 0}
               %

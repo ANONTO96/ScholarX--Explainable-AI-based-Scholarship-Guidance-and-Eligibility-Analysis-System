@@ -4,59 +4,51 @@
 
 function normalizeStudentProfile(profile = {}) {
     profile = profile ?? {};
+
+    const academicPerformance =
+        profile.academic?.academicPerformance ?? null;
+
     return {
-        // =========================================
         // PERSONAL
-        // =========================================
         name: profile.personal?.name ?? "",
         email: profile.personal?.email ?? "",
         nationality: profile.personal?.nationality ?? "",
         age: profile.personal?.age ?? null,
 
-        // =========================================
         // ACADEMIC
-        // =========================================
         studyLevel: profile.academic?.studyLevel ?? "",
-
-        completedDegrees:
-            profile.academic?.completedDegrees ?? [],
-
-        fieldOfStudy:
-            profile.academic?.fieldOfStudy ?? "",
+        completedDegrees: profile.academic?.completedDegrees ?? [],
+        fieldOfStudy: profile.academic?.fieldOfStudy ?? "",
 
         academicPerformance:
-            profile.academic?.academicPerformance ?? null,
+            typeof academicPerformance === "object" &&
+            academicPerformance !== null
+                ? academicPerformance.gpa ?? null
+                : academicPerformance,
 
-        // =========================================
         // ENGLISH
-        // =========================================
         english: {
             test: profile.english?.test ?? "",
             score: profile.english?.score ?? null,
         },
 
-        // =========================================
         // PREFERENCES
-        // =========================================
         studyDestination:
             profile.preferences?.studyDestination ?? "",
 
         annualBudget: {
             amount:
                 profile.preferences?.annualBudget?.amount ?? null,
-
             currency:
                 profile.preferences?.annualBudget?.currency ?? "",
         },
 
-        // =========================================
         // EXPERIENCE
-        // =========================================
         workExperienceMonths:
             profile.experience?.workExperienceMonths ?? null,
 
         achievements:
-            profile.experience?.achievements ?? [],
+            profile.experience?.achievements ?? null,
 
         leadershipExperience:
             profile.experience?.leadershipExperience ?? null,
@@ -67,9 +59,7 @@ function normalizeStudentProfile(profile = {}) {
         researchExperience:
             profile.experience?.researchExperience ?? null,
 
-        // =========================================
         // ADDITIONAL
-        // =========================================
         internationalStudent:
             profile.additional?.internationalStudent ?? null,
 
@@ -77,13 +67,13 @@ function normalizeStudentProfile(profile = {}) {
             profile.additional?.isStudent ?? null,
 
         partnerUniversities:
-            profile.additional?.partnerUniversities ?? [],
+            profile.additional?.partnerUniversities ?? null,
 
         gdscMember:
             profile.additional?.gdscMember ?? null,
 
         innovationProjects:
-            profile.additional?.innovationProjects ?? [],
+            profile.additional?.innovationProjects ?? null,
 
         universityTeam:
             profile.additional?.universityTeam ?? null,
@@ -340,6 +330,13 @@ function getNumber(rule, keys) {
     }
 
     return null;
+}
+
+function hasNonNegativeNumericValue(value) {
+    return (
+        hasNumericValue(value) &&
+        Number(value) >= 0
+    );
 }
 
 
@@ -772,10 +769,9 @@ function evaluateAcademicPerformance(
     category,
     studentProfile
 ) {
-        const rawGPA =
-        studentProfile.academicPerformance;
+    const rawGPA = studentProfile.academicPerformance;
 
-    if (!hasNumericValue(rawGPA)) {
+    if (!hasNonNegativeNumericValue(rawGPA)) {
         return createReviewResult({
             key: "academicPerformance",
             requirement,
@@ -787,52 +783,29 @@ function evaluateAcademicPerformance(
 
     const studentGPA = Number(rawGPA);
 
-    const minimum =
-        getNumber(
-            rule,
-            [
-                "minimumGPA",
-            ]
-        );
+    const minimum = getNumber(rule, ["minimumGPA"]);
 
-    if (
-        minimum === null
-    ) {
+    if (minimum === null) {
         return createReviewResult({
             key: "academicPerformance",
             requirement,
             category,
             detail:
-                `Your CGPA is ${studentGPA.toFixed(
-                    2
-                )}, but no specific minimum CGPA is provided for automatic comparison.`,
+                `Your CGPA is ${studentGPA.toFixed(2)}, but no specific minimum CGPA is provided for automatic comparison.`,
         });
     }
 
-    const matched =
-        studentGPA >= minimum;
+    const matched = studentGPA >= minimum;
 
     return createResult({
-        type: matched
-            ? "pass"
-            : "fail",
-
+        type: matched ? "pass" : "fail",
         key: "academicPerformance",
-
         requirement,
-
         category,
-
-        label:
-            `Minimum CGPA: ${minimum}+`,
-
+        label: `Minimum CGPA: ${minimum}+`,
         detail: matched
-            ? `Your CGPA is ${studentGPA.toFixed(
-                2
-            )}, which meets the minimum CGPA of ${minimum}.`
-            : `Your CGPA is ${studentGPA.toFixed(
-                2
-            )}, which is below the required minimum CGPA of ${minimum}.`,
+            ? `Your CGPA is ${studentGPA.toFixed(2)}, which meets the minimum CGPA of ${minimum}.`
+            : `Your CGPA is ${studentGPA.toFixed(2)}, which is below the required minimum CGPA of ${minimum}.`,
     });
 }
 
@@ -958,7 +931,7 @@ function evaluateAge(
 ) {
         const rawAge = studentProfile.age;
 
-    if (!hasNumericValue(rawAge)) {
+    if (!hasNonNegativeNumericValue(rawAge)) {
         return createReviewResult({
             key: "age",
             requirement,
@@ -1065,7 +1038,7 @@ function evaluateWorkExperience(
         const rawMonths =
         studentProfile.workExperienceMonths;
 
-    if (!hasNumericValue(rawMonths)) {
+    if (!hasNonNegativeNumericValue(rawMonths)) {
         return createReviewResult({
             key: "workExperience",
             requirement,
@@ -1133,24 +1106,29 @@ function evaluateStudyDestination(
     category,
     studentProfile
 ) {
-    const destination =
-        normalize(
-            studentProfile.studyDestination
-        );
+    const destination = normalize(
+        studentProfile.studyDestination
+    );
 
-    const allowed =
-        toArray(
-            rule?.countries ??
-            rule?.destinations ??
-            rule?.values
-        )
-            .map(normalize)
-            .filter(Boolean);
+    const allowed = toArray(
+        rule?.countries ??
+        rule?.destinations ??
+        rule?.values
+    )
+        .map(normalize)
+        .filter(Boolean);
 
-    if (
-        allowed.length ===
-        0
-    ) {
+    if (!destination) {
+        return createReviewResult({
+            key: "studyDestination",
+            requirement,
+            category,
+            detail:
+                "Your preferred study destination is missing. Add a destination to evaluate this criterion.",
+        });
+    }
+
+    if (allowed.length === 0) {
         return createReviewResult({
             key: "studyDestination",
             requirement,
@@ -1160,20 +1138,12 @@ function evaluateStudyDestination(
         });
     }
 
-    const matched =
-        allowed.includes(
-            destination
-        );
+    const matched = allowed.includes(destination);
 
     return createResult({
-        type: matched
-            ? "pass"
-            : "fail",
-
+        type: matched ? "pass" : "fail",
         key: "studyDestination",
-
         requirement,
-
         category,
 
         label:
@@ -1200,40 +1170,43 @@ function evaluateAchievements(
     category,
     studentProfile
 ) {
-    const studentAchievements =
-        toArray(
-            studentProfile.achievements
-        )
-            .map(normalize)
-            .filter(Boolean);
-
-    const requiredAchievements =
-        toArray(
-            rule?.items ??
-            rule?.achievements ??
-            rule?.requiredAchievements ??
-            rule?.values
-        )
-            .map(normalize)
-            .filter(Boolean);
+    const rawAchievements = studentProfile.achievements;
 
     if (
-        requiredAchievements.length ===
-        0
+        rawAchievements === null ||
+        rawAchievements === undefined
     ) {
-        if (
-            studentAchievements.length >
-            0
-        ) {
+        return createReviewResult({
+            key: "achievements",
+            requirement,
+            category,
+            detail:
+                "Your achievements information has not been provided. Add your achievements or confirm that you have none.",
+        });
+    }
+
+    const studentAchievements = toArray(rawAchievements)
+        .map(normalize)
+        .filter(Boolean);
+
+    const requiredAchievements = toArray(
+        rule?.items ??
+        rule?.achievements ??
+        rule?.requiredAchievements ??
+        rule?.values
+    )
+        .map(normalize)
+        .filter(Boolean);
+
+    if (requiredAchievements.length === 0) {
+        if (studentAchievements.length > 0) {
             return createResult({
                 type: "pass",
                 key: "achievements",
                 requirement,
                 category,
                 detail:
-                    `Your profile contains relevant achievements: ${studentProfile.achievements.join(
-                        ", "
-                    )}.`,
+                    `Your profile contains relevant achievements: ${studentAchievements.join(", ")}.`,
             });
         }
 
@@ -1243,64 +1216,42 @@ function evaluateAchievements(
             requirement,
             category,
             detail:
-                category ===
-                "mandatory"
-                    ? "This opportunity requires evidence of achievements, but none are currently listed in your profile."
-                    : "No achievements are currently listed in your profile. This may reduce competitiveness but does not automatically make you ineligible.",
+                category === "mandatory"
+                    ? "You confirmed that you have no achievements listed, but this opportunity requires achievement evidence."
+                    : "You confirmed that you have no achievements listed. This may reduce competitiveness but does not automatically make you ineligible.",
         });
     }
 
-    const matchedAchievements =
-        requiredAchievements.filter(
-            (required) =>
-                studentAchievements.some(
-                    (achievement) =>
-                        achievement ===
-                            required ||
-                        achievement.includes(
-                            required
-                        ) ||
-                        required.includes(
-                            achievement
-                        )
-                )
-        );
-
-    const requiredCount =
-        Math.max(
-            1,
-            Number(
-                rule?.minimumCount ??
-                rule?.minCount ??
-                1
+    const matchedAchievements = requiredAchievements.filter(
+        (required) =>
+            studentAchievements.some(
+                (achievement) =>
+                    achievement === required ||
+                    achievement.includes(required) ||
+                    required.includes(achievement)
             )
-        );
+    );
+
+    const requiredCount = Math.max(
+        1,
+        Number(rule?.minimumCount ?? rule?.minCount ?? 1)
+    );
 
     const matched =
-        matchedAchievements.length >=
-        requiredCount;
+        matchedAchievements.length >= requiredCount;
 
     return createResult({
-        type: matched
-            ? "pass"
-            : "fail",
-
+        type: matched ? "pass" : "fail",
         key: "achievements",
-
         requirement,
-
         category,
 
         label:
-            `Relevant: ${requiredAchievements.join(
-                ", "
-            )}`,
+            `Relevant: ${requiredAchievements.join(", ")}`,
 
         detail: matched
-            ? `Your profile includes relevant achievement(s): ${matchedAchievements.join(
-                ", "
-            )}.`
-            : `Your listed achievements do not currently match the stated achievement criteria.`,
+            ? `Your profile includes relevant achievement(s): ${matchedAchievements.join(", ")}.`
+            : "Your listed achievements do not currently match the stated achievement criteria.",
     });
 }
 
@@ -1364,73 +1315,68 @@ function evaluatePartnerUniversity(
     category,
     studentProfile
 ) {
-    const studentUniversities =
-        toArray(
-            studentProfile.partnerUniversities
-        )
-            .map(normalize)
-            .filter(Boolean);
-
-    const requiredUniversities =
-        toArray(
-            rule?.universities ??
-            rule?.partnerUniversities ??
-            rule?.names
-        )
-            .map(normalize)
-            .filter(Boolean);
+    const rawUniversities =
+        studentProfile.partnerUniversities;
 
     if (
-        requiredUniversities.length ===
-        0
+        rawUniversities === null ||
+        rawUniversities === undefined
     ) {
         return createReviewResult({
             key: "partnerUniversity",
             requirement,
             category,
             detail:
-                "Partner-university eligibility depends on institutional agreements and cannot be confirmed from the current profile.",
+                "Your university partnership information is missing. Provide your university details to verify this requirement.",
         });
     }
 
-    const matched =
-        requiredUniversities.some(
-            (required) =>
-                studentUniversities.some(
-                    (university) =>
-                        university ===
-                            required ||
-                        university.includes(
-                            required
-                        ) ||
-                        required.includes(
-                            university
-                        )
-                )
-        );
+    const studentUniversities = toArray(rawUniversities)
+        .map(normalize)
+        .filter(Boolean);
+
+    const requiredUniversities = toArray(
+        rule?.universities ??
+        rule?.partnerUniversities ??
+        rule?.names
+    )
+        .map(normalize)
+        .filter(Boolean);
+
+    if (requiredUniversities.length === 0) {
+        return createReviewResult({
+            key: "partnerUniversity",
+            requirement,
+            category,
+            detail:
+                "Partner-university eligibility depends on institutional agreements and requires manual verification.",
+        });
+    }
+
+    const matched = requiredUniversities.some(
+        (required) =>
+            studentUniversities.some(
+                (university) =>
+                    university === required ||
+                    university.includes(required) ||
+                    required.includes(university)
+            )
+    );
 
     return createResult({
-        type: matched
-            ? "pass"
-            : "fail",
-
+        type: matched ? "pass" : "fail",
         key: "partnerUniversity",
-
         requirement,
-
         category,
 
         label:
-            `Eligible universities: ${requiredUniversities.join(
-                ", "
-            )}`,
+            `Eligible universities: ${requiredUniversities.join(", ")}`,
 
         detail: matched
             ? "Your university information matches an eligible partner university."
-            : category ===
-                "mandatory"
-                ? "Your university is not currently listed as an eligible partner university."
-                : "Your university is not currently listed as an eligible partner university. This may reduce competitiveness but does not automatically make you ineligible.",
+            : category === "mandatory"
+                ? "You confirmed that your university does not match the listed eligible partner universities."
+                : "Your university does not match the listed partner universities. This may reduce competitiveness but does not automatically make you ineligible.",
     });
 }
 
@@ -1466,78 +1412,66 @@ function evaluateInnovationProject(
     category,
     studentProfile
 ) {
-    const projects =
-        toArray(
-            studentProfile.innovationProjects
-        )
-            .map(normalize)
-            .filter(Boolean);
-
-    const requiredTypes =
-        toArray(
-            rule?.types ??
-            rule?.projects ??
-            rule?.requiredTypes ??
-            rule?.values
-        )
-            .map(normalize)
-            .filter(Boolean);
+    const rawProjects =
+        studentProfile.innovationProjects;
 
     if (
-        requiredTypes.length ===
-        0
+        rawProjects === null ||
+        rawProjects === undefined
     ) {
-        const hasProject =
-            projects.length >
-            0;
-
-        return createResult({
-            type: hasProject
-                ? "pass"
-                : "fail",
-
+        return createReviewResult({
             key: "innovationProject",
-
             requirement,
-
             category,
-
-            detail: hasProject
-                ? "Your profile includes an innovation project."
-                : category ===
-                    "mandatory"
-                    ? "An innovation project is required, but none is currently listed in your profile."
-                    : "No innovation project is currently listed. This may reduce competitiveness but does not automatically make you ineligible.",
+            detail:
+                "Your innovation project information is missing. Add your projects or confirm that you have none.",
         });
     }
 
-    const matched =
-        requiredTypes.some(
-            (requiredProject) =>
-                projects.some(
-                    (project) =>
-                        project ===
-                            requiredProject ||
-                        project.includes(
-                            requiredProject
-                        ) ||
-                        requiredProject.includes(
-                            project
-                        )
-                )
-        );
+    const projects = toArray(rawProjects)
+        .map(normalize)
+        .filter(Boolean);
+
+    const requiredTypes = toArray(
+        rule?.types ??
+        rule?.projects ??
+        rule?.requiredTypes ??
+        rule?.values
+    )
+        .map(normalize)
+        .filter(Boolean);
+
+    if (requiredTypes.length === 0) {
+        const hasProject = projects.length > 0;
+
+        return createResult({
+            type: hasProject ? "pass" : "fail",
+            key: "innovationProject",
+            requirement,
+            category,
+            detail: hasProject
+                ? "Your profile includes an innovation project."
+                : category === "mandatory"
+                    ? "You confirmed that you have no innovation projects, but this opportunity requires one."
+                    : "You confirmed that you have no innovation projects. This may reduce competitiveness but does not automatically make you ineligible.",
+        });
+    }
+
+    const matched = requiredTypes.some(
+        (requiredProject) =>
+            projects.some(
+                (project) =>
+                    project === requiredProject ||
+                    project.includes(requiredProject) ||
+                    requiredProject.includes(project)
+            )
+    );
 
     return createResult({
-        type: matched
-            ? "pass"
-            : "fail",
-
+        type: matched ? "pass" : "fail",
         key: "innovationProject",
-
         requirement,
-
         category,
-
         detail: matched
             ? "Your profile includes a relevant innovation project."
             : "Your listed projects do not currently match the required innovation project criteria.",
@@ -1604,7 +1538,7 @@ function evaluateAnnualBudget(
     );
 
     if (
-        !hasNumericValue(rawBudget) ||
+        !hasNonNegativeNumericValue(rawBudget) ||
         !currency
     ) {
         return createReviewResult({

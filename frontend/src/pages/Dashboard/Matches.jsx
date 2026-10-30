@@ -74,7 +74,7 @@ function getDaysLeft(date) {
 
     return Math.ceil(
         difference /
-            (1000 * 60 * 60 * 24)
+        (1000 * 60 * 60 * 24)
     );
 }
 
@@ -156,7 +156,7 @@ function MatchScore({ score }) {
         circumference -
         (Math.min(Math.max(score, 0), 100) /
             100) *
-            circumference;
+        circumference;
 
     let scoreColor = "text-rose-500";
 
@@ -210,8 +210,8 @@ function MatchScore({ score }) {
                 </span>
 
                 <span className="text-[8px] font-semibold uppercase tracking-wide text-slate-400">
-    Fit
-</span>
+                    Fit
+                </span>
             </div>
         </div>
     );
@@ -327,11 +327,10 @@ function FilterSelect({
 }) {
     return (
         <div
-            className={`relative ${
-                fullWidth
+            className={`relative ${fullWidth
                     ? "w-full"
                     : ""
-            }`}
+                }`}
         >
             <Icon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
@@ -342,11 +341,10 @@ function FilterSelect({
                         event.target.value
                     )
                 }
-                className={`h-11 appearance-none rounded-xl border border-slate-200 bg-white pl-9 pr-9 text-xs font-semibold text-slate-600 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100 ${
-                    fullWidth
+                className={`h-11 appearance-none rounded-xl border border-slate-200 bg-white pl-9 pr-9 text-xs font-semibold text-slate-600 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100 ${fullWidth
                         ? "w-full"
                         : "min-w-36.25"
-                }`}
+                    }`}
             >
                 {options.map(
                     (option) => (
@@ -425,10 +423,10 @@ function MatchCard({
             opportunity.degree
         )
             ? opportunity.degree.join(
-                  ", "
-              )
+                ", "
+            )
             : opportunity.degree ||
-              "Not specified";
+            "Not specified";
 
     const opportunityPath =
         opportunity.slug
@@ -479,11 +477,10 @@ function MatchCard({
                                 opportunity.id
                             )
                         }
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition ${
-                            isFavorite
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition ${isFavorite
                                 ? "border-rose-200 bg-rose-50 text-rose-500"
                                 : "border-slate-200 bg-white text-slate-400 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-500"
-                        }`}
+                            }`}
                         aria-label={
                             isFavorite
                                 ? "Remove from favorites"
@@ -590,14 +587,14 @@ function MatchCard({
 
                     {daysLeft !==
                         null && (
-                        <span className="shrink-0 text-xs font-bold">
-                            {
-                                getDeadlineLabel(
-                                    deadline
-                                )
-                            }
-                        </span>
-                    )}
+                            <span className="shrink-0 text-xs font-bold">
+                                {
+                                    getDeadlineLabel(
+                                        deadline
+                                    )
+                                }
+                            </span>
+                        )}
 
                 </div>
 
@@ -760,6 +757,8 @@ export default function Matches() {
         favorites,
         toggleFavorite,
         profileReadiness,
+        profileCompletion,
+        showProfileOnboarding,
         matchStats,
     } = useDashboard();
 
@@ -891,13 +890,13 @@ export default function Matches() {
                         const title =
                             normalize(
                                 opportunity.title ||
-                                    opportunity.name
+                                opportunity.name
                             );
 
                         const provider =
                             normalize(
                                 opportunity.provider ||
-                                    opportunity.organization
+                                opportunity.organization
                             );
 
                         const country =
@@ -927,25 +926,25 @@ export default function Matches() {
 
                         const matchesStatus =
                             statusFilter ===
-                                "all" ||
+                            "all" ||
                             analysis.status ===
-                                statusFilter;
+                            statusFilter;
 
                         const matchesCountry =
                             countryFilter ===
-                                "all" ||
+                            "all" ||
                             country ===
-                                normalize(
-                                    countryFilter
-                                );
+                            normalize(
+                                countryFilter
+                            );
 
                         const matchesFunding =
                             fundingFilter ===
-                                "all" ||
+                            "all" ||
                             funding ===
-                                normalize(
-                                    fundingFilter
-                                );
+                            normalize(
+                                fundingFilter
+                            );
 
                         return (
                             matchesSearch &&
@@ -981,14 +980,14 @@ export default function Matches() {
                             new Date(
                                 a.opportunity
                                     .deadline ||
-                                    "9999-12-31"
+                                "9999-12-31"
                             ).getTime();
 
                         const second =
                             new Date(
                                 b.opportunity
                                     .deadline ||
-                                    "9999-12-31"
+                                "9999-12-31"
                             ).getTime();
 
                         return (
@@ -1004,16 +1003,16 @@ export default function Matches() {
                         return String(
                             a.opportunity
                                 .title ||
-                                a.opportunity
-                                    .name ||
-                                ""
+                            a.opportunity
+                                .name ||
+                            ""
                         ).localeCompare(
                             String(
                                 b.opportunity
                                     .title ||
-                                    b.opportunity
-                                        .name ||
-                                    ""
+                                b.opportunity
+                                    .name ||
+                                ""
                             )
                         );
                     }
@@ -1164,553 +1163,550 @@ export default function Matches() {
 
                 </section>
 
-                {profileReadiness?.isReady ? (
-    <>    </>
-) : (
-    <section className="mt-6 overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
-        <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
+                {showProfileOnboarding && (
+                    <section className="mt-6 overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
+                        <div className="h-1 bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500" />
 
-        <div className="px-5 py-10 text-center sm:px-8 sm:py-14">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
-                <Target className="h-8 w-8" />
-            </div>
+                        <div className="px-5 py-10 text-center sm:px-8 sm:py-14">
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
+                                <Target className="h-8 w-8" />
+                            </div>
 
-            <h2 className="mt-5 text-xl font-bold text-slate-900 sm:text-2xl">
-                Complete Your Profile to Unlock Matches
-            </h2>
+                            <h2 className="mt-5 text-xl font-bold text-slate-900 sm:text-2xl">
+                                Complete Your Profile to Unlock Matches
+                            </h2>
 
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
-                ScholarX needs a few more details about your academic
-                background, English proficiency, nationality, study
-                destination, and budget before it can evaluate scholarship
-                opportunities meaningfully.
-            </p>
+                            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
+                                Start by adding your academic background, English
+                                proficiency, nationality, study destination, and budget.
+                                ScholarX will progressively evaluate scholarship
+                                opportunities as you complete your profile.
+                            </p>
 
-            <div className="mx-auto mt-6 max-w-md rounded-2xl bg-slate-50 p-4 text-left">
-                <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-semibold text-slate-700">
-                        Analysis readiness
-                    </span>
+                            <div className="mx-auto mt-6 max-w-md rounded-2xl bg-slate-50 p-4 text-left">
+                                <div className="flex items-center justify-between gap-3">
+                                    <span className="text-sm font-semibold text-slate-700">
+                                        Profile completion
+                                    </span>
 
-                    <span className="text-sm font-bold text-sky-600">
-                        {profileReadiness?.completed ?? 0}/
-                        {profileReadiness?.total ?? 10} checks
-                    </span>
-                </div>
+                                    <span className="text-sm font-bold text-sky-600">
+                                        {profileCompletion?.completed ?? 0}/
+                                        {profileCompletion?.total ?? 16} fields
+                                    </span>
+                                </div>
 
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
-                    <div
-                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-600 transition-all duration-500"
-                        style={{
-                            width: `${readinessPercentage}%`,
-                        }}
-                    />
-                </div>
+                                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+                                    <div
+                                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-600 transition-all duration-500"
+                                        style={{
+                                            width: `${profileCompletion?.percentage ?? 0}%`,
+                                        }}
+                                    />
+                                </div>
 
-                <p className="mt-2 text-xs text-slate-500">
-                    {readinessPercentage}% of required analysis information completed
-                </p>
-            </div>
+                                <p className="mt-2 text-xs text-slate-500">
+                                    Complete your profile to unlock personalized scholarship analysis.
+                                </p>
+                            </div>
 
-            <NavLink
-                to="/dashboard/profile"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition hover:bg-sky-600"
-            >
-                Complete My Profile
-                <ArrowRight className="h-4 w-4" />
-            </NavLink>
+                            <NavLink
+                                to="/dashboard/profile"
+                                className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition hover:bg-sky-600"
+                            >
+                                Complete My Profile
+                                <ArrowRight className="h-4 w-4" />
+                            </NavLink>
+                        </div>
+                    </section>
+                )}
 
-            <p className="mt-4 text-xs text-slate-400">
-                Your name and email do not affect scholarship eligibility analysis.
-            </p>
-        </div>
-    </section>
-)}
+                {!showProfileOnboarding && (
+                    <>
 
-
-                {/* =================================================
+                        {/* =================================================
                     SUMMARY
                 ================================================= */}
 
-                <section className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+                        <section className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
 
-                    <SummaryCard
-                        icon={TrendingUp}
-                        label="Total Matches"
-                        value={
-                            summary.total
-                        }
-                        description="Opportunities analyzed"
-                        iconClass="bg-sky-50 text-sky-600"
-                    />
+                            <SummaryCard
+                                icon={TrendingUp}
+                                label="Total Matches"
+                                value={
+                                    summary.total
+                                }
+                                description="Opportunities analyzed"
+                                iconClass="bg-sky-50 text-sky-600"
+                            />
 
-                    <SummaryCard
-                        icon={CheckCircle2}
-                        label="Strong Matches"
-                        value={
-                            summary.strong
-                        }
-                        description="Strong overall profile fit"
-                        iconClass="bg-emerald-50 text-emerald-600"
-                    />
+                            <SummaryCard
+                                icon={CheckCircle2}
+                                label="Strong Matches"
+                                value={
+                                    summary.strong
+                                }
+                                description="Strong overall profile fit"
+                                iconClass="bg-emerald-50 text-emerald-600"
+                            />
 
-                    <SummaryCard
-                        icon={CircleAlert}
-                        label="Needs Review"
-                        value={
-                            summary.review
-                        }
-                        description="Potentially eligible opportunities"
-                        iconClass="bg-amber-50 text-amber-600"
-                    />
+                            <SummaryCard
+                                icon={CircleAlert}
+                                label="Needs Review"
+                                value={
+                                    summary.review
+                                }
+                                description="Potentially eligible opportunities"
+                                iconClass="bg-amber-50 text-amber-600"
+                            />
 
-                    <SummaryCard
-                        icon={XCircle}
-                        label="Not Eligible"
-                        value={
-                            summary.notEligible
-                        }
-                        description="Mandatory requirements not met"
-                        iconClass="bg-rose-50 text-rose-600"
-                    />
+                            <SummaryCard
+                                icon={XCircle}
+                                label="Not Eligible"
+                                value={
+                                    summary.notEligible
+                                }
+                                description="Mandatory requirements not met"
+                                iconClass="bg-rose-50 text-rose-600"
+                            />
 
-                </section>
+                        </section>
 
 
-                {/* =================================================
+                        {/* =================================================
                     SEARCH + FILTERS
                 ================================================= */}
 
-                <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                        <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
 
-                    <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
+                            <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
 
-                        {/* Search */}
+                                {/* Search */}
 
-                        <div className="relative flex-1">
+                                <div className="relative flex-1">
 
-                            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                                    <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
-                            <input
-                                type="text"
-                                value={
-                                    search
-                                }
-                                onChange={(
-                                    event
-                                ) =>
-                                    setSearch(
-                                        event
-                                            .target
-                                            .value
-                                    )
-                                }
-                                placeholder="Search scholarships, providers, countries..."
-                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100"
-                            />
+                                    <input
+                                        type="text"
+                                        value={
+                                            search
+                                        }
+                                        onChange={(
+                                            event
+                                        ) =>
+                                            setSearch(
+                                                event
+                                                    .target
+                                                    .value
+                                            )
+                                        }
+                                        placeholder="Search scholarships, providers, countries..."
+                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100"
+                                    />
 
-                        </div>
-
-
-                        {/* Desktop filters */}
-
-                        <div className="hidden gap-2 md:flex">
-
-                            <FilterSelect
-                                value={
-                                    statusFilter
-                                }
-                                onChange={
-                                    setStatusFilter
-                                }
-                                icon={
-                                    Filter
-                                }
-                                options={[
-                                    {
-                                        value: "all",
-                                        label: "All Status",
-                                    },
-                                    {
-                                        value: "strong",
-                                        label: "Strong Match",
-                                    },
-                                    {
-                                        value: "review",
-                                        label: "Needs Review",
-                                    },
-                                    {
-                                        value: "not-eligible",
-                                        label: "Not Eligible",
-                                    },
-                                ]}
-                            />
-
-                            <FilterSelect
-                                value={
-                                    countryFilter
-                                }
-                                onChange={
-                                    setCountryFilter
-                                }
-                                icon={
-                                    Globe2
-                                }
-                                options={[
-                                    {
-                                        value: "all",
-                                        label: "All Countries",
-                                    },
-                                    ...countries.map(
-                                        (
-                                            country
-                                        ) => ({
-                                            value: country,
-                                            label: country,
-                                        })
-                                    ),
-                                ]}
-                            />
-
-                            <FilterSelect
-                                value={
-                                    fundingFilter
-                                }
-                                onChange={
-                                    setFundingFilter
-                                }
-                                icon={
-                                    Award
-                                }
-                                options={[
-                                    {
-                                        value: "all",
-                                        label: "All Funding",
-                                    },
-                                    ...fundingTypes.map(
-                                        (
-                                            funding
-                                        ) => ({
-                                            value: funding,
-                                            label: funding,
-                                        })
-                                    ),
-                                ]}
-                            />
-
-                            <FilterSelect
-                                value={
-                                    sortBy
-                                }
-                                onChange={
-                                    setSortBy
-                                }
-                                icon={
-                                    SlidersHorizontal
-                                }
-                                options={[
-                                    {
-                                        value: "score",
-                                        label: "Best Match",
-                                    },
-                                    {
-                                        value: "deadline",
-                                        label: "Deadline",
-                                    },
-                                    {
-                                        value: "name",
-                                        label: "Name",
-                                    },
-                                ]}
-                            />
-
-                        </div>
+                                </div>
 
 
-                        {/* Mobile */}
+                                {/* Desktop filters */}
 
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setShowFilters(
-                                    (
-                                        current
-                                    ) =>
-                                        !current
-                                )
-                            }
-                            className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 md:hidden"
-                        >
+                                <div className="hidden gap-2 md:flex">
 
-                            <SlidersHorizontal className="h-4 w-4" />
+                                    <FilterSelect
+                                        value={
+                                            statusFilter
+                                        }
+                                        onChange={
+                                            setStatusFilter
+                                        }
+                                        icon={
+                                            Filter
+                                        }
+                                        options={[
+                                            {
+                                                value: "all",
+                                                label: "All Status",
+                                            },
+                                            {
+                                                value: "strong",
+                                                label: "Strong Match",
+                                            },
+                                            {
+                                                value: "review",
+                                                label: "Needs Review",
+                                            },
+                                            {
+                                                value: "not-eligible",
+                                                label: "Not Eligible",
+                                            },
+                                        ]}
+                                    />
 
-                            Filters
+                                    <FilterSelect
+                                        value={
+                                            countryFilter
+                                        }
+                                        onChange={
+                                            setCountryFilter
+                                        }
+                                        icon={
+                                            Globe2
+                                        }
+                                        options={[
+                                            {
+                                                value: "all",
+                                                label: "All Countries",
+                                            },
+                                            ...countries.map(
+                                                (
+                                                    country
+                                                ) => ({
+                                                    value: country,
+                                                    label: country,
+                                                })
+                                            ),
+                                        ]}
+                                    />
 
-                            <ChevronDown
-                                className={`h-4 w-4 transition-transform ${
-                                    showFilters
-                                        ? "rotate-180"
-                                        : ""
-                                }`}
-                            />
+                                    <FilterSelect
+                                        value={
+                                            fundingFilter
+                                        }
+                                        onChange={
+                                            setFundingFilter
+                                        }
+                                        icon={
+                                            Award
+                                        }
+                                        options={[
+                                            {
+                                                value: "all",
+                                                label: "All Funding",
+                                            },
+                                            ...fundingTypes.map(
+                                                (
+                                                    funding
+                                                ) => ({
+                                                    value: funding,
+                                                    label: funding,
+                                                })
+                                            ),
+                                        ]}
+                                    />
 
-                        </button>
+                                    <FilterSelect
+                                        value={
+                                            sortBy
+                                        }
+                                        onChange={
+                                            setSortBy
+                                        }
+                                        icon={
+                                            SlidersHorizontal
+                                        }
+                                        options={[
+                                            {
+                                                value: "score",
+                                                label: "Best Match",
+                                            },
+                                            {
+                                                value: "deadline",
+                                                label: "Deadline",
+                                            },
+                                            {
+                                                value: "name",
+                                                label: "Name",
+                                            },
+                                        ]}
+                                    />
 
-                    </div>
-
-
-                    {/* Mobile filters */}
-
-                    {showFilters && (
-                        <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 md:hidden">
-
-                            <FilterSelect
-                                value={
-                                    statusFilter
-                                }
-                                onChange={
-                                    setStatusFilter
-                                }
-                                icon={
-                                    Filter
-                                }
-                                fullWidth
-                                options={[
-                                    {
-                                        value: "all",
-                                        label: "All Status",
-                                    },
-                                    {
-                                        value: "strong",
-                                        label: "Strong Match",
-                                    },
-                                    {
-                                        value: "review",
-                                        label: "Needs Review",
-                                    },
-                                    {
-                                        value: "not-eligible",
-                                        label: "Not Eligible",
-                                    },
-                                ]}
-                            />
-
-                            <FilterSelect
-                                value={
-                                    countryFilter
-                                }
-                                onChange={
-                                    setCountryFilter
-                                }
-                                icon={
-                                    Globe2
-                                }
-                                fullWidth
-                                options={[
-                                    {
-                                        value: "all",
-                                        label: "All Countries",
-                                    },
-                                    ...countries.map(
-                                        (
-                                            country
-                                        ) => ({
-                                            value: country,
-                                            label: country,
-                                        })
-                                    ),
-                                ]}
-                            />
-
-                            <FilterSelect
-                                value={
-                                    fundingFilter
-                                }
-                                onChange={
-                                    setFundingFilter
-                                }
-                                icon={
-                                    Award
-                                }
-                                fullWidth
-                                options={[
-                                    {
-                                        value: "all",
-                                        label: "All Funding",
-                                    },
-                                    ...fundingTypes.map(
-                                        (
-                                            funding
-                                        ) => ({
-                                            value: funding,
-                                            label: funding,
-                                        })
-                                    ),
-                                ]}
-                            />
-
-                            <FilterSelect
-                                value={
-                                    sortBy
-                                }
-                                onChange={
-                                    setSortBy
-                                }
-                                icon={
-                                    SlidersHorizontal
-                                }
-                                fullWidth
-                                options={[
-                                    {
-                                        value: "score",
-                                        label: "Best Match",
-                                    },
-                                    {
-                                        value: "deadline",
-                                        label: "Deadline",
-                                    },
-                                    {
-                                        value: "name",
-                                        label: "Name",
-                                    },
-                                ]}
-                            />
-
-                        </div>
-                    )}
-
-                </section>
+                                </div>
 
 
-                {/* =================================================
+                                {/* Mobile */}
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setShowFilters(
+                                            (
+                                                current
+                                            ) =>
+                                                !current
+                                        )
+                                    }
+                                    className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 md:hidden"
+                                >
+
+                                    <SlidersHorizontal className="h-4 w-4" />
+
+                                    Filters
+
+                                    <ChevronDown
+                                        className={`h-4 w-4 transition-transform ${showFilters
+                                                ? "rotate-180"
+                                                : ""
+                                            }`}
+                                    />
+
+                                </button>
+
+                            </div>
+
+
+                            {/* Mobile filters */}
+
+                            {showFilters && (
+                                <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 md:hidden">
+
+                                    <FilterSelect
+                                        value={
+                                            statusFilter
+                                        }
+                                        onChange={
+                                            setStatusFilter
+                                        }
+                                        icon={
+                                            Filter
+                                        }
+                                        fullWidth
+                                        options={[
+                                            {
+                                                value: "all",
+                                                label: "All Status",
+                                            },
+                                            {
+                                                value: "strong",
+                                                label: "Strong Match",
+                                            },
+                                            {
+                                                value: "review",
+                                                label: "Needs Review",
+                                            },
+                                            {
+                                                value: "not-eligible",
+                                                label: "Not Eligible",
+                                            },
+                                        ]}
+                                    />
+
+                                    <FilterSelect
+                                        value={
+                                            countryFilter
+                                        }
+                                        onChange={
+                                            setCountryFilter
+                                        }
+                                        icon={
+                                            Globe2
+                                        }
+                                        fullWidth
+                                        options={[
+                                            {
+                                                value: "all",
+                                                label: "All Countries",
+                                            },
+                                            ...countries.map(
+                                                (
+                                                    country
+                                                ) => ({
+                                                    value: country,
+                                                    label: country,
+                                                })
+                                            ),
+                                        ]}
+                                    />
+
+                                    <FilterSelect
+                                        value={
+                                            fundingFilter
+                                        }
+                                        onChange={
+                                            setFundingFilter
+                                        }
+                                        icon={
+                                            Award
+                                        }
+                                        fullWidth
+                                        options={[
+                                            {
+                                                value: "all",
+                                                label: "All Funding",
+                                            },
+                                            ...fundingTypes.map(
+                                                (
+                                                    funding
+                                                ) => ({
+                                                    value: funding,
+                                                    label: funding,
+                                                })
+                                            ),
+                                        ]}
+                                    />
+
+                                    <FilterSelect
+                                        value={
+                                            sortBy
+                                        }
+                                        onChange={
+                                            setSortBy
+                                        }
+                                        icon={
+                                            SlidersHorizontal
+                                        }
+                                        fullWidth
+                                        options={[
+                                            {
+                                                value: "score",
+                                                label: "Best Match",
+                                            },
+                                            {
+                                                value: "deadline",
+                                                label: "Deadline",
+                                            },
+                                            {
+                                                value: "name",
+                                                label: "Name",
+                                            },
+                                        ]}
+                                    />
+
+                                </div>
+                            )}
+
+                        </section>
+
+
+                        {/* =================================================
                     RESULT HEADER
                 ================================================= */}
 
-                <div className="mt-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                        <div className="mt-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 
-                    <div>
+                            <div>
 
-                        <h2 className="text-lg font-bold text-slate-900">
-                            Your Matches
-                        </h2>
+                                <h2 className="text-lg font-bold text-slate-900">
+                                    Your Matches
+                                </h2>
 
-                        <p className="mt-1 text-sm text-slate-500">
+                                <p className="mt-1 text-sm text-slate-500">
 
-                            Showing{" "}
+                                    Showing{" "}
 
-                            <span className="font-semibold text-slate-700">
-                                {
-                                    filteredMatches.length
-                                }
-                            </span>{" "}
+                                    <span className="font-semibold text-slate-700">
+                                        {
+                                            filteredMatches.length
+                                        }
+                                    </span>{" "}
 
-                            of{" "}
+                                    of{" "}
 
-                            {
-                                evaluatedMatches.length
-                            }{" "}
+                                    {
+                                        evaluatedMatches.length
+                                    }{" "}
 
-                            opportunities
+                                    opportunities
 
-                        </p>
+                                </p>
 
-                    </div>
-
-
-                    {searchActive && (
-                        <button
-                            type="button"
-                            onClick={
-                                clearFilters
-                            }
-                            className="self-start text-xs font-semibold text-sky-600 hover:text-sky-700 sm:self-auto"
-                        >
-                            Clear all filters
-                        </button>
-                    )}
-
-                </div>
+                            </div>
 
 
-                {/* =================================================
+                            {searchActive && (
+                                <button
+                                    type="button"
+                                    onClick={
+                                        clearFilters
+                                    }
+                                    className="self-start text-xs font-semibold text-sky-600 hover:text-sky-700 sm:self-auto"
+                                >
+                                    Clear all filters
+                                </button>
+                            )}
+
+                        </div>
+
+
+                        {/* =================================================
                     MATCH CARDS
                 ================================================= */}
 
-                <section className="mt-4 space-y-4">
+                        <section className="mt-4 space-y-4">
 
-                    {filteredMatches.length >
-                    0 ? (
-                        filteredMatches.map(
-                            (
-                                item
-                            ) => (
-                                <MatchCard
-                                    key={
+                            {filteredMatches.length >
+                                0 ? (
+                                filteredMatches.map(
+                                    (
                                         item
-                                            .opportunity
-                                            .id
+                                    ) => (
+                                        <MatchCard
+                                            key={
+                                                item
+                                                    .opportunity
+                                                    .id
+                                            }
+                                            item={
+                                                item
+                                            }
+                                            isFavorite={favorites.includes(
+                                                item
+                                                    .opportunity
+                                                    .id
+                                            )}
+                                            onToggleFavorite={
+                                                toggleFavorite
+                                            }
+                                        />
+                                    )
+                                )
+                            ) : (
+                                <EmptyState
+                                    searchActive={
+                                        searchActive
                                     }
-                                    item={
-                                        item
-                                    }
-                                    isFavorite={favorites.includes(
-                                        item
-                                            .opportunity
-                                            .id
-                                    )}
-                                    onToggleFavorite={
-                                        toggleFavorite
+                                    onReset={
+                                        clearFilters
                                     }
                                 />
-                            )
-                        )
-                    ) : (
-                        <EmptyState
-                            searchActive={
-                                searchActive
-                            }
-                            onReset={
-                                clearFilters
-                            }
-                        />
-                    )}
+                            )}
 
-                </section>
+                        </section>
 
 
-                {/* =================================================
+                        {/* =================================================
                     EXPLANATION
                 ================================================= */}
 
-                {filteredMatches.length >
-                    0 && (
-                    <div className="mt-6 flex items-start gap-3 rounded-2xl border border-sky-100 bg-sky-50 p-4">
+                        {filteredMatches.length >
+                            0 && (
+                                <div className="mt-6 flex items-start gap-3 rounded-2xl border border-sky-100 bg-sky-50 p-4">
 
-                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-sky-500">
-                            <Sparkles className="h-4 w-4" />
-                        </div>
+                                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-sky-500">
+                                        <Sparkles className="h-4 w-4" />
+                                    </div>
 
-                        <div>
+                                    <div>
 
-                            <p className="text-sm font-semibold text-sky-900">
-                                How your match score works
-                            </p>
+                                        <p className="text-sm font-semibold text-sky-900">
+                                            How your match score works
+                                        </p>
 
-                            <p className="mt-1 text-xs leading-5 text-sky-700">
-    The Scholarship Fit Score measures how closely your profile aligns
-    with the opportunity's configured requirements. Mandatory criteria,
-    preferred criteria, and information requiring verification affect
-    the evaluation. This score is not a probability of receiving a
-    scholarship or a guarantee of an award. Final decisions depend on
-    the provider's selection process, available funding, competition,
-    and other factors.
-</p>
+                                        <p className="mt-1 text-xs leading-5 text-sky-700">
+                                            The Scholarship Fit Score measures how closely your profile aligns
+                                            with the opportunity's configured requirements. Mandatory criteria,
+                                            preferred criteria, and information requiring verification affect
+                                            the evaluation. This score is not a probability of receiving a
+                                            scholarship or a guarantee of an award. Final decisions depend on
+                                            the provider's selection process, available funding, competition,
+                                            and other factors.
+                                        </p>
 
-                        </div>
+                                    </div>
 
-                    </div>
+                                </div>
+                            )}
+
+                    </>
                 )}
-
             </div>
         </div>
     );

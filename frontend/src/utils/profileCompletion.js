@@ -1,38 +1,54 @@
+
+const hasText = (value) =>
+  typeof value === "string" && value.trim().length > 0;
+
+const hasValidNumber = (value) =>
+  value !== null &&
+  value !== undefined &&
+  value !== "" &&
+  Number.isFinite(Number(value));
+
+const hasBoolean = (value) =>
+  typeof value === "boolean";
+
 export const calculateProfileCompletion = (profile) => {
   if (!profile) {
     return {
       completed: 0,
-      total: 0,
+      total: 16,
       percentage: 0,
     };
   }
 
   const checks = [
-    Boolean(profile.personal?.name),
-    Boolean(profile.personal?.email),
-    Boolean(profile.personal?.nationality),
-    Boolean(profile.personal?.age),
+    hasText(profile.personal?.name),
+    hasText(profile.personal?.email),
+    hasText(profile.personal?.nationality),
+    hasValidNumber(profile.personal?.age) ||
+      hasText(profile.personal?.dateOfBirth),
 
-    Boolean(profile.academic?.studyLevel),
-    Boolean(profile.academic?.completedDegrees?.length),
-    Boolean(profile.academic?.fieldOfStudy),
-    profile.academic?.academicPerformance !== undefined &&
-      profile.academic?.academicPerformance !== "",
+    hasText(profile.academic?.studyLevel),
+    Array.isArray(profile.academic?.completedDegrees) &&
+      profile.academic.completedDegrees.length > 0,
+    hasText(profile.academic?.fieldOfStudy),
+    hasValidNumber(
+      typeof profile.academic?.academicPerformance === "object"
+        ? profile.academic.academicPerformance?.gpa
+        : profile.academic?.academicPerformance
+    ),
 
-    Boolean(profile.english?.test),
-    profile.english?.score !== undefined &&
-      profile.english?.score !== "",
+    hasText(profile.english?.test),
+    hasValidNumber(profile.english?.score),
 
-    Boolean(profile.preferences?.studyDestination),
-    profile.preferences?.annualBudget?.amount !== undefined &&
-      profile.preferences?.annualBudget?.amount !== "",
+    hasText(profile.preferences?.studyDestination),
+    hasValidNumber(profile.preferences?.annualBudget?.amount),
 
-    profile.experience?.workExperienceMonths !== undefined &&
-      profile.experience?.workExperienceMonths !== "",
-    Boolean(profile.experience?.achievements?.length),
+    hasValidNumber(profile.experience?.workExperienceMonths),
+    Array.isArray(profile.experience?.achievements) &&
+      profile.experience.achievements.length > 0,
 
-    profile.additional?.internationalStudent !== undefined,
-    profile.additional?.isStudent !== undefined,
+    hasBoolean(profile.additional?.internationalStudent),
+    hasBoolean(profile.additional?.isStudent),
   ];
 
   const completed = checks.filter(Boolean).length;
@@ -41,9 +57,6 @@ export const calculateProfileCompletion = (profile) => {
   return {
     completed,
     total,
-    percentage:
-      total > 0
-        ? Math.round((completed / total) * 100)
-        : 0,
+    percentage: Math.round((completed / total) * 100),
   };
 };

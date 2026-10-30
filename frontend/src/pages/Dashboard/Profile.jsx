@@ -23,49 +23,58 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router";
 
-
-
 /* ============================================================
-   DEFAULT FORM STRUCTURE
-============================================================
+   DEFAULT PROFILE
+============================================================ */
 
-const emptyFormData = {
-  name: "",
-  email: "",
-  nationality: "",
-  age: "",
-
-  studyLevel: "",
-  completedDegrees: [],
-  fieldOfStudy: "",
-  academicPerformance: "",
-
-  englishTest: "",
-  englishScore: "",
-
+const defaultProfile = {
+  username: "",
+  personal: {
+    name: "",
+    email: "",
+    nationality: "",
+    dateOfBirth: "",
+  },
+  academic: {
+    studyLevel: "",
+    completedDegrees: [],
+    institutionName: "",
+    fieldOfStudy: "",
+    academicPerformance: {
+      gpa: null,
+      scale: 4,
+    },
+  },
+  english: {
+    test: "",
+    score: "",
+  },
+  preferences: {
   studyDestination: "",
-  budgetCurrency: "USD",
-  annualBudget: "",
-
-  workExperienceMonths: "",
-  leadershipExperience: false,
-  communityService: false,
-  researchExperience: false,
-  achievements: [],
-
-  internationalStudent: false,
-  isStudent: false,
-  gdscMember: false,
-  universityTeam: false,
-
-  partnerUniversities: [],
-  innovationProjects: [],
+  annualBudget: {
+    currency: "USD",
+    amount: "",
+  },
+},
+  experience: {
+    workExperienceMonths: null,
+    leadershipExperience: null,
+    communityService: null,
+    researchExperience: null,
+    achievements: [],
+  },
+  additional: {
+    internationalStudent: null,
+    isStudent: null,
+    gdscMember: null,
+    universityTeam: null,
+    partnerUniversities: [],
+    innovationProjects: [],
+  },
 };
-*/
-
 
 /* ============================================================
-   LOCAL STORAGE USER HELPERS
+   LOCAL STORAGE HELPERS
 ============================================================ */
 
 const getStoredUser = () => {
@@ -78,187 +87,247 @@ const getStoredUser = () => {
 
 const setStoredUsername = (username) => {
   const storedUser = getStoredUser();
+
   localStorage.setItem(
     "user",
     JSON.stringify({ ...storedUser, username })
   );
 };
 
-
 /* ============================================================
-   CONVERT SCHOLARX PROFILE → FORM DATA
+   NORMALIZE PROFILE
 ============================================================ */
 
-const profileToFormData = (profile) => {
+const normalizeProfile = (profile = {}) => ({
+  ...defaultProfile,
+  ...profile,
+
+  personal: {
+    ...defaultProfile.personal,
+    ...(profile.personal || {}),
+  },
+
+  academic: {
+    ...defaultProfile.academic,
+    ...(profile.academic || {}),
+    completedDegrees: Array.isArray(profile.academic?.completedDegrees)
+      ? profile.academic.completedDegrees
+      : [],
+    academicPerformance:
+      typeof profile.academic?.academicPerformance === "object" &&
+      profile.academic?.academicPerformance !== null
+        ? {
+            ...defaultProfile.academic.academicPerformance,
+            ...profile.academic.academicPerformance,
+          }
+        : profile.academic?.academicPerformance ?? {
+            gpa: null,
+            scale: 4,
+          },
+  },
+
+  english: {
+    ...defaultProfile.english,
+    ...(profile.english || {}),
+  },
+
+  preferences: {
+  ...defaultProfile.preferences,
+  ...(profile.preferences || {}),
+
+  // Supports both old single-country strings and the new array format.
+  studyDestination: Array.isArray(profile.preferences?.studyDestination)
+    ? profile.preferences.studyDestination
+    : profile.preferences?.studyDestination
+      ? [profile.preferences.studyDestination]
+      : [],
+
+  annualBudget: {
+    ...defaultProfile.preferences.annualBudget,
+    ...(profile.preferences?.annualBudget || {}),
+  },
+},
+
+  experience: {
+    ...defaultProfile.experience,
+    ...(profile.experience || {}),
+    achievements: Array.isArray(profile.experience?.achievements)
+      ? profile.experience.achievements
+      : [],
+  },
+
+  additional: {
+    ...defaultProfile.additional,
+    ...(profile.additional || {}),
+    partnerUniversities: Array.isArray(
+      profile.additional?.partnerUniversities
+    )
+      ? profile.additional.partnerUniversities
+      : [],
+    innovationProjects: Array.isArray(
+      profile.additional?.innovationProjects
+    )
+      ? profile.additional.innovationProjects
+      : [],
+  },
+});
+
+/* ============================================================
+   PROFILE → FORM DATA
+============================================================ */
+
+const profileToFormData = (rawProfile = {}) => {
+  const profile = normalizeProfile(rawProfile);
   const storedUser = getStoredUser();
+
+  const academicPerformance = profile.academic.academicPerformance;
+
   return {
     username: profile.username || storedUser.username || "",
-    name: profile.personal?.name || storedUser.name || "",
-    email: profile.personal?.email || storedUser.email || "",
-    nationality: profile.personal?.nationality || "",
-    dateOfBirth: profile.personal?.dateOfBirth || "",
+    name: profile.personal.name || storedUser.name || "",
+    email: profile.personal.email || storedUser.email || "",
+    nationality: profile.personal.nationality || "",
+    dateOfBirth: profile.personal.dateOfBirth || "",
 
-    studyLevel: profile.academic?.studyLevel || "",
-    completedDegrees:
-      profile.academic?.completedDegrees || [],
-    fieldOfStudy:
-      profile.academic?.fieldOfStudy || "",
+    studyLevel: profile.academic.studyLevel || "",
+    completedDegrees: profile.academic.completedDegrees,
+    institutionName: profile.academic.institutionName || "",
+    fieldOfStudy: profile.academic.fieldOfStudy || "",
+
     academicPerformance:
-      profile.academic?.academicPerformance?.gpa ?? profile.academic?.academicPerformance ?? "",
+      typeof academicPerformance === "object"
+        ? academicPerformance?.gpa ?? ""
+        : academicPerformance ?? "",
+
     gpaScale:
-      profile.academic?.academicPerformance?.scale ?? "4",
+      typeof academicPerformance === "object"
+        ? academicPerformance?.scale ?? "4"
+        : "4",
 
-    englishTest: profile.english?.test || "",
-    englishScore: profile.english?.score ?? "",
+    englishTest: profile.english.test || "",
+    englishScore: profile.english.score ?? "",
 
-    studyDestination:
-      profile.preferences?.studyDestination || "",
-
+    studyDestination: profile.preferences.studyDestination,
     budgetCurrency:
-      profile.preferences?.annualBudget?.currency || "USD",
-
+      profile.preferences.annualBudget.currency || "USD",
     annualBudget:
-      profile.preferences?.annualBudget?.amount ?? "",
+      profile.preferences.annualBudget.amount ?? "",
 
     workExperienceMonths:
-      profile.experience?.workExperienceMonths ?? "",
+      profile.experience.workExperienceMonths ?? "",
 
     leadershipExperience:
-      profile.experience?.leadershipExperience ?? null,
-
+      profile.experience.leadershipExperience ?? false,
     communityService:
-      profile.experience?.communityService ?? null,
-
+      profile.experience.communityService ?? false,
     researchExperience:
-      profile.experience?.researchExperience ?? null,
+      profile.experience.researchExperience ?? false,
 
-    achievements:
-      profile.experience?.achievements || [],
+    achievements: profile.experience.achievements,
 
     internationalStudent:
-      profile.additional?.internationalStudent ?? null,
+      profile.additional.internationalStudent ?? false,
+    isStudent: profile.additional.isStudent ?? false,
+    gdscMember: profile.additional.gdscMember ?? false,
+    universityTeam: profile.additional.universityTeam ?? false,
 
-    isStudent:
-      profile.additional?.isStudent ?? null,
-
-    gdscMember:
-      profile.additional?.gdscMember ?? null,
-
-    universityTeam:
-      profile.additional?.universityTeam ?? null,
-
-    partnerUniversities:
-      profile.additional?.partnerUniversities || [],
-
-    innovationProjects:
-      profile.additional?.innovationProjects || [],
+    partnerUniversities: profile.additional.partnerUniversities,
+    innovationProjects: profile.additional.innovationProjects,
   };
 };
 
-
 /* ============================================================
-   CONVERT FORM DATA → SCHOLARX PROFILE STRUCTURE
+   FORM DATA → PROFILE
 ============================================================ */
 
-const formDataToProfile = (formData) => {
-  return {
-    personal: {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      nationality: formData.nationality.trim(),
-      dateOfBirth: formData.dateOfBirth || null,
-    },
+const formDataToProfile = (formData) => ({
+  personal: {
+    name: formData.name.trim(),
+    email: formData.email.trim(),
+    nationality: formData.nationality.trim(),
+    dateOfBirth: formData.dateOfBirth || null,
+  },
 
-    academic: {
-      studyLevel: formData.studyLevel,
-      completedDegrees:
-        formData.completedDegrees,
+  academic: {
+    studyLevel: formData.studyLevel,
+    completedDegrees: formData.completedDegrees,
+    institutionName: formData.institutionName.trim(),
+    fieldOfStudy: formData.fieldOfStudy.trim(),
 
-      fieldOfStudy:
-        formData.fieldOfStudy.trim(),
-
-      academicPerformance: {
-        gpa: formData.academicPerformance !== "" ? Number(formData.academicPerformance) : null,
-        scale: formData.gpaScale !== "" ? Number(formData.gpaScale) : null,
-      },
-    },
-
-    english: {
-      test: formData.englishTest,
-      score:
-        formData.englishScore !== ""
-          ? Number(formData.englishScore)
-          : "",
-    },
-
-    preferences: {
-      studyDestination:
-        formData.studyDestination,
-
-      annualBudget: {
-        currency: formData.budgetCurrency,
-        amount:
-          formData.annualBudget !== ""
-            ? Number(formData.annualBudget)
-            : "",
-      },
-    },
-
-    experience: {
-      workExperienceMonths:
-        formData.workExperienceMonths !== ""
-          ? Number(formData.workExperienceMonths)
+    academicPerformance: {
+      gpa:
+        formData.academicPerformance !== ""
+          ? Number(formData.academicPerformance)
           : null,
-
-      leadershipExperience:
-        formData.leadershipExperience,
-
-      communityService:
-        formData.communityService,
-
-      researchExperience:
-        formData.researchExperience,
-
-      achievements:
-        formData.achievements,
+      scale:
+        formData.gpaScale !== ""
+          ? Number(formData.gpaScale)
+          : null,
     },
+  },
 
-    additional: {
-      internationalStudent:
-        formData.internationalStudent,
+  english: {
+    test: formData.englishTest,
+    score:
+      formData.englishScore !== ""
+        ? Number(formData.englishScore)
+        : "",
+  },
 
-      isStudent:
-        formData.isStudent,
+  preferences: {
+  studyDestination: formData.studyDestination,
+  annualBudget: {
+    currency: formData.budgetCurrency,
+    amount:
+      formData.annualBudget !== ""
+        ? Number(formData.annualBudget)
+        : "",
+  },
+},
 
-      gdscMember:
-        formData.gdscMember,
+  experience: {
+    workExperienceMonths:
+      formData.workExperienceMonths !== ""
+        ? Number(formData.workExperienceMonths)
+        : null,
+    leadershipExperience: formData.leadershipExperience,
+    communityService: formData.communityService,
+    researchExperience: formData.researchExperience,
+    achievements: formData.achievements,
+  },
 
-      universityTeam:
-        formData.universityTeam,
-
-      partnerUniversities:
-        formData.partnerUniversities,
-
-      innovationProjects:
-        formData.innovationProjects,
-    },
-  };
-};
-
+  additional: {
+    internationalStudent: formData.internationalStudent,
+    isStudent: formData.isStudent,
+    gdscMember: formData.gdscMember,
+    universityTeam: formData.universityTeam,
+    partnerUniversities: formData.partnerUniversities,
+    innovationProjects: formData.innovationProjects,
+  },
+});
 
 /* ============================================================
-   DATE AND LANGUAGE HELPERS
+   HELPERS
 ============================================================ */
 
 const calculateAge = (dateOfBirth) => {
   if (!dateOfBirth) return null;
+
   const birth = new Date(`${dateOfBirth}T00:00:00`);
+
   if (Number.isNaN(birth.getTime())) return null;
+
   const today = new Date();
+
   let age = today.getFullYear() - birth.getFullYear();
-  const beforeBirthday = today.getMonth() < birth.getMonth() ||
-    (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
+
+  const beforeBirthday =
+    today.getMonth() < birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() &&
+      today.getDate() < birth.getDate());
+
   if (beforeBirthday) age -= 1;
+
   return age >= 0 ? age : null;
 };
 
@@ -273,7 +342,11 @@ const emptyLanguageQualification = () => ({
   expiry_date: "",
 });
 
-const LanguageQualificationsPanel = ({ apiBaseUrl, onCompletionChange }) => {
+/* ============================================================
+   LANGUAGE QUALIFICATIONS
+============================================================ */
+
+const LanguageQualificationsPanel = ({ apiBaseUrl }) => {
   const [qualifications, setQualifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -282,105 +355,390 @@ const LanguageQualificationsPanel = ({ apiBaseUrl, onCompletionChange }) => {
 
   const loadQualifications = async () => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       setError("Your session has expired. Please log in again.");
       setLoading(false);
       return;
     }
+
     try {
       setLoading(true);
       setError("");
-      const response = await fetch(`${apiBaseUrl}/api/profile/languages`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+
+      const response = await fetch(
+        `${apiBaseUrl}/api/profile/languages`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       const body = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(body.detail || "Could not load language qualifications.");
-      setQualifications((body.qualifications || []).map((item) => ({
-        ...item,
-        score_numeric: item.score_numeric ?? "",
-        score_text: item.score_text ?? "",
-        test_date: item.test_date ?? "",
-        expiry_date: item.expiry_date ?? "",
-      })));
-      if (body.completion) onCompletionChange?.(body.completion);
+
+      if (!response.ok) {
+        throw new Error(
+          body.detail || "Could not load language qualifications."
+        );
+      }
+
+      setQualifications(
+        (body.qualifications || []).map((item) => ({
+          ...item,
+          score_numeric: item.score_numeric ?? "",
+          score_text: item.score_text ?? "",
+          test_date: item.test_date ?? "",
+          expiry_date: item.expiry_date ?? "",
+        }))
+      );
     } catch (err) {
-      setError(err.message || "Could not load language qualifications.");
+      setError(
+        err.message || "Could not load language qualifications."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => { loadQualifications(); /* load once on mount */ }, [apiBaseUrl]);
+  useEffect(() => {
+    loadQualifications();
+    // Load once when the panel mounts.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiBaseUrl]);
 
   const updateQualification = (index, key, value) => {
-    setQualifications((current) => current.map((item, i) => i === index ? { ...item, [key]: value } : item));
+    setQualifications((current) =>
+      current.map((item, i) =>
+        i === index ? { ...item, [key]: value } : item
+      )
+    );
   };
 
-  const addQualification = () => setQualifications((current) => [...current, emptyLanguageQualification()]);
-  const removeQualification = (index) => setQualifications((current) => current.filter((_, i) => i !== index));
+  const addQualification = () => {
+    setQualifications((current) => [
+      ...current,
+      emptyLanguageQualification(),
+    ]);
+  };
+
+  const removeQualification = (index) => {
+    setQualifications((current) =>
+      current.filter((_, i) => i !== index)
+    );
+  };
 
   const saveQualifications = async () => {
     const token = localStorage.getItem("token");
-    if (!token) { setError("Your session has expired. Please log in again."); return; }
-    const cleaned = qualifications.filter((item) => item.language_code && item.proficiency_type).map((item) => ({
-      language_code: item.language_code.trim().toUpperCase(),
-      proficiency_type: item.proficiency_type,
-      test_name: item.test_name?.trim() || null,
-      score_numeric: item.score_numeric === "" || item.score_numeric == null ? null : Number(item.score_numeric),
-      score_text: item.score_text?.trim() || null,
-      proficiency_level: item.proficiency_level?.trim() || null,
-      test_date: item.test_date || null,
-      expiry_date: item.expiry_date || null,
-    }));
+
+    if (!token) {
+      setError("Your session has expired. Please log in again.");
+      return;
+    }
+
+    const cleaned = qualifications
+      .filter((item) => item.language_code && item.proficiency_type)
+      .map((item) => ({
+        language_code: item.language_code.trim().toUpperCase(),
+        proficiency_type: item.proficiency_type,
+        test_name: item.test_name?.trim() || null,
+        score_numeric:
+          item.score_numeric === "" || item.score_numeric == null
+            ? null
+            : Number(item.score_numeric),
+        score_text: item.score_text?.trim() || null,
+        proficiency_level: item.proficiency_level?.trim() || null,
+        test_date: item.test_date || null,
+        expiry_date: item.expiry_date || null,
+      }));
+
     try {
-      setSaving(true); setError(""); setMessage("");
-      const response = await fetch(`${apiBaseUrl}/api/profile/languages`, {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ qualifications: cleaned }),
-      });
+      setSaving(true);
+      setError("");
+      setMessage("");
+
+      const response = await fetch(
+        `${apiBaseUrl}/api/profile/languages`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ qualifications: cleaned }),
+        }
+      );
+
       const body = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(body.detail || "Could not save language qualifications.");
-      setQualifications((body.qualifications || []).map((item) => ({
-        ...item, score_numeric: item.score_numeric ?? "", score_text: item.score_text ?? "",
-        test_date: item.test_date ?? "", expiry_date: item.expiry_date ?? "",
-      })));
-      if (body.completion) onCompletionChange?.(body.completion);
+
+      if (!response.ok) {
+        throw new Error(
+          body.detail || "Could not save language qualifications."
+        );
+      }
+
+      setQualifications(
+        (body.qualifications || []).map((item) => ({
+          ...item,
+          score_numeric: item.score_numeric ?? "",
+          score_text: item.score_text ?? "",
+          test_date: item.test_date ?? "",
+          expiry_date: item.expiry_date ?? "",
+        }))
+      );
+
       setMessage("Language qualifications saved successfully.");
     } catch (err) {
-      setError(err.message || "Could not save language qualifications.");
-    } finally { setSaving(false); }
+      setError(
+        err.message || "Could not save language qualifications."
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="flex flex-col gap-3 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600"><Languages className="h-5 w-5" /></div>
-          <div><h2 className="font-bold text-slate-900">Language Qualifications</h2><p className="mt-1 text-xs leading-5 text-slate-500">Manage HSK, IELTS, TOEFL, and other language tests independently from your main profile.</p></div>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+            <Languages className="h-5 w-5" />
+          </div>
+
+          <div>
+            <h2 className="font-bold text-slate-900">
+              Language Qualifications
+            </h2>
+            <p className="mt-1 text-xs leading-5 text-slate-500">
+              Manage HSK, IELTS, TOEFL, and other language tests
+              independently from your main profile.
+            </p>
+          </div>
         </div>
+
         <div className="flex gap-2">
-          <button type="button" onClick={addQualification} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"><Plus className="h-4 w-4" /> Add qualification</button>
-          <button type="button" onClick={saveQualifications} disabled={saving || loading} className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">{saving ? "Saving…" : "Save languages"}</button>
+          <button
+            type="button"
+            onClick={addQualification}
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            <Plus className="h-4 w-4" />
+            Add qualification
+          </button>
+
+          <button
+            type="button"
+            onClick={saveQualifications}
+            disabled={saving || loading}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60"
+          >
+            {saving ? "Saving…" : "Save languages"}
+          </button>
         </div>
       </div>
+
       <div className="space-y-4 p-5 sm:p-6">
-        {loading && <p className="text-sm text-slate-500">Loading language qualifications…</p>}
-        {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
-        {message && <p role="status" className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">{message}</p>}
-        {!loading && qualifications.length === 0 && <p className="rounded-xl bg-slate-50 px-4 py-5 text-sm text-slate-500">No language qualifications added yet. Add one if you have taken a language test; leave this section empty if you have not.</p>}
+        {loading && (
+          <p className="text-sm text-slate-500">
+            Loading language qualifications…
+          </p>
+        )}
+
+        {error && (
+          <p
+            role="alert"
+            className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+          >
+            {error}
+          </p>
+        )}
+
+        {message && (
+          <p
+            role="status"
+            className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700"
+          >
+            {message}
+          </p>
+        )}
+
+        {!loading && qualifications.length === 0 && (
+          <p className="rounded-xl bg-slate-50 px-4 py-5 text-sm text-slate-500">
+            No language qualifications added yet. Add one if you
+            have taken a language test; leave this section empty
+            if you have not.
+          </p>
+        )}
+
         {qualifications.map((item, index) => (
-          <div key={item.id || `qualification-${index}`} className="rounded-xl border border-slate-200 p-4">
-            <div className="mb-4 flex items-center justify-between"><h3 className="text-sm font-semibold text-slate-800">Qualification {index + 1}</h3><button type="button" onClick={() => removeQualification(index)} aria-label={`Remove qualification ${index + 1}`} className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"><X className="h-4 w-4" /></button></div>
+          <div
+            key={item.id || `qualification-${index}`}
+            className="rounded-xl border border-slate-200 p-4"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-slate-800">
+                Qualification {index + 1}
+              </h3>
+
+              <button
+                type="button"
+                onClick={() => removeQualification(index)}
+                aria-label={`Remove qualification ${index + 1}`}
+                className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <label className="block text-xs font-medium text-slate-600">Language<select value={item.language_code || ""} onChange={(e) => updateQualification(index, "language_code", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"><option value="ZH">Chinese</option><option value="EN">English</option><option value="FR">French</option><option value="DE">German</option><option value="JA">Japanese</option><option value="KO">Korean</option><option value="OTHER">Other</option></select></label>
-              <label className="block text-xs font-medium text-slate-600">Qualification type<select value={item.proficiency_type || "test"} onChange={(e) => updateQualification(index, "proficiency_type", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"><option value="test">Standardized test</option><option value="level">Proficiency level</option><option value="native">Native language</option><option value="course">Course certificate</option></select></label>
-              <label className="block text-xs font-medium text-slate-600">Test / certificate<select value={item.test_name || ""} onChange={(e) => updateQualification(index, "test_name", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"><option value="">Select test</option><option>HSK</option><option>IELTS</option><option>TOEFL</option><option>PTE</option><option>Duolingo English Test</option><option>MOI</option><option>Other</option></select></label>
-              <label className="block text-xs font-medium text-slate-600">Level (e.g. HSK 3)<input value={item.proficiency_level || ""} onChange={(e) => updateQualification(index, "proficiency_level", e.target.value)} placeholder="HSK 3 / B2 / C1" className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
-              <label className="block text-xs font-medium text-slate-600">Numeric score<input type="number" step="0.01" value={item.score_numeric} onChange={(e) => updateQualification(index, "score_numeric", e.target.value)} placeholder="Optional" className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
-              <label className="block text-xs font-medium text-slate-600">Text score / grade<input value={item.score_text || ""} onChange={(e) => updateQualification(index, "score_text", e.target.value)} placeholder="Optional" className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
-              <label className="block text-xs font-medium text-slate-600">Test date<input type="date" value={item.test_date || ""} onChange={(e) => updateQualification(index, "test_date", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
-              <label className="block text-xs font-medium text-slate-600">Expiry date<input type="date" value={item.expiry_date || ""} onChange={(e) => updateQualification(index, "expiry_date", e.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm" /></label>
+              <label className="block text-xs font-medium text-slate-600">
+                Language
+                <select
+                  value={item.language_code || ""}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "language_code",
+                      e.target.value
+                    )
+                  }
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"
+                >
+                  <option value="ZH">Chinese</option>
+                  <option value="EN">English</option>
+                  <option value="FR">French</option>
+                  <option value="DE">German</option>
+                  <option value="JA">Japanese</option>
+                  <option value="KO">Korean</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Qualification type
+                <select
+                  value={item.proficiency_type || "test"}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "proficiency_type",
+                      e.target.value
+                    )
+                  }
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"
+                >
+                  <option value="test">Standardized test</option>
+                  <option value="level">Proficiency level</option>
+                  <option value="native">Native language</option>
+                  <option value="course">Course certificate</option>
+                </select>
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Test / certificate
+                <select
+                  value={item.test_name || ""}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "test_name",
+                      e.target.value
+                    )
+                  }
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"
+                >
+                  <option value="">Select test</option>
+                  <option>HSK</option>
+                  <option>IELTS</option>
+                  <option>TOEFL</option>
+                  <option>PTE</option>
+                  <option>Duolingo English Test</option>
+                  <option>MOI</option>
+                  <option>Other</option>
+                </select>
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Level (e.g. HSK 3)
+                <input
+                  value={item.proficiency_level || ""}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "proficiency_level",
+                      e.target.value
+                    )
+                  }
+                  placeholder="HSK 3 / B2 / C1"
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
+                />
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Numeric score
+                <input
+                  type="number"
+                  step="0.01"
+                  value={item.score_numeric}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "score_numeric",
+                      e.target.value
+                    )
+                  }
+                  placeholder="Optional"
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
+                />
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Text score / grade
+                <input
+                  value={item.score_text || ""}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "score_text",
+                      e.target.value
+                    )
+                  }
+                  placeholder="Optional"
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
+                />
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Test date
+                <input
+                  type="date"
+                  value={item.test_date || ""}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "test_date",
+                      e.target.value
+                    )
+                  }
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
+                />
+              </label>
+
+              <label className="block text-xs font-medium text-slate-600">
+                Expiry date
+                <input
+                  type="date"
+                  value={item.expiry_date || ""}
+                  onChange={(e) =>
+                    updateQualification(
+                      index,
+                      "expiry_date",
+                      e.target.value
+                    )
+                  }
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
+                />
+              </label>
             </div>
           </div>
         ))}
@@ -390,112 +748,151 @@ const LanguageQualificationsPanel = ({ apiBaseUrl, onCompletionChange }) => {
 };
 
 /* ============================================================
-   PROFILE
+   PROFILE PAGE
 ============================================================ */
 
 const Profile = () => {
-
   const {
     profile,
     updateProfile,
     profileCompletion,
   } = useDashboard();
 
-  const [formData, setFormData] = useState(() => profileToFormData(profile || {}));
+  const safeProfile = normalizeProfile(profile || {});
+
+  const [formData, setFormData] = useState(() =>
+    profileToFormData(safeProfile)
+  );
   const [editing, setEditing] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
-  const [profileError, setProfileError] = useState("");
-  const [completionData, setCompletionData] = useState(profileCompletion || { percentage: 0, completed: 0, total: 0, missing_fields: [] });
+  const [pageError, setPageError] = useState("");
 
-  // this is the base URL for the ScholarX API, which can be configured via environment variables
-  const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
+  const API_BASE_URL = (
+    import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
+  ).replace(/\/+$/, "");
+
   const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/me`;
   const USERNAME_ENDPOINT = `${API_BASE_URL}/api/profile/me/username`;
 
-  // The verified JWT identifies the student. Never send a user ID from localStorage.
+  // Shared completion value from DashboardProvider.
+  // Overview and Profile should display this same value.
+  const completionPercentage = Math.min(
+    100,
+    Math.max(0, Number(profileCompletion?.percentage) || 0)
+  );
+
+  /* ==========================================================
+     LOAD PROFILE
+  ========================================================== */
+
   useEffect(() => {
     let cancelled = false;
 
-    const loadProfile = async () => {
+    const fetchProfile = async () => {
       const token = localStorage.getItem("token");
+
       if (!token) {
-        setProfileError("Your session has expired. Please log in again.");
+        setPageError("Your session has expired. Please log in again.");
         setLoadingProfile(false);
         return;
       }
 
       try {
         setLoadingProfile(true);
-        setProfileError("");
+        setPageError("");
+
         const response = await fetch(PROFILE_ENDPOINT, {
           method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
+
         const body = await response.json().catch(() => ({}));
+
         if (!response.ok) {
-          throw new Error(body.detail || body.message || "Could not load your profile.");
+          throw new Error(
+            body.detail ||
+              body.message ||
+              "Could not load your profile."
+          );
         }
 
-        // The profile API should return { profile: <nested profile> } or the profile itself.
-        const serverProfile = body.profile ?? body.data ?? body;
-        if (body.completion) setCompletionData(body.completion);
+        const serverProfile =
+          body.profile ?? body.data ?? body;
+
         const storedUser = getStoredUser();
-        const normalizedServerProfile = {
+
+        const normalizedServerProfile = normalizeProfile({
           ...serverProfile,
-          username: serverProfile.username || body.user?.username || storedUser.username || "",
+          username:
+            serverProfile.username ||
+            body.user?.username ||
+            storedUser.username ||
+            "",
           personal: {
             ...serverProfile.personal,
-            name: body.user?.name || storedUser.name || "",
-            email: body.user?.email || storedUser.email || "",
+            name:
+              serverProfile.personal?.name ||
+              body.user?.name ||
+              storedUser.name ||
+              "",
+            email:
+              serverProfile.personal?.email ||
+              body.user?.email ||
+              storedUser.email ||
+              "",
           },
+        });
 
-        };
-        if (!cancelled && normalizedServerProfile && typeof normalizedServerProfile === "object") {
+        if (
+          !cancelled &&
+          normalizedServerProfile &&
+          typeof normalizedServerProfile === "object"
+        ) {
+          // Update the shared DashboardProvider state.
+          // Its derived completion value is the single source of truth.
           updateProfile(normalizedServerProfile);
+
           setFormData(profileToFormData(normalizedServerProfile));
         }
       } catch (error) {
-        if (!cancelled) setProfileError(error.message || "Could not load your profile.");
+        if (!cancelled) {
+          setPageError(
+            error.message || "Could not load your profile."
+          );
+        }
       } finally {
         if (!cancelled) setLoadingProfile(false);
       }
     };
 
-    loadProfile();
-    return () => { cancelled = true; };
-    // Avoid an infinite reload loop if Dashboard recreates updateProfile on each render.
-    // The endpoint is stable, so load once when this component mounts.
+    fetchProfile();
+
+    return () => {
+      cancelled = true;
+    };
+
+    // Load once when this component mounts.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [PROFILE_ENDPOINT]);
 
-
-
   /* ==========================================================
-     OPEN EDIT MODE
+     EDIT / CANCEL
   ========================================================== */
 
   const handleEditProfile = () => {
-    setFormData(profileToFormData(profile));
+    setFormData(profileToFormData(safeProfile));
     setEditing(true);
     setSaved(false);
   };
 
-
-  /* ==========================================================
-     CLOSE EDIT MODE
-  ========================================================== */
-
   const handleCancel = () => {
-    setFormData(profileToFormData(profile));
+    setFormData(profileToFormData(safeProfile));
     setEditing(false);
   };
-
-
-  /* ==========================================================
-     HANDLE INPUT
-  ========================================================== */
 
   const updateField = (field, value) => {
     setFormData((prev) => ({
@@ -504,99 +901,151 @@ const Profile = () => {
     }));
   };
 
-
   /* ==========================================================
      SAVE PROFILE
   ========================================================== */
 
   const handleSave = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setProfileError("Your session has expired. Please log in again.");
-      return;
-    }
+  const token = localStorage.getItem("token");
 
-    try {
-      setSavingProfile(true);
-      setProfileError("");
-      const storedUser = getStoredUser();
-      const nextUsername = (formData.username || "").trim();
-      const currentUsername = (storedUser.username || "").trim();
+  if (!token) {
+    setPageError("Your session has expired. Please log in again.");
+    return;
+  }
 
-      // Validate username only when the user is actually changing it.
-      // Other profile fields (for example nationality) must remain saveable
-      // even if the account has a legacy username that no longer matches the
-      // current username rules.
-      if (nextUsername !== currentUsername) {
-        if (!nextUsername) {
-          throw new Error("Username cannot be empty.");
-        }
-        if (!/^[a-zA-Z0-9._-]{3,30}$/.test(nextUsername)) {
-          throw new Error("Username must be 3–30 characters and may contain letters, numbers, dots, underscores, or hyphens.");
-        }
+  try {
+    setSavingProfile(true);
+    setPageError("");
 
-        // The backend identifies the account from the verified JWT and checks
-        // username uniqueness before changing it.
-        const usernameResponse = await fetch(USERNAME_ENDPOINT, {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username: nextUsername }),
-        });
-        const usernameBody = await usernameResponse.json().catch(() => ({}));
-        if (!usernameResponse.ok) {
-          throw new Error(usernameBody.detail || usernameBody.message || "Could not update username.");
-        }
-        const confirmedUsername = usernameBody.username || usernameBody.user?.username || nextUsername;
-        setStoredUsername(confirmedUsername);
-        setFormData((prev) => ({ ...prev, username: confirmedUsername }));
+    const storedUser = getStoredUser();
+
+    const nextUsername = (formData.username || "").trim();
+    const currentUsername = (storedUser.username || "").trim();
+
+    // Keep a separate local value instead of mutating formData.
+    let confirmedUsername = currentUsername;
+
+    // Update username only if it has actually changed.
+    if (nextUsername !== currentUsername) {
+      if (!nextUsername) {
+        throw new Error("Username cannot be empty.");
       }
 
-      const normalizedProfile = formDataToProfile(formData);
-      const response = await fetch(PROFILE_ENDPOINT, {
-        method: "PUT",
+      if (!/^[a-zA-Z0-9._-]{3,30}$/.test(nextUsername)) {
+        throw new Error(
+          "Username must be 3–30 characters and may contain letters, numbers, dots, underscores, or hyphens."
+        );
+      }
+
+      const usernameResponse = await fetch(USERNAME_ENDPOINT, {
+        method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(normalizedProfile),
+        body: JSON.stringify({ username: nextUsername }),
       });
-      const body = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(body.detail || body.message || "Could not save your profile.");
+
+      const usernameBody = await usernameResponse
+        .json()
+        .catch(() => ({}));
+
+      if (!usernameResponse.ok) {
+        throw new Error(
+          usernameBody.detail ||
+            usernameBody.message ||
+            "Could not update username."
+        );
       }
 
-      const savedProfile = body.profile ?? body.data ?? normalizedProfile;
-      if (body.completion) setCompletionData(body.completion);
-      const latestStoredUser = getStoredUser();
-      const confirmedUsername = savedProfile.username || latestStoredUser.username || formData.username;
-      if (confirmedUsername) setStoredUsername(confirmedUsername);
-      const completeSavedProfile = {
-        ...savedProfile,
-        username: confirmedUsername || "",
-      };
-      updateProfile(completeSavedProfile);
-      setFormData(profileToFormData(completeSavedProfile));
-      setEditing(false);
-      setSaved(true);
-      window.setTimeout(() => setSaved(false), 2500);
-    } catch (error) {
-      setProfileError(error.message || "Could not save your profile.");
-    } finally {
-      setSavingProfile(false);
-    }
-  };
+      confirmedUsername =
+        usernameBody.username ||
+        usernameBody.user?.username ||
+        nextUsername;
 
+      setStoredUsername(confirmedUsername);
+    }
+
+    // Create a new object with the confirmed username.
+    const profileFormData = {
+      ...formData,
+      username: confirmedUsername || nextUsername,
+    };
+
+    const normalizedProfile = formDataToProfile(profileFormData);
+
+    const response = await fetch(PROFILE_ENDPOINT, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(normalizedProfile),
+    });
+
+    const body = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(
+        body.detail ||
+          body.message ||
+          "Could not save your profile."
+      );
+    }
+
+    const savedProfile =
+      body.profile ?? body.data ?? normalizedProfile;
+
+    const latestStoredUser = getStoredUser();
+
+    const finalUsername =
+      savedProfile.username ||
+      latestStoredUser.username ||
+      profileFormData.username;
+
+    if (finalUsername) {
+      setStoredUsername(finalUsername);
+    }
+
+    const completeSavedProfile = normalizeProfile({
+      ...savedProfile,
+      username: finalUsername || "",
+      personal: {
+        ...savedProfile.personal,
+        name:
+          savedProfile.personal?.name ||
+          profileFormData.name,
+        email:
+          savedProfile.personal?.email ||
+          profileFormData.email,
+      },
+    });
+
+    // Update shared DashboardProvider state.
+    updateProfile(completeSavedProfile);
+
+    // Update React form state through its setter.
+    setFormData(profileToFormData(completeSavedProfile));
+
+    setEditing(false);
+    setSaved(true);
+
+    window.setTimeout(() => setSaved(false), 2500);
+  } catch (error) {
+    setPageError(
+      error.message || "Could not save your profile."
+    );
+  } finally {
+    setSavingProfile(false);
+  }
+};
 
   /* ==========================================================
      FORMATTING
   ========================================================== */
 
   const formatBudget = () => {
-    const budget =
-      profile.preferences.annualBudget;
+    const budget = safeProfile.preferences.annualBudget;
 
     if (
       budget.amount === "" ||
@@ -611,68 +1060,67 @@ const Profile = () => {
     ).toLocaleString()}`;
   };
 
-
   const formatWorkExperience = () => {
     const months =
-      profile.experience.workExperienceMonths;
+      safeProfile.experience.workExperienceMonths;
 
-    if (
-      months === "" ||
-      months === null ||
-      months === undefined
-    ) {
+    if (months === "" || months === null || months === undefined) {
       return "Not specified";
     }
 
-    if (Number(months) === 0) {
-      return "No experience";
-    }
+    if (Number(months) === 0) return "No experience";
 
     if (Number(months) < 12) {
-      return `${months} month${Number(months) > 1 ? "s" : ""
-        }`;
+      return `${months} month${Number(months) > 1 ? "s" : ""}`;
     }
 
-    const years = Math.floor(
-      Number(months) / 12
-    );
-
-    const remainingMonths =
-      Number(months) % 12;
+    const years = Math.floor(Number(months) / 12);
+    const remainingMonths = Number(months) % 12;
 
     if (!remainingMonths) {
-      return `${years} year${years > 1 ? "s" : ""
-        }`;
+      return `${years} year${years > 1 ? "s" : ""}`;
     }
 
     return `${years}y ${remainingMonths}m`;
   };
 
-
   /* ==========================================================
-     LOADING / EMPTY SAFETY
+     LOADING / EMPTY STATES
   ========================================================== */
 
   if (loadingProfile) {
-    return <div className="mx-auto max-w-6xl px-6 py-12 text-sm text-slate-500">Loading your profile…</div>;
+    return (
+      <div className="mx-auto max-w-6xl px-6 py-12 text-sm text-slate-500">
+        Loading your profile…
+      </div>
+    );
   }
 
   if (!profile) {
-    return <div className="mx-auto max-w-6xl px-6 py-12 text-sm text-slate-500">Your profile is not available yet.</div>;
+    return (
+      <div className="mx-auto max-w-6xl px-6 py-12 text-sm text-slate-500">
+        Your profile is not available yet.
+      </div>
+    );
   }
 
+  const personal = safeProfile.personal;
+  const academic = safeProfile.academic;
+  const experience = safeProfile.experience;
+  const additional = safeProfile.additional;
 
   return (
-    <div className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
-      {profileError && (
-        <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {profileError}
+    <div className="mx-auto max-w-6xl space-y-6 px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+      {pageError && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
+          {pageError}
         </div>
       )}
 
-      {/* =====================================================
-          PAGE HEADER
-      ====================================================== */}
+      {/* PAGE HEADER */}
 
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-500">
@@ -680,29 +1128,21 @@ const Profile = () => {
         </p>
 
         <div className="mt-1 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
               My Profile
             </h1>
 
             <p className="mt-1 text-sm text-slate-500">
-              Keep your information up to date to improve
-              your scholarship matches.
+              Keep your information up to date to improve your
+              scholarship matches.
             </p>
           </div>
 
           <button
             type="button"
             onClick={handleEditProfile}
-            className="
-              flex w-fit items-center gap-2
-              rounded-xl bg-slate-900
-              px-4 py-2.5
-              text-sm font-semibold text-white
-              transition
-              hover:bg-slate-800
-            "
+            className="flex w-fit items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             <Edit3 className="h-4 w-4" />
             Edit Profile
@@ -710,10 +1150,7 @@ const Profile = () => {
         </div>
       </div>
 
-
-      {/* =====================================================
-          SAVE SUCCESS
-      ====================================================== */}
+      {/* SAVE SUCCESS */}
 
       {saved && (
         <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
@@ -722,110 +1159,81 @@ const Profile = () => {
         </div>
       )}
 
-
-      {/* =====================================================
-          PROFILE HERO
-      ====================================================== */}
+      {/* PROFILE HERO */}
 
       <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-
         <div className="h-15 bg-linear-to-r from-sky-500 via-sky-500 to-cyan-500" />
 
         <div className="px-5 py-6 sm:px-6">
-
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-
-            {/* Avatar + identity */}
-
             <div className="flex items-end gap-4">
-
               <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-4 border-white bg-sky-100 text-2xl font-bold text-sky-600 shadow-md">
-                {profile.personal.name
-                  ? profile.personal.name
-                    .split(" ")
-                    .map((word) => word[0])
-                    .slice(0, 2)
-                    .join("")
-                    .toUpperCase()
+                {personal.name
+                  ? personal.name
+                      .split(" ")
+                      .map((word) => word[0])
+                      .slice(0, 2)
+                      .join("")
+                      .toUpperCase()
                   : "U"}
               </div>
 
               <div className="pb-1">
-
                 <h2 className="text-xl font-bold text-slate-900">
-                  {profile.personal.name ||
-                    "Your Name"}
+                  {personal.name || "Your Name"}
                 </h2>
 
                 <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
-
                   <span>
-                    @{getStoredUser().username || formData.username || "username-not-set"}
+                    @{getStoredUser().username ||
+                      formData.username ||
+                      "username-not-set"}
                   </span>
 
                   <span className="hidden sm:inline">•</span>
 
-                  <span>
-                    {profile.personal.email || "Email not added"}
-                  </span>
+                  <span>{personal.email || "Email not added"}</span>
 
-                  <span className="hidden sm:inline">
-                    •
-                  </span>
+                  <span className="hidden sm:inline">•</span>
 
                   <span className="flex items-center gap-1">
                     <MapPin className="h-3.5 w-3.5" />
-
-                    {profile.personal.nationality ||
-                      "Nationality not added"}
+                    {personal.nationality || "Nationality not added"}
                   </span>
-
                 </div>
               </div>
             </div>
 
-
-            {/* Completion */}
+            {/* SHARED PROFILE COMPLETION */}
 
             <div className="w-full sm:w-56">
-
               <div className="mb-2 flex items-center justify-between">
-
                 <span className="text-xs font-semibold text-slate-500">
                   Profile completion
                 </span>
 
                 <span className="text-sm font-bold text-sky-600">
-                  {completionData.percentage ?? profileCompletion?.percentage ?? 0}%
+                  {completionPercentage}%
                 </span>
-
               </div>
 
               <div className="h-2 overflow-hidden rounded-full bg-slate-100">
-
                 <div
                   className="h-full rounded-full bg-sky-500 transition-all duration-500"
-                  style={{
-                    width: `${completionData.percentage ?? profileCompletion?.percentage ?? 0}%`,
-                  }}
+                  style={{ width: `${completionPercentage}%` }}
                 />
-
               </div>
 
               <p className="mt-2 text-[11px] text-slate-400">
-                A complete profile gives ScholarX more data
-                for accurate matching.
+                A complete profile gives ScholarX more data for
+                accurate matching.
               </p>
-
             </div>
           </div>
         </div>
       </section>
 
-
-      {/* =====================================================
-          PERSONAL INFORMATION
-      ====================================================== */}
+      {/* PERSONAL INFORMATION */}
 
       <ProfileSection
         icon={UserRound}
@@ -835,49 +1243,39 @@ const Profile = () => {
         <InfoItem
           icon={UserRound}
           label="Full Name"
-          value={
-            profile.personal.name ||
-            "Not specified"
-          }
+          value={personal.name || "Not specified"}
         />
 
         <InfoItem
           icon={Languages}
           label="Email"
-          value={
-            profile.personal.email ||
-            "Not specified"
-          }
+          value={personal.email || "Not specified"}
         />
 
         <InfoItem
           icon={Globe2}
           label="Nationality"
-          value={
-            profile.personal.nationality ||
-            "Not specified"
-          }
+          value={personal.nationality || "Not specified"}
         />
 
         <InfoItem
           icon={UserRound}
           label="Date of Birth"
-          value={profile.personal.dateOfBirth || "Not specified"}
+          value={personal.dateOfBirth || "Not specified"}
         />
 
         <InfoItem
           icon={UserRound}
           label="Age"
-          value={calculateAge(profile.personal.dateOfBirth) !== null
-            ? `${calculateAge(profile.personal.dateOfBirth)} years`
-            : "Not specified"}
+          value={
+            calculateAge(personal.dateOfBirth) !== null
+              ? `${calculateAge(personal.dateOfBirth)} years`
+              : "Not specified"
+          }
         />
       </ProfileSection>
 
-
-      {/* =====================================================
-          ACADEMIC BACKGROUND
-      ====================================================== */}
+      {/* ACADEMIC BACKGROUND */}
 
       <ProfileSection
         icon={GraduationCap}
@@ -887,21 +1285,15 @@ const Profile = () => {
         <InfoItem
           icon={GraduationCap}
           label="Current Study Level"
-          value={
-            profile.academic.studyLevel ||
-            "Not specified"
-          }
+          value={academic.studyLevel || "Not specified"}
         />
 
         <InfoItem
           icon={School}
           label="Completed Degree"
           value={
-            profile.academic.completedDegrees
-              ?.length
-              ? profile.academic.completedDegrees.join(
-                ", "
-              )
+            academic.completedDegrees.length
+              ? academic.completedDegrees.join(", ")
               : "Not specified"
           }
         />
@@ -909,40 +1301,35 @@ const Profile = () => {
         <InfoItem
           icon={School}
           label="Institution Name"
-          value={profile.academic.institutionName || "Not specified"}
+          value={academic.institutionName || "Not specified"}
         />
 
         <InfoItem
           icon={Target}
           label="Field of Study"
-          value={
-            profile.academic.fieldOfStudy ||
-            "Not specified"
-          }
+          value={academic.fieldOfStudy || "Not specified"}
         />
 
         <InfoItem
           icon={Award}
           label="Academic Performance"
           value={
-            profile.academic.academicPerformance?.gpa != null
-              ? `${profile.academic.academicPerformance.gpa} / ${profile.academic.academicPerformance.scale ?? "?"} GPA`
-              : profile.academic.academicPerformance !== "" && typeof profile.academic.academicPerformance !== "object"
-                ? `${profile.academic.academicPerformance} GPA`
+            typeof academic.academicPerformance === "object" &&
+            academic.academicPerformance?.gpa != null
+              ? `${academic.academicPerformance.gpa} / ${
+                  academic.academicPerformance.scale ?? "?"
+                } GPA`
+              : academic.academicPerformance !== "" &&
+                  typeof academic.academicPerformance !== "object"
+                ? `${academic.academicPerformance} GPA`
                 : "Not specified"
           }
         />
       </ProfileSection>
 
+      <LanguageQualificationsPanel apiBaseUrl={API_BASE_URL} />
 
-      <LanguageQualificationsPanel
-        apiBaseUrl={API_BASE_URL}
-        onCompletionChange={setCompletionData}
-      />
-
-      {/* =====================================================
-          STUDY PREFERENCES
-      ====================================================== */}
+      {/* STUDY PREFERENCES */}
 
       <ProfileSection
         icon={Globe2}
@@ -953,8 +1340,7 @@ const Profile = () => {
           icon={MapPin}
           label="Preferred Destination"
           value={
-            profile.preferences.studyDestination ||
-            "Not specified"
+            safeProfile.preferences.studyDestination || "Not specified"
           }
         />
 
@@ -965,10 +1351,7 @@ const Profile = () => {
         />
       </ProfileSection>
 
-
-      {/* =====================================================
-          EXPERIENCE & ACHIEVEMENTS
-      ====================================================== */}
+      {/* EXPERIENCE & ACHIEVEMENTS */}
 
       <ProfileSection
         icon={BriefcaseBusiness}
@@ -984,77 +1367,52 @@ const Profile = () => {
         <BooleanInfoItem
           icon={Users}
           label="Leadership Experience"
-          value={
-            profile.experience
-              .leadershipExperience
-          }
+          value={experience.leadershipExperience}
         />
 
         <BooleanInfoItem
           icon={Heart}
           label="Community Service"
-          value={
-            profile.experience
-              .communityService
-          }
+          value={experience.communityService}
         />
 
         <BooleanInfoItem
           icon={Microscope}
           label="Research Experience"
-          value={
-            profile.experience
-              .researchExperience
-          }
+          value={experience.researchExperience}
         />
 
         <div className="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4">
-
           <div className="rounded-xl bg-slate-50 p-4">
-
             <div className="flex items-center gap-2">
-
               <Award className="h-4 w-4 text-sky-500" />
 
               <p className="text-xs font-semibold text-slate-500">
                 Achievements
               </p>
-
             </div>
 
             <div className="mt-3 flex flex-wrap gap-2">
-
-              {profile.experience.achievements
-                ?.length > 0 ? (
-
-                profile.experience.achievements.map(
-                  (achievement) => (
-                    <span
-                      key={achievement}
-                      className="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-200"
-                    >
-                      {achievement}
-                    </span>
-                  )
-                )
-
+              {experience.achievements.length > 0 ? (
+                experience.achievements.map((achievement, index) => (
+                  <span
+                    key={`${achievement}-${index}`}
+                    className="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-200"
+                  >
+                    {achievement}
+                  </span>
+                ))
               ) : (
-
                 <span className="text-xs text-slate-400">
                   No achievements added yet.
                 </span>
-
               )}
-
             </div>
           </div>
         </div>
       </ProfileSection>
 
-
-      {/* =====================================================
-          ADDITIONAL INFORMATION
-      ====================================================== */}
+      {/* ADDITIONAL INFORMATION */}
 
       <ProfileSection
         icon={Lightbulb}
@@ -1064,45 +1422,33 @@ const Profile = () => {
         <BooleanInfoItem
           icon={Globe2}
           label="International Student"
-          value={
-            profile.additional
-              .internationalStudent
-          }
+          value={additional.internationalStudent}
         />
 
         <BooleanInfoItem
           icon={GraduationCap}
           label="Currently a Student"
-          value={
-            profile.additional.isStudent
-          }
+          value={additional.isStudent}
         />
 
         <BooleanInfoItem
           icon={Users}
           label="GDSC Member"
-          value={
-            profile.additional.gdscMember
-          }
+          value={additional.gdscMember}
         />
 
         <BooleanInfoItem
           icon={Users}
           label="University Team"
-          value={
-            profile.additional.universityTeam
-          }
+          value={additional.universityTeam}
         />
 
         <InfoItem
           icon={School}
           label="Partner Universities"
           value={
-            profile.additional
-              .partnerUniversities?.length
-              ? profile.additional.partnerUniversities.join(
-                ", "
-              )
+            additional.partnerUniversities.length
+              ? additional.partnerUniversities.join(", ")
               : "None added"
           }
         />
@@ -1111,35 +1457,24 @@ const Profile = () => {
           icon={Lightbulb}
           label="Innovation Projects"
           value={
-            profile.additional
-              .innovationProjects?.length
-              ? profile.additional.innovationProjects.join(
-                ", "
-              )
+            additional.innovationProjects.length
+              ? additional.innovationProjects.join(", ")
               : "None added"
           }
         />
       </ProfileSection>
 
-
-      {/* =====================================================
-          MATCHING CTA
-      ====================================================== */}
+      {/* MATCHING CTA */}
 
       <section className="relative overflow-hidden rounded-2xl bg-slate-900 p-6 text-white sm:p-7">
-
         <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-
           <div className="max-w-xl">
-
             <div className="flex items-center gap-2">
-
               <Target className="h-5 w-5 text-sky-400" />
 
               <span className="text-xs font-bold uppercase tracking-widest text-sky-400">
                 Next Step
               </span>
-
             </div>
 
             <h3 className="mt-2 text-xl font-bold">
@@ -1151,38 +1486,22 @@ const Profile = () => {
               experience, preferences, and other requirements
               against available opportunities.
             </p>
-
           </div>
 
           <NavLink
             to="/dashboard/matches"
-            className="
-              flex shrink-0 items-center justify-center gap-2
-              rounded-xl bg-sky-500
-              px-5 py-3
-              text-sm font-bold text-white
-              shadow-lg shadow-sky-500/20
-              transition
-              hover:bg-sky-400
-            "
+            className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-400"
           >
             Explore Matches
-
             <ChevronRight className="h-4 w-4" />
           </NavLink>
-
         </div>
 
         <div className="absolute -right-16 -top-20 h-48 w-48 rounded-full bg-sky-500/10" />
-
         <div className="absolute -bottom-24 right-32 h-56 w-56 rounded-full bg-cyan-500/5" />
-
       </section>
 
-
-      {/* =====================================================
-          EDIT PROFILE MODAL
-      ====================================================== */}
+      {/* EDIT PROFILE MODAL */}
 
       {editing && (
         <ProfileEditModal
@@ -1193,15 +1512,20 @@ const Profile = () => {
           saving={savingProfile}
         />
       )}
-
     </div>
   );
 };
 
-
 /* ============================================================
    EDIT PROFILE MODAL
 ============================================================ */
+const studyLevelOptions = [
+  "HSC",
+  "A-Level",
+  "Bachelor's",
+  "Master's",
+  "PhD",
+];
 
 const ProfileEditModal = ({
   formData,
@@ -1209,485 +1533,334 @@ const ProfileEditModal = ({
   onSave,
   onCancel,
   saving = false,
-}) => {
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+}) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+    <div className="flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+      <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-5 py-4 sm:px-6">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900">
+            Edit Profile
+          </h2>
 
-      <div className="flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+          <p className="mt-1 text-xs text-slate-400">
+            Update your information to improve your scholarship
+            matches.
+          </p>
+        </div>
 
-        {/* Header */}
+        <button
+          type="button"
+          onClick={onCancel}
+          aria-label="Close edit profile"
+          className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      </div>
 
-        <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-5 py-4 sm:px-6">
+      <div className="overflow-y-auto p-5 sm:p-6">
+        <div className="space-y-6">
+          {/* PERSONAL */}
 
-          <div>
-            <h2 className="text-lg font-bold text-slate-900">
-              Edit Profile
-            </h2>
+          <EditSection title="Personal Information">
+            <InputField
+              label="Username"
+              value={formData.username}
+              placeholder="Choose a unique username"
+              onChange={(value) => updateField("username", value)}
+            />
 
-            <p className="mt-1 text-xs text-slate-400">
-              Update your information to improve your scholarship matches.
+            <p className="-mt-3 text-xs text-slate-500">
+              3–30 characters. Letters, numbers, dots, underscores,
+              and hyphens are allowed. Username availability is
+              checked by the server.
             </p>
-          </div>
 
-          <button
-            type="button"
-            onClick={onCancel}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
-          >
-            <X className="h-5 w-5" />
-          </button>
+            <InputField
+              label="Full Name"
+              value={formData.name}
+              placeholder="Enter your full name"
+              onChange={(value) => updateField("name", value)}
+            />
 
+            <InputField
+              label="Email (account email cannot be changed here)"
+              type="email"
+              value={formData.email}
+              placeholder="Your account email"
+              readOnly
+              onChange={() => {}}
+            />
+
+            <InputField
+              label="Nationality"
+              value={formData.nationality}
+              placeholder="e.g. Bangladeshi"
+              onChange={(value) =>
+                updateField("nationality", value)
+              }
+            />
+
+            <InputField
+              label="Date of Birth"
+              type="date"
+              value={formData.dateOfBirth}
+              onChange={(value) =>
+                updateField("dateOfBirth", value)
+              }
+            />
+
+            <p className="-mt-3 text-xs text-slate-500">
+              Your age is calculated automatically from your date
+              of birth for scholarship age requirements.
+            </p>
+          </EditSection>
+
+          {/* ACADEMIC */}
+
+          <EditSection title="Academic Background">
+            <SelectField
+  label="Current Study Level"
+  value={formData.studyLevel}
+  onChange={(value) => updateField("studyLevel", value)}
+  options={studyLevelOptions}
+  placeholder="Select your current study level"
+/>
+
+            <SelectField
+  label="Completed Degree / Qualification"
+  value={formData.completedDegrees[0] || ""}
+  onChange={(value) =>
+    updateField("completedDegrees", value ? [value] : [])
+  }
+  options={studyLevelOptions}
+  placeholder="Select your completed qualification"
+/>
+
+            <InputField
+              label="Institution Name"
+              value={formData.institutionName}
+              placeholder="e.g. Tejgaon College"
+              onChange={(value) =>
+                updateField("institutionName", value)
+              }
+            />
+
+            <InputField
+              label="Field of Study"
+              value={formData.fieldOfStudy}
+              placeholder="e.g. Computer Science"
+              onChange={(value) =>
+                updateField("fieldOfStudy", value)
+              }
+            />
+
+            <InputField
+              label="Academic Performance / GPA"
+              type="number"
+              step="0.01"
+              min="0"
+              value={formData.academicPerformance}
+              placeholder="e.g. 3.50"
+              onChange={(value) =>
+                updateField("academicPerformance", value)
+              }
+            />
+
+            <InputField
+              label="GPA Scale"
+              type="number"
+              step="0.01"
+              min="1"
+              value={formData.gpaScale}
+              placeholder="e.g. 4.00 or 5.00"
+              onChange={(value) =>
+                updateField("gpaScale", value)
+              }
+            />
+          </EditSection>
+
+          {/* STUDY PREFERENCES */}
+
+          <EditSection title="Study Preferences">
+            <InputField
+  label="Preferred Destination"
+  value={formData.studyDestination}
+  placeholder="e.g. Australia"
+  onChange={(value) =>
+    updateField("studyDestination", value)
+  }
+/>
+
+<p className="-mt-3 text-xs text-slate-500 sm:col-span-2">
+  Add multiple countries to explore scholarship opportunities
+  across different study destinations.
+</p>
+
+            <SelectField
+              label="Budget Currency"
+              value={formData.budgetCurrency}
+              onChange={(value) =>
+                updateField("budgetCurrency", value)
+              }
+              options={["USD", "EUR", "GBP", "AUD", "CAD"]}
+            />
+
+            <InputField
+              label="Annual Budget"
+              type="number"
+              min="0"
+              value={formData.annualBudget}
+              placeholder="e.g. 50000"
+              onChange={(value) =>
+                updateField("annualBudget", value)
+              }
+            />
+          </EditSection>
+
+          {/* EXPERIENCE */}
+
+          <EditSection title="Experience & Achievements">
+            <InputField
+              label="Work Experience (months)"
+              type="number"
+              min="0"
+              value={formData.workExperienceMonths}
+              placeholder="e.g. 6"
+              onChange={(value) =>
+                updateField("workExperienceMonths", value)
+              }
+            />
+
+            <ToggleField
+              label="Leadership Experience"
+              checked={formData.leadershipExperience}
+              onChange={(value) =>
+                updateField("leadershipExperience", value)
+              }
+            />
+
+            <ToggleField
+              label="Community Service"
+              checked={formData.communityService}
+              onChange={(value) =>
+                updateField("communityService", value)
+              }
+            />
+
+            <ToggleField
+              label="Research Experience"
+              checked={formData.researchExperience}
+              onChange={(value) =>
+                updateField("researchExperience", value)
+              }
+            />
+
+            <TagInput
+              label="Achievements"
+              values={formData.achievements}
+              onChange={(value) =>
+                updateField("achievements", value)
+              }
+              placeholder="e.g. Hackathon Winner"
+            />
+          </EditSection>
+
+          {/* ADDITIONAL */}
+
+          <EditSection title="Additional Information">
+            <ToggleField
+              label="International Student"
+              checked={formData.internationalStudent}
+              onChange={(value) =>
+                updateField("internationalStudent", value)
+              }
+            />
+
+            <ToggleField
+              label="Currently a Student"
+              checked={formData.isStudent}
+              onChange={(value) =>
+                updateField("isStudent", value)
+              }
+            />
+
+            <ToggleField
+              label="GDSC Member"
+              checked={formData.gdscMember}
+              onChange={(value) =>
+                updateField("gdscMember", value)
+              }
+            />
+
+            <ToggleField
+              label="University Team"
+              checked={formData.universityTeam}
+              onChange={(value) =>
+                updateField("universityTeam", value)
+              }
+            />
+
+            <TagInput
+              label="Partner Universities"
+              values={formData.partnerUniversities}
+              onChange={(value) =>
+                updateField("partnerUniversities", value)
+              }
+              placeholder="e.g. University of Melbourne"
+            />
+
+            <TagInput
+              label="Innovation Projects"
+              values={formData.innovationProjects}
+              onChange={(value) =>
+                updateField("innovationProjects", value)
+              }
+              placeholder="e.g. AI Scholarship Predictor"
+            />
+          </EditSection>
         </div>
+      </div>
 
+      <div className="flex shrink-0 justify-end gap-3 border-t border-slate-100 bg-white px-5 py-4 sm:px-6">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100"
+        >
+          Cancel
+        </button>
 
-        {/* Form */}
-
-        <div className="overflow-y-auto p-5 sm:p-6">
-
-          <div className="space-y-6">
-
-            {/* =================================================
-                PERSONAL
-            ================================================== */}
-
-            <EditSection
-              title="Personal Information"
-            >
-
-              <InputField
-                label="Username"
-                value={formData.username}
-                placeholder="Choose a unique username"
-                onChange={(value) => updateField("username", value)}
-              />
-              <p className="-mt-3 text-xs text-slate-500">3–30 characters. Letters, numbers, dots, underscores, and hyphens are allowed. Username availability is checked by the server.</p>
-
-              <InputField
-                label="Full Name"
-                value={formData.name}
-                placeholder="Enter your full name"
-                onChange={(value) =>
-                  updateField("name", value)
-                }
-              />
-
-              <InputField
-                label="Email (account email cannot be changed here)"
-                type="email"
-                value={formData.email}
-                placeholder="Your account email"
-                readOnly
-                onChange={() => { }}
-              />
-
-              <InputField
-                label="Nationality"
-                value={formData.nationality}
-                placeholder="e.g. Bangladeshi"
-                onChange={(value) =>
-                  updateField(
-                    "nationality",
-                    value
-                  )
-                }
-              />
-
-              <InputField
-                label="Date of Birth"
-                type="date"
-                value={formData.dateOfBirth}
-                onChange={(value) => updateField("dateOfBirth", value)}
-              />
-              <p className="-mt-3 text-xs text-slate-500">Your age is calculated automatically from your date of birth for scholarship age requirements.</p>
-
-            </EditSection>
-
-
-            {/* =================================================
-                ACADEMIC
-            ================================================== */}
-
-            <EditSection
-              title="Academic Background"
-            >
-
-              <SelectField
-                label="Current Study Level"
-                value={formData.studyLevel}
-                onChange={(value) =>
-                  updateField(
-                    "studyLevel",
-                    value
-                  )
-                }
-                options={[
-                  "Bachelor",
-                  "Master",
-                  "PhD",
-                ]}
-                placeholder="Select study level"
-              />
-
-              <InputField
-                label="Completed Degree"
-                value={
-                  formData.completedDegrees[0] ||
-                  ""
-                }
-                placeholder="e.g. BSc in Computer Science"
-                onChange={(value) =>
-                  updateField(
-                    "completedDegrees",
-                    value
-                      ? [value]
-                      : []
-                  )
-                }
-              />
-
-              <InputField
-                label="Field of Study"
-                value={formData.fieldOfStudy}
-                placeholder="e.g. Computer Science"
-                onChange={(value) =>
-                  updateField(
-                    "fieldOfStudy",
-                    value
-                  )
-                }
-              />
-
-              <InputField
-                label="Academic Performance / GPA"
-                type="number"
-                step="0.01"
-                min="0"
-                max="4"
-                value={
-                  formData.academicPerformance
-                }
-                placeholder="e.g. 3.50"
-                onChange={(value) =>
-                  updateField(
-                    "academicPerformance",
-                    value
-                  )
-                }
-              />
-
-              <InputField
-                label="GPA Scale"
-                type="number"
-                step="0.01"
-                min="1"
-                value={formData.gpaScale}
-                placeholder="e.g. 4.00 or 5.00"
-                onChange={(value) => updateField("gpaScale", value)}
-              />
-
-            </EditSection>
-
-
-            {/* =================================================
-                PREFERENCES
-            ================================================== */}
-
-            <EditSection
-              title="Study Preferences"
-            >
-
-              <InputField
-                label="Preferred Destination"
-                value={
-                  formData.studyDestination
-                }
-                placeholder="e.g. Australia"
-                onChange={(value) =>
-                  updateField(
-                    "studyDestination",
-                    value
-                  )
-                }
-              />
-
-              <SelectField
-                label="Budget Currency"
-                value={
-                  formData.budgetCurrency
-                }
-                onChange={(value) =>
-                  updateField(
-                    "budgetCurrency",
-                    value
-                  )
-                }
-                options={[
-                  "USD",
-                  "EUR",
-                  "GBP",
-                  "AUD",
-                  "CAD",
-                ]}
-              />
-
-              <InputField
-                label="Annual Budget"
-                type="number"
-                min="0"
-                value={formData.annualBudget}
-                placeholder="e.g. 50000"
-                onChange={(value) =>
-                  updateField(
-                    "annualBudget",
-                    value
-                  )
-                }
-              />
-
-            </EditSection>
-
-
-            {/* =================================================
-                EXPERIENCE
-            ================================================== */}
-
-            <EditSection
-              title="Experience & Achievements"
-            >
-
-              <InputField
-                label="Work Experience (months)"
-                type="number"
-                min="0"
-                value={
-                  formData.workExperienceMonths
-                }
-                placeholder="e.g. 6"
-                onChange={(value) =>
-                  updateField(
-                    "workExperienceMonths",
-                    value
-                  )
-                }
-              />
-
-              <ToggleField
-                label="Leadership Experience"
-                checked={
-                  formData.leadershipExperience
-                }
-                onChange={(value) =>
-                  updateField(
-                    "leadershipExperience",
-                    value
-                  )
-                }
-              />
-
-              <ToggleField
-                label="Community Service"
-                checked={
-                  formData.communityService
-                }
-                onChange={(value) =>
-                  updateField(
-                    "communityService",
-                    value
-                  )
-                }
-              />
-
-              <ToggleField
-                label="Research Experience"
-                checked={
-                  formData.researchExperience
-                }
-                onChange={(value) =>
-                  updateField(
-                    "researchExperience",
-                    value
-                  )
-                }
-              />
-
-              <TagInput
-                label="Achievements"
-                values={formData.achievements}
-                onChange={(value) =>
-                  updateField(
-                    "achievements",
-                    value
-                  )
-                }
-                placeholder="e.g. Hackathon Winner"
-              />
-
-            </EditSection>
-
-
-            {/* =================================================
-                ADDITIONAL
-            ================================================== */}
-
-            <EditSection
-              title="Additional Information"
-            >
-
-              <ToggleField
-                label="International Student"
-                checked={
-                  formData.internationalStudent
-                }
-                onChange={(value) =>
-                  updateField(
-                    "internationalStudent",
-                    value
-                  )
-                }
-              />
-
-              <ToggleField
-                label="Currently a Student"
-                checked={
-                  formData.isStudent
-                }
-                onChange={(value) =>
-                  updateField(
-                    "isStudent",
-                    value
-                  )
-                }
-              />
-
-              <ToggleField
-                label="GDSC Member"
-                checked={
-                  formData.gdscMember
-                }
-                onChange={(value) =>
-                  updateField(
-                    "gdscMember",
-                    value
-                  )
-                }
-              />
-
-              <ToggleField
-                label="University Team"
-                checked={
-                  formData.universityTeam
-                }
-                onChange={(value) =>
-                  updateField(
-                    "universityTeam",
-                    value
-                  )
-                }
-              />
-
-              <TagInput
-                label="Partner Universities"
-                values={
-                  formData.partnerUniversities
-                }
-                onChange={(value) =>
-                  updateField(
-                    "partnerUniversities",
-                    value
-                  )
-                }
-                placeholder="e.g. University of Melbourne"
-              />
-
-              <TagInput
-                label="Innovation Projects"
-                values={
-                  formData.innovationProjects
-                }
-                onChange={(value) =>
-                  updateField(
-                    "innovationProjects",
-                    value
-                  )
-                }
-                placeholder="e.g. AI Scholarship Predictor"
-              />
-
-            </EditSection>
-
-          </div>
-        </div>
-
-
-        {/* Footer */}
-
-        <div className="flex shrink-0 justify-end gap-3 border-t border-slate-100 bg-white px-5 py-4 sm:px-6">
-
-          <button
-            type="button"
-            onClick={onCancel}
-            className="
-              rounded-xl px-4 py-2.5
-              text-sm font-semibold
-              text-slate-600
-              transition
-              hover:bg-slate-100
-            "
-          >
-            Cancel
-          </button>
-
-          <button
-            type="button"
-            onClick={onSave}
-            disabled={saving}
-            className="
-              rounded-xl bg-sky-500
-              px-5 py-2.5
-              text-sm font-bold text-white
-              shadow-lg shadow-sky-500/20
-              transition
-              hover:bg-sky-600
-            "
-          >
-            {saving ? "Saving…" : "Save Changes"}
-          </button>
-
-        </div>
-
+        <button
+          type="button"
+          onClick={onSave}
+          disabled={saving}
+          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-600 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {saving ? "Saving…" : "Save Changes"}
+        </button>
       </div>
     </div>
-  );
-};
-
+  </div>
+);
 
 /* ============================================================
    EDIT SECTION
 ============================================================ */
 
-const EditSection = ({
-  title,
-  children,
-}) => {
-  return (
-    <section>
+const EditSection = ({ title, children }) => (
+  <section>
+    <div className="mb-4">
+      <h3 className="text-sm font-bold text-slate-900">
+        {title}
+      </h3>
+    </div>
 
-      <div className="mb-4">
-
-        <h3 className="text-sm font-bold text-slate-900">
-          {title}
-        </h3>
-
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {children}
-      </div>
-
-    </section>
-  );
-};
-
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {children}
+    </div>
+  </section>
+);
 
 /* ============================================================
    INPUT FIELD
@@ -1703,46 +1876,41 @@ const InputField = ({
   max,
   step,
   readOnly = false,
-}) => {
-  return (
-    <label className="block">
+}) => (
+  <label className="block">
+    <span className="mb-1.5 block text-xs font-semibold text-slate-600">
+      {label}
+    </span>
 
-      <span className="mb-1.5 block text-xs font-semibold text-slate-600">
-        {label}
-      </span>
-
-      <input
-        type={type}
-        value={value ?? ""}
-        placeholder={placeholder}
-        min={min}
-        max={max}
-        step={step}
-        readOnly={readOnly}
-        onChange={(e) => {
-          if (!readOnly) onChange(e.target.value);
-        }}
-        className={`
-          w-full rounded-xl
-          border border-slate-200
-          bg-slate-50
-          px-3.5 py-2.5
-          text-sm text-slate-800
-          outline-none
-          transition
-          placeholder:text-slate-400
-          focus:border-sky-400
-          focus:bg-white
-          focus:ring-2
-          focus:ring-sky-100
-          ${readOnly ? "cursor-not-allowed bg-slate-100 text-slate-500" : ""}
-        `}
-      />
-
-    </label>
-  );
-};
-
+    <input
+      type={type}
+      value={value ?? ""}
+      placeholder={placeholder}
+      min={min}
+      max={max}
+      step={step}
+      readOnly={readOnly}
+      onChange={(e) => {
+        if (!readOnly) onChange(e.target.value);
+      }}
+      className={`
+        w-full rounded-xl
+        border border-slate-200
+        bg-slate-50
+        px-3.5 py-2.5
+        text-sm text-slate-800
+        outline-none
+        transition
+        placeholder:text-slate-400
+        focus:border-sky-400
+        focus:bg-white
+        focus:ring-2
+        focus:ring-sky-100
+        ${readOnly ? "cursor-not-allowed bg-slate-100 text-slate-500" : ""}
+      `}
+    />
+  </label>
+);
 
 /* ============================================================
    SELECT FIELD
@@ -1754,107 +1922,57 @@ const SelectField = ({
   onChange,
   options,
   placeholder,
-}) => {
-  return (
-    <label className="block">
+}) => (
+  <label className="block">
+    <span className="mb-1.5 block text-xs font-semibold text-slate-600">
+      {label}
+    </span>
 
-      <span className="mb-1.5 block text-xs font-semibold text-slate-600">
-        {label}
-      </span>
+    <select
+      value={value ?? ""}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 outline-none transition focus:border-sky-400 focus:bg-white focus:ring-2 focus:ring-sky-100"
+    >
+      {placeholder && <option value="">{placeholder}</option>}
 
-      <select
-        value={value ?? ""}
-        onChange={(e) =>
-          onChange(e.target.value)
-        }
-        className="
-          w-full rounded-xl
-          border border-slate-200
-          bg-slate-50
-          px-3.5 py-2.5
-          text-sm text-slate-800
-          outline-none
-          transition
-          focus:border-sky-400
-          focus:bg-white
-          focus:ring-2
-          focus:ring-sky-100
-        "
-      >
-
-        {placeholder && (
-          <option value="">
-            {placeholder}
-          </option>
-        )}
-
-        {options.map((option) => (
-          <option
-            key={option}
-            value={option}
-          >
-            {option}
-          </option>
-        ))}
-
-      </select>
-
-    </label>
-  );
-};
-
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  </label>
+);
 
 /* ============================================================
    TOGGLE
 ============================================================ */
 
-const ToggleField = ({
-  label,
-  checked,
-  onChange,
-}) => {
-  return (
-    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+const ToggleField = ({ label, checked, onChange }) => (
+  <label className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+    <span className="text-sm font-medium text-slate-700">
+      {label}
+    </span>
 
-      <span className="text-sm font-medium text-slate-700">
-        {label}
-      </span>
-
-      <button
-        type="button"
-        role="switch"
-        aria-checked={checked}
-        onClick={() =>
-          onChange(!checked)
-        }
+    <button
+      type="button"
+      role="switch"
+      aria-checked={Boolean(checked)}
+      onClick={() => onChange(!checked)}
+      className={`
+        relative h-6 w-11 rounded-full transition
+        ${checked ? "bg-sky-500" : "bg-slate-300"}
+      `}
+    >
+      <span
         className={`
-          relative h-6 w-11 rounded-full
-          transition
-          ${checked
-            ? "bg-sky-500"
-            : "bg-slate-300"
-          }
+          absolute top-1 h-4 w-4 rounded-full bg-white shadow-sm transition
+          ${checked ? "left-6" : "left-1"}
         `}
-      >
-
-        <span
-          className={`
-            absolute top-1 h-4 w-4
-            rounded-full bg-white
-            shadow-sm transition
-            ${checked
-              ? "left-6"
-              : "left-1"
-            }
-          `}
-        />
-
-      </button>
-
-    </label>
-  );
-};
-
+      />
+    </button>
+  </label>
+);
 
 /* ============================================================
    TAG INPUT
@@ -1862,12 +1980,11 @@ const ToggleField = ({
 
 const TagInput = ({
   label,
-  values,
+  values = [],
   onChange,
   placeholder,
 }) => {
-  const [input, setInput] =
-    useState("");
+  const [input, setInput] = useState("");
 
   const addTag = () => {
     const value = input.trim();
@@ -1876,29 +1993,19 @@ const TagInput = ({
 
     if (
       values.some(
-        (item) =>
-          item.toLowerCase() ===
-          value.toLowerCase()
+        (item) => item.toLowerCase() === value.toLowerCase()
       )
     ) {
       setInput("");
       return;
     }
 
-    onChange([
-      ...values,
-      value,
-    ]);
-
+    onChange([...values, value]);
     setInput("");
   };
 
   const removeTag = (index) => {
-    onChange(
-      values.filter(
-        (_, i) => i !== index
-      )
-    );
+    onChange(values.filter((_, i) => i !== index));
   };
 
   const handleKeyDown = (e) => {
@@ -1910,92 +2017,53 @@ const TagInput = ({
 
   return (
     <div className="sm:col-span-2">
-
       <span className="mb-1.5 block text-xs font-semibold text-slate-600">
         {label}
       </span>
 
       <div className="flex gap-2">
-
         <input
           value={input}
           placeholder={placeholder}
-          onChange={(e) =>
-            setInput(e.target.value)
-          }
+          onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="
-            min-w-0 flex-1 rounded-xl
-            border border-slate-200
-            bg-slate-50
-            px-3.5 py-2.5
-            text-sm text-slate-800
-            outline-none
-            transition
-            placeholder:text-slate-400
-            focus:border-sky-400
-            focus:bg-white
-            focus:ring-2
-            focus:ring-sky-100
-          "
+          className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-2 focus:ring-sky-100"
         />
 
         <button
           type="button"
           onClick={addTag}
-          className="
-            flex h-11 w-11 shrink-0
-            items-center justify-center
-            rounded-xl bg-sky-500
-            text-white
-            transition
-            hover:bg-sky-600
-          "
+          aria-label={`Add ${label}`}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-500 text-white transition hover:bg-sky-600"
         >
           <Plus className="h-4 w-4" />
         </button>
-
       </div>
-
 
       {values.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-2">
-
           {values.map((value, index) => (
             <span
               key={`${value}-${index}`}
-              className="
-                flex items-center gap-1.5
-                rounded-full
-                bg-sky-50
-                px-3 py-1.5
-                text-xs font-medium
-                text-sky-700
-              "
+              className="flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-700"
             >
-
               {value}
 
               <button
                 type="button"
-                onClick={() =>
-                  removeTag(index)
-                }
+                onClick={() => removeTag(index)}
+                aria-label={`Remove ${value}`}
                 className="text-sky-400 transition hover:text-sky-700"
               >
                 <X className="h-3 w-3" />
               </button>
-
             </span>
           ))}
-
         </div>
       )}
-
     </div>
   );
 };
-
 
 /* ============================================================
    PROFILE SECTION
@@ -2006,120 +2074,84 @@ const ProfileSection = ({
   title,
   description,
   children,
-}) => {
-  return (
-    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+}) => (
+  <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div className="border-b border-slate-100 px-5 py-5 sm:px-6">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-500">
+          <Icon className="h-5 w-5" />
+        </div>
 
-      <div className="border-b border-slate-100 px-5 py-5 sm:px-6">
+        <div>
+          <h2 className="font-bold text-slate-900">{title}</h2>
 
-        <div className="flex items-start gap-3">
-
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-500">
-            <Icon className="h-5 w-5" />
-          </div>
-
-          <div>
-
-            <h2 className="font-bold text-slate-900">
-              {title}
-            </h2>
-
-            <p className="mt-1 text-xs leading-5 text-slate-400">
-              {description}
-            </p>
-
-          </div>
-
+          <p className="mt-1 text-xs leading-5 text-slate-400">
+            {description}
+          </p>
         </div>
       </div>
+    </div>
 
-      <div className="grid grid-cols-1 gap-3 p-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:p-6">
-        {children}
-      </div>
-
-    </section>
-  );
-};
-
+    <div className="grid grid-cols-1 gap-3 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-3 xl:grid-cols-4">
+      {children}
+    </div>
+  </section>
+);
 
 /* ============================================================
    INFORMATION ITEM
 ============================================================ */
 
-const InfoItem = ({
-  icon: Icon,
-  label,
-  value,
-}) => {
-  return (
-    <div className="rounded-xl bg-slate-50 p-4 transition hover:bg-sky-50/60">
+const InfoItem = ({ icon: Icon, label, value }) => (
+  <div className="rounded-xl bg-slate-50 p-4 transition hover:bg-sky-50/60">
+    <div className="flex items-center gap-2">
+      <Icon className="h-4 w-4 text-sky-500" />
 
-      <div className="flex items-center gap-2">
-
-        <Icon className="h-4 w-4 text-sky-500" />
-
-        <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-          {label}
-        </span>
-
-      </div>
-
-      <p className="mt-2 wrap-break-word text-sm font-semibold text-slate-800">
-        {value}
-      </p>
-
+      <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+        {label}
+      </span>
     </div>
-  );
-};
 
+    <p className="mt-2 wrap-break-word text-sm font-semibold text-slate-800">
+      {value}
+    </p>
+  </div>
+);
 
 /* ============================================================
    BOOLEAN INFORMATION ITEM
 ============================================================ */
 
-const BooleanInfoItem = ({
-  icon: Icon,
-  label,
-  value,
-}) => {
-  return (
-    <div className="rounded-xl bg-slate-50 p-4 transition hover:bg-sky-50/60">
+const BooleanInfoItem = ({ icon: Icon, label, value }) => (
+  <div className="rounded-xl bg-slate-50 p-4 transition hover:bg-sky-50/60">
+    <div className="flex items-center gap-2">
+      <Icon className="h-4 w-4 text-sky-500" />
 
-      <div className="flex items-center gap-2">
-
-        <Icon className="h-4 w-4 text-sky-500" />
-
-        <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-          {label}
-        </span>
-
-      </div>
-
-      <div className="mt-2 flex items-center gap-1.5">
-
-        {value ? (
-          <>
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-
-            <span className="text-sm font-semibold text-emerald-600">
-              Yes
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="h-4 w-4 rounded-full border-2 border-slate-300" />
-
-            <span className="text-sm font-semibold text-slate-500">
-              No
-            </span>
-          </>
-        )}
-
-      </div>
-
+      <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+        {label}
+      </span>
     </div>
-  );
-};
 
+    <div className="mt-2 flex items-center gap-1.5">
+      {value ? (
+        <>
+          <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+
+          <span className="text-sm font-semibold text-emerald-600">
+            Yes
+          </span>
+        </>
+      ) : (
+        <>
+          <span className="h-4 w-4 rounded-full border-2 border-slate-300" />
+
+          <span className="text-sm font-semibold text-slate-500">
+            No
+          </span>
+        </>
+      )}
+    </div>
+  </div>
+);
 
 export default Profile;

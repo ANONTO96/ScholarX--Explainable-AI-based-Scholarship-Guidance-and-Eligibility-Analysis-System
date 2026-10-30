@@ -1,10 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+
+import {
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 
 import { DashboardContext } from "./DashboardContext";
 
 import opportunities from "../../data/opportunities.json";
-
-import { studentProfile } from "../../data/studentProfile";
 
 import { analyzeOpportunity } from "../../utils/eligibility";
 
@@ -23,18 +27,84 @@ import {
 } from "../../data/applications";
 
 import {
-    getStudentDocuments,
-    saveStudentDocument,
-    deleteStudentDocument,
-} from "../../data/studentDocuments";
+    getDocumentMetadata,
+    addDocument as addStoredDocument,
+    addCustomDocument as addStoredCustomDocument,
+    getCustomDocuments,
+    removeChecklistDocument as removeStoredChecklistDocument,
+} from "../../data/documents";
 
 
-// =========================
-// Settings
-// =========================
+// ============================================================
+// API CONFIGURATION
+// ============================================================
 
-const SETTINGS_STORAGE_KEY =
-    "scholarx-settings";
+const API_BASE_URL = (
+    import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
+).replace(/\/+$/, "");
+
+const PROFILE_ENDPOINT = `${API_BASE_URL}/api/profile/me`;
+
+
+// ============================================================
+// EMPTY PROFILE
+// ============================================================
+
+// Never use the demo student profile as authenticated data.
+
+const EMPTY_PROFILE = {
+    personal: {
+        name: "",
+        email: "",
+        nationality: "",
+        age: null,
+        dateOfBirth: null,
+    },
+
+    academic: {
+        studyLevel: "",
+        completedDegrees: [],
+        fieldOfStudy: "",
+        academicPerformance: null,
+    },
+
+    english: {
+        test: "",
+        score: null,
+    },
+
+    preferences: {
+        studyDestination: "",
+        annualBudget: {
+            currency: "USD",
+            amount: null,
+        },
+    },
+
+    experience: {
+        workExperienceMonths: null,
+        leadershipExperience: false,
+        communityService: false,
+        researchExperience: false,
+        achievements: [],
+    },
+
+    additional: {
+        internationalStudent: false,
+        isStudent: false,
+        gdscMember: false,
+        universityTeam: false,
+        partnerUniversities: [],
+        innovationProjects: [],
+    },
+};
+
+
+// ============================================================
+// SETTINGS
+// ============================================================
+
+const SETTINGS_STORAGE_KEY = "scholarx-settings";
 
 const DEFAULT_SETTINGS = {
     notifications: {
@@ -61,19 +131,18 @@ const DEFAULT_SETTINGS = {
     },
 };
 
+
 const loadSettings = () => {
     try {
-        const saved =
-            localStorage.getItem(
-                SETTINGS_STORAGE_KEY
-            );
+        const saved = localStorage.getItem(
+            SETTINGS_STORAGE_KEY
+        );
 
         if (!saved) {
             return DEFAULT_SETTINGS;
         }
 
-        const parsed =
-            JSON.parse(saved);
+        const parsed = JSON.parse(saved);
 
         return {
             ...DEFAULT_SETTINGS,
@@ -109,6 +178,7 @@ const loadSettings = () => {
     }
 };
 
+
 const saveStoredSettings = (settings) => {
     try {
         localStorage.setItem(
@@ -127,14 +197,19 @@ const saveStoredSettings = (settings) => {
     }
 };
 
-// =========================
-// Helpers
-// =========================
+
+// ============================================================
+// HELPERS
+// ============================================================
 
 const hasValue = (value) =>
     value !== null &&
     value !== undefined &&
-    (typeof value !== "string" || value.trim() !== "");
+    (
+        typeof value !== "string" ||
+        value.trim() !== ""
+    );
+
 
 const hasFiniteNumber = (value) => {
     if (!hasValue(value)) return false;
@@ -145,22 +220,834 @@ const hasFiniteNumber = (value) => {
 };
 
 
+// Your profile form can store GPA as:
+// 1. A number
+// 2. An object: { gpa: 3.5, scale: 4 }
+
+const getAcademicPerformance = (value) => {
+    if (
+        value !== null &&
+        typeof value === "object"
+    ) {
+        return value.gpa;
+    }
+
+    return value;
+};
+
+
+// Calculate age from dateOfBirth when age is not supplied.
+
+const calculateAge = (dateOfBirth) => {
+    if (!dateOfBirth) return null;
+
+    const birthDate = new Date(
+        `${dateOfBirth}T00:00:00`
+    );
+
+    if (Number.isNaN(birthDate.getTime())) {
+        return null;
+    }
+
+    const today = new Date();
+
+    let age =
+        today.getFullYear() -
+        birthDate.getFullYear();
+
+    const beforeBirthday =
+        today.getMonth() < birthDate.getMonth() ||
+        (
+            today.getMonth() === birthDate.getMonth() &&
+            today.getDate() < birthDate.getDate()
+        );
+
+    if (beforeBirthday) {
+        age -= 1;
+    }
+
+    return age >= 0 ? age : null;
+};
+
+
+const getProfileAge = (personal) => {
+    if (hasFiniteNumber(personal?.age)) {
+        return Number(personal.age);
+    }
+
+    return calculateAge(
+        personal?.dateOfBirth
+    );
+};
+
+
+// Safely read the user stored during authentication.
+
+const getStoredUser = () => {
+    try {
+        return JSON.parse(
+            localStorage.getItem("user") || "{}"
+        );
+    } catch {
+        return {};
+    }
+};
+
+
+// Normalize the API response without discarding profile fields.
+
+const normalizeServerProfile = (body) => {
+    const serverProfile =
+        body?.profile ??
+        body?.data ??
+        body;
+
+    if (
+        !serverProfile ||
+        typeof serverProfile !== "object" ||
+        Array.isArray(serverProfile)
+    ) {
+        throw new Error(
+            "Invalid profile response from the server."
+        );
+    }
+
+    const storedUser = getStoredUser();
+
+    return {
+        ...EMPTY_PROFILE,
+        ...serverProfile,
+
+        personal: {
+            ...EMPTY_PROFILE.personal,
+            ...(serverProfile.personal || {}),
+
+            name:
+                serverProfile.personal?.name ||
+                body?.user?.name ||
+                storedUser.name ||
+                "",
+
+            email:
+                serverProfile.personal?.email ||
+                body?.user?.email ||
+                storedUser.email ||
+                "",
+
+            age:
+                serverProfile.personal?.age ??
+                null,
+        },
+
+        academic: {
+            ...EMPTY_PROFILE.academic,
+            ...(serverProfile.academic || {}),
+        },
+
+        english: {
+            ...EMPTY_PROFILE.english,
+            ...(serverProfile.english || {}),
+        },
+
+        preferences: {
+            ...EMPTY_PROFILE.preferences,
+            ...(serverProfile.preferences || {}),
+
+            annualBudget: {
+                ...EMPTY_PROFILE.preferences.annualBudget,
+
+                ...(serverProfile.preferences?.annualBudget || {}),
+            },
+        },
+
+        experience: {
+            ...EMPTY_PROFILE.experience,
+            ...(serverProfile.experience || {}),
+        },
+
+        additional: {
+            ...EMPTY_PROFILE.additional,
+            ...(serverProfile.additional || {}),
+        },
+    };
+};
+
+
+// ============================================================
+// DASHBOARD PROVIDER
+// ============================================================
+
 export const DashboardProvider = ({ children }) => {
-    const [currentTime, setCurrentTime] = useState(() =>
-        new Date().getTime()
+
+    // ========================================================
+    // TIME
+    // ========================================================
+
+    const [currentTime, setCurrentTime] = useState(
+        () => Date.now()
     );
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentTime(new Date().getTime());
+            setCurrentTime(Date.now());
         }, 60000);
 
         return () => clearInterval(interval);
     }, []);
 
-    // =========================
-    // Notifications
-    // =========================
+
+    // ========================================================
+    // PROFILE - SINGLE SOURCE OF TRUTH
+    // ========================================================
+
+    const [profile, setProfile] = useState(
+        EMPTY_PROFILE
+    );
+
+    const [profileLoading, setProfileLoading] = useState(
+        true
+    );
+
+    const [profileError, setProfileError] = useState(
+        ""
+    );
+
+
+    // Fetch the authenticated student's profile.
+
+    const loadProfile = useCallback(async ({ signal } = {}) => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            setProfile(EMPTY_PROFILE);
+
+            setProfileError(
+                "Your session has expired. Please log in again."
+            );
+
+            setProfileLoading(false);
+
+            return false;
+        }
+
+        try {
+            setProfileLoading(true);
+            setProfileError("");
+
+            const response = await fetch(
+                PROFILE_ENDPOINT,
+                {
+                    method: "GET",
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+
+                    signal,
+                }
+            );
+
+            const body = await response.json().catch(
+                () => ({})
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    body.detail ||
+                    body.message ||
+                    "Could not load your profile."
+                );
+            }
+
+            const normalizedProfile =
+                normalizeServerProfile(body);
+
+            setProfile(normalizedProfile);
+
+            return true;
+
+        } catch (error) {
+            if (error.name === "AbortError") {
+                return false;
+            }
+
+            console.error(
+                "Failed to load dashboard profile:",
+                error
+            );
+
+            setProfileError(
+                error.message ||
+                "Could not load your profile."
+            );
+
+            return false;
+
+        } finally {
+            if (!signal?.aborted) {
+                setProfileLoading(false);
+            }
+        }
+    }, []);
+
+
+    // Load the actual student profile when the provider mounts.
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        Promise.resolve().then(() => {
+            if (!controller.signal.aborted) {
+                loadProfile({
+                    signal: controller.signal,
+                });
+            }
+        });
+
+        return () => {
+            controller.abort();
+        };
+    }, [loadProfile]);
+
+
+    // All profile updates must go through this function.
+
+    const updateProfile = useCallback((updatedProfile) => {
+        if (
+            !updatedProfile ||
+            typeof updatedProfile !== "object"
+        ) {
+            console.error(
+                "Invalid profile update."
+            );
+
+            return;
+        }
+
+        setProfile((current) => ({
+            ...EMPTY_PROFILE,
+            ...current,
+            ...updatedProfile,
+
+            personal: {
+                ...EMPTY_PROFILE.personal,
+                ...current.personal,
+                ...(updatedProfile.personal || {}),
+            },
+
+            academic: {
+                ...EMPTY_PROFILE.academic,
+                ...current.academic,
+                ...(updatedProfile.academic || {}),
+            },
+
+            english: {
+                ...EMPTY_PROFILE.english,
+                ...current.english,
+                ...(updatedProfile.english || {}),
+            },
+
+            preferences: {
+                ...EMPTY_PROFILE.preferences,
+                ...current.preferences,
+                ...(updatedProfile.preferences || {}),
+
+                annualBudget: {
+                    ...EMPTY_PROFILE.preferences.annualBudget,
+                    ...current.preferences?.annualBudget,
+                    ...(updatedProfile.preferences?.annualBudget || {}),
+                },
+            },
+
+            experience: {
+                ...EMPTY_PROFILE.experience,
+                ...current.experience,
+                ...(updatedProfile.experience || {}),
+            },
+
+            additional: {
+                ...EMPTY_PROFILE.additional,
+                ...current.additional,
+                ...(updatedProfile.additional || {}),
+            },
+        }));
+    }, []);
+
+
+    // ========================================================
+    // PROFILE COMPLETION
+    // ========================================================
+
+    // General profile completion.
+    // Kept separate from scholarship analysis readiness.
+
+    const profileCompletion = useMemo(() => {
+        return calculateProfileCompletion(profile);
+    }, [profile]);
+
+    // ========================================================
+    // PROFILE COMPLETION ONBOARDING
+    // ========================================================
+
+    const showProfileOnboarding = useMemo(
+    () =>
+        !profileLoading &&
+        profileCompletion.percentage === 0,
+    [
+        profileLoading,
+        profileCompletion.percentage,
+    ]
+);
+
+
+    // ========================================================
+    // SCHOLARSHIP ANALYSIS READINESS
+    // ========================================================
+
+    // These are the SAME 10 checks used by Matches and
+    // Eligibility Analysis.
+
+    const profileReadiness = useMemo(() => {
+
+        const academicPerformance =
+            getAcademicPerformance(
+                profile?.academic?.academicPerformance
+            );
+
+        const age = getProfileAge(
+            profile?.personal
+        );
+
+        const checks = [
+            // 1. Nationality
+            hasValue(profile?.personal?.nationality),
+
+            // 2. Age / Date of birth
+            hasFiniteNumber(age),
+
+            // 3. Study level
+            hasValue(profile?.academic?.studyLevel),
+
+            // 4. Completed degrees
+            Boolean(
+                profile?.academic?.completedDegrees?.length
+            ),
+
+            // 5. Field of study
+            hasValue(profile?.academic?.fieldOfStudy),
+
+            // 6. Academic performance / GPA
+            hasFiniteNumber(academicPerformance),
+
+            // 7. English test
+            hasValue(profile?.english?.test),
+
+            // 8. English score
+            hasFiniteNumber(profile?.english?.score),
+
+            // 9. Study destination
+            hasValue(profile?.preferences?.studyDestination),
+
+            // 10. Annual budget
+            hasFiniteNumber(
+                profile?.preferences?.annualBudget?.amount
+            ),
+        ];
+
+        const completed = checks.filter(Boolean).length;
+
+        const total = checks.length;
+
+        const percentage = Math.round(
+            (completed / total) * 100
+        );
+
+        return {
+            completed,
+            total,
+            percentage,
+            isReady: completed === total,
+        };
+
+    }, [profile]);
+
+
+    // ========================================================
+    // MATCHES & ELIGIBILITY
+    // ========================================================
+
+    // Evaluate scholarships ONLY after the real profile
+    // has loaded and all 10 readiness checks are complete.
+
+    const matches = useMemo(() => {
+    if (
+        profileLoading ||
+        profileCompletion.percentage === 0
+    ) {
+        return [];
+    }
+
+    return opportunities.map((opportunity) => {
+        const evaluated = analyzeOpportunity(
+            opportunity,
+            profile
+        );
+
+        return {
+            opportunity,
+            analysis: evaluated.analysis,
+        };
+    });
+}, [
+    profile,
+    profileLoading,
+    profileCompletion.percentage,
+]);
+
+
+    // Both pages receive the SAME analysis results.
+    // Matches uses { opportunity, analysis }.
+    // Eligibility Analysis uses flattened opportunity data.
+
+    const eligibilityOpportunities = useMemo(() => {
+
+        return matches.map(
+            ({ opportunity, analysis }) => ({
+                ...opportunity,
+                analysis,
+            })
+        );
+
+    }, [matches]);
+
+
+    // ========================================================
+    // MATCH STATISTICS
+    // ========================================================
+
+    const strongMatches = useMemo(() => {
+        return matches.filter(
+            ({ analysis }) =>
+                analysis.status === "strong"
+        );
+    }, [matches]);
+
+
+    const reviewMatches = useMemo(() => {
+        return matches.filter(
+            ({ analysis }) =>
+                analysis.status === "review"
+        );
+    }, [matches]);
+
+
+    const notEligibleMatches = useMemo(() => {
+        return matches.filter(
+            ({ analysis }) =>
+                analysis.status === "not-eligible"
+        );
+    }, [matches]);
+
+
+    const matchStats = useMemo(() => {
+        return {
+            total: matches.length,
+
+            strong: strongMatches.length,
+
+            review: reviewMatches.length,
+
+            notEligible: notEligibleMatches.length,
+        };
+    }, [
+        matches,
+        strongMatches,
+        reviewMatches,
+        notEligibleMatches,
+    ]);
+
+
+    // ========================================================
+    // FAVORITES
+    // ========================================================
+
+    const [favorites, setFavorites] = useState(
+        () => getFavorites()
+    );
+
+
+    const toggleFavorite = (id) => {
+        const updated = toggleStoredFavorite(id);
+
+        setFavorites(updated);
+
+        return updated;
+    };
+
+
+    const removeFavorite = (id) => {
+        const updated = removeStoredFavorite(id);
+
+        setFavorites(updated);
+
+        return updated;
+    };
+
+
+    const favoriteMatches = useMemo(() => {
+
+        const favoriteSet = new Set(favorites);
+
+        return matches.filter(
+            ({ opportunity }) =>
+                favoriteSet.has(opportunity.id)
+        );
+
+    }, [matches, favorites]);
+
+
+    const isFavorite = (id) => {
+        return favorites.includes(id);
+    };
+
+
+    // ========================================================
+    // APPLICATIONS
+    // ========================================================
+
+    const [applications, setApplications] = useState(
+        () => getApplications()
+    );
+
+
+    const addApplication = (application) => {
+        const updated = addStoredApplication(
+            application
+        );
+
+        setApplications(updated);
+
+        return updated;
+    };
+
+
+    const removeApplication = (id) => {
+        const updated = removeStoredApplication(id);
+
+        setApplications(updated);
+
+        return updated;
+    };
+
+
+    const applicationStats = useMemo(() => {
+
+        return {
+            total: applications.length,
+
+            active: applications.filter(
+                (app) =>
+                    app.status === "planning" ||
+                    app.status === "applying"
+            ).length,
+
+            submitted: applications.filter(
+                (app) =>
+                    app.status === "submitted"
+            ).length,
+
+            underReview: applications.filter(
+                (app) =>
+                    app.status === "under-review"
+            ).length,
+
+            accepted: applications.filter(
+                (app) =>
+                    app.status === "accepted"
+            ).length,
+        };
+
+    }, [applications]);
+
+
+    // ========================================================
+    // DEADLINES
+    // ========================================================
+
+    const deadlines = useMemo(() => {
+
+        return opportunities
+            .map((opportunity) => {
+
+                const date = new Date(
+                    `${opportunity.deadline}T23:59:59`
+                );
+
+                if (Number.isNaN(date.getTime())) {
+                    return null;
+                }
+
+                const daysRemaining = Math.ceil(
+                    (
+                        date.getTime() -
+                        currentTime
+                    ) /
+                    (1000 * 60 * 60 * 24)
+                );
+
+                return {
+                    opportunity,
+                    deadlineDate: date,
+                    daysRemaining,
+                };
+            })
+            .filter(
+                (item) =>
+                    item &&
+                    item.daysRemaining >= 0
+            )
+            .sort(
+                (a, b) =>
+                    a.deadlineDate - b.deadlineDate
+            );
+
+    }, [currentTime]);
+
+
+    // ========================================================
+    // DOCUMENTS
+    // ========================================================
+
+    const [documents, setDocuments] = useState(
+        () => getDocumentMetadata()
+    );
+
+
+    const [customDocuments, setCustomDocuments] = useState(
+        () => getCustomDocuments()
+    );
+
+
+    const addDocument = async (documentData, file) => {
+
+        const updated = await addStoredDocument(
+            documentData,
+            file
+        );
+
+        const savedDocuments = await getStudentDocuments();
+        const updated = normalizeDocuments(savedDocuments);
+        setDocuments(updated);
+
+        return updated;
+    };
+
+
+    const removeChecklistDocument = async (checklistId) => {
+
+        const updated =
+            await removeStoredChecklistDocument(
+                checklistId
+            );
+
+        setDocuments(updated);
+
+        return updated;
+    };
+
+
+    const addCustomDocument = (document) => {
+
+        const updated =
+            addStoredCustomDocument(document);
+
+        setCustomDocuments(updated);
+
+        return updated;
+    };
+
+
+    // ========================================================
+    // SETTINGS
+    // ========================================================
+
+    const [settings, setSettings] = useState(
+        () => loadSettings()
+    );
+
+
+    const [
+        hasSettingsChanges,
+        setHasSettingsChanges,
+    ] = useState(false);
+
+
+    const updateSettings = (
+        section,
+        key,
+        value
+    ) => {
+
+        setSettings((current) => ({
+            ...current,
+
+            [section]: {
+                ...current[section],
+                [key]: value,
+            },
+        }));
+
+        setHasSettingsChanges(true);
+    };
+
+
+    const saveSettings = () => {
+
+        const success = saveStoredSettings(
+            settings
+        );
+
+        if (success) {
+            setHasSettingsChanges(false);
+        }
+
+        return success;
+    };
+
+
+    const resetSettings = () => {
+
+        const freshSettings = {
+            ...DEFAULT_SETTINGS,
+
+            notifications: {
+                ...DEFAULT_SETTINGS.notifications,
+            },
+
+            preferences: {
+                ...DEFAULT_SETTINGS.preferences,
+            },
+
+            appearance: {
+                ...DEFAULT_SETTINGS.appearance,
+            },
+
+            privacy: {
+                ...DEFAULT_SETTINGS.privacy,
+            },
+        };
+
+        setSettings(freshSettings);
+
+        saveStoredSettings(freshSettings);
+
+        setHasSettingsChanges(false);
+    };
+
+
+    // ========================================================
+    // NOTIFICATIONS
+    // ========================================================
 
     const [notifications, setNotifications] = useState([
         {
@@ -205,7 +1092,9 @@ export const DashboardProvider = ({ children }) => {
         },
     ]);
 
+
     const markNotificationRead = (notificationId) => {
+
         setNotifications((current) =>
             current.map((notification) =>
                 notification.id === notificationId
@@ -218,7 +1107,9 @@ export const DashboardProvider = ({ children }) => {
         );
     };
 
+
     const markAllNotificationsRead = () => {
+
         setNotifications((current) =>
             current.map((notification) => ({
                 ...notification,
@@ -227,16 +1118,26 @@ export const DashboardProvider = ({ children }) => {
         );
     };
 
+
     const addNotification = (notification) => {
+
         const newNotification = {
             id:
                 notification.id ||
                 `notification-${Date.now()}`,
+
             type: notification.type || "general",
-            title: notification.title || "New notification",
+
+            title:
+                notification.title ||
+                "New notification",
+
             message: notification.message || "",
+
             time: notification.time || "Just now",
+
             unread: notification.unread ?? true,
+
             link:
                 notification.link ||
                 "/dashboard/notifications",
@@ -248,421 +1149,23 @@ export const DashboardProvider = ({ children }) => {
         ]);
     };
 
-    // =========================
-    // Profile
-    // =========================
 
-    const [profile, setProfile] = useState(studentProfile);
-
-    const updateProfile = (updatedProfile) => {
-        setProfile(updatedProfile);
-    };
-
-    const profileCompletion = useMemo(() => {
-        return calculateProfileCompletion(profile);
-    }, [profile]);
-
-    
-const profileReadiness = useMemo(() => {
-    // These fields are relevant to scholarship comparison.
-    // Name and email remain part of profile completion,
-    // but they do not block eligibility analysis.
-    const checks = [
-        hasValue(profile?.personal?.nationality),
-        hasFiniteNumber(profile?.personal?.age),
-
-        hasValue(profile?.academic?.studyLevel),
-        Boolean(profile?.academic?.completedDegrees?.length),
-        hasValue(profile?.academic?.fieldOfStudy),
-        hasFiniteNumber(
-            profile?.academic?.academicPerformance
-        ),
-
-        hasValue(profile?.english?.test),
-        hasFiniteNumber(profile?.english?.score),
-
-        hasValue(profile?.preferences?.studyDestination),
-        hasFiniteNumber(
-            profile?.preferences?.annualBudget?.amount
-        ),
-    ];
-
-    const completed = checks.filter(Boolean).length;
-    const total = checks.length;
-
-    return {
-        completed,
-        total,
-        percentage: Math.round((completed / total) * 100),
-        isReady: checks.every(Boolean),
-    };
-}, [profile]);
-
-
-    // =========================
-// Matches & Eligibility
-// =========================
-
-const matches = useMemo(() => {
-    if (!profileReadiness.isReady) {
-        return [];
-    }
-
-    return opportunities.map((opportunity) => {
-        const evaluated = analyzeOpportunity(
-            opportunity,
-            profile
-        );
-
-        return {
-            opportunity,
-            analysis: evaluated.analysis,
-        };
-    });
-}, [profile, profileReadiness.isReady]);
-
-    // Full eligibility-analysis records shared by both dashboard pages.
-    // Matches keeps its existing { opportunity, analysis } shape; this
-    // flattened shape preserves the data contract used by EligibilityAnalysis.
-    const eligibilityOpportunities = useMemo(() => {
-        return matches.map(({ opportunity, analysis }) => ({
-            ...opportunity,
-            analysis,
-        }));
-    }, [matches]);
-
-    const strongMatches = useMemo(() => {
-        return matches.filter(
-            ({ analysis }) =>
-                analysis.status === "strong"
-        );
-    }, [matches]);
-
-    const reviewMatches = useMemo(() => {
-        return matches.filter(
-            ({ analysis }) =>
-                analysis.status === "review"
-        );
-    }, [matches]);
-
-    const notEligibleMatches = useMemo(() => {
-        return matches.filter(
-            ({ analysis }) =>
-                analysis.status === "not-eligible"
-        );
-    }, [matches]);
-
-    const matchStats = useMemo(() => {
-        return {
-            total: matches.length,
-            strong: strongMatches.length,
-            review: reviewMatches.length,
-            notEligible: notEligibleMatches.length,
-        };
-    }, [
-        matches,
-        strongMatches,
-        reviewMatches,
-        notEligibleMatches,
-    ]);
-
-    // =========================
-    // Favorites
-    // =========================
-
-    const [favorites, setFavorites] = useState(
-        () => getFavorites()
-    );
-
-    const toggleFavorite = (id) => {
-        const updated = toggleStoredFavorite(id);
-
-        setFavorites(updated);
-
-        return updated;
-    };
-
-    const removeFavorite = (id) => {
-        const updated = removeStoredFavorite(id);
-
-        setFavorites(updated);
-
-        return updated;
-    };
-
-    const favoriteMatches = useMemo(() => {
-        const favoriteSet = new Set(favorites);
-
-        return matches.filter(({ opportunity }) =>
-            favoriteSet.has(opportunity.id)
-        );
-    }, [matches, favorites]);
-
-    const isFavorite = (id) => {
-        return favorites.includes(id);
-    };
-
-    // =========================
-    // Applications
-    // =========================
-
-    const [applications, setApplications] = useState(
-        () => getApplications()
-    );
-
-    const addApplication = (application) => {
-        const updated = addStoredApplication(application);
-
-        setApplications(updated);
-
-        return updated;
-    };
-
-    const removeApplication = (id) => {
-        const updated = removeStoredApplication(id);
-
-        setApplications(updated);
-
-        return updated;
-    };
-
-    const applicationStats = useMemo(() => {
-        return {
-            total: applications.length,
-
-            active: applications.filter(
-                (app) =>
-                    app.status === "planning" ||
-                    app.status === "applying"
-            ).length,
-
-            submitted: applications.filter(
-                (app) =>
-                    app.status === "submitted"
-            ).length,
-
-            underReview: applications.filter(
-                (app) =>
-                    app.status === "under-review"
-            ).length,
-
-            accepted: applications.filter(
-                (app) =>
-                    app.status === "accepted"
-            ).length,
-        };
-    }, [applications]);
-
-    // =========================
-    // Deadlines
-    // =========================
-
-    const deadlines = useMemo(() => {
-        return (opportunities || [])
-            .map((opportunity) => {
-                const date = new Date(
-                    `${opportunity.deadline}T23:59:59`
-                );
-
-                if (Number.isNaN(date.getTime())) {
-                    return null;
-                }
-
-                const daysRemaining = Math.ceil(
-                    (
-                        date.getTime() -
-                        currentTime
-                    ) /
-                    (1000 * 60 * 60 * 24)
-                );
-
-                return {
-                    opportunity,
-                    deadlineDate: date,
-                    daysRemaining,
-                };
-            })
-            .filter(
-                (item) =>
-                    item &&
-                    item.daysRemaining >= 0
-            )
-            .sort(
-                (a, b) =>
-                    a.deadlineDate - b.deadlineDate
-            );
-    }, [currentTime]);
-
-    // =========================
-    // Documents
-    // =========================
-
-    const [documents, setDocuments] = useState([]);
-    const [documentsLoading, setDocumentsLoading] = useState(true);
-
-    const normalizeDocuments = (items = []) =>
-        items.map((item) => ({
-            ...item,
-            id: item.id,
-            checklistId: item.checklist_id ?? item.checklistId,
-            fileName: item.original_filename ?? item.fileName ?? null,
-            fileSize: item.file_size_bytes ?? item.fileSize ?? null,
-            uploaded: Boolean(item.has_document ?? item.hasDocument ?? item.uploaded),
-            hasDocument: Boolean(item.has_document ?? item.hasDocument ?? item.uploaded),
-        }));
-
-    useEffect(() => {
-        let cancelled = false;
-
-        const loadDocuments = async () => {
-            try {
-                const savedDocuments = await getStudentDocuments();
-
-                if (!cancelled) {
-                    setDocuments(normalizeDocuments(savedDocuments));
-                }
-            } catch (error) {
-                if (!cancelled) {
-                    console.error("Failed to load student documents:", error);
-                }
-            } finally {
-                if (!cancelled) {
-                    setDocumentsLoading(false);
-                }
-            }
-        };
-
-        loadDocuments();
-
-        return () => {
-            cancelled = true;
-        };
-    }, []);
-
-    const addDocument = async (documentData, file = null) => {
-        const checklistId =
-            documentData.checklistId ?? documentData.checklist_id;
-
-        if (!checklistId) {
-            throw new Error("A document checklist ID is required.");
-        }
-
-        const hasDocument = file
-            ? true
-            : Boolean(
-                documentData.hasDocument ??
-                documentData.has_document ??
-                documentData.uploaded ??
-                true
-            );
-
-        await saveStudentDocument({
-            checklistId,
-            hasDocument,
-            file,
-        });
-
-        const savedDocuments = await getStudentDocuments();
-        const updated = normalizeDocuments(savedDocuments);
-        setDocuments(updated);
-
-        return updated;
-    };
-
-    const removeChecklistDocument = async (checklistId) => {
-        await deleteStudentDocument(checklistId);
-
-        setDocuments((current) =>
-            current.filter(
-                (document) =>
-                    document.checklistId !== checklistId &&
-                    document.checklist_id !== checklistId
-            )
-        );
-    };
-
-    // =========================
-    // Settings
-    // =========================
-
-    const [settings, setSettings] = useState(
-        () => loadSettings()
-    );
-
-    const [
-        hasSettingsChanges,
-        setHasSettingsChanges,
-    ] = useState(false);
-
-    const updateSettings = (
-        section,
-        key,
-        value
-    ) => {
-        setSettings((current) => ({
-            ...current,
-
-            [section]: {
-                ...current[section],
-                [key]: value,
-            },
-        }));
-
-        setHasSettingsChanges(true);
-    };
-
-    const saveSettings = () => {
-        const success =
-            saveStoredSettings(settings);
-
-        if (success) {
-            setHasSettingsChanges(false);
-        }
-
-        return success;
-    };
-
-    const resetSettings = () => {
-        const freshSettings = {
-            ...DEFAULT_SETTINGS,
-
-            notifications: {
-                ...DEFAULT_SETTINGS.notifications,
-            },
-
-            preferences: {
-                ...DEFAULT_SETTINGS.preferences,
-            },
-
-            appearance: {
-                ...DEFAULT_SETTINGS.appearance,
-            },
-
-            privacy: {
-                ...DEFAULT_SETTINGS.privacy,
-            },
-        };
-
-        setSettings(freshSettings);
-
-        saveStoredSettings(
-            freshSettings
-        );
-
-        setHasSettingsChanges(false);
-    };
-
-    // =========================
-    // Dashboard Stats
-    // =========================
+    // ========================================================
+    // DASHBOARD STATISTICS
+    // ========================================================
 
     const dashboardStats = useMemo(() => {
+
         return {
             matches: matches.length,
+
             favorites: favorites.length,
+
             applications: applications.length,
+
             upcomingDeadlines: deadlines.length,
         };
+
     }, [
         matches,
         favorites,
@@ -670,23 +1173,29 @@ const matches = useMemo(() => {
         deadlines,
     ]);
 
-    // =========================
-    // Provider
-    // =========================
+
+    // ========================================================
+    // PROVIDER
+    // ========================================================
 
     return (
         <DashboardContext.Provider
             value={{
+
                 // Profile
                 profile,
                 updateProfile,
+                loadProfile,
+                profileLoading,
+                profileError,
                 profileCompletion,
                 profileReadiness,
+                showProfileOnboarding,
 
                 // Opportunities
                 opportunities,
 
-                // Matches
+                // Matches & Eligibility
                 matches,
                 strongMatches,
                 reviewMatches,
