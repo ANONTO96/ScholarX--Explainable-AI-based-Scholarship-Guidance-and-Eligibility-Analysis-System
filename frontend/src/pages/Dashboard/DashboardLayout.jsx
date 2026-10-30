@@ -17,7 +17,7 @@ import {
   ArrowUp,
   House,
 } from "lucide-react";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import { useState } from "react";
 import { DashboardProvider } from "../../context/Dashboard/DashboardProvider";
 import { useDashboard } from "../../context/Dashboard/useDashboard";
@@ -111,6 +111,15 @@ const DashboardContent = ({
     markNotificationRead,
     markAllNotificationsRead,
   } = useDashboard();
+
+  const navigate = useNavigate();
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  navigate("/", { replace: true });
+};
 
   return (
     <div className="min-h-screen bg-[#f5f9fc] text-slate-900">
@@ -313,11 +322,14 @@ const DashboardContent = ({
             </div>
 
             <button
-              type="button"
-              className="rounded-lg p-2 text-slate-400 transition hover:bg-white hover:text-slate-600"
-            >
-              <LogOut className="h-4 w-4" />
-            </button>
+  type="button"
+  onClick={handleLogout}
+  aria-label="Logout"
+  title="Logout"
+  className="rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-500"
+>
+  <LogOut className="h-4 w-4" />
+</button>
           </div>
         </div>
       </aside>
