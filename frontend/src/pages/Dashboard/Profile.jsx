@@ -353,19 +353,25 @@ const LanguageQualificationsPanel = ({ apiBaseUrl }) => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const loadQualifications = async () => {
+  useEffect(() => {
+  let cancelled = false;
+
+  const fetchQualifications = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      setError("Your session has expired. Please log in again.");
-      setLoading(false);
+      // Defer the state update until after the effect's synchronous phase.
+      await Promise.resolve();
+
+      if (!cancelled) {
+        setError("Your session has expired. Please log in again.");
+        setLoading(false);
+      }
+
       return;
     }
 
     try {
-      setLoading(true);
-      setError("");
-
       const response = await fetch(
         `${apiBaseUrl}/api/profile/languages`,
         {
@@ -383,29 +389,36 @@ const LanguageQualificationsPanel = ({ apiBaseUrl }) => {
         );
       }
 
-      setQualifications(
-        (body.qualifications || []).map((item) => ({
-          ...item,
-          score_numeric: item.score_numeric ?? "",
-          score_text: item.score_text ?? "",
-          test_date: item.test_date ?? "",
-          expiry_date: item.expiry_date ?? "",
-        }))
-      );
+      if (!cancelled) {
+        setQualifications(
+          (body.qualifications || []).map((item) => ({
+            ...item,
+            score_numeric: item.score_numeric ?? "",
+            score_text: item.score_text ?? "",
+            test_date: item.test_date ?? "",
+            expiry_date: item.expiry_date ?? "",
+          }))
+        );
+      }
     } catch (err) {
-      setError(
-        err.message || "Could not load language qualifications."
-      );
+      if (!cancelled) {
+        setError(
+          err.message || "Could not load language qualifications."
+        );
+      }
     } finally {
-      setLoading(false);
+      if (!cancelled) {
+        setLoading(false);
+      }
     }
   };
 
-  useEffect(() => {
-    loadQualifications();
-    // Load once when the panel mounts.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiBaseUrl]);
+  fetchQualifications();
+
+  return () => {
+    cancelled = true;
+  };
+}, [apiBaseUrl]);
 
   const updateQualification = (index, key, value) => {
     setQualifications((current) =>

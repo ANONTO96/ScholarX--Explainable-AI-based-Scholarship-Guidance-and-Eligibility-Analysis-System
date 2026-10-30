@@ -27,12 +27,10 @@ import {
 } from "../../data/applications";
 
 import {
-    getDocumentMetadata,
-    addDocument as addStoredDocument,
-    addCustomDocument as addStoredCustomDocument,
-    getCustomDocuments,
-    removeChecklistDocument as removeStoredChecklistDocument,
-} from "../../data/documents";
+    getStudentDocuments,
+    saveStudentDocument,
+    deleteStudentDocument,
+} from "../../data/studentDocuments";
 
 
 // ============================================================
@@ -918,53 +916,84 @@ export const DashboardProvider = ({ children }) => {
     // DOCUMENTS
     // ========================================================
 
-    const [documents, setDocuments] = useState(
-        () => getDocumentMetadata()
-    );
+    // ========================================================
+// DOCUMENTS - SQL DATABASE
+// ========================================================
 
+const [documents, setDocuments] = useState([]);
 
-    const [customDocuments, setCustomDocuments] = useState(
-        () => getCustomDocuments()
-    );
+const [documentsLoading, setDocumentsLoading] = useState(true);
 
+const [documentsError, setDocumentsError] = useState("");
 
-    const addDocument = async (documentData, file) => {
+// Fetch documents from the backend.
 
-        const updated = await addStoredDocument(
-            documentData,
-            file
-        );
+const loadDocuments = useCallback(async () => {
+    try {
+        setDocumentsLoading(true);
+        setDocumentsError("");
 
         const savedDocuments = await getStudentDocuments();
-        const updated = normalizeDocuments(savedDocuments);
-        setDocuments(updated);
 
-        return updated;
-    };
+        setDocuments(savedDocuments);
 
+        return savedDocuments;
+    } catch (error) {
+        console.error("Failed to load student documents:", error);
 
-    const removeChecklistDocument = async (checklistId) => {
+        setDocumentsError(
+            error.message || "Unable to load documents."
+        );
 
-        const updated =
-            await removeStoredChecklistDocument(
-                checklistId
-            );
+        return [];
+    } finally {
+        setDocumentsLoading(false);
+    }
+}, []);
 
-        setDocuments(updated);
+// Load documents when the provider mounts.
 
-        return updated;
-    };
+useEffect(() => {
+    const timeoutId = setTimeout(() => {
+        loadDocuments();
+    }, 0);
 
+    return () => clearTimeout(timeoutId);
+}, [loadDocuments]);
 
-    const addCustomDocument = (document) => {
+// Save document metadata to SQL.
 
-        const updated =
-            addStoredCustomDocument(document);
+const addDocument = async (documentData, file = null) => {
+    try {
+        const result = await saveStudentDocument({
+            checklistId: documentData.checklistId,
+            hasDocument: true,
+            file,
+        });
 
-        setCustomDocuments(updated);
+        await loadDocuments();
 
-        return updated;
-    };
+        return result;
+    } catch (error) {
+        console.error("Failed to save document:", error);
+        throw error;
+    }
+};
+
+// Remove document from SQL.
+
+const removeChecklistDocument = async (checklistId) => {
+    try {
+        const result = await deleteStudentDocument(checklistId);
+
+        await loadDocuments();
+
+        return result;
+    } catch (error) {
+        console.error("Failed to delete document:", error);
+        throw error;
+    }
+};
 
 
     // ========================================================
@@ -1220,10 +1249,12 @@ export const DashboardProvider = ({ children }) => {
                 deadlines,
 
                 // Documents
-                documents,
-                documentsLoading,
-                addDocument,
-                removeChecklistDocument,
+documents,
+documentsLoading,
+documentsError,
+loadDocuments,
+addDocument,
+removeChecklistDocument,
 
                 // Settings
                 settings,
