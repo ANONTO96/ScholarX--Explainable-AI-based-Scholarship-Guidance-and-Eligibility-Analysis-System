@@ -162,59 +162,189 @@ def get_scholarship_by_id(scholarship_id: int):
         if connection is not None and connection.is_connected():
             connection.close()
 
-
+# ============================================================
 # CREATE SCHOLARSHIP
+# ============================================================
+
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_scholarship(data: AdminScholarshipCreate):
-    # 1. Prepare the main scholarships table data.
-    values = {
-        "scholarship_title": data.scholarship_title,
-        "country": data.country,
-        "last_date_to_apply": data.last_date_to_apply,
-        "official_website": data.official_website,
-        "bd_ambassy_website": data.bd_ambassy_website,
-        "scholarship_type": data.scholarship_type,
-        "cities": data.cities,
-        "keywords": data.keywords,
-    }
-
-    values = prepare_values(values)
-
-    columns = {
-        "scholarship_title": "title",
-        "country": "country",
-        "last_date_to_apply": "last_date_to_apply",
-        "official_website": "official_website",
-        "bd_ambassy_website": "bd_ambassy_website",
-        "scholarship_type": "scholarship_type",
-        "cities": "cities",
-        "keywords": "keywords",
-    }
-
-    column_names = [columns[field] for field in values]
-    placeholders = ", ".join(["%s"] * len(column_names))
-    sql_columns = ", ".join(f"`{name}`" for name in column_names)
 
     connection = None
     cursor = None
 
     try:
+        # ----------------------------------------------------
+        # 1. Prepare main scholarship information
+        # ----------------------------------------------------
+
+        scholarship_data = {
+            "scholarship_title": data.scholarship_title,
+            "country": data.country,
+            "last_date_to_apply": data.last_date_to_apply,
+            "official_website": data.official_website,
+            "bd_ambassy_website": data.bd_ambassy_website,
+            "scholarship_type": data.scholarship_type,
+            "cities": data.cities,
+            "keywords": data.keywords,
+        }
+
+        values = prepare_values(scholarship_data)
+
+        # prepare_values() already converts API field names
+        # into database column names.
+        column_names = list(values.keys())
+
+        placeholders = ", ".join(
+            ["%s"] * len(column_names)
+        )
+
+        sql_columns = ", ".join(
+            f"`{column}`" for column in column_names
+        )
+
+        # ----------------------------------------------------
+        # 2. Insert main scholarship
+        # ----------------------------------------------------
+
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # 2. Insert the main scholarship.
         cursor.execute(
             f"""
                 INSERT INTO scholarships ({sql_columns})
                 VALUES ({placeholders})
             """,
-            tuple(values[field] for field in values),
+            tuple(values[column] for column in column_names),
         )
 
         scholarship_id = cursor.lastrowid
+
         connection.commit()
 
+        cursor.close()
+        cursor = None
+
+        connection.close()
+        connection = None
+
+        # ----------------------------------------------------
+        # 3. Prepare related data
+        # ----------------------------------------------------
+
+        programs = [
+            item.model_dump()
+            for item in data.programs
+        ]
+
+        eligibility = data.eligibility.model_dump()
+
+        documents = [
+            item.model_dump()
+            for item in data.documents
+        ]
+
+        coverage = [
+            item.model_dump()
+            for item in data.coverage
+        ]
+
+        contacts = [
+            item.model_dump()
+            for item in data.contacts
+        ]
+
+        # ----------------------------------------------------
+        # 4. Validate program references
+        # ----------------------------------------------------
+
+        program_names = {
+            program["program"]
+            for program in programs
+        }
+
+        for program_rule in eligibility.get("program_rules", []):
+            if program_rule["program"] not in program_names:
+                raise ValueError(
+                    f"Eligibility rules reference an unknown program: "
+                    f"{program_rule['program']}"
+                )
+
+        for item in coverage:
+            program_name = item.get("program")
+
+            if program_name and program_name not in program_names:
+                raise ValueError(
+                    f"Coverage references an unknown program: "
+                    f"{program_name}"
+                )
+
+        # ----------------------------------------------------
+        # 5. Insert scholarship programs
+        # ----------------------------------------------------
+
+        program_result = insert_scholarship_programs(
+            scholarship_id,
+            programs,
+        )
+
+        # ----------------------------------------------------
+        # 6. Insert scholarship eligibility rules
+        # ----------------------------------------------------
+
+        eligibility_result = insert_scholarship_eligibility(
+            scholarship_id,
+            eligibility,
+        )
+
+        # ----------------------------------------------------
+        # 7. Insert required documents
+        # ----------------------------------------------------
+
+        document_result = insert_scholarship_documents(
+            scholarship_id,
+            documents,
+        )
+
+        # ----------------------------------------------------
+        # 8. Insert scholarship coverage
+        # ----------------------------------------------------
+
+        coverage_result = insert_scholarship_coverage(
+            scholarship_id,
+            coverage,
+        )
+
+        # ----------------------------------------------------
+        # 9. Insert scholarship contacts
+        # ----------------------------------------------------
+
+        contact_result = insert_scholarship_contacts(
+            scholarship_id,
+            contacts,
+        )
+
+        # ----------------------------------------------------
+        # 10. Return result
+        # ----------------------------------------------------
+
+        return {
+            "success": True,
+            "message": "Scholarship and all related information created successfully.",
+            "scholarship_id": scholarship_id,
+            "inserted_data": {
+                "programs": program_result,
+                "eligibility": eligibility_result,
+                "documents": document_result,
+                "coverage": coverage_result,
+                "contacts": contact_result,
+            },
+        }
+
+    except HTTPException:
+        raise
+
     except mysql.connector.IntegrityError as err:
+
         if connection is not None and connection.is_connected():
             connection.rollback()
 
@@ -224,76 +354,34 @@ def create_scholarship(data: AdminScholarshipCreate):
                 detail="A scholarship with this title already exists.",
             )
 
+        print(f"Scholarship insertion error: {err}")
+
         raise HTTPException(
             status_code=500,
             detail="Database integrity error while creating scholarship.",
         )
 
-    except mysql.connector.Error:
+    except Exception as err:
+
         if connection is not None and connection.is_connected():
             connection.rollback()
 
+        print(
+            f"Scholarship creation failed: {err}"
+        )
+
         raise HTTPException(
             status_code=500,
-            detail="Database error while creating scholarship.",
+            detail=str(err),
         )
 
     finally:
+
         if cursor is not None:
             cursor.close()
 
         if connection is not None and connection.is_connected():
             connection.close()
-
-    # 3. Insert the related records using existing query functions.
-    try:
-        insert_scholarship_programs(
-            scholarship_id,
-            [program.model_dump() for program in data.programs],
-        )
-
-        insert_scholarship_eligibility(
-            scholarship_id,
-            data.eligibility.model_dump(),
-        )
-
-        insert_scholarship_documents(
-            scholarship_id,
-            [document.model_dump() for document in data.documents],
-        )
-
-        insert_scholarship_coverage(
-            scholarship_id,
-            [item.model_dump() for item in data.coverage],
-        )
-
-        insert_scholarship_contacts(
-            scholarship_id,
-            [contact.model_dump() for contact in data.contacts],
-        )
-
-    except Exception as err:
-        # The main scholarship has already been committed.
-        # Log the error so the failed related insert can be diagnosed.
-        print(
-            f"Related scholarship insertion failed for "
-            f"scholarship_id={scholarship_id}: {err}"
-        )
-
-        raise HTTPException(
-            status_code=500,
-            detail=(
-                "The scholarship was created, but one or more related "
-                "records could not be saved. Check the backend logs."
-            ),
-        )
-
-    return {
-        "success": True,
-        "message": "Scholarship and related records created successfully.",
-        "scholarship_id": scholarship_id,
-    }
-
 
 # UPDATE SCHOLARSHIP
 @router.patch("/{scholarship_id}")
@@ -312,11 +400,11 @@ def update_scholarship(
     # Separate main-table fields from related-table fields.
     related_fields = {
         "programs",
+        "eligibility",
         "documents",
         "coverage",
         "contacts",
     }
-
     root_updates = {
         field: value
         for field, value in updates.items()
@@ -409,6 +497,12 @@ def update_scholarship(
                     for item in data.programs
                 ],
             )
+
+        if "eligibility" in updates:
+            insert_scholarship_eligibility(
+                    scholarship_id,
+                    data.eligibility.model_dump(),
+                )
 
         if "documents" in updates:
             insert_scholarship_documents(

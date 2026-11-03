@@ -64,7 +64,15 @@ const DEFAULT_DOCUMENTS = [
         icon: GraduationCap,
         required: true,
     },
-
+    {
+        id: "health-certificate",
+        name: "Health Certificate",
+        description:
+            "Medical examination certificate confirming that you meet the health requirements for studying abroad.",
+        category: "Health",
+        icon: ShieldCheck,
+        required: true,
+    },
     {
         id: "degree-certificate",
         name: "Degree Certificate",
@@ -164,6 +172,7 @@ const DEFAULT_DOCUMENTS = [
 const DOCUMENT_CATEGORY_ICONS = {
     identity: IdCard,
     academic: GraduationCap,
+    health: ShieldCheck,
     financial: WalletCards,
     application: FileText,
     language: FileCheck2,

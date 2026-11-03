@@ -56,9 +56,6 @@ from database.queries.scholarship_queries import (
     get_sections_by_scholarship_id
 )
 
-from database.queries.id_by_countries import (
-    get_id_by_country
-)
 
 
 # ============================================================
@@ -77,27 +74,14 @@ FILE_PATH = os.path.join(
 # MAIN EXTRACTION PIPELINE
 # ============================================================
 
-def run(country_name="china"):
+def run(scholarship_id: int):
+
+    # A scholarship must be selected by its primary key. Country is not unique.
+    if not isinstance(scholarship_id, int) or scholarship_id <= 0:
+        raise ValueError("run() requires a valid positive scholarship_id")
 
     # ========================================================
-    # 1. GET SCHOLARSHIP ID
-    # ========================================================
-
-    scholarship_response = get_id_by_country(country_name)
-
-    if scholarship_response["status"] != 200:
-        return scholarship_response
-
-    scholarship_id = scholarship_response["data"]
-
-    # print("=" * 70)
-    # print(f"Scholarship Country : {country_name}")
-    # print(f"Scholarship ID      : {scholarship_id}")
-    # print("=" * 70)
-
-
-    # ========================================================
-    # 2. GET SCHOLARSHIP SECTIONS
+    # 1. GET SCHOLARSHIP SECTIONS
     # ========================================================
 
     sections_response = get_sections_by_scholarship_id(
@@ -131,6 +115,22 @@ def run(country_name="china"):
     eligibility_sentences = split_sentences(
         requirement_text
     )
+
+    print("\n========== ELIGIBILITY SENTENCE DEBUG ==========")
+
+    for i, sentence in enumerate(eligibility_sentences, start=1):
+        print(f"\n[{i}] {repr(sentence)}")
+
+    print("\n========== HSK 4 SEARCH ==========")
+
+    hsk_sentences = [
+        sentence for sentence in eligibility_sentences
+        if "HSK" in sentence.upper()
+    ]
+
+    print(hsk_sentences)
+
+    print("\n========== END DEBUG ==========\n")
 
 
     # ========================================================
@@ -386,4 +386,4 @@ def run(country_name="china"):
 
 if __name__ == "__main__":
 
-    result = run("china")
+    result = run(1)

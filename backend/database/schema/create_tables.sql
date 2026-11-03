@@ -442,3 +442,56 @@ CREATE TABLE IF NOT EXISTS `oauth_exchange_codes` (
 ) ENGINE=InnoDB
   DEFAULT CHARSET=latin1
   COLLATE=latin1_swedish_ci;
+
+
+
+--  =========================================================
+-- ELibility Checks 
+--  =========================================================
+CREATE TABLE `eligibility_check_results` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `check_uuid` CHAR(36) NOT NULL,
+    `user_id` INT(11) NOT NULL,
+    `scholarship_id` INT(11) NOT NULL,
+    `program_id` INT(11) DEFAULT NULL,
+    `rule_id` INT(11) NOT NULL,
+
+    `status` VARCHAR(30) NOT NULL,
+    `student_value` TEXT DEFAULT NULL,
+    `required_value` TEXT DEFAULT NULL,
+    `reason` TEXT DEFAULT NULL,
+    `recommendation` TEXT DEFAULT NULL,
+
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`id`),
+
+    KEY `idx_check_uuid` (`check_uuid`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_scholarship_id` (`scholarship_id`),
+    KEY `idx_program_id` (`program_id`),
+    KEY `idx_rule_id` (`rule_id`),
+
+    CONSTRAINT `fk_result_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users` (`id`)
+        ON DELETE CASCADE,
+
+    CONSTRAINT `fk_result_scholarship`
+        FOREIGN KEY (`scholarship_id`)
+        REFERENCES `scholarships` (`id`)
+        ON DELETE CASCADE,
+
+    CONSTRAINT `fk_result_program`
+        FOREIGN KEY (`program_id`)
+        REFERENCES `scholarship_programs` (`id`)
+        ON DELETE SET NULL,
+
+    CONSTRAINT `fk_result_rule`
+        FOREIGN KEY (`rule_id`)
+        REFERENCES `scholarship_eligibility` (`id`)
+        ON DELETE CASCADE
+
+) ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;

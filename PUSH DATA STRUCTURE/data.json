@@ -1,0 +1,215 @@
+
+
+{
+  "scholarship_title": "Türkiye Scholarships Full-Time Scholarship Program",
+  "country": "Turkiye",
+  "last_date_to_apply": "2027-02-20",
+  "official_website": "https://www.turkiyeburslari.gov.tr/",
+  "bd_ambassy_website": "https://dhaka-emb.mfa.gov.tr/",
+  "scholarship_type": "government",
+  "cities": [
+    "Ankara",
+    "Istanbul",
+    "Izmir",
+    "Other university cities in Türkiye"
+  ],
+  "keywords": [
+    "Government Scholarship",
+    "International Students",
+    "Fully Funded",
+    "Undergraduate",
+    "Master",
+    "PhD",
+    "Engineering",
+    "Social Sciences",
+    "Natural Sciences",
+    "Health Sciences"
+  ],
+  "programs": [
+    {
+      "program": "Bachelor",
+      "degree_level": [
+        "Engineering",
+        "Social Sciences",
+        "Health Sciences",
+        "Natural Sciences"
+      ],
+      "duration": "4 years",
+      "study_language": [
+        "Turkish",
+        "English"
+      ]
+    },
+    {
+      "program": "Master",
+      "degree_level": [
+        "Engineering",
+        "Social Sciences",
+        "Humanities",
+        "Natural Sciences"
+      ],
+      "duration": "2 years",
+      "study_language": [
+        "Turkish",
+        "English"
+      ]
+    },
+    {
+      "program": "PhD",
+      "degree_level": [
+        "Engineering",
+        "Social Sciences",
+        "Humanities",
+        "Natural Sciences"
+      ],
+      "duration": "4 years",
+      "study_language": [
+        "Turkish",
+        "English"
+      ]
+    }
+  ],
+  "eligibility": {
+    "scholarship_rules": [
+      {
+        "rule_type": "nationality",
+        "operator": "=",
+        "rule_value": "Non-Turkish citizen",
+        "mandatory": true
+      }
+    ],
+    "program_rules": [
+      {
+        "program": "Bachelor",
+        "rules": [
+          {
+            "rule_type": "maximum_age",
+            "operator": "<",
+            "rule_value": "21",
+            "mandatory": true
+          },
+          {
+            "rule_type": "minimum_academic_percentage",
+            "operator": ">",
+            "rule_value": "69.99",
+            "mandatory": true
+          }
+        ]
+      },
+      {
+        "program": "Master",
+        "rules": [
+          {
+            "rule_type": "maximum_age",
+            "operator": "<",
+            "rule_value": "30",
+            "mandatory": true
+          },
+          {
+            "rule_type": "minimum_academic_percentage",
+            "operator": ">",
+            "rule_value": "74.99",
+            "mandatory": true
+          }
+        ]
+      },
+      {
+        "program": "PhD",
+        "rules": [
+          {
+            "rule_type": "maximum_age",
+            "operator": "<",
+            "rule_value": "35",
+            "mandatory": true
+          },
+          {
+            "rule_type": "minimum_academic_percentage",
+            "operator": ">",
+            "rule_value": "74.99",
+            "mandatory": true
+          }
+        ]
+      }
+    ]
+  },
+  "documents": [
+    {
+      "document_name": "Passport or Identity Document",
+      "requirement": "Valid identity document",
+      "condition_text": "Required for all applicants.",
+      "mandatory": true,
+      "source_sentence": "Applicants must provide a valid identity document, ID card or passport."
+    },
+    {
+      "document_name": "Academic Transcript",
+      "requirement": "Academic transcript",
+      "condition_text": "Previous academic records.",
+      "mandatory": true,
+      "source_sentence": "Applicants must provide their academic transcript."
+    },
+    {
+      "document_name": "Graduation Certificate",
+      "requirement": "Diploma or temporary graduation certificate",
+      "condition_text": "Certificate of previous academic qualification.",
+      "mandatory": true,
+      "source_sentence": "Applicants must provide their diploma or temporary graduation certificate."
+    },
+    {
+      "document_name": "Language Proficiency Certificate",
+      "requirement": "Language examination result",
+      "condition_text": "If required by the selected university or programme.",
+      "mandatory": false,
+      "source_sentence": "International language test results if required by the chosen university or programme."
+    },
+    {
+      "document_name": "International Examination Result",
+      "requirement": "SAT, GRE, GMAT or equivalent",
+      "condition_text": "If required by the selected university or programme.",
+      "mandatory": false,
+      "source_sentence": "International examination results if required by the chosen university or programme."
+    },
+    {
+      "document_name": "Research Proposal",
+      "requirement": "Research proposal",
+      "condition_text": "For PhD applicants.",
+      "mandatory": false,
+      "source_sentence": "A research topic proposal is required for PhD applications."
+    }
+  ],
+  "coverage": [
+  {
+    "benefit_type": "tuition_fee",
+    "description": "Tuition fee coverage",
+    "program": "Bachelor",
+    "period": "Programme duration",
+    "coverage": "Covered",
+    "applicability": "Selected scholarship recipients"
+  },
+  {
+    "benefit_type": "tuition_fee",
+    "description": "Tuition fee coverage",
+    "program": "Master",
+    "period": "Programme duration",
+    "coverage": "Covered",
+    "applicability": "Selected scholarship recipients"
+  },
+  {
+    "benefit_type": "tuition_fee",
+    "description": "Tuition fee coverage",
+    "program": "PhD",
+    "period": "Programme duration",
+    "coverage": "Covered",
+    "applicability": "Selected scholarship recipients"
+  }
+],
+  "contacts": [
+    {
+      "contact_type": "website",
+      "value": "https://www.turkiyeburslari.gov.tr/"
+    },
+    {
+      "contact_type": "application_portal",
+      "value": "https://tbbs.turkiyeburslari.gov.tr/"
+    }
+  ]
+}

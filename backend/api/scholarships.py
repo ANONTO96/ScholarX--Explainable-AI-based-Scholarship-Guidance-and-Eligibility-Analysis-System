@@ -206,3 +206,173 @@ def get_scholarships(
 
         if connection is not None:
             connection.close()
+
+
+@router.get("/{scholarship_id}")
+def get_scholarship_by_id(scholarship_id: int):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
+
+        # 1. Retrieve the main scholarship record
+        cursor.execute(
+            """
+            SELECT
+                id,
+                title,
+                country,
+                last_date_to_apply,
+                official_website,
+                bd_ambassy_website,
+                created_at,
+                scholarship_type,
+                cities,
+                keywords
+            FROM scholarships
+            WHERE id = %s
+            """,
+            (scholarship_id,),
+        )
+
+        scholarship = cursor.fetchone()
+
+        if scholarship is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Scholarship not found.",
+            )
+
+        # 2. Retrieve programs
+        cursor.execute(
+            """
+            SELECT
+                id,
+                scholarship_id,
+                program_name,
+                degree_level,
+                duration,
+                languages
+            FROM scholarship_programs
+            WHERE scholarship_id = %s
+            ORDER BY id ASC
+            """,
+            (scholarship_id,),
+        )
+
+        programs = cursor.fetchall()
+
+        # 3. Retrieve coverage / benefits
+        cursor.execute(
+            """
+            SELECT
+                id,
+                scholarship_id,
+                program_id,
+                benefit_type,
+                description,
+                amount,
+                currency,
+                period,
+                coverage,
+                applicability
+            FROM scholarship_coverage
+            WHERE scholarship_id = %s
+            ORDER BY id ASC
+            """,
+            (scholarship_id,),
+        )
+
+        coverage_records = cursor.fetchall()
+
+        # Group program-specific coverage under its program.
+        # Benefits without a matching program remain at scholarship level.
+        program_coverage = {}
+
+        for program in programs:
+            program["coverage"] = []
+            program_coverage[program["id"]] = program["coverage"]
+
+        scholarship_coverage = []
+
+        for benefit in coverage_records:
+            program_id = benefit.get("program_id")
+
+            if (
+                program_id is not None
+                and program_id in program_coverage
+            ):
+                program_coverage[program_id].append(benefit)
+            else:
+                scholarship_coverage.append(benefit)
+
+        # 4. Retrieve scholarship-level documents
+        cursor.execute(
+            """
+            SELECT
+                id,
+                scholarship_id,
+                document_name,
+                requirement,
+                condition_text,
+                mandatory,
+                source_sentence
+            FROM scholarship_documents
+            WHERE scholarship_id = %s
+            ORDER BY id ASC
+            """,
+            (scholarship_id,),
+        )
+
+        documents = cursor.fetchall()
+
+        # 5. Retrieve contacts
+        cursor.execute(
+            """
+            SELECT
+                id,
+                scholarship_id,
+                contact_type,
+                value
+            FROM scholarship_contacts
+            WHERE scholarship_id = %s
+            ORDER BY id ASC
+            """,
+            (scholarship_id,),
+        )
+
+        contacts = cursor.fetchall()
+
+        # 6. Attach related data
+        scholarship["programs"] = programs
+        scholarship["coverage"] = scholarship_coverage
+        scholarship["documents"] = documents
+        scholarship["contacts"] = contacts
+
+        return make_json_safe({
+            "success": True,
+            "data": scholarship,
+        })
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        print(
+            f"Failed to retrieve scholarship "
+            f"id={scholarship_id}: {exc}"
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to retrieve scholarship.",
+        )
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None:
+            connection.close()

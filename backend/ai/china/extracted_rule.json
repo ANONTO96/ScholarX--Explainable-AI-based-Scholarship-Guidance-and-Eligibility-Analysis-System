@@ -23,22 +23,6 @@
                 "English",
                 "Chinese"
             ]
-        },
-        {
-            "program": "General Scholar",
-            "duration": "1 Year",
-            "study_language": [
-                "English",
-                "Chinese"
-            ]
-        },
-        {
-            "program": "Senior Scholar",
-            "duration": "1 Year",
-            "study_language": [
-                "English",
-                "Chinese"
-            ]
         }
     ],
     "eligibility": {
@@ -47,13 +31,17 @@
                 "rule_type": "citizenship",
                 "operator": "=",
                 "rule_value": "International",
-                "mandatory": true
+                "category": "academic",
+                "mandatory": true,
+                "source_sentence": "1. be a citizen of a country other than the PRC and in good health both mentally and physically"
             },
             {
                 "rule_type": "health",
                 "operator": "=",
                 "rule_value": "Good",
-                "mandatory": true
+                "category": "academic",
+                "mandatory": true,
+                "source_sentence": "1. be a citizen of a country other than the PRC and in good health both mentally and physically"
             }
         ],
         "program_rules": [
@@ -64,25 +52,39 @@
                         "rule_type": "age",
                         "operator": "<",
                         "rule_value": "25",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program"
                     },
                     {
                         "rule_type": "minimum_degree",
                         "operator": ">=",
                         "rule_value": "High School",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "Bachelor",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program"
                     },
                     {
                         "rule_type": "entrance_exam",
                         "operator": "=",
                         "rule_value": "CSCA",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "7. take the \"China Scholastic Competency Assessment (short as CSCA)\" and upload a valid score report when applying for bachelor programs (Official website of CSCA: www.csca.cn )"
+                    },
+                    {
+                        "rule_type": "language_proficiency",
+                        "operator": "=",
+                        "rule_value": "University admission requirements",
+                        "category": "language",
+                        "study_language": "Non-Chinese",
+                        "mandatory": true,
+                        "condition": {
+                            "field": "study_language",
+                            "operator": "!=",
+                            "value": "Chinese"
+                        },
+                        "source_sentence": "11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
                     }
                 ]
             },
@@ -93,49 +95,45 @@
                         "rule_type": "age",
                         "operator": "<",
                         "rule_value": "35",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
                     },
                     {
                         "rule_type": "minimum_degree",
                         "operator": ">=",
                         "rule_value": "Bachelor",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
                     },
                     {
-                        "rule_type": "age",
-                        "operator": "<",
-                        "rule_value": "40",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "Master",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "age",
-                        "operator": "<",
-                        "rule_value": "50",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "Master",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "Master",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "language_exam",
-                        "operator": ">=",
+                        "rule_type": "language_proficiency",
+                        "operator": "=",
                         "rule_value": "HSK 4",
-                        "mandatory": true
+                        "category": "language",
+                        "study_language": "Chinese",
+                        "mandatory": true,
+                        "condition": {
+                            "field": "study_language",
+                            "operator": "=",
+                            "value": "Chinese"
+                        },
+                        "source_sentence": "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
+                    },
+                    {
+                        "rule_type": "language_proficiency",
+                        "operator": "=",
+                        "rule_value": "University admission requirements",
+                        "category": "language",
+                        "study_language": "Non-Chinese",
+                        "mandatory": true,
+                        "condition": {
+                            "field": "study_language",
+                            "operator": "!=",
+                            "value": "Chinese"
+                        },
+                        "source_sentence": "11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
                     }
                 ]
             },
@@ -146,71 +144,45 @@
                         "rule_type": "age",
                         "operator": "<",
                         "rule_value": "40",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
                     },
                     {
                         "rule_type": "minimum_degree",
                         "operator": ">=",
                         "rule_value": "Master",
-                        "mandatory": true
+                        "category": "academic",
+                        "mandatory": true,
+                        "source_sentence": "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
                     },
                     {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "Master",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "language_exam",
-                        "operator": ">=",
+                        "rule_type": "language_proficiency",
+                        "operator": "=",
                         "rule_value": "HSK 4",
-                        "mandatory": true
-                    }
-                ]
-            },
-            {
-                "program": "General Scholar",
-                "rules": [
-                    {
-                        "rule_type": "age",
-                        "operator": "<",
-                        "rule_value": "45",
-                        "mandatory": true
+                        "category": "language",
+                        "study_language": "Chinese",
+                        "mandatory": true,
+                        "condition": {
+                            "field": "study_language",
+                            "operator": "=",
+                            "value": "Chinese"
+                        },
+                        "source_sentence": "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
                     },
                     {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "High School",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "language_exam",
-                        "operator": ">=",
-                        "rule_value": "HSK 3",
-                        "mandatory": true
-                    }
-                ]
-            },
-            {
-                "program": "Senior Scholar",
-                "rules": [
-                    {
-                        "rule_type": "age",
-                        "operator": "<",
-                        "rule_value": "50",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "minimum_degree",
-                        "operator": ">=",
-                        "rule_value": "Master",
-                        "mandatory": true
-                    },
-                    {
-                        "rule_type": "language_exam",
-                        "operator": ">=",
-                        "rule_value": "HSK 3",
-                        "mandatory": true
+                        "rule_type": "language_proficiency",
+                        "operator": "=",
+                        "rule_value": "University admission requirements",
+                        "category": "language",
+                        "study_language": "Non-Chinese",
+                        "mandatory": true,
+                        "condition": {
+                            "field": "study_language",
+                            "operator": "!=",
+                            "value": "Chinese"
+                        },
+                        "source_sentence": "11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
                     }
                 ]
             }
@@ -226,59 +198,108 @@
         },
         {
             "document_name": "Ordinary Passport",
+            "requirement": "Submit a clear scanned copy of the information page of the ordinary passport.",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Applicants are required to submit a clear scanned copy of the information page of their ordinary passports"
+        },
+        {
+            "document_name": "Ordinary Passport",
             "requirement": "Submit a clear scanned copy of the information page of the ordinary passport. The passport should have at least 12 months validity from the expected start date.",
             "condition_text": null,
             "mandatory": true,
-            "source_sentence": "Applicants are required to submit a clear scanned copy of the information page of their ordinary passports. If the validity period of the currently held passport is less than 12 months (calculated from the expected start date of study), please renew the passport and use it to complete the scholarship application. An applicant who fails to apply for a passport due to objective reasons may submit valid documentation or documentary evidence that carries information about the full English name, gender, nationality and date of birth of the applicant upon the approval of the application receiving agency"
+            "source_sentence": "If the validity period of the currently held passport is less than 12 months (calculated from the expected start date of study), please renew the passport and use it to complete the scholarship application"
+        },
+        {
+            "document_name": "Ordinary Passport",
+            "requirement": "Submit a clear scanned copy of the information page of the ordinary passport.",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "An applicant who fails to apply for a passport due to objective reasons may submit valid documentation or documentary evidence that carries information about the full English name, gender, nationality and date of birth of the applicant upon the approval of the application receiving agency"
         },
         {
             "document_name": "Diploma and Highest Education Certificate",
-            "requirement": "Diploma and certificate of highest education (notarized photocopy). An applicant who is a current university student shall submit the certificate of expected graduation or student status issued by his/her university",
+            "requirement": "Diploma and certificate of highest education (notarized photocopy)",
             "condition_text": null,
             "mandatory": true,
-            "source_sentence": "Diploma and certificate of highest education (notarized photocopy). An applicant who is a current university student shall submit the certificate of expected graduation or student status issued by his/her university"
+            "source_sentence": "Diploma and certificate of highest education (notarized photocopy)"
+        },
+        {
+            "document_name": "Diploma and Highest Education Certificate",
+            "requirement": "An applicant who is a current university student shall submit the certificate of expected graduation or student status issued by his/her university",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "An applicant who is a current university student shall submit the certificate of expected graduation or student status issued by his/her university"
         },
         {
             "document_name": "Academic Records",
-            "requirement": "Academic records. Academic records in languages other than Chinese or English shall be attached with notarized translations in Chinese or English",
+            "requirement": "Academic records",
             "condition_text": null,
             "mandatory": true,
-            "source_sentence": "Academic records. Academic records in languages other than Chinese or English shall be attached with notarized translations in Chinese or English"
+            "source_sentence": "Academic records"
+        },
+        {
+            "document_name": "Academic Records",
+            "requirement": "Academic records in languages other than Chinese or English shall be attached with notarized translations in Chinese or English",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Academic records in languages other than Chinese or English shall be attached with notarized translations in Chinese or English"
         },
         {
             "document_name": "Language Qualification Certificates",
-            "requirement": "Language qualification certificates. Applicants for master's, doctoral, general scholar, and senior scholar programs taught in Chinese must submit a valid HSK score report that meets the corresponding Chinese language proficiency requirements. Applicants for programs taught in other languages are required to provide relevant language proficiency certificates, such as IELTS or TOEFL score reports, in accordance with the requirements of each university",
-            "condition_text": "Master's, doctoral, general scholar, or senior scholar program",
+            "requirement": "Language qualification certificates",
+            "condition_text": null,
             "mandatory": true,
-            "source_sentence": "Language qualification certificates. Applicants for master's, doctoral, general scholar, and senior scholar programs taught in Chinese must submit a valid HSK score report that meets the corresponding Chinese language proficiency requirements. Applicants for programs taught in other languages are required to provide relevant language proficiency certificates, such as IELTS or TOEFL score reports, in accordance with the requirements of each university"
+            "source_sentence": "Language qualification certificates"
+        },
+        {
+            "document_name": "Language Qualification Certificates",
+            "requirement": "Applicants for programs taught in other languages are required to provide relevant language proficiency certificates, such as IELTS or TOEFL score reports, in accordance with the requirements of each university",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Applicants for programs taught in other languages are required to provide relevant language proficiency certificates, such as IELTS or TOEFL score reports, in accordance with the requirements of each university"
         },
         {
             "document_name": "CSCA Score Report",
-            "requirement": "CSCA Score Report. Applicants seeking to pursue a bachelor's degree must register for and take the CSCA before the application deadline, and obtain a valid Score Report. Please contact the target institution to inquire about and obtain the required test subjects for the applied major",
+            "requirement": "CSCA Score Report",
             "condition_text": "Applicants seeking to pursue a bachelor's degree",
             "mandatory": true,
-            "source_sentence": "CSCA Score Report. Applicants seeking to pursue a bachelor's degree must register for and take the CSCA before the application deadline, and obtain a valid Score Report. Please contact the target institution to inquire about and obtain the required test subjects for the applied major"
+            "source_sentence": "CSCA Score Report"
         },
         {
             "document_name": "Pre-Admission Documents",
-            "requirement": "PreAdmission Documents. All applicants must provide a preadmission document issued by the universities applying. Preadmission documents include preadmission notice issued by the international students' admission department or invitation letter from the schools or professors, etc",
+            "requirement": "Pre-Admission Documents",
             "condition_text": "All applicants",
             "mandatory": true,
-            "source_sentence": "PreAdmission Documents. All applicants must provide a preadmission document issued by the universities applying. Preadmission documents include preadmission notice issued by the international students' admission department or invitation letter from the schools or professors, etc"
+            "source_sentence": "Pre-Admission Documents"
+        },
+        {
+            "document_name": "Pre-Admission Documents",
+            "requirement": "Pre-admission documents include pre-admission notice issued by the international students' admission department or invitation letter from the schools or professors, etc",
+            "condition_text": "All applicants",
+            "mandatory": true,
+            "source_sentence": "Pre-admission documents include pre-admission notice issued by the international students' admission department or invitation letter from the schools or professors, etc"
         },
         {
             "document_name": "Study or Research Plan",
-            "requirement": "A study or research plan written in Chinese or in English (no less than 200 words/characters for undergraduates. no less than 500 words/characters for scholars. no less than 1000 words/characters for postgraduates)",
+            "requirement": "A study or research plan written in Chinese or in English (no less than 200 words/characters for undergraduates; no less than 500 words/characters for scholars; no less than 1000 words/characters for postgraduates)",
             "condition_text": null,
             "mandatory": true,
-            "source_sentence": "A study or research plan written in Chinese or in English (no less than 200 words/characters for undergraduates. no less than 500 words/characters for scholars. no less than 1000 words/characters for postgraduates)"
+            "source_sentence": "A study or research plan written in Chinese or in English (no less than 200 words/characters for undergraduates; no less than 500 words/characters for scholars; no less than 1000 words/characters for postgraduates)"
         },
         {
             "document_name": "Recommendation Letters",
-            "requirement": "Recommendation letters. An applicant for a postgraduate program or for academic education as a senior scholar shall submit two recommendation letters in Chinese or in English from professors or associate professors",
+            "requirement": "Recommendation letters",
+            "condition_text": null,
+            "mandatory": true,
+            "source_sentence": "Recommendation letters"
+        },
+        {
+            "document_name": "Recommendation Letters",
+            "requirement": "An applicant for a postgraduate program or for academic education as a senior scholar shall submit two recommendation letters in Chinese or in English from professors or associate professors",
             "condition_text": "Master's, doctoral, general scholar, or senior scholar program",
             "mandatory": true,
-            "source_sentence": "Recommendation letters. An applicant for a postgraduate program or for academic education as a senior scholar shall submit two recommendation letters in Chinese or in English from professors or associate professors"
+            "source_sentence": "An applicant for a postgraduate program or for academic education as a senior scholar shall submit two recommendation letters in Chinese or in English from professors or associate professors"
         },
         {
             "document_name": "Portfolio / Own Works",
@@ -296,17 +317,24 @@
         },
         {
             "document_name": "Foreigner Physical Examination Form",
-            "requirement": "An applicant to study in China for more than six months shall submit a photocopy of the Foreigner Physical Examination Form (the original document, printed by Chinese quarantine authorities, shall be filled in in English and kept by the applicant). The medical examinations must cover all the items listed in the Foreigner Physical Examination Form. Incomplete records or those without the signature of the attending physician, the official stamp of the hospital, or a sealed photograph of the applicant are invalid. Medical examination results are valid for only six months",
+            "requirement": "An applicant to study in China for more than six months shall submit a photocopy of the Foreigner Physical Examination Form (the original document, printed by Chinese quarantine authorities, shall be filled in in English and kept by the applicant)",
             "condition_text": "Applicants studying in China for more than six months",
             "mandatory": true,
-            "source_sentence": "An applicant to study in China for more than six months shall submit a photocopy of the Foreigner Physical Examination Form (the original document, printed by Chinese quarantine authorities, shall be filled in in English and kept by the applicant). The medical examinations must cover all the items listed in the Foreigner Physical Examination Form. Incomplete records or those without the signature of the attending physician, the official stamp of the hospital, or a sealed photograph of the applicant are invalid. Medical examination results are valid for only six months"
+            "source_sentence": "An applicant to study in China for more than six months shall submit a photocopy of the Foreigner Physical Examination Form (the original document, printed by Chinese quarantine authorities, shall be filled in in English and kept by the applicant)"
+        },
+        {
+            "document_name": "Foreigner Physical Examination Form",
+            "requirement": "The medical examinations must cover all the items listed in the Foreigner Physical Examination Form",
+            "condition_text": "Applicants studying in China for more than six months",
+            "mandatory": true,
+            "source_sentence": "The medical examinations must cover all the items listed in the Foreigner Physical Examination Form"
         },
         {
             "document_name": "Certificate of Non-Criminal Record",
-            "requirement": "An applicant shall submit a valid Certificate of NonCriminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application",
+            "requirement": "An applicant shall submit a valid Certificate of Non-Criminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application. ----------------------",
             "condition_text": null,
             "mandatory": true,
-            "source_sentence": "An applicant shall submit a valid Certificate of NonCriminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application"
+            "source_sentence": "An applicant shall submit a valid Certificate of Non-Criminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application. ----------------------"
         }
     ],
     "coverage": [
@@ -379,43 +407,43 @@
     "contact": [
         {
             "contact_type": "email",
-            "value": "asiaadmission@csc.edu.cn"
+            "value": "asia-admission@csc.edu.cn"
         },
         {
             "contact_type": "email",
-            "value": "africaadmission@csc.edu.cn"
+            "value": "africa-admission@csc.edu.cn"
         },
         {
             "contact_type": "email",
-            "value": "europeadmission@csc.edu.cn"
+            "value": "europe-admission@csc.edu.cn"
         },
         {
             "contact_type": "email",
-            "value": "americasadmission@csc.edu.cn"
+            "value": "americas-admission@csc.edu.cn"
         },
         {
             "contact_type": "email",
-            "value": "oceaniaadmission@csc.edu.cn"
+            "value": "oceania-admission@csc.edu.cn"
         },
         {
             "contact_type": "phone",
-            "value": "00861066093584"
+            "value": "0086-10-66093584"
         },
         {
             "contact_type": "phone",
-            "value": "00861066093924"
+            "value": "0086-10-66093924"
         },
         {
             "contact_type": "phone",
-            "value": "00861066093921"
+            "value": "0086-10-66093921"
         },
         {
             "contact_type": "phone",
-            "value": "00861066093578"
+            "value": "0086-10-66093578"
         },
         {
             "contact_type": "fax",
-            "value": "00861066093972"
+            "value": "0086-10-66093972"
         },
         {
             "contact_type": "website",
