@@ -5,6 +5,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class ScholarshipProgramInput(BaseModel):
     program: str = Field(min_length=1)
+    degree_level: list[str] = Field(default_factory=list)
     duration: str | None = None
     study_language: list[str] = Field(default_factory=list)
 

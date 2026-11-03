@@ -2,18 +2,9 @@ import re
 
 
 def extract_health(sentence):
-
-    results = []
-
-    pattern = r"good\s+health"
-
-    if re.search(pattern, sentence, re.IGNORECASE):
-
-        results.append({
-            "rule_type": "health",
-            "operator": "=",
-            "rule_value": "Good",
-            "mandatory": True
-        })
-
-    return results
+    if re.search(r"\bgood\s+health\b", sentence, re.IGNORECASE):
+        return [{
+            "rule_type": "health", "operator": "=", "rule_value": "Good",
+            "category": "academic", "mandatory": True, "source_sentence": sentence,
+        }]
+    return []

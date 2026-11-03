@@ -4,6 +4,22 @@ import mysql.connector
 import json 
 
 
+def decode_json_list(value):
+    if value is None:
+        return []
+
+    if isinstance(value, list):
+        return value
+
+    if isinstance(value, str):
+        try:
+            decoded = json.loads(value)
+            return decoded if isinstance(decoded, list) else []
+        except json.JSONDecodeError:
+            return []
+
+    return []
+
 
 def insert_china_full_scholarship(final_data):
     connection = get_db_connection()
@@ -261,7 +277,6 @@ def get_sections_by_scholarship_id(scholarship_id):
 # ---------------------------------------------------------------------------
 # Insert All Rule Extracted Data of the Chinese Scholarship into the database
 # ---------------------------------------------------------------------------
-
 def insert_scholarship_programs(scholarship_id, programs):
 
     connection = get_db_connection()
@@ -273,25 +288,25 @@ def insert_scholarship_programs(scholarship_id, programs):
 
     try:
 
-        # Insert new / update existing
         query = """
         INSERT INTO scholarship_programs
         (
             scholarship_id,
             program_name,
+            degree_level,
             duration,
             languages
         )
-        VALUES (%s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s)
 
         ON DUPLICATE KEY UPDATE
+            degree_level = VALUES(degree_level),
             duration = VALUES(duration),
             languages = VALUES(languages)
         """
 
-        # Check existing data
         check_query = """
-        SELECT duration, languages
+        SELECT degree_level, duration, languages
         FROM scholarship_programs
         WHERE scholarship_id = %s
           AND program_name = %s
@@ -300,34 +315,39 @@ def insert_scholarship_programs(scholarship_id, programs):
         for program in programs:
 
             program_name = program["program"]
+            degree_level = program.get("degree_level", [])
             duration = program.get("duration")
-
             languages = program.get("study_language", [])
 
-            # Convert list to JSON string
-            if isinstance(languages, list):
-                languages = json.dumps(
-                    languages,
-                    ensure_ascii=False
+            # Validate array fields
+            if not isinstance(degree_level, list):
+                raise ValueError(
+                    "degree_level must be a list of subjects."
                 )
 
-            # --------------------------------
-            # Check if program already exists
-            # --------------------------------
+            if not isinstance(languages, list):
+                raise ValueError(
+                    "study_language must be a list."
+                )
 
+            # Convert arrays to JSON strings
+            degree_level_json = json.dumps(
+                degree_level,
+                ensure_ascii=False
+            )
+
+            languages_json = json.dumps(
+                languages,
+                ensure_ascii=False
+            )
+
+            # Check existing program
             cursor.execute(
                 check_query,
-                (
-                    scholarship_id,
-                    program_name
-                )
+                (scholarship_id, program_name)
             )
 
             existing = cursor.fetchone()
-
-            # --------------------------------
-            # NEW PROGRAM
-            # --------------------------------
 
             if existing is None:
 
@@ -336,31 +356,29 @@ def insert_scholarship_programs(scholarship_id, programs):
                     (
                         scholarship_id,
                         program_name,
+                        degree_level_json,
                         duration,
-                        languages
+                        languages_json
                     )
                 )
 
                 inserted += 1
 
-            # --------------------------------
-            # EXISTING PROGRAM
-            # --------------------------------
-
             else:
 
-                old_duration = existing[0]
-                old_languages = existing[1]
+                old_degree_level = decode_json_list(existing[0])
+                old_duration = existing[1]
+                old_languages = decode_json_list(existing[2])
 
-                # Same data
+                # Compare all fields
                 if (
-                    old_duration == duration
+                    old_degree_level == degree_level
+                    and old_duration == duration
                     and old_languages == languages
                 ):
 
                     unchanged += 1
 
-                # Data changed
                 else:
 
                     cursor.execute(
@@ -368,18 +386,15 @@ def insert_scholarship_programs(scholarship_id, programs):
                         (
                             scholarship_id,
                             program_name,
+                            degree_level_json,
                             duration,
-                            languages
+                            languages_json
                         )
                     )
 
                     updated += 1
 
         connection.commit()
-
-        # --------------------------------
-        # Return processing result
-        # --------------------------------
 
         if inserted > 0 and updated == 0 and unchanged == 0:
 
@@ -409,10 +424,10 @@ def insert_scholarship_programs(scholarship_id, programs):
             "unchanged": unchanged
         }
 
-    except mysql.connector.Error as err:
+    except Exception:
 
         connection.rollback()
-        raise err
+        raise
 
     finally:
 
