@@ -927,10 +927,12 @@ const [documentsLoading, setDocumentsLoading] = useState(true);
 const [documentsError, setDocumentsError] = useState("");
 
 // Fetch documents from the backend.
-
-const loadDocuments = useCallback(async () => {
+const loadDocuments = useCallback(async (showLoading = true) => {
     try {
-        setDocumentsLoading(true);
+        if (showLoading) {
+            setDocumentsLoading(true);
+        }
+
         setDocumentsError("");
 
         const savedDocuments = await getStudentDocuments();
@@ -940,14 +942,12 @@ const loadDocuments = useCallback(async () => {
         return savedDocuments;
     } catch (error) {
         console.error("Failed to load student documents:", error);
-
-        setDocumentsError(
-            error.message || "Unable to load documents."
-        );
-
+        setDocumentsError(error.message || "Unable to load documents.");
         return [];
     } finally {
-        setDocumentsLoading(false);
+        if (showLoading) {
+            setDocumentsLoading(false);
+        }
     }
 }, []);
 
@@ -958,11 +958,10 @@ useEffect(() => {
         loadDocuments();
     }, 0);
 
-    return () => clearTimeout(timeoutId);
+    return () => clearTimeout(timeoutId)
 }, [loadDocuments]);
 
 // Save document metadata to SQL.
-
 const addDocument = async (documentData, file = null) => {
     try {
         const result = await saveStudentDocument({
@@ -971,7 +970,7 @@ const addDocument = async (documentData, file = null) => {
             file,
         });
 
-        await loadDocuments();
+        await loadDocuments(false);
 
         return result;
     } catch (error) {
@@ -979,14 +978,12 @@ const addDocument = async (documentData, file = null) => {
         throw error;
     }
 };
-
 // Remove document from SQL.
-
 const removeChecklistDocument = async (checklistId) => {
     try {
         const result = await deleteStudentDocument(checklistId);
 
-        await loadDocuments();
+        await loadDocuments(false);
 
         return result;
     } catch (error) {
@@ -994,7 +991,6 @@ const removeChecklistDocument = async (checklistId) => {
         throw error;
     }
 };
-
 
     // ========================================================
     // SETTINGS

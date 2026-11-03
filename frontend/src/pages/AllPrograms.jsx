@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import {
   CalendarCheck,
   ChevronLeft,
@@ -8,39 +9,117 @@ import {
   Search,
   Sparkles,
 } from "lucide-react";
-import programs from "../data/programs.json"
+
+import programs from "../data/programs.json";
 import universities from "../data/universities.json";
 import opportunities from "../data/opportunities.json";
+
 import ProgramCard from "../components/ReusableComp/discover/ProgramCard";
 import UniversityCard from "../components/ReusableComp/discover/UniversityCard";
 import OpportunityCard from "../components/ReusableComp/discover/OpportunityCard";
+
 import { NavLink, useParams } from "react-router";
 import { useChatbot } from "../context/AiChatbot/useChatbot";
 
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
+).replace(/\/+$/, "");
 
 const AllPrograms = () => {
   const { openChatbot } = useChatbot();
   const { type } = useParams();
 
   const activeTab = type || "programs";
+
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Database scholarships
+  const [scholarships, setScholarships] = useState([]);
+  const [scholarshipLoading, setScholarshipLoading] = useState(false);
+  const [scholarshipError, setScholarshipError] = useState("");
+
+  // Fetch database scholarships only on the opportunities page
+  useEffect(() => {
+    if (activeTab !== "opportunities") return;
+
+    const controller = new AbortController();
+
+    const fetchScholarships = async () => {
+      try {
+        setScholarshipLoading(true);
+        setScholarshipError("");
+
+        const response = await fetch(`${API_BASE_URL}/api/scholarships/`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error("Unable to load database scholarships.");
+        }
+
+        const result = await response.json();
+
+        if (!result.success || !Array.isArray(result.data)) {
+          throw new Error("Invalid scholarship API response.");
+        }
+
+        setScholarships(result.data);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setScholarshipError(error.message);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setScholarshipLoading(false);
+        }
+      }
+    };
+
+    fetchScholarships();
+
+    return () => controller.abort();
+  }, [activeTab]);
+
+  // Reset pagination when switching tabs
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab]);
+
   const cardsPerPage = 12;
-  // data according to active tab
+
+  // Combine JSON opportunities and MySQL scholarships
+  const databaseScholarships = scholarships.map((scholarship) => ({
+    ...scholarship,
+    id: `scholarship-${scholarship.id}`,
+    databaseId: scholarship.id,
+    source: "database",
+  }));
+
+  // Select data according to active tab
   const data =
     activeTab === "programs"
       ? programs
       : activeTab === "universities"
         ? universities
-        : opportunities;
+        : activeTab === "opportunities"
+          ? [...opportunities, ...databaseScholarships]
+          : [];
 
+  // Filter options
   const filterOptions =
     activeTab === "programs"
-      ? [...new Set(programs.map((program) => program.category).filter(Boolean))]
-      : [...new Set(data.map((item) => item.country).filter(Boolean))];
+      ? [
+          ...new Set(
+            programs.map((program) => program.category).filter(Boolean)
+          ),
+        ]
+      : [
+          ...new Set(data.map((item) => item.country).filter(Boolean)),
+        ];
 
+  // Search and filter
   const filtered = data.filter((item) => {
     const text = [
       item.title,
@@ -50,6 +129,7 @@ const AllPrograms = () => {
       item.provider,
       item.category,
       item.type,
+      item.scholarship_type,
     ]
       .filter(Boolean)
       .join(" ")
@@ -68,12 +148,9 @@ const AllPrograms = () => {
 
   // Pagination
   const totalPages = Math.ceil(filtered.length / cardsPerPage);
-
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-
   const paginatedData = filtered.slice(startIndex, endIndex);
-
 
   return (
     <section className="relative bg-slate-50">
@@ -82,8 +159,8 @@ const AllPrograms = () => {
         <div className="absolute -top-40 left-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
-      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 pt-40">
 
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 pt-40">
         {/* Hero */}
         <div className="text-center">
           <h1 className="text-4xl sm:text-5xl font-semibold flex flex-col mx-auto">
@@ -91,13 +168,13 @@ const AllPrograms = () => {
           </h1>
 
           <p className="mt-4 text-gray-600">
-            Browse Programs, Universities and Scholarships worldwide and choose the best that fits you most.
+            Browse Programs, Universities and Scholarships worldwide and choose
+            the best that fits you most.
           </p>
         </div>
 
         {/* Search & Filter */}
         <div className="max-w-4xl mx-auto mt-8 flex flex-col sm:flex-row gap-3">
-
           {/* Search */}
           <div className="relative flex-1">
             <Search
@@ -168,9 +245,8 @@ const AllPrograms = () => {
           </div>
         </div>
 
-        {/* Stats */}
+        {/* Stats / Tabs */}
         <div className="flex justify-center gap-2 sm:gap-4 mt-14">
-
           <NavLink
             to="/programs"
             onClick={() => {
@@ -178,10 +254,11 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-4 sm:px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "programs"
+            className={`px-4 sm:px-6 py-3 flex flex-col items-center rounded-full transition ${
+              activeTab === "programs"
                 ? "bg-sky-500 text-white"
                 : "bg-white text-slate-700 hover:bg-slate-100"
-              }`}
+            }`}
           >
             {programs.length} <span>Programs</span>
           </NavLink>
@@ -193,10 +270,11 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "universities"
+            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${
+              activeTab === "universities"
                 ? "bg-sky-500 text-white"
                 : "bg-white text-slate-700 hover:bg-slate-100"
-              }`}
+            }`}
           >
             {universities.length} <span>Universities</span>
           </NavLink>
@@ -208,36 +286,32 @@ const AllPrograms = () => {
               setSearch("");
               setCurrentPage(1);
             }}
-            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${activeTab === "opportunities"
-              ? "bg-sky-500 text-white"
-              : "bg-white text-slate-700 hover:bg-slate-100"
-              }`}
+            className={`px-6 py-3 flex flex-col items-center rounded-full transition ${
+              activeTab === "opportunities"
+                ? "bg-sky-500 text-white"
+                : "bg-white text-slate-700 hover:bg-slate-100"
+            }`}
           >
-            {opportunities.length} <span>Opportunities</span>
+            {opportunities.length + scholarships.length}
+            <span>Opportunities</span>
           </NavLink>
-
         </div>
 
         {/* Cards */}
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
-
-          {/* for program card */}
+          {/* Program cards */}
           {activeTab === "programs" &&
             paginatedData.map((program) => (
-              <ProgramCard
-                key={program.id}
-                program={program}
-              />
+              <ProgramCard key={program.id} program={program} />
             ))}
-          {/* for university card */}
+
+          {/* University cards */}
           {activeTab === "universities" &&
             paginatedData.map((university) => (
-              <UniversityCard
-                key={university.id}
-                university={university}
-              />
+              <UniversityCard key={university.id} university={university} />
             ))}
-          {/* for opportunity card */}
+
+          {/* Opportunity cards: JSON + MySQL */}
           {activeTab === "opportunities" &&
             paginatedData.map((opportunity) => (
               <OpportunityCard
@@ -245,24 +319,41 @@ const AllPrograms = () => {
                 opportunity={opportunity}
               />
             ))}
-
         </div>
+
+        {/* Scholarship loading and error messages */}
+        {activeTab === "opportunities" && scholarshipLoading && (
+          <p className="mt-8 text-center text-sky-600">
+            Loading database scholarships...
+          </p>
+        )}
+
+        {activeTab === "opportunities" && scholarshipError && (
+          <p className="mt-8 text-center text-red-500">
+            {scholarshipError}
+          </p>
+        )}
+
+        {/* Empty state */}
+        {!scholarshipLoading && !filtered.length && (
+          <p className="mt-8 text-center text-slate-500">
+            No results found.
+          </p>
+        )}
 
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-12 flex flex-wrap items-center justify-center gap-2">
-
             {/* Previous */}
             <button
               type="button"
-              onClick={() =>
-                setCurrentPage((page) => Math.max(page - 1, 1))
-              }
+              onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
               disabled={currentPage === 1}
-              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${currentPage === 1
-                ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300"
-                : "border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-600"
-                }`}
+              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
+                currentPage === 1
+                  ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300"
+                  : "border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-600"
+              }`}
               aria-label="Previous page"
             >
               <ChevronLeft size={18} />
@@ -275,10 +366,11 @@ const AllPrograms = () => {
                   key={page}
                   type="button"
                   onClick={() => setCurrentPage(page)}
-                  className={`h-10 min-w-10 rounded-xl px-3 text-sm font-medium transition-all ${currentPage === page
-                    ? "bg-sky-500 text-white shadow-sm shadow-sky-200"
-                    : "border border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-600"
-                    }`}
+                  className={`h-10 min-w-10 rounded-xl px-3 text-sm font-medium transition-all ${
+                    currentPage === page
+                      ? "bg-sky-500 text-white shadow-sm shadow-sky-200"
+                      : "border border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-600"
+                  }`}
                 >
                   {page}
                 </button>
@@ -289,33 +381,29 @@ const AllPrograms = () => {
             <button
               type="button"
               onClick={() =>
-                setCurrentPage((page) =>
-                  Math.min(page + 1, totalPages)
-                )
+                setCurrentPage((page) => Math.min(page + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${currentPage === totalPages
-                ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300"
-                : "border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-600"
-                }`}
+              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
+                currentPage === totalPages
+                  ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300"
+                  : "border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-600"
+              }`}
               aria-label="Next page"
             >
               <ChevronRight size={18} />
             </button>
           </div>
         )}
-
       </div>
 
       {/* CTA Banner */}
       <div className="max-w-7xl mx-auto sm:px-6 pb-20">
         <div className="relative mt-14 overflow-hidden sm:rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 p-6 lg:p-8 text-white shadow-2xl">
-
           <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
           <div className="absolute -bottom-12 left-20 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"></div>
 
           <div className="relative flex flex-col items-center justify-between gap-8 lg:flex-row">
-
             <div className="max-w-2xl">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm backdrop-blur">
                 <Sparkles size={16} />
@@ -334,7 +422,6 @@ const AllPrograms = () => {
             </div>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-blue-100">
-
               <div className="flex items-center gap-2">
                 ✓ Free Consultation
               </div>
@@ -346,26 +433,24 @@ const AllPrograms = () => {
               <div className="flex items-center gap-2">
                 ✓ Trusted by Students
               </div>
-
             </div>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <NavLink to="/book-consultation" className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1
-hover:shadow-xl
-active:translate-y-0
-transition-all
-duration-300">
+              <NavLink
+                to="/book-consultation"
+                className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 hover:-translate-y-1 hover:shadow-xl active:translate-y-0 transition-all duration-300"
+              >
                 <span className="flex items-center gap-2">
                   <CalendarCheck size={18} />
                   Book Consultation
                 </span>
               </NavLink>
 
-              <button type="button" onClick={openChatbot} className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1
-hover:shadow-xl
-active:translate-y-0
-transition-all
-duration-300">
+              <button
+                type="button"
+                onClick={openChatbot}
+                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold backdrop-blur hover:-translate-y-1 hover:shadow-xl active:translate-y-0 transition-all duration-300"
+              >
                 <span className="flex items-center gap-2">
                   <MessageSquareText size={18} />
                   Chat with AI

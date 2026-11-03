@@ -1,53 +1,16 @@
 import re
 
 PROGRAMS = [
-    ("Undergraduate", [
-        "undergraduate",
-        "bachelor",
-        "bachelor program",
-        "bachelor's"
-    ]),
-
-    ("Master", [
-        "master",
-        "master program",
-        "master's"
-    ]),
-
-    ("Doctoral", [
-        "doctoral",
-        "doctor",
-        "phd"
-    ]),
-
-    ("General Scholar", [
-        "general scholar"
-    ]),
-
-    ("Senior Scholar", [
-        "senior scholar"
-    ])
+    ("Undergraduate", r"\bundergraduate\b|\bbachelor(?:'s|’s)?\s+programs?\b"),
+    ("Master", r"\bmaster(?:'s|’s)?(?:\s+or\s+doctoral)?\s+programs?\b|\bmaster(?:'s|’s)?\s+or\s+doctoral\s+program\b"),
+    ("Doctoral", r"\bdoctoral\s+programs?\b|\bphd\s+programs?\b|\bmaster(?:'s|’s)?\s+or\s+doctoral\s+program\b"),
 ]
 
 
-def program_name(sentence):
-
-    facts = []
-
-    lower = sentence.lower()
-
-    for name, keywords in PROGRAMS:
-
-        for keyword in keywords:
-
-            if keyword in lower:
-
-                facts.append({
-
-                    "program": name
-
-                })
-
-                break
-
-    return facts
+def program_name(text):
+    """Return only explicitly mentioned target programs in current scope."""
+    found = []
+    for name, pattern in PROGRAMS:
+        if re.search(pattern, text, re.IGNORECASE):
+            found.append({"program": name})
+    return found

@@ -9,6 +9,8 @@ from api.profile import router as profile_router
 from api.scholarships import router as scholarships_router
 from api.admin_scholarships import router as admin_scholarships_router
 from api.student_documents import router as student_documents_router
+from api.matching import router as matching_router
+
 from database.connection import get_db_connection
 
 
@@ -63,3 +65,5 @@ app.include_router(student_documents_router)
 app.include_router(scholarships_router)
 
 app.include_router(admin_scholarships_router)
+
+app.include_router(matching_router)

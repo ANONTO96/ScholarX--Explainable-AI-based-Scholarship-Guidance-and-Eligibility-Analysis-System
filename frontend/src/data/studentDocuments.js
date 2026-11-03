@@ -34,7 +34,15 @@ async function documentRequest(path = "", options = {}) {
 
 export async function getStudentDocuments() {
     const result = await documentRequest();
-    return result.documents || [];
+
+    return (result.documents || []).map((document) => ({
+        checklistId: document.checklist_id,
+        hasDocument: Boolean(document.has_document),
+        originalFilename: document.original_filename,
+        fileSizeBytes: document.file_size_bytes,
+        createdAt: document.created_at,
+        updatedAt: document.updated_at,
+    }));
 }
 
 export async function saveStudentDocument({

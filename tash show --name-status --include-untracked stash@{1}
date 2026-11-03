@@ -1,0 +1,30 @@
+ backend/ai.zip                                     | Bin [31m0[m -> [32m63750[m bytes
+ backend/ai/china/eligibility/__init__.py           |   0
+ .../__pycache__/__init__.cpython-314.pyc           | Bin [31m245[m -> [32m0[m bytes
+ .../eligibility/__pycache__/age.cpython-314.pyc    | Bin [31m1213[m -> [32m2400[m bytes
+ .../__pycache__/citizenship.cpython-314.pyc        | Bin [31m785[m -> [32m1217[m bytes
+ .../eligibility/__pycache__/degree.cpython-314.pyc | Bin [31m965[m -> [32m1633[m bytes
+ .../eligibility/__pycache__/exam.cpython-314.pyc   | Bin [31m704[m -> [32m907[m bytes
+ .../__pycache__/extractor.cpython-314.pyc          | Bin [31m3043[m -> [32m2999[m bytes
+ .../eligibility/__pycache__/health.cpython-314.pyc | Bin [31m721[m -> [32m706[m bytes
+ .../__pycache__/language.cpython-314.pyc           | Bin [31m814[m -> [32m2397[m bytes
+ backend/ai/china/eligibility/age.py                |  88 [32m+++[m[31m---[m
+ backend/ai/china/eligibility/citizenship.py        |  26 [32m+[m[31m-[m
+ backend/ai/china/eligibility/degree.py             |  59 [32m++[m[31m--[m
+ backend/ai/china/eligibility/exam.py               |  22 [32m+[m[31m-[m
+ backend/ai/china/eligibility/extractor.py          | 210 [32m+++[m[31m-----------[m
+ backend/ai/china/eligibility/health.py             |  21 [32m+[m[31m-[m
+ backend/ai/china/eligibility/language.py           |  77 [32m++++[m[31m-[m
+ backend/ai/china/extracted_rule.json               | 320 [32m+++++++++++[m[31m----------[m
+ .../extract_program_name.cpython-314.pyc           | Bin [31m1035[m -> [32m1072[m bytes
+ .../program/__pycache__/merge.cpython-314.pyc      | Bin [31m898[m -> [32m933[m bytes
+ backend/ai/china/program/extract_program_name.py   |  57 [32m+[m[31m---[m
+ backend/ai/china/program/merge.py                  |  28 [32m+[m[31m-[m
+ backend/ai/china/runner.py                         |  44 [32m+[m[31m--[m
+ backend/ai/china/test_eligibility_regex.py         |  55 [32m++++[m
+ .../__pycache__/sentence_splitter.cpython-314.pyc  | Bin [31m1227[m -> [32m1285[m bytes
+ backend/ai/common/sentence_splitter.py             |  36 [32m+[m[31m--[m
+ backend/database/queries/id_by_countries.py        |  18 [32m+[m[31m-[m
+ backend/database/queries/scholarship_queries.py    | 252 [32m++++++[m[31m----------[m
+ backend/test_hsk.py                                |  13 [32m+[m
+ 29 files changed, 625 insertions(+), 701 deletions(-)
