@@ -13,7 +13,7 @@ const ProgramCard = ({ program }) => {
         <div
             key={program.id}
             className="
-                group relative overflow-hidden
+                group h-full flex flex-col relative overflow-hidden
                 rounded-3xl
                 border border-sky-100
                 bg-white
@@ -40,7 +40,7 @@ const ProgramCard = ({ program }) => {
                 "
             />
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-1 flex-col">
 
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4">
@@ -148,7 +148,7 @@ const ProgramCard = ({ program }) => {
                 </div>
 
                 {/* Statistics */}
-                <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="my-5 grid grid-cols-2 gap-3">
 
                     <div
                         className="
@@ -210,24 +210,24 @@ const ProgramCard = ({ program }) => {
 
                 {/* CTA */}
                 <NavLink
-                    to={`/programDetails/${program.slug}`}
-                    className="
-                        group/link
-                        mt-5
-                        flex w-full
-                        items-center justify-between
-                        rounded-2xl
-                        border border-sky-100
-                        bg-sky-50
-                        px-4 py-3
-                        text-sm font-semibold
-                        text-sky-700
-                        transition-all duration-300
-                        hover:border-sky-200
-                        hover:bg-sky-100
-                        hover:text-sky-800
-                    "
-                >
+    to={`/programDetails/${program.slug}`}
+    className="
+        group/link
+        mt-auto
+        flex w-full
+        items-center justify-between
+        rounded-2xl
+        border border-sky-100
+        bg-sky-50
+        px-4 py-3
+        text-sm font-semibold
+        text-sky-700
+        transition-all duration-300
+        hover:border-sky-200
+        hover:bg-sky-100
+        hover:text-sky-800
+    "
+>
                     <span>Explore Program</span>
 
                     <span
