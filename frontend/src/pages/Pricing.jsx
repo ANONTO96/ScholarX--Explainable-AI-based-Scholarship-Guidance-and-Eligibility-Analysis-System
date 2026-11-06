@@ -205,7 +205,7 @@ const plans = [
   {
     name: "Basic",
     icon: Sparkles,
-    price: "৳999",
+    price: "৳499",
     duration: "30-Day Access",
     badge: "Most Popular",
     description:
@@ -228,7 +228,7 @@ const plans = [
   {
     name: "Premium",
     icon: Crown,
-    price: "৳1999",
+    price: "৳999",
     duration: "30-Day Access",
     description:
       "Complete AI-powered application preparation to maximize your admission and scholarship opportunities with expert guidance.",

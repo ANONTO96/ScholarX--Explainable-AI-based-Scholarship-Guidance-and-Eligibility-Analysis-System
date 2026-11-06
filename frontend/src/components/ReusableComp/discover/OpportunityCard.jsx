@@ -59,7 +59,7 @@ const OpportunityCard = ({ opportunity }) => {
   return (
     <div
       className="
-        group relative overflow-hidden
+        group h-full flex flex-col relative overflow-hidden
         rounded-3xl
         border border-sky-100
         bg-white
@@ -85,67 +85,72 @@ const OpportunityCard = ({ opportunity }) => {
         "
       />
 
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-1 flex-col">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4">
-          {/* Opportunity Icon + Title */}
-          <div className="flex min-w-0 items-start gap-3">
-            <div
-              className="
-                flex h-12 w-12 shrink-0
-                items-center justify-center
-                rounded-2xl
-                border border-sky-100
-                bg-sky-50
-                text-sky-600
-                transition-all duration-300
-                group-hover:bg-sky-600
-                group-hover:text-white
-                group-hover:scale-105
-              "
-            >
-              <GraduationCap className="h-6 w-6" />
-            </div>
+<div className="flex items-start gap-3">
 
-            <div className="min-w-0">
-              <h2
-                className="
-                  line-clamp-2
-                  text-xl font-bold
-                  leading-snug
-                  tracking-tight
-                  text-gray-900
-                  transition-colors
-                  group-hover:text-sky-700
-                "
-              >
-                {opportunity.title}
-              </h2>
+  {/* Opportunity Icon + Title */}
+  <div className="flex min-w-0 flex-1 items-start gap-3">
 
-              <div className="mt-1.5 flex items-center gap-1.5 text-sm text-gray-500">
-                <Landmark className="h-3.5 w-3.5 shrink-0 text-sky-500" />
+    {/* Icon */}
+    <div
+      className="
+        flex h-12 w-12 shrink-0
+        items-center justify-center
+        rounded-2xl
+        border border-sky-100
+        bg-sky-50
+        text-sky-600
+        transition-all duration-300
+        group-hover:bg-sky-600
+        group-hover:text-white
+        group-hover:scale-105
+      "
+    >
+      <GraduationCap className="h-6 w-6" />
+    </div>
 
-                <span className="truncate">{provider}</span>
-              </div>
-            </div>
-          </div>
+    {/* Title + Provider */}
+    <div className="min-w-0 flex-1">
+      <h2
+        className="
+          text-xl font-bold
+          leading-snug
+          tracking-tight
+          text-gray-900
+          transition-colors
+          group-hover:text-sky-700
+        "
+      >
+        {opportunity.title}
+      </h2>
 
-          {/* Category */}
-          <span
-            className="
-              hidden sm:block
-              shrink-0
-              rounded-full
-              border border-sky-100
-              bg-sky-50
-              px-3 py-1.5
-              text-xs font-semibold
-              text-sky-700
-            "
-          >
-            {formatCategory(category)}
-          </span>
-        </div>
+      <div className="mt-1.5 flex items-center gap-1.5 text-sm text-gray-500">
+        <Landmark className="h-3.5 w-3.5 shrink-0 text-sky-500" />
+        <span className="truncate">{provider}</span>
+      </div>
+    </div>
+  </div>
+
+  {/* Category */}
+  <span
+    className="
+      hidden sm:inline-flex
+      max-w-30 shrink-0
+      items-center justify-center
+      rounded-full
+      border border-sky-100
+      bg-sky-50
+      px-3 py-1.5
+      text-center text-xs font-semibold
+      leading-tight
+      text-sky-700
+      whitespace-normal
+    "
+  >
+    {formatCategory(category)}
+  </span>
+</div>
 
         {/* Mobile category */}
         <span
@@ -201,86 +206,64 @@ const OpportunityCard = ({ opportunity }) => {
         </div>
 
         {/* Funding + Deadline */}
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          {/* Funding */}
-          <div
-            className="
-              rounded-2xl
-              border border-gray-100
-              bg-gray-50/70
-              p-3.5
-              transition-all duration-300
-              group-hover:border-sky-100
-              group-hover:bg-sky-50/40
-            "
-          >
-            <div className="flex items-start gap-2.5">
-              <div
-                className="
-                  flex h-9 w-9 shrink-0
-                  items-center justify-center
-                  rounded-xl
-                  bg-white
-                  text-emerald-600
-                  shadow-sm
-                "
-              >
-                <CircleDollarSign className="h-4 w-4" />
-              </div>
+<div className="my-3 grid grid-cols-2 gap-3">
 
-              <div className="min-w-0">
-                <p className="text-[11px] text-gray-500">Funding</p>
+  {/* Funding */}
+  <div
+    className="
+      rounded-2xl
+      border border-gray-100
+      bg-gray-50/70
+      p-3.5
+      transition-all duration-300
+      group-hover:border-sky-100
+      group-hover:bg-sky-50/40
+    "
+  >
+    {/* Icon + Label */}
+    <div className="flex items-center gap-2">
+      <CircleDollarSign className="h-4 w-4 shrink-0 text-emerald-600" />
+      <p className="text-xs font-medium text-gray-500">Funding</p>
+    </div>
 
-                <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
-                  {fundingLabel}
-                </p>
-              </div>
-            </div>
-          </div>
+    {/* Value */}
+    <p className="mt-2 text-sm font-bold leading-snug text-gray-900">
+      {fundingLabel}
+    </p>
+  </div>
 
-          {/* Deadline */}
-          <div
-            className="
-              rounded-2xl
-              border border-gray-100
-              bg-gray-50/70
-              p-3.5
-              transition-all duration-300
-              group-hover:border-sky-100
-              group-hover:bg-sky-50/40
-            "
-          >
-            <div className="flex items-start gap-2.5">
-              <div
-                className="
-                  flex h-9 w-9 shrink-0
-                  items-center justify-center
-                  rounded-xl
-                  bg-white
-                  text-orange-500
-                  shadow-sm
-                "
-              >
-                <CalendarDays className="h-4 w-4" />
-              </div>
+  {/* Deadline */}
+  <div
+    className="
+      rounded-2xl
+      border border-gray-100
+      bg-gray-50/70
+      p-3.5
+      transition-all duration-300
+      group-hover:border-sky-100
+      group-hover:bg-sky-50/40
+    "
+  >
+    {/* Icon + Label */}
+    <div className="flex items-center gap-2">
+      <CalendarDays className="h-4 w-4 shrink-0 text-orange-500" />
+      <p className="text-xs font-medium text-gray-500">Deadline</p>
+    </div>
 
-              <div className="min-w-0">
-                <p className="text-[11px] text-gray-500">Deadline</p>
+    {/* Value */}
+    <p className="mt-2 text-sm font-bold leading-snug text-gray-900">
+      {deadline}
+    </p>
+  </div>
 
-                <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
-                  {deadline}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+</div>
 
         {/* CTA */}
         <NavLink
           to={detailsLink}
           className="
             group/link
-            mt-5
+            mt-auto
             flex w-full
             items-center justify-between
             rounded-2xl

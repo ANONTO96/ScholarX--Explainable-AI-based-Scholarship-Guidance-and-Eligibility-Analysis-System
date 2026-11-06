@@ -38,12 +38,12 @@ const stats = [
     icon: Globe,
   },
   {
-    number: "5K+",
+    number: "96+",
     label: "Scholarships",
     icon: GraduationCap,
   },
   {
-    number: "50K+",
+    number: "1K+",
     label: "Monthly Readers",
     icon: TrendingUp,
   },

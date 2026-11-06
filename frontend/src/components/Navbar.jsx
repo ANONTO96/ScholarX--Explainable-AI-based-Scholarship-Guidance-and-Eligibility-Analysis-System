@@ -1,5 +1,5 @@
 import { Menu, X, ArrowRight, ChevronDown, LogOut, UserRound, } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router";
@@ -201,6 +201,25 @@ const Navbar = () => {
       ],
     },
   ];
+
+  const resourcesRef = useRef(null);
+
+useEffect(() => {
+  const handleOutsideClick = (event) => {
+    if (
+      resourcesRef.current &&
+      !resourcesRef.current.contains(event.target)
+    ) {
+      resourcesRef.current.open = false;
+    }
+  };
+
+  document.addEventListener("pointerdown", handleOutsideClick);
+
+  return () => {
+    document.removeEventListener("pointerdown", handleOutsideClick);
+  };
+}, []);
   return (
     <nav className="fixed inset-x-0 z-50 w-full pt-1 px-2">
       <div className="flex w-full xl:w-[90%] mx-auto px-2 py-2 md:px-3 md:py-3 items-center justify-between rounded-2xl
@@ -373,37 +392,77 @@ const Navbar = () => {
                 : "text-gray-800 hover:text-sky-600"
             }>Pricing</NavLink></li>
             <li>
-              <details>
-                <summary>Resources</summary>
-                <ul className="p-2 bg-base-100 w-40 z-1">
-                  <li><NavLink to="/blog" className={({ isActive }) =>
-                    isActive
-                      ? "text-sky-600 font-semibold"
-                      : "text-gray-700 hover:text-sky-600"
-                  }>Blog</NavLink></li>
-                  <li><NavLink to="/FAQ" className={({ isActive }) =>
-                    isActive
-                      ? "text-sky-600 font-semibold"
-                      : "text-gray-700 hover:text-sky-600"
-                  }>FAQ</NavLink></li>
-                  <li><NavLink to="/support" className={({ isActive }) =>
-                    isActive
-                      ? "text-sky-600 font-semibold"
-                      : "text-gray-700 hover:text-sky-600"
-                  }>Support</NavLink></li>
-                  <li><NavLink to="/about-us" className={({ isActive }) =>
-                    isActive
-                      ? "text-sky-600 font-semibold"
-                      : "text-gray-700 hover:text-sky-600"
-                  }>About us</NavLink></li>
-                  <li><NavLink to="/contact" className={({ isActive }) =>
-                    isActive
-                      ? "text-sky-600 font-semibold"
-                      : "text-gray-700 hover:text-sky-600"
-                  }>Contact</NavLink></li>
-                </ul>
-              </details>
-            </li>
+  <details ref={resourcesRef}>
+    <summary>Resources</summary>
+
+    <ul className="p-2 bg-base-100 w-40 z-1">
+      <li>
+        <NavLink
+          to="/blog"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sky-600 font-semibold"
+              : "text-gray-700 hover:text-sky-600"
+          }
+        >
+          Blog
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/FAQ"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sky-600 font-semibold"
+              : "text-gray-700 hover:text-sky-600"
+          }
+        >
+          FAQ
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/support"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sky-600 font-semibold"
+              : "text-gray-700 hover:text-sky-600"
+          }
+        >
+          Support
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/about-us"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sky-600 font-semibold"
+              : "text-gray-700 hover:text-sky-600"
+          }
+        >
+          About us
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sky-600 font-semibold"
+              : "text-gray-700 hover:text-sky-600"
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
+    </ul>
+  </details>
+</li>
           </ul>
         </div>
         {/* user actions */}
