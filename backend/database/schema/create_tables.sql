@@ -495,3 +495,42 @@ CREATE TABLE `eligibility_check_results` (
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS `eligibility_document_check_results` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    check_uuid CHAR(36) NOT NULL,
+    user_id INT NOT NULL,
+    scholarship_id INT NOT NULL,
+    program_id INT NULL,
+
+    document_id INT NOT NULL,
+    document_name VARCHAR(255) NOT NULL,
+
+    mandatory TINYINT(1) NOT NULL DEFAULT 1,
+    has_document TINYINT(1) NOT NULL DEFAULT 0,
+
+    status ENUM(
+        'matched',
+        'missing',
+        'optional_missing'
+    ) NOT NULL,
+
+    student_value VARCHAR(255) NULL,
+    required_value VARCHAR(255) NULL,
+
+    reason TEXT NULL,
+    recommendation TEXT NULL,
+
+    document_score DECIMAL(10,2) NULL,
+    document_max_score DECIMAL(10,2) NULL,
+    document_percentage DECIMAL(5,2) NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    INDEX idx_check_uuid (check_uuid),
+    INDEX idx_user_id (user_id),
+    INDEX idx_scholarship_id (scholarship_id),
+    UNIQUE KEY unique_document_check (check_uuid, document_id)
+);

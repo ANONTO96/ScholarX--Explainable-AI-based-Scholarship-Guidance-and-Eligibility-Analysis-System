@@ -1227,7 +1227,27 @@ export default function EligibilityAnalysis() {
     ELIGIBILITY CHECK HISTORY
 ===================================================== */}
 
-      <EligibilityHistory />
+      <section
+        id="saved-eligibility-history"
+        aria-label="Saved scholarship eligibility and document analysis history"
+        className="scroll-mt-24 border-t border-slate-200 bg-slate-50 py-10"
+      >
+        <div className="mx-auto mb-2 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-sky-600">
+            Complete analysis records
+          </p>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+            All saved scholarship analyses
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            Review every completed analysis separately, including the
+            individual mandatory and optional documents evaluated for each
+            scholarship.
+          </p>
+        </div>
+
+        <EligibilityHistory />
+      </section>
 
       {/* =====================================================
                 DISCLAIMER

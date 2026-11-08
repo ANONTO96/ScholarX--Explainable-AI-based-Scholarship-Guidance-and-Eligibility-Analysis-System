@@ -28,9 +28,10 @@ import {
   FileText,
 } from "lucide-react";
 
-import { NavLink, useParams } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 import opportunities from "../data/opportunities.json";
 import Loader from "../components/ReusableComp/Loader";
+
 
 const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
@@ -135,14 +136,6 @@ const getProgramLanguages = (program) => parseArray(program?.languages);
 
 const getProgramBenefits = (program) =>
   Array.isArray(program?.coverage) ? program.coverage : [];
-
-const getRequirementCondition = (document) => {
-  if (document.condition_text) {
-    return document.condition_text;
-  }
-
-  return null;
-};
 
 /* ========================================================= */
 /* DATA NORMALIZATION */
@@ -338,6 +331,7 @@ const InfoCard = ({ icon: Icon, label, value, color = "blue" }) => {
 
 const OpportunityDetails = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
 
   // Numeric IDs belong to the database.
   // Text slugs belong to opportunities.json.
@@ -348,18 +342,6 @@ const OpportunityDetails = () => {
     data: null,
     error: "",
   });
-
-  const [analysisResult, setAnalysisResult] = useState(null);
-  const [analysisLoading, setAnalysisLoading] = useState(false);
-  const [analysisError, setAnalysisError] = useState("");
-  const [selectedStudyLanguage, setSelectedStudyLanguage] = useState("");
-  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
-
-  useEffect(() => {
-    setAnalysisResult(null);
-    setAnalysisError("");
-    setSelectedStudyLanguage("");
-  }, [slug]);
 
   /* --------------------------------------------------------- */
   /* FETCH DATABASE SCHOLARSHIP */
@@ -529,15 +511,6 @@ const OpportunityDetails = () => {
 
   const programs = opportunity.programs || [];
 
-  const availableStudyLanguages = [
-    ...new Set(
-      programs
-        .flatMap((program) => getProgramLanguages(program))
-        .filter(Boolean)
-        .map((language) => language.trim()),
-    ),
-  ];
-
   const documents = opportunity.documents || [];
 
   const contacts = opportunity.contacts || [];
@@ -564,68 +537,50 @@ const OpportunityDetails = () => {
     ? opportunity.degrees.join(" & ")
     : "Not specified";
 
-  const handleDatabaseAnalysis = async (language = selectedStudyLanguage) => {
-    if (!isDatabase) return;
+  // Document Name and Condition Helpers
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setAnalysisError("Please log in to analyze your eligibility.");
-      return;
+  const getDocumentTitle = (document) => {
+    const name = document.document_name || document.name || "required-document";
+
+    const formattedName =
+      name.charAt(0).toUpperCase() +
+      name.slice(1).replace(/-doc$/, "").replace(/-/g, " ");
+
+    if (["Moi", "Pcc"].includes(formattedName)) {
+      return formattedName.toUpperCase();
     }
 
-    setAnalysisLoading(true);
-    setAnalysisError("");
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/matching/analyze`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          scholarship_id: Number(opportunity.id),
-          preferred_study_language: language || null,
-        }),
-      });
-
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.detail || "Eligibility analysis failed.");
-      }
-
-      setAnalysisResult(result);
-
-      if (result.status === "language_selection_required") {
-        setIsLanguageModalOpen(true);
-      } else {
-        setIsLanguageModalOpen(false);
-      }
-    } catch (error) {
-      setAnalysisError(error.message || "Unable to analyze eligibility.");
-    } finally {
-      setAnalysisLoading(false);
-    }
+    return formattedName;
   };
-  const openLanguageModal = () => {
-    if (!availableStudyLanguages.length) {
-      setAnalysisError(
-        "No study languages are available for this scholarship.",
-      );
-      return;
+
+  const isRequiredDocument = (document) => {
+    if (document.condition_text === "=") return true;
+    if (document.condition_text === "!=") return false;
+
+    // Fallback for older JSON opportunities
+    return document.mandatory === 1 || document.mandatory === true;
+  };
+
+  const getRequirementCondition = (document) => {
+    if (document.condition_text === "=") {
+      return "This document is required for the scholarship application.";
     }
 
-    setAnalysisError("");
-    setAnalysisResult(null);
+    if (document.condition_text === "!=") {
+      return "This document is not marked as mandatory. Check whether it applies to your selected program or applicant category.";
+    }
 
-    const defaultLanguage =
-      availableStudyLanguages.find(
-        (language) => language.toLowerCase() === "english",
-      ) || "English";
+    if (document.mandatory === 1 || document.mandatory === true) {
+      return "This document is required for the application.";
+    }
 
-    setSelectedStudyLanguage(defaultLanguage);
-    setIsLanguageModalOpen(true);
+    if (document.mandatory === 0 || document.mandatory === false) {
+      return "This document is optional. Check the official instructions to see whether it applies to you.";
+    }
+
+    return null;
   };
+
   /* ========================================================= */
   /* RENDER */
   /* ========================================================= */
@@ -769,12 +724,13 @@ const OpportunityDetails = () => {
                 {isDatabase ? (
                   <button
                     type="button"
-                    onClick={openLanguageModal}
-                    disabled={analysisLoading}
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+                    onClick={() =>
+                      navigate(`/dashboard/eligibility-check/${opportunity.id}`)
+                    }
+                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500"
                   >
                     <BadgeCheck size={18} />
-                    {analysisLoading ? "Analyzing..." : "Check My Eligibility"}
+                    Check My Eligibility
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </button>
                 ) : (
@@ -1008,332 +964,6 @@ const OpportunityDetails = () => {
         </section>
       )}
 
-      {isDatabase && (analysisError || analysisResult) && (
-        <section id="eligibility-analysis" className="bg-white py-12">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6">
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
-              <div className="flex items-center gap-3">
-                <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
-                  <BadgeCheck size={24} />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-900">
-                    Eligibility Analysis
-                  </h2>
-                  <p className="text-sm text-slate-500">
-                    Based on your saved student profile and this scholarship's
-                    database rules.
-                  </p>
-                </div>
-              </div>
-
-              {analysisError && (
-                <p className="mt-5 rounded-xl bg-red-50 p-4 text-sm text-red-700">
-                  {analysisError}
-                </p>
-              )}
-
-              {/* ========================================================= */}
-              {/* STUDY LANGUAGE SELECTION MODAL */}
-              {/* ========================================================= */}
-
-              {isDatabase && isLanguageModalOpen && (
-                <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/60 px-4 backdrop-blur-sm">
-                  <div className="w-full max-w-md rounded-3xl bg-white p-7 shadow-2xl">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-                          <Languages size={24} />
-                        </div>
-
-                        <h2 className="mt-5 text-2xl font-bold text-slate-900">
-                          Choose Study Language
-                        </h2>
-
-                        <p className="mt-2 text-sm leading-6 text-slate-500">
-                          Select the language in which you intend to study. Your
-                          eligibility will be evaluated using the selected
-                          language requirements.
-                        </p>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() => setIsLanguageModalOpen(false)}
-                        className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-                        aria-label="Close language selection"
-                      >
-                        ×
-                      </button>
-                    </div>
-
-                    <div className="mt-6 space-y-3">
-                      {availableStudyLanguages.map((language) => (
-                        <button
-                          key={language}
-                          type="button"
-                          onClick={() => setSelectedStudyLanguage(language)}
-                          className={`flex w-full items-center justify-between rounded-xl border p-4 text-left font-semibold transition ${
-                            selectedStudyLanguage === language
-                              ? "border-blue-600 bg-blue-50 text-blue-700"
-                              : "border-slate-200 text-slate-700 hover:border-blue-300"
-                          }`}
-                        >
-                          {language}
-
-                          {selectedStudyLanguage === language && (
-                            <CircleCheck size={20} className="text-blue-600" />
-                          )}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="mt-7 flex gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setIsLanguageModalOpen(false)}
-                        className="flex-1 rounded-xl border border-slate-200 px-5 py-3 font-semibold text-slate-600 hover:bg-slate-50"
-                      >
-                        Cancel
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleDatabaseAnalysis(selectedStudyLanguage)
-                        }
-                        disabled={!selectedStudyLanguage || analysisLoading}
-                        className="flex-1 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-                      >
-                        {analysisLoading ? "Analyzing..." : "Continue"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {analysisResult &&
-                !["language_selection_required", "evaluated"].includes(
-                  analysisResult.status,
-                ) && (
-                  <div className="mt-6 rounded-xl bg-amber-50 p-4 text-sm text-amber-800">
-                    <p className="font-semibold">
-                      {analysisResult.status?.replaceAll("_", " ") ||
-                        "Analysis unavailable"}
-                    </p>
-                    <p className="mt-1">
-                      {analysisResult.message ||
-                        analysisResult.program_selection?.reason ||
-                        "Please review your student profile and scholarship program information."}
-                    </p>
-                  </div>
-                )}
-
-              {analysisResult?.status === "evaluated" && (
-                <>
-                  <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                    <div className="rounded-2xl bg-blue-50 p-5">
-                      <p className="text-sm font-medium text-blue-700">
-                        Eligibility score
-                      </p>
-                      <p className="mt-1 text-4xl font-black text-blue-900">
-                        {Math.round(
-                          analysisResult.eligibility_score?.score ?? 0,
-                        )}
-                        %
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-emerald-50 p-5">
-                      <p className="text-sm font-medium text-emerald-700">
-                        Rules met
-                      </p>
-                      <p className="mt-1 text-4xl font-black text-emerald-900">
-                        {analysisResult.eligibility_score?.met_rules ?? 0}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-amber-50 p-5">
-                      <p className="text-sm font-medium text-amber-700">
-                        Need review
-                      </p>
-                      <p className="mt-1 text-4xl font-black text-amber-900">
-                        {analysisResult.eligibility_score?.unknown_rules ?? 0}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm text-slate-600">
-                    Program:{" "}
-                    <strong>
-                      {analysisResult.program?.program_name ||
-                        "Selected from your profile"}
-                    </strong>{" "}
-                    · Language:{" "}
-                    <strong>
-                      {analysisResult.selected_study_language ||
-                        "Not specified"}
-                    </strong>
-                  </p>
-
-                  <div className="mt-8">
-                    <h3 className="text-lg font-bold text-slate-900">
-                      Eligibility requirements
-                    </h3>
-                    <div className="mt-3 space-y-3">
-                      {[
-                        ...(analysisResult.academic_results || []),
-                        ...(analysisResult.eligibility_results || []),
-                      ].map((rule, index) => (
-                        <div
-                          key={`${rule.rule_id ?? "rule"}-${index}`}
-                          className="rounded-xl border border-slate-200 p-4"
-                        >
-                          <div className="flex flex-wrap items-center justify-between gap-2">
-                            <p className="font-semibold text-slate-800">
-                              {rule.category ||
-                                rule.rule_type ||
-                                rule.requirement ||
-                                "Requirement"}
-                            </p>
-                            <span
-                              className={`rounded-full px-3 py-1 text-xs font-bold ${rule.status === "met" ? "bg-emerald-100 text-emerald-700" : rule.status === "not_met" ? "bg-red-100 text-red-700" : rule.status === "not_applicable" ? "bg-slate-100 text-slate-600" : "bg-amber-100 text-amber-700"}`}
-                            >
-                              {(rule.status || "unknown").replaceAll("_", " ")}
-                            </span>
-                          </div>
-                          {rule.reason && (
-                            <p className="mt-2 text-sm text-slate-600">
-                              {rule.reason}
-                            </p>
-                          )}
-                          {rule.source_sentence && (
-                            <p className="mt-1 text-xs text-slate-400">
-                              Source: {rule.source_sentence}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {(analysisResult.recommendations || []).length > 0 && (
-                    <div className="mt-8">
-                      <h3 className="text-lg font-bold text-slate-900">
-                        How to improve your eligibility
-                      </h3>
-                      <div className="mt-3 space-y-3">
-                        {analysisResult.recommendations.map((item, index) => (
-                          <div
-                            key={`${item.rule_id ?? "recommendation"}-${index}`}
-                            className="rounded-xl bg-amber-50 p-4"
-                          >
-                            <p className="font-semibold text-slate-900">
-                              {item.requirement || "Requirement to improve"}
-                            </p>
-                            <p className="mt-1 text-sm text-slate-700">
-                              {item.suggestion || item.reason}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleDatabaseAnalysis(
-                        analysisResult.selected_study_language || "",
-                      )
-                    }
-                    disabled={analysisLoading}
-                    className="mt-6 rounded-xl border border-blue-200 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-50"
-                  >
-                    {analysisLoading
-                      ? "Rechecking..."
-                      : "Re-analyze eligibility"}
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ========================================================= */}
-      {/* STUDY LANGUAGE SELECTION MODAL */}
-      {/* ========================================================= */}
-
-      {isDatabase && isLanguageModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/60 px-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-3xl bg-white p-7 shadow-2xl">
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-                  <Languages size={24} />
-                </div>
-
-                <h2 className="mt-5 text-2xl font-bold text-slate-900">
-                  Choose Study Language
-                </h2>
-
-                <p className="mt-2 text-sm leading-6 text-slate-500">
-                  Select your preferred study language to evaluate your
-                  eligibility.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setIsLanguageModalOpen(false)}
-                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-                aria-label="Close language selection"
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="mt-6 space-y-3">
-              {availableStudyLanguages.map((language) => (
-                <button
-                  key={language}
-                  type="button"
-                  onClick={() => setSelectedStudyLanguage(language)}
-                  className={`flex w-full items-center justify-between rounded-xl border p-4 text-left font-semibold transition ${
-                    selectedStudyLanguage === language
-                      ? "border-blue-600 bg-blue-50 text-blue-700"
-                      : "border-slate-200 text-slate-700 hover:border-blue-300"
-                  }`}
-                >
-                  {language}
-
-                  {selectedStudyLanguage === language && (
-                    <CircleCheck size={20} className="text-blue-600" />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-7 flex gap-3">
-              <button
-                type="button"
-                onClick={() => setIsLanguageModalOpen(false)}
-                className="flex-1 rounded-xl border border-slate-200 px-5 py-3 font-semibold text-slate-600 hover:bg-slate-50"
-              >
-                Cancel
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleDatabaseAnalysis(selectedStudyLanguage)}
-                disabled={!selectedStudyLanguage || analysisLoading}
-                className="flex-1 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {analysisLoading ? "Analyzing..." : "Continue"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================= */}
       {/* DEADLINE AND APPLICATION TIMELINE */}
       {/* ========================================================= */}
 
@@ -1671,7 +1301,7 @@ const OpportunityDetails = () => {
       )}
 
       {/* ========================================================= */}
-      {/* REQUIRED DOCUMENTS */}
+      {/* APPLICATION DOCUMENTS */}
       {/* ========================================================= */}
 
       {hasDocuments && (
@@ -1681,70 +1311,102 @@ const OpportunityDetails = () => {
               eyebrow="Application Documents"
               title="Prepare your"
               highlight="documents."
-              description="Review the documents listed for this scholarship. Some documents may only apply to specific applicants or programs."
+              description="Review the documents listed for this scholarship. Some are mandatory, while others may apply only to specific applicants or programs."
               color="orange"
             />
 
             <div className="mt-12 grid gap-5 md:grid-cols-2">
-              {documents.map((document, index) => (
-                <div
-                  key={
-                    document.id ||
-                    `${document.document_name || document.name}-${index}`
-                  }
-                  className="group flex gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl"
-                >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 transition duration-500 group-hover:bg-orange-600 group-hover:text-white">
-                    <FileText size={21} />
-                  </div>
+              {documents.map((document, index) => {
+                const isRequired = isRequiredDocument(document);
 
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-bold uppercase tracking-wider text-orange-500">
-                        Document {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      {document.mandatory === 1 ||
-                      document.mandatory === true ? (
-                        <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600">
-                          Mandatory
-                        </span>
-                      ) : document.mandatory === 0 ||
-                        document.mandatory === false ? (
-                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
-                          Optional
-                        </span>
-                      ) : null}
+                return (
+                  <div
+                    key={
+                      document.id ||
+                      `${document.document_name || document.name}-${index}`
+                    }
+                    className={`group flex gap-4 rounded-3xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                      isRequired
+                        ? "border-slate-200 bg-white hover:border-orange-200"
+                        : "border-slate-200 bg-slate-100/70 hover:border-slate-300"
+                    }`}
+                  >
+                    {/* Document Icon */}
+                    <div
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition duration-500 ${
+                        isRequired
+                          ? "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white"
+                          : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      <FileText size={21} />
                     </div>
 
-                    <h3 className="mt-2 font-bold text-slate-900">
-                      {document.document_name ||
-                        document.name ||
-                        "Required Document"}
-                    </h3>
+                    {/* Document Information */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className={`text-xs font-bold uppercase tracking-wider ${
+                            isRequired ? "text-orange-500" : "text-slate-500"
+                          }`}
+                        >
+                          Document {String(index + 1).padStart(2, "0")}
+                        </span>
 
-                    {(document.requirement || document.description) && (
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        {document.requirement || document.description}
-                      </p>
-                    )}
-
-                    {getRequirementCondition(document) && (
-                      <div className="mt-3 rounded-xl bg-orange-50 p-3">
-                        <p className="text-xs font-bold uppercase tracking-wider text-orange-700">
-                          Applicable condition
-                        </p>
-
-                        <p className="mt-1 text-sm leading-6 text-orange-800">
-                          {getRequirementCondition(document)}
-                        </p>
+                        {isRequired ? (
+                          <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600">
+                            Mandatory
+                          </span>
+                        ) : (
+                          <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-bold text-slate-600">
+                            Related / Conditional
+                          </span>
+                        )}
                       </div>
-                    )}
+
+                      {/* Checklist ID without -doc */}
+                      <h3 className="mt-2 font-bold text-slate-900">
+                        {getDocumentTitle(document)}
+                      </h3>
+
+                      {/* Requirement Description */}
+                      {(document.requirement || document.description) && (
+                        <p className="mt-2 text-sm leading-6 text-slate-600">
+                          {document.requirement || document.description}
+                        </p>
+                      )}
+
+                      {/* Human-readable condition */}
+                      {getRequirementCondition(document) && (
+                        <div
+                          className={`mt-3 rounded-xl p-3 ${
+                            isRequired ? "bg-orange-50" : "bg-white"
+                          }`}
+                        >
+                          <p
+                            className={`text-xs font-bold uppercase tracking-wider ${
+                              isRequired ? "text-orange-700" : "text-slate-600"
+                            }`}
+                          >
+                            Application condition
+                          </p>
+
+                          <p
+                            className={`mt-1 text-sm leading-6 ${
+                              isRequired ? "text-orange-800" : "text-slate-700"
+                            }`}
+                          >
+                            {getRequirementCondition(document)}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
+            {/* Document Reminder */}
             <div className="mt-8 flex items-start gap-4 rounded-3xl border border-orange-200 bg-orange-50/70 p-6">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-600">
                 <Info size={20} />
@@ -2214,12 +1876,13 @@ const OpportunityDetails = () => {
               {isDatabase ? (
                 <button
                   type="button"
-                  onClick={openLanguageModal}
-                  disabled={analysisLoading}
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+                  onClick={() =>
+                    navigate(`/dashboard/eligibility-check/${opportunity.id}`)
+                  }
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500"
                 >
                   <BadgeCheck size={18} />
-                  {analysisLoading ? "Analyzing..." : "Check My Eligibility"}
+                  Check My Eligibility
                   <ArrowRight
                     size={17}
                     className="transition-transform group-hover:translate-x-1"

@@ -40,6 +40,11 @@ const DashboardLayout = () => {
       icon: UserRound,
     },
     {
+      label: "Documents",
+      path: "/dashboard/documents",
+      icon: FileText,
+    },
+    {
       label: "Matchmaking",
       path: "/dashboard/matches",
       icon: Target,
@@ -58,11 +63,6 @@ const DashboardLayout = () => {
       label: "Deadlines",
       path: "/dashboard/deadlines",
       icon: CalendarDays,
-    },
-    {
-      label: "Documents",
-      path: "/dashboard/documents",
-      icon: FileText,
     },
     {
       label: "Notifications",

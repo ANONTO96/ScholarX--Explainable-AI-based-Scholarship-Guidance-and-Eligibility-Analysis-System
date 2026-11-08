@@ -7,6 +7,7 @@ from matching.profile_loader import load_student_profile
 from matching.program_selector import select_scholarship_program
 from matching.rule_loader import load_scholarship_rules
 from matching.eligibility_scorer import calculate_eligibility_score
+from matching.document_matcher import evaluate_document_matches
 from matching.recommendation_engine import generate_recommendations
 
 from matching.academic_matcher import evaluate_academic_rules
@@ -42,6 +43,7 @@ def build_program_context(program, scholarship_country=None):
         "country": scholarship_country,
     }
 
+
 def analyze_scholarship(
     user_id: int,
     scholarship_id: int,
@@ -66,26 +68,7 @@ def analyze_scholarship(
     # ---------------------------------------------------------
 
     student_data = load_student_profile(user_id)
-    print("\n========== STUDENT PROFILE DEBUG ==========")
 
-    print("Top-level keys:", list(student_data.keys()))
-
-    profile = student_data.get("profile") or {}
-    print("Profile keys:", list(profile.keys()))
-
-    for section in ["personal", "academic", "additional_information"]:
-        value = profile.get(section)
-        if value is not None:
-            print(f"\nProfile section: {section}")
-            print(value)
-
-    print("\nAge:", profile.get("age"))
-    print("Nationality:", profile.get("nationality"))
-    print("Current GPA:", profile.get("current_gpa"))
-    print("GPA Scale:", profile.get("gpa_scale"))
-
-    print("===========================================\n")
-    
     if not isinstance(student_data, dict):
         raise ValueError("Unable to load the student's profile.")
 
@@ -140,20 +123,25 @@ def analyze_scholarship(
             program_id=program_id,
         )
 
-        print("\n========== LOADED SCHOLARSHIP RULES ==========")
+        # Level 1: load scholarship document requirements.
+        cursor.execute(
+            """
+            SELECT
+                id,
+                scholarship_id,
+                document_name,
+                requirement,
+                condition_text,
+                mandatory,
+                source_sentence
+            FROM scholarship_documents
+            WHERE scholarship_id = %s
+            ORDER BY id ASC
+            """,
+            (scholarship_id,),
+        )
+        scholarship_documents = cursor.fetchall() or []
 
-        for rule in rules:
-            print({
-                "id": rule.get("id"),
-                "rule_type": rule.get("rule_type"),
-                "category": rule.get("category"),
-                "scope": rule.get("scope"),
-                "operator": rule.get("operator"),
-                "rule_value": rule.get("rule_value"),
-                "study_language": rule.get("study_language"),
-            })
-
-        print("==============================================\n")
 
     finally:
         if cursor is not None:
@@ -167,8 +155,8 @@ def analyze_scholarship(
     # ---------------------------------------------------------
 
     program_context = build_program_context(
-    program,
-    scholarship_country
+        program,
+        scholarship_country,
     )
     program_languages = program_context.get("languages")
 
@@ -231,14 +219,26 @@ def analyze_scholarship(
         preferred_study_language=selected_language,
     )
 
-        # ---------------------------------------------------------
-    # 7. COMBINE RULE RESULTS
+    # ---------------------------------------------------------
+    # 7. LEVEL 1: DOCUMENT MATCHING
+    # ---------------------------------------------------------
+
+    # Document matching is part of the same calculation pipeline as
+    # academic and eligibility evaluation. Keep every document result
+    # in the response so it can be persisted and displayed in history.
+    document_matching = evaluate_document_matches(
+        scholarship_documents=scholarship_documents,
+        student_data=student_data,
+    )
+
+    # ---------------------------------------------------------
+    # 8. COMBINE RULE RESULTS
     # ---------------------------------------------------------
 
     all_rule_results = academic_results + eligibility_results
 
     # ---------------------------------------------------------
-    # 8. CALCULATE ELIGIBILITY SCORE
+    # 9. CALCULATE ELIGIBILITY SCORE
     # ---------------------------------------------------------
 
     eligibility_score = calculate_eligibility_score(
@@ -246,7 +246,7 @@ def analyze_scholarship(
     )
 
     # ---------------------------------------------------------
-    # 9. GENERATE IMPROVEMENT RECOMMENDATIONS
+    # 10. GENERATE IMPROVEMENT RECOMMENDATIONS
     # ---------------------------------------------------------
 
     recommendations = generate_recommendations(
@@ -254,25 +254,29 @@ def analyze_scholarship(
     )
 
     # ---------------------------------------------------------
-    # 10. RETURN COMPLETE ANALYSIS
+    # 11. RETURN COMPLETE ANALYSIS
     # ---------------------------------------------------------
 
     analysis_result = {
-    "success": True,
-    "status": "evaluated",
-    "scholarship_id": scholarship_id,
-    "program_id": program_id,
-    "program_selection": selection,
-    "program": program_context,
-    "selected_study_language": selected_language,
-    "total_rules": len(rules),
-    "eligibility_score": eligibility_score,
-    "academic_results": academic_results,
-    "eligibility_results": eligibility_results,
-    "recommendations": recommendations,
-}
+        "success": True,
+        "status": "evaluated",
+        "scholarship_id": scholarship_id,
+        "program_id": program_id,
+        "program_selection": selection,
+        "program": program_context,
+        "selected_study_language": selected_language,
+        "total_rules": len(rules),
+        "eligibility_score": eligibility_score,
+        "document_matching": document_matching,
+        "document_matching_score": document_matching["score"],
+        "academic_results": academic_results,
+        "eligibility_results": eligibility_results,
+        "recommendations": recommendations,
+    }
 
-    # Save completed eligibility analysis
+    # Persist the complete calculation as one history record. The history
+    # writer stores one row per rule and one row per scholarship document,
+    # linked by the same check_uuid.
     check_uuid = save_eligibility_history(
         user_id=user_id,
         scholarship_id=scholarship_id,
