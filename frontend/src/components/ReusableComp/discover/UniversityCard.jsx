@@ -12,7 +12,7 @@ const UniversityCard = ({ university }) => {
     return (
         <div
             className="
-                group relative overflow-hidden
+                group h-full flex flex-col relative overflow-hidden
                 rounded-3xl
                 border border-sky-100
                 bg-white
@@ -39,10 +39,10 @@ const UniversityCard = ({ university }) => {
                 "
             />
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-1 flex-col">
 
                 {/* University Header */}
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between">
 
                     <div className="flex items-start gap-3">
 
@@ -180,7 +180,7 @@ const UniversityCard = ({ university }) => {
                 </div>
 
                 {/* University Stats */}
-                <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="my-5 grid grid-cols-2 gap-3">
 
                     {/* Tuition */}
                     <div
@@ -351,7 +351,7 @@ const UniversityCard = ({ university }) => {
                     to={`/universityDetails/${university.slug}`}
                     className="
                         group/link
-                        mt-5
+                        mt-auto
                         flex w-full
                         items-center justify-between
                         rounded-2xl
