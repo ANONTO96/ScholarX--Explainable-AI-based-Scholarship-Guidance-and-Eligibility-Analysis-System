@@ -52,6 +52,7 @@ import CreateScholarship from "../pages/Admin/Scholarships/CreateScholarship";
 import EditScholarships from "../pages/Admin/Scholarships/EditScholarships";
 
 import ProtectedRoute from "../components/ProtectedRoute";
+import EligibilityAnalysisPage from "../pages/Dashboard/EligibilityAnalysisPage";
 
 export const router = createBrowserRouter([
   {
@@ -119,6 +120,10 @@ export const router = createBrowserRouter([
           { path: "documents", element: <Documents /> },
           { path: "notifications", element: <Notifications /> },
           { path: "eligibility-analysis", element: <EligibilityAnalysis /> },
+          {
+            path: "eligibility-check/:scholarshipId",
+            element: <EligibilityAnalysisPage />,
+          },
           { path: "settings", element: <Settings /> },
         ],
       },

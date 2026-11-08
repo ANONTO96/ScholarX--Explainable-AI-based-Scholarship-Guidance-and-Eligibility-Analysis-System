@@ -36,131 +36,102 @@ import { useDashboard } from "../../context/Dashboard/useDashboard";
 
 const DEFAULT_DOCUMENTS = [
     {
-        id: "passport",
-        name: "Valid Passport",
-        description:
-            "A clear copy of your valid passport bio page.",
+        id: "passport-doc",
+        name: "Passport",
+        description: "A clear copy of your valid passport bio page.",
         category: "Identity",
         icon: IdCard,
-        required: true,
     },
-
     {
-        id: "national-id",
-        name: "National ID / NID",
-        description:
-            "Government-issued national identification document.",
+        id: "nid-doc",
+        name: "NID Card",
+        description: "Government-issued national identification document.",
         category: "Identity",
         icon: ShieldCheck,
-        required: true,
-    },
-
-    {
-        id: "academic-transcript",
-        name: "Academic Transcript",
-        description:
-            "Official or certified transcript showing your academic results.",
-        category: "Academic",
-        icon: GraduationCap,
-        required: true,
     },
     {
-        id: "health-certificate",
+        id: "health-doc",
         name: "Health Certificate",
-        description:
-            "Medical examination certificate confirming that you meet the health requirements for studying abroad.",
+        description: "Medical examination certificate confirming your health status.",
         category: "Health",
         icon: ShieldCheck,
-        required: true,
     },
     {
-        id: "degree-certificate",
+        id: "transcript-doc",
+        name: "Academic Transcript",
+        description: "Official or certified transcript showing your academic results.",
+        category: "Academic",
+        icon: GraduationCap,
+    },
+    {
+        id: "certificate-doc",
         name: "Degree Certificate",
-        description:
-            "Certificate proving completion of your previous degree.",
+        description: "Certificate proving completion of your previous degree.",
         category: "Academic",
         icon: Award,
-        required: true,
     },
-
     {
-        id: "cv",
+        id: "cv-doc",
         name: "CV / Resume",
-        description:
-            "Updated academic or professional curriculum vitae.",
+        description: "Updated academic or professional curriculum vitae.",
         category: "Application",
         icon: UserRound,
-        required: true,
     },
-
     {
-        id: "motivation-letter",
-        name: "Motivation Letter",
-        description:
-            "Statement explaining your motivation and study goals.",
+        id: "study-plan-doc",
+        name: "Study Plan",
+        description: "Detailed academic plan or study proposal.",
         category: "Application",
         icon: FileText,
-        required: true,
     },
-
     {
-        id: "recommendation-letter",
+        id: "recommendation-doc",
         name: "Recommendation Letter",
-        description:
-            "Academic or professional recommendation letter.",
+        description: "Academic or professional recommendation letter.",
         category: "Application",
         icon: Mail,
-        required: true,
     },
-
     {
-        id: "english-test",
-        name: "English Proficiency Certificate",
-        description:
-            "IELTS, TOEFL, PTE or another accepted English test certificate.",
+        id: "moi-doc",
+        name: "Language Proficiency Certificate / MOI",
+        description: "Language proficiency evidence, including a Medium of Instruction certificate where accepted.",
         category: "Language",
         icon: FileCheck2,
-        required: true,
     },
-
     {
-        id: "financial-proof",
-        name: "Proof of Funds",
-        description:
-            "Bank statement, financial certificate or accepted funding evidence.",
+        id: "pof-doc",
+        name: "Proof of Fund",
+        description: "Bank statement, financial certificate or accepted funding evidence.",
         category: "Financial",
         icon: WalletCards,
-        required: true,
     },
-
     {
-        id: "study-plan",
-        name: "Study Plan",
-        description:
-            "Detailed academic plan or study proposal where required.",
-        category: "Application",
-        icon: FileText,
-        required: true,
-    },
-
-    {
-        id: "research-proposal",
+        id: "research-doc",
         name: "Research Proposal",
-        description:
-            "Research proposal for programs or scholarships that require one.",
+        description: "Research proposal describing your intended research.",
         category: "Academic",
         icon: Landmark,
-        required: false,
     },
-
     {
-        id: "portfolio",
+        id: "pcc-doc",
+        name: "Police Clearance Certificate",
+        description: "Police clearance certificate or equivalent background document.",
+        category: "Identity",
+        icon: ShieldCheck,
+    },
+    {
+        id: "portfolio-doc",
         name: "Portfolio",
-        description:
-            "Portfolio containing projects, achievements or relevant work.",
+        description: "Portfolio containing projects, achievements or relevant work.",
         category: "Application",
         icon: FolderOpen,
-        required: false,
+    },
+    {
+        id: "application-form-doc",
+        name: "Application Form",
+        description: "Completed scholarship or university application form.",
+        category: "Application",
+        icon: FileText,
     },
 ];
 
@@ -512,45 +483,7 @@ function DocumentCard({
                             </p>
                         </div>
 
-                        {document.required ? (
-                            <span
-                                className="
-                                    shrink-0
-                                    rounded-full
-                                    border
-                                    border-rose-200
-                                    bg-rose-50
-                                    px-2
-                                    py-1
-                                    text-[9px]
-                                    font-bold
-                                    uppercase
-                                    tracking-wide
-                                    text-rose-500
-                                "
-                            >
-                                Required
-                            </span>
-                        ) : (
-                            <span
-                                className="
-                                    shrink-0
-                                    rounded-full
-                                    border
-                                    border-slate-200
-                                    bg-slate-50
-                                    px-2
-                                    py-1
-                                    text-[9px]
-                                    font-bold
-                                    uppercase
-                                    tracking-wide
-                                    text-slate-400
-                                "
-                            >
-                                Optional
-                            </span>
-                        )}
+
                     </div>
 
                     <div className="mt-3 flex items-center gap-2">
@@ -827,52 +760,24 @@ export default function Documents() {
         }, [documents]);
 
     /* ===================================================== */
-    /* Required Documents                                     */
+    /* Document Counts and Completeness                      */
     /* ===================================================== */
 
-    const requiredDocuments =
-        useMemo(() => {
-            return checklist.filter(
-                (document) =>
-                    document.required
-            );
-        }, [checklist]);
+    const totalDocuments = checklist.length;
 
-    const addedRequiredCount =
-        requiredDocuments.filter(
-            (document) =>
-                uploadedMap[
-                    document.checklistId
-                ]
-        ).length;
+    const uploadedCount = checklist.filter(
+        (document) => Boolean(uploadedMap[document.checklistId])
+    ).length;
 
-    const totalRequired =
-        requiredDocuments.length;
-
-    const remainingRequired =
-        Math.max(
-            totalRequired -
-                addedRequiredCount,
-            0
-        );
+    const notUploadedCount = Math.max(
+        totalDocuments - uploadedCount,
+        0
+    );
 
     const completionPercentage =
-        totalRequired === 0
-            ? 100
-            : Math.round(
-                  (addedRequiredCount /
-                      totalRequired) *
-                      100
-              );
-
-    const optionalAddedCount =
-        checklist.filter(
-            (document) =>
-                !document.required &&
-                uploadedMap[
-                    document.checklistId
-                ]
-        ).length;
+        totalDocuments === 0
+            ? 0
+            : Math.round((uploadedCount / totalDocuments) * 100);
 
     /* ===================================================== */
     /* Filtering                                              */
@@ -976,8 +881,6 @@ export default function Documents() {
                         category:
                             document.category,
 
-                        required:
-                            document.required,
                     },
                     file
                 );
@@ -1010,8 +913,6 @@ export default function Documents() {
                     category:
                         document.category,
 
-                    required:
-                        document.required,
                 });
                 toast.success("Document marked as gathered.");
             } catch (error) {
@@ -1202,24 +1103,13 @@ export default function Documents() {
                                     </p>
 
                                     <h2 className="mt-1 text-xl font-bold text-slate-900">
-                                        {completionPercentage ===
-                                        100
-                                            ? "All required documents are ready"
-                                            : `${remainingRequired} document${
-                                                  remainingRequired !==
-                                                  1
-                                                      ? "s"
-                                                      : ""
-                                              } still needed`}
+                                        {completionPercentage === 100
+                                            ? "All documents are uploaded"
+                                            : `${notUploadedCount} document${notUploadedCount !== 1 ? "s" : ""} not uploaded`}
                                     </h2>
 
                                     <p className="mt-1 text-xs leading-5 text-slate-400">
-                                        {addedRequiredCount} of{" "}
-                                        {
-                                            totalRequired
-                                        }{" "}
-                                        required documents
-                                        have been gathered.
+                                        {uploadedCount} of {totalDocuments} documents uploaded.
                                     </p>
                                 </div>
 
@@ -1244,7 +1134,7 @@ export default function Documents() {
                                     >
                                         <CheckCircle2 className="h-3.5 w-3.5" />
 
-                                        Ready to Apply
+                                        Checklist Complete
                                     </span>
                                 ) : (
                                     <span
@@ -1266,7 +1156,7 @@ export default function Documents() {
                                     >
                                         <Clock3 className="h-3.5 w-3.5" />
 
-                                        Preparation in Progress
+                                        Uploads in Progress
                                     </span>
                                 )}
                             </div>
@@ -1274,18 +1164,11 @@ export default function Documents() {
                             <div className="mt-5">
                                 <div className="mb-2 flex items-center justify-between">
                                     <span className="text-[10px] font-semibold text-slate-400">
-                                        Required document
-                                        progress
+                                        Document completeness
                                     </span>
 
                                     <span className="text-[10px] font-bold text-slate-700">
-                                        {
-                                            addedRequiredCount
-                                        }{" "}
-                                        /{" "}
-                                        {
-                                            totalRequired
-                                        }
+                                        {uploadedCount} / {totalDocuments}
                                     </span>
                                 </div>
 
@@ -1314,57 +1197,32 @@ export default function Documents() {
                 {/* Stats                                              */}
                 {/* ================================================= */}
 
-                <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     <StatCard
-                        icon={
-                            FileCheck2
-                        }
-                        label="Required"
-                        value={
-                            totalRequired
-                        }
-                        description="Documents needed"
-                        iconClass="text-sky-600"
-                        bgClass="bg-sky-50"
-                    />
-
-                    <StatCard
-                        icon={
-                            CheckCircle2
-                        }
-                        label="Gathered"
-                        value={
-                            addedRequiredCount
-                        }
-                        description="Required documents added"
+                        icon={CheckCircle2}
+                        label="Uploaded"
+                        value={uploadedCount}
+                        description="Documents uploaded or marked as gathered"
                         iconClass="text-emerald-600"
                         bgClass="bg-emerald-50"
                     />
 
                     <StatCard
-                        icon={
-                            AlertCircle
-                        }
-                        label="Remaining"
-                        value={
-                            remainingRequired
-                        }
-                        description="Still need to gather"
+                        icon={AlertCircle}
+                        label="Not Uploaded"
+                        value={notUploadedCount}
+                        description="Documents still remaining"
                         iconClass="text-amber-600"
                         bgClass="bg-amber-50"
                     />
 
                     <StatCard
-                        icon={
-                            FolderOpen
-                        }
-                        label="Optional"
-                        value={
-                            optionalAddedCount
-                        }
-                        description="Optional documents added"
-                        iconClass="text-violet-600"
-                        bgClass="bg-violet-50"
+                        icon={FileCheck2}
+                        label="Total Documents"
+                        value={totalDocuments}
+                        description="Items in your document checklist"
+                        iconClass="text-sky-600"
+                        bgClass="bg-sky-50"
                     />
                 </div>
 
