@@ -9,7 +9,7 @@ from api.profile import router as profile_router
 from api.scholarships import router as scholarships_router
 from api.admin_scholarships import router as admin_scholarships_router
 from api.student_documents import router as student_documents_router
-from api.matching import router as matching_router
+from api.matching_routes import router as matching_router
 
 from database.connection import get_db_connection
 
