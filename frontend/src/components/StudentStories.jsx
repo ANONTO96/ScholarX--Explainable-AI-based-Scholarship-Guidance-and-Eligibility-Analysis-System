@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 import daadLogo from "../assets/DAAD-logo.svg"
 import erasmusLogo from "../assets/Erasmus-logo.svg"
 import chevening from "../assets/Chevening-logo.png"
+import australiaAwardsLogo from "../assets/Australia-Awards-Logo-PNG-SVG-Vector.png"
 import { NavLink } from "react-router";
 
 const testimonials = [
@@ -29,14 +30,23 @@ const testimonials = [
     name: "Priya Kapoor",
     role: "Chevening Award Winner",
   },
+  {
+  logo: australiaAwardsLogo,
+  logoAlt: "Australia Awards Logo",
+  quote:
+    "Studying in Australia became possible with the right guidance. The scholarship opened doors to new opportunities and a brighter future.",
+  image: "https://i.pravatar.cc/80?img=47",
+  name: "Samantha Lee",
+  role: "Australia Awards Scholar",
+},
 ];
 
 export default function StudentStories() {
   return (
     <section className="bg-zinc-100 py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
+      <div className="max-w-400 mx-auto px-4 sm:px-5 lg:px-10">
         {/* Heading */}
-        <div className="max-w-md mb-10">
+        <div className="max-w-md mx-auto text-center mb-10">
           <h2 className="text-4xl lg:text-5xl font-semibold text-gray-900">
             Student stories
           </h2>
@@ -48,14 +58,14 @@ export default function StudentStories() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:scale-102 transition-all duration-300 border border-gray-200 hover:border-sky-100 flex flex-col justify-between min-h-90"
+              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:scale-102 transition-all duration-300 border border-gray-200 hover:border-sky-100 flex flex-col justify-between"
             >
               {/* Logo */}
-              <div className="mb-8">
+              <div className="mb-2">
                 <img
     src={item.logo}
     alt={item.logoAlt}
@@ -69,7 +79,7 @@ export default function StudentStories() {
               </p>
 
               {/* User */}
-              <div className="flex items-center gap-3 mt-5">
+              <div className="flex items-center gap-3 mt-4">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -86,7 +96,7 @@ export default function StudentStories() {
               </div>
 
               {/* Link */}
-              <NavLink className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-black hover:gap-3 transition-all">
+              <NavLink className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-black hover:gap-3 transition-all">
                 Read case study
                 <ChevronRight size={16} strokeWidth={2.5} />
               </NavLink>

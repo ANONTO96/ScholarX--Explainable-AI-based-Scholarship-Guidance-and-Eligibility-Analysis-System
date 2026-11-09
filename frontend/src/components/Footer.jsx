@@ -7,9 +7,9 @@ const Footer = () => {
       {/* top */}
       <div className="place-items-center pt-10">
         <img
-          src="https://img.icons8.com/?size=100&id=yk4uIl5Ci0uA&format=png&color=0284C7"
+          src="/favicon.svg"
           alt="ScholarX"
-          className="h-16 w-auto"
+          className="h-25 w-auto"
         />
       </div>
       <footer className="max-w-450 mx-auto px-3 pt-10 pb-20 text-base-content lg:px-6">
