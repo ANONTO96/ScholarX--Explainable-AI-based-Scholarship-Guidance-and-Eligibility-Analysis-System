@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   History,
   ChevronDown,
@@ -8,6 +8,7 @@ import {
   XCircle,
   FileText,
   Loader2,
+  Languages
 } from "lucide-react";
 
 const API_BASE_URL = (
@@ -36,6 +37,36 @@ function getDocumentReadiness(item) {
   const summary = item.summary || {};
 
   return summary.document_matching || summary.document_readiness || {};
+}
+
+function getLanguageMatching(item) {
+  return item?.summary?.language_proficiency_matching || null;
+}
+
+function getLanguageEvidence(evidence) {
+  if (!Array.isArray(evidence) || evidence.length === 0) {
+    return "No matching evidence found";
+  }
+
+  return evidence
+    .map((item) => {
+      if (item.type === "moi_document") {
+        return "Medium of Instruction (MOI) document";
+      }
+
+      if (item.type === "proficiency_test") {
+        const details = [
+          item.test_name,
+          item.score != null ? `Score: ${item.score}` : null,
+          item.proficiency_level ? `Level: ${item.proficiency_level}` : null,
+        ].filter(Boolean);
+
+        return details.join(" · ") || "Proficiency test record";
+      }
+
+      return item.type || "Evidence available";
+    })
+    .join("; ");
 }
 
 function getRequirementStatus(status) {
@@ -316,6 +347,11 @@ function EligibilityHistory() {
           const documents = Array.isArray(item.documents) ? item.documents : [];
 
           const documentReadiness = getDocumentReadiness(item);
+          const languageMatching = getLanguageMatching(item);
+
+          const languageResults = Array.isArray(languageMatching?.languages)
+            ? languageMatching.languages
+            : [];
 
           const isEvaluated = summary.status === "evaluated";
 
@@ -386,7 +422,7 @@ function EligibilityHistory() {
                 </div>
 
                 {/* Summary metrics */}
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <Metric
                     label="Eligibility Score"
                     value={
@@ -407,6 +443,16 @@ function EligibilityHistory() {
                           : "Not recorded"
                     }
                     color="text-violet-700"
+                  />
+
+                  <Metric
+                    label="Language Proficiency"
+                    value={
+                      languageMatching
+                        ? formatPercentage(languageMatching.percentage)
+                        : "Not recorded"
+                    }
+                    color="text-emerald-700"
                   />
                 </div>
               </div>
@@ -705,6 +751,116 @@ function EligibilityHistory() {
                             );
                           })}
                         </div>
+                      </>
+                    )}
+                  </section>
+
+                  {/* Language Proficiency Matching */}
+                  <section>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-2">
+                        <Languages size={21} className="text-emerald-600" />
+
+                        <h3 className="text-lg font-bold text-gray-900">
+                          Language Proficiency Matching
+                        </h3>
+                      </div>
+
+                      <p className="mt-1 text-sm text-gray-500">
+                        Previously saved Level 2 language matching results for
+                        this analysis.
+                      </p>
+                    </div>
+
+                    {!languageMatching ? (
+                      <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-4">
+                        <p className="font-semibold text-yellow-900">
+                          Language results not recorded
+                        </p>
+                        <p className="mt-1 text-sm text-yellow-800">
+                          This analysis was saved without a Level 2 language
+                          matching result. New analyses will store this result
+                          after the backend update.
+                        </p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                          <Metric
+                            label="Matching Percentage"
+                            value={formatPercentage(
+                              languageMatching.percentage,
+                            )}
+                            color="text-emerald-700"
+                          />
+
+                          <Metric
+                            label="Required Languages"
+                            value={
+                              languageMatching.total_required_languages ?? 0
+                            }
+                          />
+
+                          <Metric
+                            label="Matched"
+                            value={languageMatching.matched_languages ?? 0}
+                            color="text-green-700"
+                          />
+
+                          <Metric
+                            label="Unmatched"
+                            value={languageMatching.unmatched_languages ?? 0}
+                            color="text-red-700"
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          {languageResults.length === 0 ? (
+                            <p className="rounded-lg bg-white p-4 text-sm text-gray-500">
+                              No language requirements were evaluated.
+                            </p>
+                          ) : (
+                            languageResults.map((language, languageIndex) => (
+                              <div
+                                key={`${language.language_name || language.language}-${languageIndex}`}
+                                className="rounded-xl border border-gray-200 bg-white p-4"
+                              >
+                                <div className="flex flex-wrap items-center justify-between gap-3">
+                                  <div>
+                                    <p className="font-semibold text-gray-900">
+                                      {language.language_name ||
+                                        language.language}
+                                    </p>
+
+                                    <p className="mt-1 text-sm text-gray-600">
+                                      Evidence:{" "}
+                                      {getLanguageEvidence(language.evidence)}
+                                    </p>
+                                  </div>
+
+                                  <span
+                                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                                      language.matched
+                                        ? "bg-green-50 text-green-700"
+                                        : "bg-red-50 text-red-700"
+                                    }`}
+                                  >
+                                    {language.matched
+                                      ? "Matched"
+                                      : "Not matched"}
+                                  </span>
+                                </div>
+                              </div>
+                            ))
+                          )}
+                        </div>
+
+                        <p className="mt-4 text-xs leading-5 text-gray-500">
+                          Each required language is counted once. English can be
+                          satisfied by either the MOI document or an English
+                          proficiency test. Having both does not increase the
+                          matching score.
+                        </p>
                       </>
                     )}
                   </section>
