@@ -1,9 +1,15 @@
-import { Menu, X, ArrowRight, ChevronDown, LogOut, UserRound, } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowRight,
+  ChevronDown,
+  LogOut,
+  UserRound,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router";
-
 
 const Navbar = () => {
   // state for mobile dropdown icon
@@ -24,9 +30,7 @@ const Navbar = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const storedUser = JSON.parse(
-          localStorage.getItem("user")
-        );
+        const storedUser = JSON.parse(localStorage.getItem("user"));
 
         setUser(token && storedUser ? storedUser : null);
       } catch {
@@ -51,7 +55,6 @@ const Navbar = () => {
 
     navigate("/", { replace: true });
   };
-
 
   const countries = [
     { name: "United States", code: "US", slug: "usa" },
@@ -204,35 +207,37 @@ const Navbar = () => {
 
   const resourcesRef = useRef(null);
 
-useEffect(() => {
-  const handleOutsideClick = (event) => {
-    if (
-      resourcesRef.current &&
-      !resourcesRef.current.contains(event.target)
-    ) {
-      resourcesRef.current.open = false;
-    }
-  };
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        resourcesRef.current &&
+        !resourcesRef.current.contains(event.target)
+      ) {
+        resourcesRef.current.open = false;
+      }
+    };
 
-  document.addEventListener("pointerdown", handleOutsideClick);
+    document.addEventListener("pointerdown", handleOutsideClick);
 
-  return () => {
-    document.removeEventListener("pointerdown", handleOutsideClick);
-  };
-}, []);
+    return () => {
+      document.removeEventListener("pointerdown", handleOutsideClick);
+    };
+  }, []);
   return (
     <nav className="fixed inset-x-0 z-50 w-full pt-1 px-2">
-      <div className="flex w-full xl:w-[90%] mx-auto px-2 py-2 md:px-3 md:py-3 items-center justify-between rounded-2xl
+      <div
+        className="flex w-full xl:w-[90%] mx-auto px-2 py-2 md:px-3 md:py-3 items-center justify-between rounded-2xl
     border border-white/20
     bg-white/40
     backdrop-blur-md
     backdrop-saturate-150
-    shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+    shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
+      >
         {/* logo and name */}
         <div className="">
           <NavLink
             to="/"
-            className="btn btn-ghost gap-2 px-2 text-2xl font-bold"
+            className="flex justify-center items-center hover gap-2 px-2 text-2xl font-bold"
           >
             <img
               className="h-7 w-7"
@@ -241,23 +246,37 @@ useEffect(() => {
             />
 
             <span className="font-[Outfit] tracking-tight">
-              Scholar<span className="text-sky-500">X</span>
+              Scholar<span className="text-sky-600">X</span>
             </span>
           </NavLink>
         </div>
         {/*desktop center navigation */}
         <div className=" hidden xl:flex">
           <ul className="menu menu-horizontal">
-            <li><NavLink to="/" className={({ isActive }) =>
-              isActive
-                ? "text-sky-600 font-semibold"
-                : "text-gray-800 hover:text-sky-600"
-            }>Home</NavLink></li>
-            <li><NavLink to="/features" className={({ isActive }) =>
-              isActive
-                ? "text-sky-600 font-semibold"
-                : "text-gray-800 hover:text-sky-600"
-            }>Features</NavLink></li>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-semibold"
+                    : "text-gray-800 hover:text-sky-600"
+                }
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/features"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-semibold"
+                    : "text-gray-800 hover:text-sky-600"
+                }
+              >
+                Features
+              </NavLink>
+            </li>
             {/* countries */}
             <li className="relative group">
               <button className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:text-sky-600">
@@ -313,7 +332,6 @@ useEffect(() => {
                   className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
                 >
                   Explore All
-
                   <ArrowRight
                     size={18}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -373,7 +391,6 @@ useEffect(() => {
                   className="flex items-center justify-center w-full rounded-xl border border-gray-200 px-5 py-3 font-semibold transition-all duration-300 hover:bg-sky-500 hover:text-white"
                 >
                   Explore All
-
                   <ArrowRight
                     size={18}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -381,99 +398,111 @@ useEffect(() => {
                 </NavLink>
               </div>
             </li>
-            <li><NavLink to="/opportunities" className={({ isActive }) =>
-              isActive
-                ? "text-sky-600 font-semibold"
-                : "text-gray-800 hover:text-sky-600"
-            }>Opportunities</NavLink></li>
-            <li><NavLink to="/pricing" className={({ isActive }) =>
-              isActive
-                ? "text-sky-600 font-semibold"
-                : "text-gray-800 hover:text-sky-600"
-            }>Pricing</NavLink></li>
             <li>
-  <details ref={resourcesRef}>
-    <summary>Resources</summary>
+              <NavLink
+                to="/opportunities"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-semibold"
+                    : "text-gray-800 hover:text-sky-600"
+                }
+              >
+                Opportunities
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/pricing"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sky-600 font-semibold"
+                    : "text-gray-800 hover:text-sky-600"
+                }
+              >
+                Pricing
+              </NavLink>
+            </li>
+            <li>
+              <details ref={resourcesRef}>
+                <summary>Resources</summary>
 
-    <ul className="p-2 bg-base-100 w-40 z-1">
-      <li>
-        <NavLink
-          to="/blog"
-          className={({ isActive }) =>
-            isActive
-              ? "text-sky-600 font-semibold"
-              : "text-gray-700 hover:text-sky-600"
-          }
-        >
-          Blog
-        </NavLink>
-      </li>
+                <ul className="p-2 bg-base-100 w-40 z-1">
+                  <li>
+                    <NavLink
+                      to="/blog"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-sky-600 font-semibold"
+                          : "text-gray-700 hover:text-sky-600"
+                      }
+                    >
+                      Blog
+                    </NavLink>
+                  </li>
 
-      <li>
-        <NavLink
-          to="/FAQ"
-          className={({ isActive }) =>
-            isActive
-              ? "text-sky-600 font-semibold"
-              : "text-gray-700 hover:text-sky-600"
-          }
-        >
-          FAQ
-        </NavLink>
-      </li>
+                  <li>
+                    <NavLink
+                      to="/FAQ"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-sky-600 font-semibold"
+                          : "text-gray-700 hover:text-sky-600"
+                      }
+                    >
+                      FAQ
+                    </NavLink>
+                  </li>
 
-      <li>
-        <NavLink
-          to="/support"
-          className={({ isActive }) =>
-            isActive
-              ? "text-sky-600 font-semibold"
-              : "text-gray-700 hover:text-sky-600"
-          }
-        >
-          Support
-        </NavLink>
-      </li>
+                  <li>
+                    <NavLink
+                      to="/support"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-sky-600 font-semibold"
+                          : "text-gray-700 hover:text-sky-600"
+                      }
+                    >
+                      Support
+                    </NavLink>
+                  </li>
 
-      <li>
-        <NavLink
-          to="/about-us"
-          className={({ isActive }) =>
-            isActive
-              ? "text-sky-600 font-semibold"
-              : "text-gray-700 hover:text-sky-600"
-          }
-        >
-          About us
-        </NavLink>
-      </li>
+                  <li>
+                    <NavLink
+                      to="/about-us"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-sky-600 font-semibold"
+                          : "text-gray-700 hover:text-sky-600"
+                      }
+                    >
+                      About us
+                    </NavLink>
+                  </li>
 
-      <li>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            isActive
-              ? "text-sky-600 font-semibold"
-              : "text-gray-700 hover:text-sky-600"
-          }
-        >
-          Contact
-        </NavLink>
-      </li>
-    </ul>
-  </details>
-</li>
+                  <li>
+                    <NavLink
+                      to="/contact"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-sky-600 font-semibold"
+                          : "text-gray-700 hover:text-sky-600"
+                      }
+                    >
+                      Contact
+                    </NavLink>
+                  </li>
+                </ul>
+              </details>
+            </li>
           </ul>
         </div>
         {/* user actions */}
         <div className="flex items-center gap-2">
-
-          
-{!user && (
-  <>
-    <NavLink
-      to="/logIn"
-      className="
+          {!user && (
+            <>
+              <NavLink
+                to="/logIn"
+                className="
         shrink-0 whitespace-nowrap rounded-lg
         border border-[#3A2C2C]
         bg-gray-100 text-black
@@ -485,13 +514,13 @@ useEffect(() => {
         sm:rounded-xl sm:px-3 sm:py-1.5 sm:text-base
         lg:py-2
       "
-    >
-      Log in
-    </NavLink>
+              >
+                Log in
+              </NavLink>
 
-    <NavLink
-      to="/register"
-      className="
+              <NavLink
+                to="/register"
+                className="
         shrink-0 whitespace-nowrap rounded-lg
         border border-[#3A2C2C]
         bg-[#DCEEFF] text-black
@@ -503,22 +532,20 @@ useEffect(() => {
         sm:rounded-xl sm:px-3 sm:py-1.5 sm:text-base
         lg:py-2
       "
-    >
-      Sign up
-    </NavLink>
-  </>
-)}
-
+              >
+                Sign up
+              </NavLink>
+            </>
+          )}
 
           {/* Desktop profile dropdown */}
           {user && (
             <div className="dropdown dropdown-end hidden xl:block">
-
               <button
                 type="button"
                 tabIndex={0}
                 aria-label="Open profile menu"
-                className="group flex items-center gap-1.5 rounded-full border border-sky-200/80 bg-white/80 p-1.5 pr-2 shadow-sm transition-all duration-300 hover:border-sky-400 hover:bg-sky-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+                className="group flex items-center gap-1.5 rounded-full border border-sky-200/80 bg-white/80 p-1.5 pr-2 shadow-sm transition-all duration-300 hover:border-sky-300 hover:bg-sky-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-sky-500 to-blue-600 text-white shadow-sm transition-transform duration-300">
                   <UserRound size={19} strokeWidth={2} />
@@ -530,21 +557,31 @@ useEffect(() => {
                 />
               </button>
 
-
               <ul
                 tabIndex={0}
-                className="dropdown-content menu z-50 mt-3 w-64 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl"
+                className="dropdown-content menu z-50 mt-3 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-xl"
               >
                 {/* User information */}
-                <li className="pointer-events-none mb-1 border-b border-slate-100 px-3 py-3">
-                  <span className="block truncate font-semibold text-slate-800">
-                    {user.name || "ScholarX User"}
-                  </span>
-                  {user.email && (
-                    <span className="block truncate text-xs text-slate-500">
-                      {user.email}
-                    </span>
-                  )}
+                <li className="pointer-events-none mb-2 border-b border-slate-100 py-3">
+                  <div className="flex items-center gap-3">
+                    {/* User Initial */}
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-50 text-sky-700 font-semibold text-sm">
+                      {(user.name || "S").charAt(0).toUpperCase()}
+                    </div>
+
+                    {/* Name & Email */}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-lg font-semibold text-slate-800">
+                        {user.name || "ScholarX User"}
+                      </p>
+
+                      {user.email && (
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {user.email}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </li>
 
                 {/* Dashboard */}
@@ -553,21 +590,20 @@ useEffect(() => {
                     to="/dashboard"
                     onClick={() => setIsOpen(false)}
                     className="font-semibold bg-linear-to-r from-blue-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent hover:text-sky-600"
-
                   >
                     Dashboard
                   </NavLink>
                 </li>
 
                 {/* Logout */}
-                <li className="mt-1 border-t border-slate-100 pt-2">
+                <li className="mt-1 w-full min-w-0 border-t border-slate-100 pt-2">
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="flex w-full items-center gap-3 rounded-xl py-2.5 text-red-600 transition-colors bg-red-100 hover:bg-red-500 hover:text-white"
+                    className="box-border flex w-full min-w-0 items-center gap-3 rounded-xl px-3 py-2.5 text-red-600 transition-colors bg-red-100 hover:bg-red-500 hover:text-white"
                   >
-                    <LogOut size={18} />
-                    Log out
+                    <LogOut size={18} className="shrink-0" />
+                    <span>Log out</span>
                   </button>
                 </li>
               </ul>
@@ -576,23 +612,14 @@ useEffect(() => {
 
           {/* mobile dropdown */}
           <div className="relative xl:hidden">
-
             <button
-
-              onClick={() => setIsOpen(prev => !prev)}
-
+              onClick={() => setIsOpen((prev) => !prev)}
               className="btn btn-ghost"
-
             >
-
               {isOpen ? <X size={24} /> : <Menu size={24} />}
-
             </button>
 
-
-
             {isOpen && (
-
               <ul
                 className="
     absolute right-0 mt-2 sm:mt-3
@@ -613,7 +640,6 @@ useEffect(() => {
                   }
                 }}
               >
-
                 {user && (
                   <>
                     <li>
@@ -632,32 +658,53 @@ useEffect(() => {
                   </>
                 )}
 
-                <li><NavLink to="/" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold"
-                    : "text-gray-700 hover:text-sky-600"
-                }>Home</NavLink></li>
+                <li>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }
+                  >
+                    Home
+                  </NavLink>
+                </li>
 
-                <li><NavLink to="/features" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold"
-                    : "text-gray-700 hover:text-sky-600"
-                }>Features</NavLink></li>
+                <li>
+                  <NavLink
+                    to="/features"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }
+                  >
+                    Features
+                  </NavLink>
+                </li>
                 {/* countries */}
-                <li><NavLink to="/countries" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold"
-                    : "text-gray-700 hover:text-sky-600"
-                }>Countries</NavLink>
+                <li>
+                  <NavLink
+                    to="/countries"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }
+                  >
+                    Countries
+                  </NavLink>
                   <ul className="p-2">
                     {countries.slice(0, 3).map((country) => (
                       <li key={country.slug}>
                         <NavLink
                           to={`/countries/${country.slug}`}
                           className={({ isActive }) =>
-                            `flex items-center gap-3 ${isActive
-                              ? "text-sky-600 font-semibold"
-                              : "text-gray-700 hover:text-sky-600"
+                            `flex items-center gap-3 ${
+                              isActive
+                                ? "text-sky-600 font-semibold"
+                                : "text-gray-700 hover:text-sky-600"
                             }`
                           }
                         >
@@ -682,9 +729,10 @@ useEffect(() => {
                       <NavLink
                         to="/countries"
                         className={({ isActive }) =>
-                          `group flex items-center gap-2 transition ${isActive
-                            ? "text-sky-600 font-semibold"
-                            : "text-gray-800 font-medium hover:text-sky-600"
+                          `group flex items-center gap-2 transition ${
+                            isActive
+                              ? "text-sky-600 font-semibold"
+                              : "text-gray-800 font-medium hover:text-sky-600"
                           }`
                         }
                       >
@@ -695,96 +743,177 @@ useEffect(() => {
                   </ul>
                 </li>
                 {/* programs */}
-                <li><NavLink to="/programs" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold"
-                    : "text-gray-700 hover:text-sky-600"
-                }>Programs</NavLink>
+                <li>
+                  <NavLink
+                    to="/programs"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }
+                  >
+                    Programs
+                  </NavLink>
                   <ul className="p-2">
+                    <li>
+                      <NavLink
+                        to="/programDetails/business-administration"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        Business Administration
+                      </NavLink>
+                    </li>
 
-                    <li><NavLink to="/programDetails/business-administration" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Business Administration</NavLink></li>
+                    <li>
+                      <NavLink
+                        to="/programDetails/computer-science"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        Computer Science
+                      </NavLink>
+                    </li>
 
-                    <li><NavLink to="/programDetails/computer-science" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Computer Science</NavLink></li>
-
-                    <li><NavLink to="/programDetails/nursing" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Nursing</NavLink></li>
-                    <li><NavLink to="/programs" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold group flex items-center gap-2 transition"
-                        : "text-gray-800 font-medium group flex items-center gap-2 transition hover:text-sky-600"
-                    }>View All <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></NavLink></li>
-
+                    <li>
+                      <NavLink
+                        to="/programDetails/nursing"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        Nursing
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/programs"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold group flex items-center gap-2 transition"
+                            : "text-gray-800 font-medium group flex items-center gap-2 transition hover:text-sky-600"
+                        }
+                      >
+                        View All{" "}
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </NavLink>
+                    </li>
                   </ul>
                 </li>
 
-                <li><NavLink to="/opportunities" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold"
-                    : "text-gray-700 hover:text-sky-600"
-                }>Opportunities</NavLink ></li>
-
-                <li><NavLink to="/pricing" className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold"
-                    : "text-gray-700 hover:text-sky-600"
-                }>Pricing</NavLink ></li>
+                <li>
+                  <NavLink
+                    to="/opportunities"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }
+                  >
+                    Opportunities
+                  </NavLink>
+                </li>
 
                 <li>
+                  <NavLink
+                    to="/pricing"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sky-600 font-semibold"
+                        : "text-gray-700 hover:text-sky-600"
+                    }
+                  >
+                    Pricing
+                  </NavLink>
+                </li>
 
-                  <Link className="text-gray-700 hover:text-sky-600"
-                  >Resources</Link>
+                <li>
+                  <Link className="text-gray-700 hover:text-sky-600">
+                    Resources
+                  </Link>
 
                   <ul className="p-2">
+                    <li>
+                      <NavLink
+                        to="/blog"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        Blog
+                      </NavLink>
+                    </li>
 
-                    <li><NavLink to="/blog" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Blog</NavLink></li>
+                    <li>
+                      <NavLink
+                        to="/FAQ"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        FAQ
+                      </NavLink>
+                    </li>
 
-                    <li><NavLink to="/FAQ" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>FAQ</NavLink></li>
+                    <li>
+                      <NavLink
+                        to="/support"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        Support
+                      </NavLink>
+                    </li>
 
-                    <li><NavLink to="/support" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Support</NavLink></li>
+                    <li>
+                      <NavLink
+                        to="/about-us"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        About us
+                      </NavLink>
+                    </li>
 
-                    <li><NavLink to="/about-us" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>About us</NavLink></li>
-
-                    <li><NavLink to="/contact" className={({ isActive }) =>
-                      isActive
-                        ? "text-sky-600 font-semibold"
-                        : "text-gray-700 hover:text-sky-600"
-                    }>Contact</NavLink></li>
+                    <li>
+                      <NavLink
+                        to="/contact"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-sky-600 font-semibold"
+                            : "text-gray-700 hover:text-sky-600"
+                        }
+                      >
+                        Contact
+                      </NavLink>
+                    </li>
                   </ul>
 
                   {user && (
                     <>
-                      <li className="mt-1 border-t border-gray-100 pt-3">
+                      <li className="group mt-1 border-t border-gray-100 py-3">
                         <button
                           type="button"
                           onClick={handleLogout}
-                          className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 hover:bg-red-500 hover:text-white"
+                          className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 font-medium text-red-600 transition-all duration-300 bg-red-100 group-hover:bg-red-500 group-hover:text-white"
                         >
                           <LogOut size={18} strokeWidth={2} />
                           <span>Log out</span>
