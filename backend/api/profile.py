@@ -25,11 +25,10 @@ class UsernameUpdateRequest(BaseModel):
 
 
 class LanguageQualification(BaseModel):
-    language_code: str = Field(min_length=2, max_length=10)
+    language_code: str = Field(min_length=2, max_length=80)
     proficiency_type: str = Field(min_length=1, max_length=30)
     test_name: str | None = Field(default=None, max_length=80)
     score_numeric: Decimal | None = None
-    score_text: str | None = Field(default=None, max_length=50)
     proficiency_level: str | None = Field(default=None, max_length=30)
     test_date: date | None = None
     expiry_date: date | None = None
@@ -168,7 +167,6 @@ def _format_language_qualifications(rows: list[dict] | None):
                 else None
             ),
 
-            "score_text": row.get("score_text"),
             "proficiency_level": row.get("proficiency_level"),
 
             "test_date": (
@@ -913,17 +911,16 @@ def save_language_qualifications(
                         proficiency_type,
                         test_name,
                         score_numeric,
-                        score_text,
                         proficiency_level,
                         test_date,
                         expiry_date
                     )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     user_id,
 
-                    item.language_code.strip().upper(),
+                    item.language_code.strip().title(),
 
                     item.proficiency_type.strip().lower(),
 
@@ -934,12 +931,6 @@ def save_language_qualifications(
                     ),
 
                     item.score_numeric,
-
-                    (
-                        item.score_text.strip()
-                        if item.score_text
-                        else None
-                    ),
 
                     (
                         item.proficiency_level.strip()

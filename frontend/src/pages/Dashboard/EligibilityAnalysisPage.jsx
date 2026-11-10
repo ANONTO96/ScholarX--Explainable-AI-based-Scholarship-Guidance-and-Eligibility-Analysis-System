@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import {
@@ -9,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import DocumentMatchingLevel from "../../components/Dashboard/DocumentMatchingLevel";
+import LanguageProficiencyMatching from "../../components/Dashboard/LanguageProficiencyMatching";
 import Loader from "../../components/ReusableComp/Loader";
 
 const API_BASE_URL = (
@@ -89,6 +91,7 @@ function displayValue(value) {
   if (value === null || value === undefined || value === "") return "—";
   if (typeof value === "boolean") return value ? "Yes" : "No";
   if (Array.isArray(value)) return value.map(displayValue).join(", ");
+
   if (typeof value === "object") {
     return (
       value.explanation ||
@@ -98,6 +101,7 @@ function displayValue(value) {
       JSON.stringify(value)
     );
   }
+
   return String(value);
 }
 
@@ -109,11 +113,18 @@ function getScoreValue(result) {
   ];
 
   for (const candidate of candidates) {
-    if (candidate === null || candidate === undefined || candidate === "") {
+    if (
+      candidate === null ||
+      candidate === undefined ||
+      candidate === ""
+    ) {
       continue;
     }
 
-    if (typeof candidate === "number" || typeof candidate === "string") {
+    if (
+      typeof candidate === "number" ||
+      typeof candidate === "string"
+    ) {
       return candidate;
     }
 
@@ -125,7 +136,11 @@ function getScoreValue(result) {
         candidate.overall_score ??
         candidate.eligibility_percentage;
 
-      if (nested !== null && nested !== undefined && nested !== "") {
+      if (
+        nested !== null &&
+        nested !== undefined &&
+        nested !== ""
+      ) {
         return nested;
       }
     }
@@ -135,9 +150,15 @@ function getScoreValue(result) {
 }
 
 function formatScore(value) {
-  if (value === null || value === undefined || value === "") return "—";
+  if (value === null || value === undefined || value === "") {
+    return "—";
+  }
+
   const numericValue = Number(value);
-  return Number.isFinite(numericValue) ? `${numericValue}%` : String(value);
+
+  return Number.isFinite(numericValue)
+    ? `${numericValue}%`
+    : String(value);
 }
 
 function Recommendations({ items }) {
@@ -151,7 +172,9 @@ function Recommendations({ items }) {
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex items-center gap-2">
         <Sparkles className="text-amber-500" size={19} />
-        <h3 className="font-bold text-slate-900">Improvement recommendations</h3>
+        <h3 className="font-bold text-slate-900">
+          Improvement recommendations
+        </h3>
       </div>
 
       {recommendations.length ? (
@@ -164,6 +187,7 @@ function Recommendations({ items }) {
               <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-50 text-xs font-bold text-amber-700">
                 {index + 1}
               </span>
+
               <span>
                 {typeof item === "string"
                   ? item
@@ -201,15 +225,16 @@ export default function EligibilityAnalysisPage() {
 
   const numericScholarshipId = useMemo(() => {
     const parsed = Number(scholarshipId);
-    return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
+
+    return Number.isInteger(parsed) && parsed > 0
+      ? parsed
+      : null;
   }, [scholarshipId]);
 
   useEffect(() => {
     let cancelled = false;
 
     async function loadScholarship() {
-      // A route parameter can change without unmounting this page.
-      // Clear the previous scholarship's result before loading the next one.
       setScholarship(null);
       setAnalysisResult(null);
       setAvailableLanguages([]);
@@ -217,7 +242,9 @@ export default function EligibilityAnalysisPage() {
       setAnalysisError("");
 
       if (!numericScholarshipId) {
-        setScholarshipError("The scholarship ID in this URL is invalid.");
+        setScholarshipError(
+          "The scholarship ID in this URL is invalid."
+        );
         setScholarshipLoading(false);
         return;
       }
@@ -236,11 +263,14 @@ export default function EligibilityAnalysisPage() {
       } catch (error) {
         if (!cancelled) {
           setScholarshipError(
-            error.message || "Unable to load scholarship information."
+            error.message ||
+              "Unable to load scholarship information."
           );
         }
       } finally {
-        if (!cancelled) setScholarshipLoading(false);
+        if (!cancelled) {
+          setScholarshipLoading(false);
+        }
       }
     }
 
@@ -251,61 +281,98 @@ export default function EligibilityAnalysisPage() {
     };
   }, [numericScholarshipId]);
 
-  const runAnalysis = useCallback(async () => {
-    if (!numericScholarshipId) {
-      setAnalysisError("A valid database scholarship ID is required.");
-      return;
-    }
-
-    setAnalysisLoading(true);
-    setAnalysisError("");
-
-    try {
-      const body = await apiRequest(`${API_BASE_URL}/api/matching/analyze`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          scholarship_id: numericScholarshipId,
-          preferred_study_language: selectedLanguage || null,
-        }),
-      });
-
-      if (body.status === "language_selection_required") {
-        const languages = Array.isArray(body.available_languages)
-          ? body.available_languages
-          : [];
-
-        setAvailableLanguages(languages);
-        setAnalysisResult(null);
-
-        if (!languages.length) {
-          throw new Error(
-            body.message ||
-              "A study language is required, but the API did not return available languages."
-          );
-        }
-
-        const firstLanguage = getLanguageValue(languages[0]);
-        if (!selectedLanguage && firstLanguage) {
-          setSelectedLanguage(firstLanguage);
-        }
+  // Performs the analysis.
+  // A fresh run passes an empty language.
+  // Continue Analysis passes the student's selected language.
+  const runAnalysis = useCallback(
+    async (languageOverride = selectedLanguage) => {
+      if (!numericScholarshipId) {
+        setAnalysisError(
+          "A valid database scholarship ID is required."
+        );
         return;
       }
 
-      if (body.status !== "evaluated") {
-        throw new Error(
-          body.message || "The eligibility analysis could not be completed."
-        );
-      }
+      setAnalysisLoading(true);
+      setAnalysisError("");
 
-      setAvailableLanguages([]);
-      setAnalysisResult(body);
-    } catch (error) {
-      setAnalysisError(error.message || "Eligibility analysis failed.");
-    } finally {
-      setAnalysisLoading(false);
-    }
-  }, [numericScholarshipId, selectedLanguage]);
+      try {
+        const body = await apiRequest(
+          `${API_BASE_URL}/api/matching/analyze`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              scholarship_id: numericScholarshipId,
+              preferred_study_language:
+                languageOverride || null,
+            }),
+          }
+        );
+
+        // Backend requires the student to select a study language.
+        if (body.status === "language_selection_required") {
+          const languages = Array.isArray(
+            body.available_languages
+          )
+            ? body.available_languages
+            : [];
+
+          setAvailableLanguages(languages);
+          setAnalysisResult(null);
+
+          if (!languages.length) {
+            throw new Error(
+              body.message ||
+                "A study language is required, but the API did not return available languages."
+            );
+          }
+
+          const firstLanguage = getLanguageValue(
+            languages[0]
+          );
+
+          if (!selectedLanguage && firstLanguage) {
+            setSelectedLanguage(firstLanguage);
+          }
+
+          return;
+        }
+
+        // Analysis completed successfully.
+        if (body.status !== "evaluated") {
+          throw new Error(
+            body.message ||
+              "The eligibility analysis could not be completed."
+          );
+        }
+
+        setAvailableLanguages([]);
+        setAnalysisResult(body);
+      } catch (error) {
+        setAnalysisError(
+          error.message || "Eligibility analysis failed."
+        );
+      } finally {
+        setAnalysisLoading(false);
+      }
+    },
+    [numericScholarshipId, selectedLanguage]
+  );
+
+  // Start a completely fresh analysis.
+  // Do not reuse the previously selected language.
+  const startAnalysis = useCallback(() => {
+    setAnalysisResult(null);
+    setAnalysisError("");
+    setAvailableLanguages([]);
+    setSelectedLanguage("");
+
+    // Explicitly send null for preferred_study_language.
+    runAnalysis("");
+  }, [runAnalysis]);
 
   const scholarshipTitle =
     scholarship?.title ||
@@ -336,13 +403,17 @@ export default function EligibilityAnalysisPage() {
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-sky-600">
               Scholarship eligibility check
             </p>
+
             <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
               {scholarshipTitle}
             </h1>
+
             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
-              {"Country: " + country || "Country information not available"}
+              {"Country: " + country ||
+                "Country information not available"}
             </div>
           </div>
+
           <div className="flex items-center gap-2 rounded-xl bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-700">
             <GraduationCap size={18} />
             Eligibility analysis
@@ -372,23 +443,35 @@ export default function EligibilityAnalysisPage() {
             <h2 className="text-lg font-bold text-slate-900">
               Analyze your eligibility
             </h2>
+
             <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-500">
-              Run the analysis against your saved student profile and the
-              scholarship requirements. If the program offers multiple study
-              languages, select one before continuing.
+              Run the analysis against your saved student profile
+              and the scholarship requirements. If the program
+              offers multiple study languages, select one before
+              continuing.
             </p>
           </div>
+
+          {/* Fresh analysis button */}
           <button
             type="button"
-            onClick={runAnalysis}
-            disabled={analysisLoading || scholarshipLoading || !numericScholarshipId}
+            onClick={startAnalysis}
+            disabled={
+              analysisLoading ||
+              scholarshipLoading ||
+              !numericScholarshipId
+            }
             className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {analysisLoading ? (
-              <LoaderCircle className="animate-spin" size={17} />
+              <LoaderCircle
+                className="animate-spin"
+                size={17}
+              />
             ) : (
               <RefreshCw size={16} />
             )}
+
             {analysisLoading
               ? "Analyzing..."
               : analysisResult
@@ -397,6 +480,7 @@ export default function EligibilityAnalysisPage() {
           </button>
         </div>
 
+        {/* Study language selection */}
         {availableLanguages.length > 0 && (
           <div className="mt-5 rounded-xl border border-sky-200 bg-sky-50 p-4">
             <label
@@ -405,36 +489,57 @@ export default function EligibilityAnalysisPage() {
             >
               Select your preferred study language
             </label>
+
             <p className="mt-1 text-sm text-slate-600">
-              This program has multiple study-language options. Choose one to
-              continue the complete analysis.
+              This program has multiple study-language options.
+              Choose one to continue the complete analysis.
             </p>
+
             <div className="mt-3 flex flex-col gap-3 sm:flex-row">
               <select
                 id="study-language"
                 value={selectedLanguage}
-                onChange={(event) => setSelectedLanguage(event.target.value)}
+                onChange={(event) =>
+                  setSelectedLanguage(event.target.value)
+                }
                 className="min-h-11 flex-1 rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-800 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
               >
-                <option value="">Choose a study language</option>
-                {availableLanguages.map((language, index) => {
-                  const value = getLanguageValue(language);
-                  return (
-                    <option key={`${value}-${index}`} value={value}>
-                      {getLanguageLabel(language)}
-                    </option>
-                  );
-                })}
+                <option value="">
+                  Choose a study language
+                </option>
+
+                {availableLanguages.map(
+                  (language, index) => {
+                    const value = getLanguageValue(language);
+
+                    return (
+                      <option
+                        key={`${value}-${index}`}
+                        value={value}
+                      >
+                        {getLanguageLabel(language)}
+                      </option>
+                    );
+                  }
+                )}
               </select>
+
+              {/* Continue with selected language */}
               <button
                 type="button"
-                onClick={runAnalysis}
-                disabled={!selectedLanguage || analysisLoading}
+                onClick={() => runAnalysis(selectedLanguage)}
+                disabled={
+                  !selectedLanguage || analysisLoading
+                }
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 text-sm font-bold text-white hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {analysisLoading && (
-                  <LoaderCircle className="animate-spin" size={16} />
+                  <LoaderCircle
+                    className="animate-spin"
+                    size={16}
+                  />
                 )}
+
                 Continue analysis
               </button>
             </div>
@@ -451,9 +556,13 @@ export default function EligibilityAnalysisPage() {
         )}
       </section>
 
+      {/* Analysis result */}
       {analysisResult && (
         <div
-          key={analysisResult.check_uuid || `scholarship-${numericScholarshipId}-analysis`}
+          key={
+            analysisResult.check_uuid ||
+            `scholarship-${numericScholarshipId}-analysis`
+          }
           className="space-y-6"
         >
           <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
@@ -462,25 +571,34 @@ export default function EligibilityAnalysisPage() {
                 <p className="text-xs font-bold uppercase tracking-wider text-sky-600">
                   Overall eligibility
                 </p>
+
                 <h2 className="mt-1 text-xl font-black text-slate-900">
                   Analysis completed
                 </h2>
+
                 {analysisResult.selected_study_language && (
                   <p className="mt-1 text-sm text-slate-500">
-                    Study language: {displayValue(analysisResult.selected_study_language)}
+                    Study language:{" "}
+                    {displayValue(
+                      analysisResult.selected_study_language
+                    )}
                   </p>
                 )}
+
                 {analysisResult.check_uuid && (
                   <p className="mt-1 text-xs text-slate-400">
-                    Analysis reference: {analysisResult.check_uuid}
+                    Analysis reference:{" "}
+                    {analysisResult.check_uuid}
                   </p>
                 )}
               </div>
+
               {score !== undefined && score !== null && (
                 <div className="min-w-32 rounded-xl bg-sky-50 px-5 py-4 text-center">
                   <p className="text-xs font-semibold text-sky-700">
                     Eligibility score
                   </p>
+
                   <p className="mt-1 text-3xl font-black tabular-nums text-sky-900">
                     {formatScore(score)}
                   </p>
@@ -491,10 +609,21 @@ export default function EligibilityAnalysisPage() {
 
           <DocumentMatchingLevel
             scholarshipId={numericScholarshipId}
-            initialResult={analysisResult.document_matching || null}
+            initialResult={
+              analysisResult.document_matching || null
+            }
           />
 
-          <Recommendations items={analysisResult.recommendations} />
+          <LanguageProficiencyMatching
+            result={
+              analysisResult.language_proficiency_matching ||
+              null
+            }
+          />
+
+          <Recommendations
+            items={analysisResult.recommendations}
+          />
         </div>
       )}
     </main>

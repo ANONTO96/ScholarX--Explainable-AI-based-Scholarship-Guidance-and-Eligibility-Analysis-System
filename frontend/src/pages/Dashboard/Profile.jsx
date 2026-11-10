@@ -331,12 +331,56 @@ const calculateAge = (dateOfBirth) => {
   return age >= 0 ? age : null;
 };
 
+const LANGUAGE_OPTIONS = [
+  "Chinese", "English", "French", "German", "Japanese", "Korean",
+  "Spanish", "Italian", "Russian", "Dutch", "Portuguese", "Arabic",
+  "Hindi", "Bengali", "Other",
+];
+
+const LANGUAGE_TESTS = {
+  Chinese: ["HSK", "HSKK"],
+  English: ["IELTS", "TOEFL iBT", "PTE Academic", "Duolingo English Test", "Cambridge English", "TOEIC"],
+  French: ["DELF", "DALF", "TCF", "TEF"],
+  German: ["Goethe-Zertifikat", "TestDaF", "DSH", "telc", "ÖSD"],
+  Japanese: ["JLPT", "EJU", "J-Test", "NAT-TEST"],
+  Korean: ["TOPIK", "TOPIK IBT"],
+  Spanish: ["DELE", "SIELE"],
+  Italian: ["CILS", "CELI", "PLIDA"],
+  Russian: ["TORFL / TRKI"],
+  Dutch: ["Staatsexamen NT2", "CNaVT"],
+  Portuguese: ["CAPLE"],
+  Arabic: ["ALPT", "ACTFL Arabic"],
+  Hindi: ["Official language certificate", "University certificate"],
+  Bengali: ["Official language certificate", "University certificate"],
+  Other: ["Other / Not listed"],
+};
+
+const LANGUAGE_LEVELS = {
+  Chinese: { HSK: ["HSK 1", "HSK 2", "HSK 3", "HSK 4", "HSK 5", "HSK 6", "HSK 7–9"], HSKK: ["Beginner", "Intermediate", "Advanced"] },
+  English: {
+    IELTS: ["A1", "A2", "B1", "B2", "C1", "C2"],
+    "TOEFL iBT": ["A2", "B1", "B2", "C1", "C2"],
+    "PTE Academic": ["A1", "A2", "B1", "B2", "C1", "C2"],
+    "Duolingo English Test": ["A1", "A2", "B1", "B2", "C1", "C2"],
+    "Cambridge English": ["A2", "B1", "B2", "C1", "C2"],
+    TOEIC: ["A1", "A2", "B1", "B2", "C1", "C2"],
+  },
+  French: { DELF: ["A1", "A2", "B1", "B2"], DALF: ["C1", "C2"], TCF: ["A1", "A2", "B1", "B2", "C1", "C2"], TEF: ["A1", "A2", "B1", "B2", "C1", "C2"] },
+  German: { "Goethe-Zertifikat": ["A1", "A2", "B1", "B2", "C1", "C2"], TestDaF: ["TDN 3", "TDN 4", "TDN 5"], DSH: ["DSH-1", "DSH-2", "DSH-3"], telc: ["A1", "A2", "B1", "B2", "C1", "C2"], "ÖSD": ["A1", "A2", "B1", "B2", "C1", "C2"] },
+  Japanese: { JLPT: ["N5", "N4", "N3", "N2", "N1"], EJU: ["Basic", "Intermediate", "Advanced"], "J-Test": ["F", "E", "D", "C", "B", "A"], "NAT-TEST": ["5Q", "4Q", "3Q", "2Q", "1Q"] },
+  Korean: { TOPIK: ["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"], "TOPIK IBT": ["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"] },
+  Spanish: { DELE: ["A1", "A2", "B1", "B2", "C1", "C2"], SIELE: ["A1", "A2", "B1", "B2", "C1", "C2"] },
+  Italian: { CILS: ["A1", "A2", "B1", "B2", "C1", "C2"], CELI: ["A1", "A2", "B1", "B2", "C1", "C2"], PLIDA: ["A1", "A2", "B1", "B2", "C1", "C2"] },
+  Russian: { "TORFL / TRKI": ["A1", "A2", "B1", "B2", "C1", "C2"] },
+  Dutch: { "Staatsexamen NT2": ["Programma I (B1)", "Programma II (B2)"], CNaVT: ["A2", "B1", "B2", "C1"] },
+  Portuguese: { CAPLE: ["A1", "A2", "B1", "B2", "C1", "C2"] },
+};
+
 const emptyLanguageQualification = () => ({
-  language_code: "ZH",
+  language_code: "Chinese",
   proficiency_type: "test",
   test_name: "HSK",
   score_numeric: "",
-  score_text: "",
   proficiency_level: "HSK 1",
   test_date: "",
   expiry_date: "",
@@ -354,411 +398,165 @@ const LanguageQualificationsPanel = ({ apiBaseUrl }) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-  let cancelled = false;
-
-  const fetchQualifications = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      // Defer the state update until after the effect's synchronous phase.
-      await Promise.resolve();
-
-      if (!cancelled) {
-        setError("Your session has expired. Please log in again.");
-        setLoading(false);
-      }
-
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `${apiBaseUrl}/api/profile/languages`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    let cancelled = false;
+    const fetchQualifications = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        if (!cancelled) {
+          setError("Your session has expired. Please log in again.");
+          setLoading(false);
         }
-      );
-
-      const body = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(
-          body.detail || "Could not load language qualifications."
-        );
+        return;
       }
-
-      if (!cancelled) {
-        setQualifications(
-          (body.qualifications || []).map((item) => ({
+      try {
+        const response = await fetch(`${apiBaseUrl}/api/profile/languages`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(body.detail || "Could not load language qualifications.");
+        if (!cancelled) {
+          setQualifications((body.qualifications || []).map((item) => ({
             ...item,
+            language_code: item.language_code || "English",
             score_numeric: item.score_numeric ?? "",
-            score_text: item.score_text ?? "",
             test_date: item.test_date ?? "",
             expiry_date: item.expiry_date ?? "",
-          }))
-        );
+          })));
+        }
+      } catch (err) {
+        if (!cancelled) setError(err.message || "Could not load language qualifications.");
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-    } catch (err) {
-      if (!cancelled) {
-        setError(
-          err.message || "Could not load language qualifications."
-        );
-      }
-    } finally {
-      if (!cancelled) {
-        setLoading(false);
-      }
-    }
-  };
-
-  fetchQualifications();
-
-  return () => {
-    cancelled = true;
-  };
-}, [apiBaseUrl]);
+    };
+    fetchQualifications();
+    return () => { cancelled = true; };
+  }, [apiBaseUrl]);
 
   const updateQualification = (index, key, value) => {
-    setQualifications((current) =>
-      current.map((item, i) =>
-        i === index ? { ...item, [key]: value } : item
-      )
-    );
+    setQualifications((current) => current.map((item, i) => {
+      if (i !== index) return item;
+      const updated = { ...item, [key]: value };
+      if (key === "language_code") {
+        const tests = LANGUAGE_TESTS[value] || ["Other / Not listed"];
+        updated.test_name = tests[0];
+        updated.proficiency_level = "";
+      }
+      if (key === "test_name") updated.proficiency_level = "";
+      if (key === "proficiency_type" && value === "native") {
+        updated.test_name = "Native speaker";
+        updated.proficiency_level = "Native";
+        updated.score_numeric = "";
+      } else if (key === "proficiency_type" && value === "course") {
+        updated.test_name = "Course certificate";
+        updated.proficiency_level = "";
+      } else if (key === "proficiency_type" && value === "level") {
+        updated.test_name = "Self-assessed";
+      }
+      return updated;
+    }));
   };
 
-  const addQualification = () => {
-    setQualifications((current) => [
-      ...current,
-      emptyLanguageQualification(),
-    ]);
-  };
-
-  const removeQualification = (index) => {
-    setQualifications((current) =>
-      current.filter((_, i) => i !== index)
-    );
-  };
+  const addQualification = () => setQualifications((current) => [...current, emptyLanguageQualification()]);
+  const removeQualification = (index) => setQualifications((current) => current.filter((_, i) => i !== index));
 
   const saveQualifications = async () => {
     const token = localStorage.getItem("token");
-
-    if (!token) {
-      setError("Your session has expired. Please log in again.");
-      return;
-    }
+    if (!token) { setError("Your session has expired. Please log in again."); return; }
 
     const cleaned = qualifications
       .filter((item) => item.language_code && item.proficiency_type)
       .map((item) => ({
-        language_code: item.language_code.trim().toUpperCase(),
+        language_code: item.language_code.trim(),
         proficiency_type: item.proficiency_type,
         test_name: item.test_name?.trim() || null,
-        score_numeric:
-          item.score_numeric === "" || item.score_numeric == null
-            ? null
-            : Number(item.score_numeric),
-        score_text: item.score_text?.trim() || null,
+        score_numeric: item.score_numeric === "" || item.score_numeric == null ? null : Number(item.score_numeric),
         proficiency_level: item.proficiency_level?.trim() || null,
         test_date: item.test_date || null,
         expiry_date: item.expiry_date || null,
       }));
 
+    if (cleaned.some((item) => item.score_numeric !== null && !Number.isFinite(item.score_numeric))) {
+      setError("Numeric score must be a valid number.");
+      return;
+    }
+
     try {
-      setSaving(true);
-      setError("");
-      setMessage("");
-
-      const response = await fetch(
-        `${apiBaseUrl}/api/profile/languages`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ qualifications: cleaned }),
-        }
-      );
-
+      setSaving(true); setError(""); setMessage("");
+      const response = await fetch(`${apiBaseUrl}/api/profile/languages`, {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ qualifications: cleaned }),
+      });
       const body = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(
-          body.detail || "Could not save language qualifications."
-        );
-      }
-
-      setQualifications(
-        (body.qualifications || []).map((item) => ({
-          ...item,
-          score_numeric: item.score_numeric ?? "",
-          score_text: item.score_text ?? "",
-          test_date: item.test_date ?? "",
-          expiry_date: item.expiry_date ?? "",
-        }))
-      );
-
+      if (!response.ok) throw new Error(body.detail || "Could not save language qualifications.");
+      setQualifications((body.qualifications || []).map((item) => ({
+        ...item, score_numeric: item.score_numeric ?? "", test_date: item.test_date ?? "", expiry_date: item.expiry_date ?? "",
+      })));
       setMessage("Language qualifications saved successfully.");
     } catch (err) {
-      setError(
-        err.message || "Could not save language qualifications."
-      );
-    } finally {
-      setSaving(false);
-    }
+      setError(err.message || "Could not save language qualifications.");
+    } finally { setSaving(false); }
   };
+
+  const inputClass = "mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm";
+  const labelClass = "block text-xs font-medium text-slate-600";
 
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="flex flex-col gap-3 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
-            <Languages className="h-5 w-5" />
-          </div>
-
-          <div>
-            <h2 className="font-bold text-slate-900">
-              Language Qualifications
-            </h2>
-            <p className="mt-1 text-xs leading-5 text-slate-500">
-              Manage HSK, IELTS, TOEFL, and other language tests
-              independently from your main profile.
-            </p>
-          </div>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600"><Languages className="h-5 w-5" /></div>
+          <div><h2 className="font-bold text-slate-900">Language Qualifications</h2><p className="mt-1 text-xs leading-5 text-slate-500">Add language tests, certificates, proficiency levels, or native-language information.</p></div>
         </div>
-
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={addQualification}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-          >
-            <Plus className="h-4 w-4" />
-            Add qualification
-          </button>
-
-          <button
-            type="button"
-            onClick={saveQualifications}
-            disabled={saving || loading}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60"
-          >
-            {saving ? "Saving…" : "Save languages"}
-          </button>
+          <button type="button" onClick={addQualification} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"><Plus className="h-4 w-4" />Add qualification</button>
+          <button type="button" onClick={saveQualifications} disabled={saving || loading} className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">{saving ? "Saving…" : "Save languages"}</button>
         </div>
       </div>
 
       <div className="space-y-4 p-5 sm:p-6">
-        {loading && (
-          <p className="text-sm text-slate-500">
-            Loading language qualifications…
-          </p>
-        )}
+        {loading && <p className="text-sm text-slate-500">Loading language qualifications…</p>}
+        {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+        {message && <p role="status" className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">{message}</p>}
+        {!loading && qualifications.length === 0 && <p className="rounded-xl bg-slate-50 px-4 py-5 text-sm text-slate-500">No language qualifications added yet. Add one if you have a language test, certificate, or relevant proficiency.</p>}
 
-        {error && (
-          <p
-            role="alert"
-            className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
-          >
-            {error}
-          </p>
-        )}
+        {qualifications.map((item, index) => {
+          const tests = LANGUAGE_TESTS[item.language_code] || ["Other / Not listed"];
+          const levels = (LANGUAGE_LEVELS[item.language_code] || {})[item.test_name] || [];
+          const isCustomTest = item.test_name && (!tests.includes(item.test_name) || item.test_name === "Other / Not listed");
+          const isCustomLevel = item.proficiency_level && !levels.includes(item.proficiency_level);
+          return (
+            <div key={item.id || `qualification-${index}`} className="rounded-xl border border-slate-200 p-4">
+              <div className="mb-4 flex items-center justify-between"><h3 className="text-sm font-semibold text-slate-800">Qualification {index + 1}</h3><button type="button" onClick={() => removeQualification(index)} aria-label={`Remove qualification ${index + 1}`} className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"><X className="h-4 w-4" /></button></div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <label className={labelClass}>Language<select value={item.language_code || ""} onChange={(e) => updateQualification(index, "language_code", e.target.value)} className={inputClass}>{LANGUAGE_OPTIONS.map((language) => <option key={language} value={language}>{language}</option>)}</select></label>
 
-        {message && (
-          <p
-            role="status"
-            className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700"
-          >
-            {message}
-          </p>
-        )}
+                <label className={labelClass}>Proficiency Type<select value={item.proficiency_type || "test"} onChange={(e) => updateQualification(index, "proficiency_type", e.target.value)} className={inputClass}><option value="test">Standardized test</option><option value="level">Proficiency level</option><option value="native">Native language</option><option value="course">Course certificate</option></select></label>
 
-        {!loading && qualifications.length === 0 && (
-          <p className="rounded-xl bg-slate-50 px-4 py-5 text-sm text-slate-500">
-            No language qualifications added yet. Add one if you
-            have taken a language test; leave this section empty
-            if you have not.
-          </p>
-        )}
+                {item.proficiency_type !== "native" && item.proficiency_type !== "level" && <label className={labelClass}>Test / Certificate<select value={isCustomTest ? "__custom__" : (item.test_name || "")} onChange={(e) => updateQualification(index, "test_name", e.target.value === "__custom__" ? "Other / Not listed" : e.target.value)} className={inputClass}><option value="">Select test / certificate</option>{tests.map((test) => <option key={test} value={test}>{test}</option>)}<option value="__custom__">Other / Not listed</option></select></label>}
 
-        {qualifications.map((item, index) => (
-          <div
-            key={item.id || `qualification-${index}`}
-            className="rounded-xl border border-slate-200 p-4"
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-slate-800">
-                Qualification {index + 1}
-              </h3>
+                {item.proficiency_type === "native" ? (
+                  <label className={labelClass}>Proficiency Level<input value="Native" readOnly className={`${inputClass} bg-slate-50`} /></label>
+                ) : (
+                  <label className={labelClass}>Proficiency Level<select value={isCustomLevel ? "__custom__" : (item.proficiency_level || "")} onChange={(e) => updateQualification(index, "proficiency_level", e.target.value === "__custom__" ? "" : e.target.value)} className={inputClass}><option value="">Select level</option>{levels.map((level) => <option key={level} value={level}>{level}</option>)}{isCustomLevel && <option value="__custom__">Other / Not listed</option>}<option value="__custom__">Other / Not listed</option></select></label>
+                )}
 
-              <button
-                type="button"
-                onClick={() => removeQualification(index)}
-                aria-label={`Remove qualification ${index + 1}`}
-                className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
-              >
-                <X className="h-4 w-4" />
-              </button>
+                {isCustomTest && <label className={labelClass}>Custom Test / Certificate<input value={item.test_name || ""} onChange={(e) => updateQualification(index, "test_name", e.target.value)} placeholder="Enter test or certificate name" className={inputClass} /></label>}
+                {(item.proficiency_type !== "native") && (isCustomLevel || !levels.length || item.proficiency_level === "") && <label className={labelClass}>Custom Proficiency Level<input value={item.proficiency_level || ""} onChange={(e) => updateQualification(index, "proficiency_level", e.target.value)} placeholder="e.g. B2, HSK 3, JLPT N2" className={inputClass} /></label>}
+
+                <label className={labelClass}>Numeric Score<input type="number" step="0.01" value={item.score_numeric ?? ""} onChange={(e) => updateQualification(index, "score_numeric", e.target.value)} placeholder="e.g. 7.5 (optional)" className={inputClass} /></label>
+                <label className={labelClass}>Test / Certificate Date<input type="date" value={item.test_date || ""} onChange={(e) => updateQualification(index, "test_date", e.target.value)} className={inputClass} /></label>
+                <label className={labelClass}>Expiry Date<input type="date" value={item.expiry_date || ""} onChange={(e) => updateQualification(index, "expiry_date", e.target.value)} className={inputClass} /></label>
+              </div>
             </div>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <label className="block text-xs font-medium text-slate-600">
-                Language
-                <select
-                  value={item.language_code || ""}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "language_code",
-                      e.target.value
-                    )
-                  }
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"
-                >
-                  <option value="ZH">Chinese</option>
-                  <option value="EN">English</option>
-                  <option value="FR">French</option>
-                  <option value="DE">German</option>
-                  <option value="JA">Japanese</option>
-                  <option value="KO">Korean</option>
-                  <option value="OTHER">Other</option>
-                </select>
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Qualification type
-                <select
-                  value={item.proficiency_type || "test"}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "proficiency_type",
-                      e.target.value
-                    )
-                  }
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"
-                >
-                  <option value="test">Standardized test</option>
-                  <option value="level">Proficiency level</option>
-                  <option value="native">Native language</option>
-                  <option value="course">Course certificate</option>
-                </select>
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Test / certificate
-                <select
-                  value={item.test_name || ""}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "test_name",
-                      e.target.value
-                    )
-                  }
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm"
-                >
-                  <option value="">Select test</option>
-                  <option>HSK</option>
-                  <option>IELTS</option>
-                  <option>TOEFL</option>
-                  <option>PTE</option>
-                  <option>Duolingo English Test</option>
-                  <option>MOI</option>
-                  <option>Other</option>
-                </select>
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Level (e.g. HSK 3)
-                <input
-                  value={item.proficiency_level || ""}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "proficiency_level",
-                      e.target.value
-                    )
-                  }
-                  placeholder="HSK 3 / B2 / C1"
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
-                />
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Numeric score
-                <input
-                  type="number"
-                  step="0.01"
-                  value={item.score_numeric}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "score_numeric",
-                      e.target.value
-                    )
-                  }
-                  placeholder="Optional"
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
-                />
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Text score / grade
-                <input
-                  value={item.score_text || ""}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "score_text",
-                      e.target.value
-                    )
-                  }
-                  placeholder="Optional"
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
-                />
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Test date
-                <input
-                  type="date"
-                  value={item.test_date || ""}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "test_date",
-                      e.target.value
-                    )
-                  }
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
-                />
-              </label>
-
-              <label className="block text-xs font-medium text-slate-600">
-                Expiry date
-                <input
-                  type="date"
-                  value={item.expiry_date || ""}
-                  onChange={(e) =>
-                    updateQualification(
-                      index,
-                      "expiry_date",
-                      e.target.value
-                    )
-                  }
-                  className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm"
-                />
-              </label>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
 };
+
 
 /* ============================================================
    PROFILE PAGE

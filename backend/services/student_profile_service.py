@@ -176,7 +176,6 @@ def _load_language_proficiencies(
             proficiency_type,
             test_name,
             score_numeric,
-            score_text,
             proficiency_level,
             test_date,
             expiry_date,

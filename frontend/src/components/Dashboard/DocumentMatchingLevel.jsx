@@ -4,6 +4,11 @@ export default function DocumentMatchingLevel({ initialResult = null }) {
   const result = initialResult;
   const documents = result?.results || [];
 
+  const totalPercentage = Number(
+    result?.percentage ??
+      (result?.maximum_score ? (result.score / result.maximum_score) * 100 : 0),
+  );
+
   // Document Name and Condition Helpers
 
   const getDocumentTitle = (document) => {
@@ -40,26 +45,42 @@ export default function DocumentMatchingLevel({ initialResult = null }) {
         </p>
       ) : (
         <div className="p-5">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-slate-50 p-4">
-            <div>
-              <p className="text-xs font-semibold text-slate-500">
-                Total document score
-              </p>
-              <p className="mt-1 text-2xl font-black text-slate-900">
-                {result.score}{" "}
-                <span className="text-base font-semibold text-slate-400">
-                  / {result.maximum_score}
-                </span>
-              </p>
+          <div className="p-3 mb-4 space-y-3 grid grid-cols-3 gap-3 self-center items-center sm:grid-cols-2">
+            <div className="bg-green-50 p-4">
+   
+                <p className="text-xs font-semibold text-green-900">
+                  Document Matching Percentage
+                </p>
+                <p className="mt-1 text-3xl font-black tabular-nums text-green-900">
+                  {totalPercentage !== null
+                    ? `${Number(totalPercentage).toFixed(2)}%`
+                    : "—"}
+                </p>
+            
             </div>
-            <div className="text-right text-xs text-slate-500">
-              <p>{result.matched_documents} matched</p>
-              <p>{result.missing_documents} not matched</p>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-slate-50 p-4">
+              <div>
+                <p className="text-xs font-semibold text-green-900">
+                  Total document score
+                </p>
+                <p className="mt-1 text-2xl font-black text-green-900">
+                  {result.score}{" "}
+                  <span className="text-base font-semibold text-gray-700">
+                    / {result.maximum_score}
+                  </span>
+                </p>
+              </div>
+
+              <div className="text-right text-xs text-slate-500">
+                <p>{result.matched_documents} matched</p>
+                <p>{result.missing_documents} not matched</p>
+              </div>
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[520px] text-left text-sm">
+            <table className="w-full min-w-130 text-left text-sm">  
               <thead>
                 <tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
                   <th className="px-3 py-3">Document</th>
@@ -75,10 +96,12 @@ export default function DocumentMatchingLevel({ initialResult = null }) {
                     className="border-b border-slate-100 last:border-0"
                   >
                     <td className="px-3 py-3 font-semibold text-slate-800">
-                      <div>{getDocumentTitle(item)}</div>
-                      {(item.requirement || item.condition_text) && (
-                        <p className="mt-1 max-w-xs text-xs font-normal leading-5 text-slate-500">
-                          {item.requirement || item.condition_text}
+                      <div className="font-bold text-md">
+                        {getDocumentTitle(item)}
+                      </div>
+                      {item.recommendation && (
+                        <p className="mt-1 max-w-xs text-xs font-normal leading-5 text-red-500">
+                          <strong>Explanation:</strong> {item.recommendation}
                         </p>
                       )}
                     </td>
@@ -110,13 +133,17 @@ export default function DocumentMatchingLevel({ initialResult = null }) {
                       </span>
                     </td>
                     <td className="px-3 py-3 text-right font-bold tabular-nums">
-                      <div>{item.score ?? 0} / {item.maximum_score ?? 0}</div>
+                      <div>
+                        {item.score ?? 0} / {item.maximum_score ?? 0}
+                      </div>
                       <div className="mt-1 text-xs font-medium text-slate-500">
-                        {Number(item.percentage ?? (
-                          item.maximum_score
-                            ? (item.score / item.maximum_score) * 100
-                            : 0
-                        )).toFixed(2)}%
+                        {Number(
+                          item.percentage ??
+                            (item.maximum_score
+                              ? (item.score / item.maximum_score) * 100
+                              : 0),
+                        ).toFixed(2)}
+                        %
                       </div>
                     </td>
                   </tr>

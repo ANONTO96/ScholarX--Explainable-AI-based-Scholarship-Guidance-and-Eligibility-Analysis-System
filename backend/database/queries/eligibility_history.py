@@ -71,8 +71,11 @@ def save_eligibility_history(user_id, scholarship_id, result):
     document_matching = result.get("document_matching") or {}
     document_results = document_matching.get("results", [])
 
-    # Nothing to save.
-    if not all_rule_results and not document_results:
+    language_matching = (
+    result.get("language_proficiency_matching") or {}
+)
+
+    if not all_rule_results and not document_results and not language_matching:
         return None
 
     check_uuid = str(uuid.uuid4())
@@ -86,10 +89,18 @@ def save_eligibility_history(user_id, scholarship_id, result):
     analysis_summary = {
         "status": result.get("status"),
         "eligibility_score": result.get("eligibility_score"),
+
+        # Level 1: Document Matching
         "document_matching": document_matching,
         "document_matching_score": result.get(
             "document_matching_score"
         ),
+
+        # Level 2: Language Proficiency Matching
+        "language_proficiency_matching": result.get(
+            "language_proficiency_matching"
+        ),
+
         "total_rules": result.get("total_rules"),
         "selected_study_language": result.get(
             "selected_study_language"
