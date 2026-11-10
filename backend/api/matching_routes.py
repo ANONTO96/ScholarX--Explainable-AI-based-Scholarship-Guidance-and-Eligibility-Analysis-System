@@ -1,5 +1,5 @@
-
 import json
+from datetime import timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -84,7 +84,7 @@ def get_or_create_history_entry(history, row):
             "program_id": row.get("program_id"),
             "program_name": row.get("program_name"),
             "created_at": (
-                row["created_at"].isoformat()
+                row["created_at"].replace(tzinfo=timezone.utc).isoformat().replace("+00:00", "Z")
                 if row.get("created_at")
                 else None
             ),
