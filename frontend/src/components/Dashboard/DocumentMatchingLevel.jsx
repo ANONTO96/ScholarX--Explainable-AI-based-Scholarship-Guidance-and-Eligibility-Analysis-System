@@ -48,7 +48,7 @@ export default function DocumentMatchingLevel({ initialResult = null }) {
           <div className="p-3 mb-4 space-y-3 grid grid-cols-3 gap-3 self-center items-center sm:grid-cols-2">
             <div className="bg-green-50 p-4">
    
-                <p className="text-xs font-semibold text-green-900">
+                <p className="text-xs font-semibold text-green-900 rounded">
                   Document Matching Percentage
                 </p>
                 <p className="mt-1 text-3xl font-black tabular-nums text-green-900">

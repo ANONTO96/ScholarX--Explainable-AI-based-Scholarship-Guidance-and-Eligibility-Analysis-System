@@ -1,5 +1,4 @@
-
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import {
   ArrowLeft,
@@ -113,18 +112,11 @@ function getScoreValue(result) {
   ];
 
   for (const candidate of candidates) {
-    if (
-      candidate === null ||
-      candidate === undefined ||
-      candidate === ""
-    ) {
+    if (candidate === null || candidate === undefined || candidate === "") {
       continue;
     }
 
-    if (
-      typeof candidate === "number" ||
-      typeof candidate === "string"
-    ) {
+    if (typeof candidate === "number" || typeof candidate === "string") {
       return candidate;
     }
 
@@ -136,11 +128,7 @@ function getScoreValue(result) {
         candidate.overall_score ??
         candidate.eligibility_percentage;
 
-      if (
-        nested !== null &&
-        nested !== undefined &&
-        nested !== ""
-      ) {
+      if (nested !== null && nested !== undefined && nested !== "") {
         return nested;
       }
     }
@@ -156,17 +144,11 @@ function formatScore(value) {
 
   const numericValue = Number(value);
 
-  return Number.isFinite(numericValue)
-    ? `${numericValue}%`
-    : String(value);
+  return Number.isFinite(numericValue) ? `${numericValue}%` : String(value);
 }
 
 function Recommendations({ items }) {
-  const recommendations = Array.isArray(items)
-    ? items
-    : items
-      ? [items]
-      : [];
+  const recommendations = Array.isArray(items) ? items : items ? [items] : [];
 
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -223,28 +205,37 @@ export default function EligibilityAnalysisPage() {
   const [availableLanguages, setAvailableLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("");
 
+  // Counter used to ignore stale analysis responses
+  // (double clicks, navigating to another scholarship, unmount).
+  const analysisRequestIdRef = useRef(0);
+
   const numericScholarshipId = useMemo(() => {
     const parsed = Number(scholarshipId);
 
-    return Number.isInteger(parsed) && parsed > 0
-      ? parsed
-      : null;
+    return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
   }, [scholarshipId]);
 
+  // FIX #1: depend ONLY on the scholarship ID.
+  // Before, analysisResult / availableLanguages / selectedLanguage were
+  // also dependencies, so every result or language selection re-ran this
+  // effect, wiped the state and unmounted the result sections while React
+  // was updating them. That caused the insertBefore error.
   useEffect(() => {
     let cancelled = false;
+
+    // Invalidate any analysis request still in flight for the old scholarship.
+    analysisRequestIdRef.current += 1;
 
     async function loadScholarship() {
       setScholarship(null);
       setAnalysisResult(null);
+      setAnalysisLoading(false);
       setAvailableLanguages([]);
       setSelectedLanguage("");
       setAnalysisError("");
 
       if (!numericScholarshipId) {
-        setScholarshipError(
-          "The scholarship ID in this URL is invalid."
-        );
+        setScholarshipError("The scholarship ID in this URL is invalid.");
         setScholarshipLoading(false);
         return;
       }
@@ -263,8 +254,7 @@ export default function EligibilityAnalysisPage() {
       } catch (error) {
         if (!cancelled) {
           setScholarshipError(
-            error.message ||
-              "Unable to load scholarship information."
+            error.message || "Unable to load scholarship information."
           );
         }
       } finally {
@@ -278,6 +268,8 @@ export default function EligibilityAnalysisPage() {
 
     return () => {
       cancelled = true;
+      // Also invalidate pending analysis requests on unmount.
+      analysisRequestIdRef.current += 1;
     };
   }, [numericScholarshipId]);
 
@@ -287,36 +279,34 @@ export default function EligibilityAnalysisPage() {
   const runAnalysis = useCallback(
     async (languageOverride = selectedLanguage) => {
       if (!numericScholarshipId) {
-        setAnalysisError(
-          "A valid database scholarship ID is required."
-        );
+        setAnalysisError("A valid database scholarship ID is required.");
         return;
       }
+
+      // Only the latest request is allowed to update state.
+      const requestId = ++analysisRequestIdRef.current;
+      const isStale = () => requestId !== analysisRequestIdRef.current;
 
       setAnalysisLoading(true);
       setAnalysisError("");
 
       try {
-        const body = await apiRequest(
-          `${API_BASE_URL}/api/matching/analyze`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              scholarship_id: numericScholarshipId,
-              preferred_study_language:
-                languageOverride || null,
-            }),
-          }
-        );
+        const body = await apiRequest(`${API_BASE_URL}/api/matching/analyze`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            scholarship_id: numericScholarshipId,
+            preferred_study_language: languageOverride || null,
+          }),
+        });
+
+        if (isStale()) return;
 
         // Backend requires the student to select a study language.
         if (body.status === "language_selection_required") {
-          const languages = Array.isArray(
-            body.available_languages
-          )
+          const languages = Array.isArray(body.available_languages)
             ? body.available_languages
             : [];
 
@@ -330,11 +320,9 @@ export default function EligibilityAnalysisPage() {
             );
           }
 
-          const firstLanguage = getLanguageValue(
-            languages[0]
-          );
+          const firstLanguage = getLanguageValue(languages[0]);
 
-          if (!selectedLanguage && firstLanguage) {
+          if (!languageOverride && firstLanguage) {
             setSelectedLanguage(firstLanguage);
           }
 
@@ -352,11 +340,13 @@ export default function EligibilityAnalysisPage() {
         setAvailableLanguages([]);
         setAnalysisResult(body);
       } catch (error) {
-        setAnalysisError(
-          error.message || "Eligibility analysis failed."
-        );
+        if (!isStale()) {
+          setAnalysisError(error.message || "Eligibility analysis failed.");
+        }
       } finally {
-        setAnalysisLoading(false);
+        if (!isStale()) {
+          setAnalysisLoading(false);
+        }
       }
     },
     [numericScholarshipId, selectedLanguage]
@@ -387,15 +377,24 @@ export default function EligibilityAnalysisPage() {
 
   const score = getScoreValue(analysisResult);
 
+  const checkButtonLabel = analysisLoading
+    ? "Analyzing..."
+    : analysisResult
+      ? "Run analysis again"
+      : "Check my eligibility";
+
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+    <main
+      translate="no"
+      className="notranslate mx-auto w-full max-w-6xl space-y-6 px-4 py-6 sm:px-6 lg:px-8"
+    >
       <div>
         <Link
           to="/dashboard/eligibility-analysis"
           className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-sky-700"
         >
           <ArrowLeft size={16} />
-          Back to eligibility overview
+          <span>Back to eligibility overview</span>
         </Link>
 
         <div className="mt-5 flex flex-wrap items-start justify-between gap-4">
@@ -409,14 +408,19 @@ export default function EligibilityAnalysisPage() {
             </h1>
 
             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
-              {"Country: " + country ||
-                "Country information not available"}
+              {/* FIX #2: old expression always gave "Country: undefined"
+                  and rendered a bare text node. */}
+              <span>
+                {country
+                  ? `Country: ${country}`
+                  : "Country information not available"}
+              </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2 rounded-xl bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-700">
             <GraduationCap size={18} />
-            Eligibility analysis
+            <span>Eligibility analysis</span>
           </div>
         </div>
       </div>
@@ -433,7 +437,7 @@ export default function EligibilityAnalysisPage() {
           className="flex gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700"
         >
           <AlertCircle className="mt-0.5 shrink-0" size={18} />
-          {scholarshipError}
+          <span>{scholarshipError}</span>
         </div>
       )}
 
@@ -445,10 +449,9 @@ export default function EligibilityAnalysisPage() {
             </h2>
 
             <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-500">
-              Run the analysis against your saved student profile
-              and the scholarship requirements. If the program
-              offers multiple study languages, select one before
-              continuing.
+              Run the analysis against your saved student profile and the
+              scholarship requirements. If the program offers multiple study
+              languages, select one before continuing.
             </p>
           </div>
 
@@ -457,26 +460,21 @@ export default function EligibilityAnalysisPage() {
             type="button"
             onClick={startAnalysis}
             disabled={
-              analysisLoading ||
-              scholarshipLoading ||
-              !numericScholarshipId
+              analysisLoading || scholarshipLoading || !numericScholarshipId
             }
             className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {analysisLoading ? (
               <LoaderCircle
+                key="icon-loading"
                 className="animate-spin"
                 size={17}
               />
             ) : (
-              <RefreshCw size={16} />
+              <RefreshCw key="icon-idle" size={16} />
             )}
 
-            {analysisLoading
-              ? "Analyzing..."
-              : analysisResult
-                ? "Run analysis again"
-                : "Check my eligibility"}
+            <span>{checkButtonLabel}</span>
           </button>
         </div>
 
@@ -491,56 +489,42 @@ export default function EligibilityAnalysisPage() {
             </label>
 
             <p className="mt-1 text-sm text-slate-600">
-              This program has multiple study-language options.
-              Choose one to continue the complete analysis.
+              This program has multiple study-language options. Choose one to
+              continue the complete analysis.
             </p>
 
             <div className="mt-3 flex flex-col gap-3 sm:flex-row">
               <select
                 id="study-language"
                 value={selectedLanguage}
-                onChange={(event) =>
-                  setSelectedLanguage(event.target.value)
-                }
+                onChange={(event) => setSelectedLanguage(event.target.value)}
                 className="min-h-11 flex-1 rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-800 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
               >
-                <option value="">
-                  Choose a study language
-                </option>
+                <option value="">Choose a study language</option>
 
-                {availableLanguages.map(
-                  (language, index) => {
-                    const value = getLanguageValue(language);
+                {availableLanguages.map((language, index) => {
+                  const value = getLanguageValue(language);
 
-                    return (
-                      <option
-                        key={`${value}-${index}`}
-                        value={value}
-                      >
-                        {getLanguageLabel(language)}
-                      </option>
-                    );
-                  }
-                )}
+                  return (
+                    <option key={`${value}-${index}`} value={value}>
+                      {getLanguageLabel(language)}
+                    </option>
+                  );
+                })}
               </select>
 
               {/* Continue with selected language */}
               <button
                 type="button"
                 onClick={() => runAnalysis(selectedLanguage)}
-                disabled={
-                  !selectedLanguage || analysisLoading
-                }
+                disabled={!selectedLanguage || analysisLoading}
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 text-sm font-bold text-white hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {analysisLoading && (
-                  <LoaderCircle
-                    className="animate-spin"
-                    size={16}
-                  />
+                  <LoaderCircle className="animate-spin" size={16} />
                 )}
 
-                Continue analysis
+                <span>Continue analysis</span>
               </button>
             </div>
           </div>
@@ -578,17 +562,19 @@ export default function EligibilityAnalysisPage() {
 
                 {analysisResult.selected_study_language && (
                   <p className="mt-1 text-sm text-slate-500">
-                    Study language:{" "}
-                    {displayValue(
-                      analysisResult.selected_study_language
-                    )}
+                    <span>
+                      {`Study language: ${displayValue(
+                        analysisResult.selected_study_language
+                      )}`}
+                    </span>
                   </p>
                 )}
 
                 {analysisResult.check_uuid && (
                   <p className="mt-1 text-xs text-slate-400">
-                    Analysis reference:{" "}
-                    {analysisResult.check_uuid}
+                    <span>
+                      {`Analysis reference: ${analysisResult.check_uuid}`}
+                    </span>
                   </p>
                 )}
               </div>
@@ -609,21 +595,14 @@ export default function EligibilityAnalysisPage() {
 
           <DocumentMatchingLevel
             scholarshipId={numericScholarshipId}
-            initialResult={
-              analysisResult.document_matching || null
-            }
+            initialResult={analysisResult.document_matching || null}
           />
 
           <LanguageProficiencyMatching
-            result={
-              analysisResult.language_proficiency_matching ||
-              null
-            }
+            result={analysisResult.language_proficiency_matching || null}
           />
 
-          <Recommendations
-            items={analysisResult.recommendations}
-          />
+          <Recommendations items={analysisResult.recommendations} />
         </div>
       )}
     </main>

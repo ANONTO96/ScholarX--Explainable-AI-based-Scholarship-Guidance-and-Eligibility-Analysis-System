@@ -8,7 +8,7 @@ import {
   XCircle,
   FileText,
   Loader2,
-  Languages
+  Languages,
 } from "lucide-react";
 
 const API_BASE_URL = (
@@ -26,11 +26,27 @@ function formatPercentage(value) {
 function formatDate(value) {
   if (!value) return "Date unavailable";
 
-  const date = new Date(value);
+  // API returns UTC timestamps without timezone information.
+  const normalizedValue =
+    typeof value === "string" && !/(Z|[+-]\d{2}:\d{2})$/i.test(value)
+      ? `${value}Z`
+      : value;
+
+  const date = new Date(normalizedValue);
 
   if (Number.isNaN(date.getTime())) return value;
 
-  return date.toLocaleString();
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  return date.toLocaleString("en-GB", {
+    timeZone: timezone,
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
 }
 
 function getDocumentReadiness(item) {
