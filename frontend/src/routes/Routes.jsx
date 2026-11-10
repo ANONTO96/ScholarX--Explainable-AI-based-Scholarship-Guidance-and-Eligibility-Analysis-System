@@ -123,6 +123,7 @@ export const router = createBrowserRouter([
           {
             path: "eligibility-check/:scholarshipId",
             element: <EligibilityAnalysisPage />,
+            errorElement: <ErrorPage />,
           },
           { path: "settings", element: <Settings /> },
         ],
