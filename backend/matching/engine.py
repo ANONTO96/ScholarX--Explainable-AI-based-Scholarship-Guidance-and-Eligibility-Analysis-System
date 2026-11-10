@@ -8,6 +8,7 @@ from matching.program_selector import select_scholarship_program
 from matching.rule_loader import load_scholarship_rules
 from matching.eligibility_scorer import calculate_eligibility_score
 from matching.document_matcher import evaluate_document_matches
+from matching.language_proficiency_matcher import evaluate_language_proficiency_matches
 from matching.recommendation_engine import generate_recommendations
 
 from matching.academic_matcher import evaluate_academic_rules
@@ -232,13 +233,25 @@ def analyze_scholarship(
     )
 
     # ---------------------------------------------------------
-    # 8. COMBINE RULE RESULTS
+    # 8. LEVEL 2: LANGUAGE PROFICIENCY MATCHING
+    # ---------------------------------------------------------
+
+    # Only the language selected by the student is a requirement here.
+    # program_languages is the list of all available study options; it must
+    # not be passed wholesale to the Level 2 matcher.
+    language_proficiency_matching = evaluate_language_proficiency_matches(
+        program_languages=[selected_language],
+        student_data=student_data,
+    )
+
+    # ---------------------------------------------------------
+    # 9. COMBINE RULE RESULTS
     # ---------------------------------------------------------
 
     all_rule_results = academic_results + eligibility_results
 
     # ---------------------------------------------------------
-    # 9. CALCULATE ELIGIBILITY SCORE
+    # 10. CALCULATE ELIGIBILITY SCORE
     # ---------------------------------------------------------
 
     eligibility_score = calculate_eligibility_score(
@@ -246,7 +259,7 @@ def analyze_scholarship(
     )
 
     # ---------------------------------------------------------
-    # 10. GENERATE IMPROVEMENT RECOMMENDATIONS
+    # 11. GENERATE IMPROVEMENT RECOMMENDATIONS
     # ---------------------------------------------------------
 
     recommendations = generate_recommendations(
@@ -254,7 +267,7 @@ def analyze_scholarship(
     )
 
     # ---------------------------------------------------------
-    # 11. RETURN COMPLETE ANALYSIS
+    # 12. RETURN COMPLETE ANALYSIS
     # ---------------------------------------------------------
 
     analysis_result = {
@@ -269,6 +282,7 @@ def analyze_scholarship(
         "eligibility_score": eligibility_score,
         "document_matching": document_matching,
         "document_matching_score": document_matching["score"],
+        "language_proficiency_matching": language_proficiency_matching,
         "academic_results": academic_results,
         "eligibility_results": eligibility_results,
         "recommendations": recommendations,
