@@ -42,6 +42,9 @@ def login_user(email, password):
             "message": "Invalid email or password"
         }
 
+    if not JWT_SECRET:
+        raise RuntimeError("JWT_SECRET is not configured.")
+
     payload = {
         "user_id": user["id"],
         "email": user["email"],
