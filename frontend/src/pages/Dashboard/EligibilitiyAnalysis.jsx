@@ -14,12 +14,12 @@ import {
   Target,
   UserRoundCheck,
   XCircle,
+  Heart,
 } from "lucide-react";
 
 import { NavLink } from "react-router";
 import { useMemo, useState } from "react";
 import { useDashboard } from "../../context/Dashboard/useDashboard";
-import EligibilityHistory from "../../components/Dashboard/EligibilityHistory";
 
 /* ========================================================= */
 /* HELPERS                                                    */
@@ -137,7 +137,11 @@ function RequirementCategoryBadge({ category }) {
 /* OPPORTUNITY CARD                                          */
 /* ========================================================= */
 
-function OpportunityCard({ opportunity }) {
+function OpportunityCard({
+  opportunity,
+  isFavorite,
+  onToggleFavorite,
+}) {
   const [open, setOpen] = useState(false);
 
   const analysis = opportunity.analysis;
@@ -153,96 +157,119 @@ function OpportunityCard({ opportunity }) {
   const score = Number(analysis?.score);
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all hover:border-sky-200 hover:shadow-xl">
-      <div className="group p-6 sm:p-7">
+    <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl">
+  {/* Favorite button - fixed to the top-right corner */}
+  <button
+    type="button"
+    onClick={() => onToggleFavorite(opportunity.id)}
+    aria-label={
+      isFavorite ? "Remove from favorites" : "Add to favorites"
+    }
+    aria-pressed={isFavorite}
+    title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+    className={`absolute right-7 top-7 lg:top-6 z-10 flex h-10 w-10 items-center justify-center rounded-full border shadow-sm transition-all duration-200 hover:scale-110 ${
+      isFavorite
+        ? "border-rose-200 bg-rose-50 text-rose-500"
+        : "border-slate-200 bg-white text-slate-400 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-500"
+    }`}
+  >
+    <Heart
+      className="h-5 w-5"
+      fill={isFavorite ? "currentColor" : "none"}
+    />
+  </button>
+
+  <div className="group p-5 lg:p-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-          <div className="flex min-w-0 gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-600 transition-all group-hover:bg-sky-600 group-hover:text-white">
-              <Award size={26} />
-            </div>
+  {/* Scholarship information */}
+  <div className="flex min-w-0 gap-4">
+    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-600 transition-all duration-300 group-hover:bg-sky-600 group-hover:text-white sm:h-14 sm:w-14">
+      <Award size={26} />
+    </div>
 
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                {opportunity.category && (
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-bold text-slate-500">
-                    {opportunity.category}
-                  </span>
-                )}
+    <div className="min-w-0 flex-1">
+      <div className="flex flex-wrap items-center gap-2 pr-10">
+        {opportunity.category && (
+          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-bold text-slate-500">
+            {opportunity.category}
+          </span>
+        )}
 
-                {opportunity.featured && (
-                  <span className="rounded-full bg-sky-50 px-2.5 py-1 text-[11px] font-bold text-sky-600">
-                    Featured
-                  </span>
-                )}
-              </div>
+        {opportunity.featured && (
+          <span className="rounded-full bg-sky-50 px-2.5 py-1 text-[11px] font-bold text-sky-600">
+            Featured
+          </span>
+        )}
+      </div>
 
-              <h3 className="mt-2 wrap-break-word text-xl font-black text-slate-950 sm:text-2xl">
-                {opportunity.title ||
-                  opportunity.name ||
-                  "Scholarship Opportunity"}
-              </h3>
+      <h3 className="mt-2 wrap-break-word text-lg font-black leading-snug text-slate-950 sm:text-2xl">
+        {opportunity.title ||
+          opportunity.name ||
+          "Scholarship Opportunity"}
+      </h3>
 
-              <p className="mt-1 text-sm font-medium text-slate-500">
-                {opportunity.provider ||
-                  opportunity.organization ||
-                  "Scholarship Provider"}
-              </p>
+      <p className="mt-1 text-sm font-medium text-slate-500">
+        {opportunity.provider ||
+          opportunity.organization ||
+          "Scholarship Provider"}
+      </p>
 
-              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500">
-                <span className="inline-flex items-center gap-1.5">
-                  <Globe2 size={14} />
-                  {opportunity.country || "Country not specified"}
-                </span>
+      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500">
+        <span className="inline-flex items-center gap-1.5">
+          <Globe2 size={14} />
+          {opportunity.country || "Country not specified"}
+        </span>
 
-                <span className="inline-flex items-center gap-1.5">
-                  <GraduationCap size={14} />
-                  {degree}
-                </span>
+        <span className="inline-flex items-center gap-1.5">
+          <GraduationCap size={14} />
+          {degree}
+        </span>
 
-                <span className="inline-flex items-center gap-1.5">
-                  <Sparkles size={14} />
-                  {opportunity.funding || "Funding not specified"}
-                </span>
-              </div>
-            </div>
-          </div>
+        <span className="inline-flex items-center gap-1.5">
+          <Sparkles size={14} />
+          {opportunity.funding || "Funding not specified"}
+        </span>
+      </div>
+    </div>
+  </div>
 
-          <div className="flex items-center gap-4 lg:flex-col lg:items-end">
-            <div className="flex flex-col items-center gap-1.5">
-              <div
-                className={`flex h-14 w-14 items-center justify-center rounded-full border-4 ${config.badge}`}
-              >
-                <span className={`text-sm font-black ${config.score}`}>
-                  {Number.isFinite(score) ? score : 0}%
-                </span>
-              </div>
+  {/* Fit score and eligibility status */}
+  <div className="flex shrink-0 items-center gap-4 border-t border-slate-100 pt-4 lg:mt-12 lg:flex-col lg:items-end lg:gap-3 lg:border-0 lg:pt-0">
+    <div className="flex items-center gap-3 lg:flex-col lg:gap-1.5">
+      <div
+        className={`flex h-14 w-14 items-center justify-center rounded-full border-4 ${config.badge}`}
+      >
+        <span className={`text-sm font-black ${config.score}`}>
+          {Number.isFinite(score) ? score : 0}%
+        </span>
+      </div>
 
-              <span className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
-                Fit Score
-              </span>
-            </div>
+      <span className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+        Fit Score
+      </span>
+    </div>
 
-            <div
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold ${config.badge}`}
-            >
-              <StatusIcon size={14} />
-              {config.label}
-            </div>
-          </div>
-        </div>
+    <div
+      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold ${config.badge}`}
+    >
+      <StatusIcon size={14} />
+      {config.label}
+    </div>
+  </div>
+</div>
 
-        <p className="mt-5 max-w-3xl text-sm leading-6 text-slate-500">
+        <p className="mt-5 ml-2 max-w-3xl text-sm leading-6 text-slate-600">
           {config.description}
         </p>
 
-        <div className="mt-4 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
+        <div className="mt-4 rounded-2xl border border-slate-100 bg-slate-50/80 px-4 py-3">
           <p className="text-xs font-semibold leading-5 text-slate-600">
             {analysis?.statusReason ||
               "Review the requirement breakdown for more information."}
           </p>
         </div>
 
-        <div className="mt-6 grid grid-cols-3 divide-x rounded-2xl border border-slate-100 bg-slate-50">
+        <div className="mt-5 grid grid-cols-3 divide-x divide-slate-200 rounded-2xl border border-slate-100 bg-slate-50/80">
           <div className="p-4 text-center">
             <p className="text-lg font-black text-emerald-600">
               {analysis?.passedCount ?? 0}
@@ -475,12 +502,16 @@ export default function EligibilityAnalysis() {
     ===================================================== */
 
   const {
-    profile,
-    profileReadiness,
-    profileCompletion,
-    eligibilityOpportunities: analyzedOpportunities,
-    matchStats,
-  } = useDashboard();
+  profile,
+  profileReadiness,
+  profileCompletion,
+  eligibilityOpportunities: analyzedOpportunities,
+  matchStats,
+
+  // Favorites
+  toggleFavorite,
+  isFavorite,
+} = useDashboard();
 
   const counts = {
     strong: matchStats?.strong ?? 0,
@@ -656,7 +687,7 @@ export default function EligibilityAnalysis() {
           <GraduationCap size={80} strokeWidth={1.2} />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-40 sm:px-8 lg:px-10">
+        <div className="relative z-10 mx-auto max-w-7xl px-3 pb-20 pt-10 sm:px-6 lg:px-8 ">
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-5 py-2 text-sm font-semibold text-sky-600 shadow-sm">
               <Target size={16} />
@@ -814,7 +845,7 @@ export default function EligibilityAnalysis() {
                     ===================================================== */}
 
           {isProfileIncomplete && (
-            <section className="mx-auto max-w-7xl px-3 pt-12 sm:px-6 lg:px-8">
+            <section className="mx-auto max-w-7xl px-3 pt-10 sm:px-6 lg:px-8">
               <div className="overflow-hidden rounded-2xl border border-amber-200 bg-amber-50">
                 <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
                   <div className="flex items-start gap-4">
@@ -879,7 +910,7 @@ export default function EligibilityAnalysis() {
                         RESULT SUMMARY
                     ===================================================== */}
 
-          <section className="mx-auto max-w-7xl px-3 pt-16 sm:px-6 lg:px-8">
+          <section className="mx-auto max-w-7xl px-3 pt-10 sm:px-6 lg:px-8">
             <div className="grid gap-4 sm:grid-cols-3">
               <button
                 type="button"
@@ -1184,11 +1215,13 @@ export default function EligibilityAnalysis() {
             <div className="space-y-5">
               {filteredOpportunities.length > 0 ? (
                 filteredOpportunities.map((opportunity) => (
-                  <OpportunityCard
-                    key={opportunity.id}
-                    opportunity={opportunity}
-                  />
-                ))
+  <OpportunityCard
+    key={opportunity.id}
+    opportunity={opportunity}
+    isFavorite={isFavorite(opportunity.id)}
+    onToggleFavorite={toggleFavorite}
+  />
+))
               ) : (
                 <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-500">
@@ -1222,32 +1255,6 @@ export default function EligibilityAnalysis() {
           </section>
         </>
       )}
-
-      {/* =====================================================
-    ELIGIBILITY CHECK HISTORY
-===================================================== */}
-
-      <section
-        id="saved-eligibility-history"
-        aria-label="Saved scholarship eligibility and document analysis history"
-        className="scroll-mt-24 border-t border-slate-200 bg-slate-50 py-10"
-      >
-        <div className="mx-auto mb-2 max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-sky-600">
-            Complete analysis records
-          </p>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
-            All saved scholarship analyses
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            Review every completed analysis separately, including the
-            individual mandatory and optional documents evaluated for each
-            scholarship.
-          </p>
-        </div>
-
-        <EligibilityHistory />
-      </section>
 
       {/* =====================================================
                 DISCLAIMER

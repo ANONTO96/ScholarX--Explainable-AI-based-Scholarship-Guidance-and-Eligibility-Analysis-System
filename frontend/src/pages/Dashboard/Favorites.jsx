@@ -310,7 +310,7 @@ function FavoriteCard({
                     TOP SECTION
                 ================================================= */}
 
-                <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
+                <div className="flex flex-col gap-5 lg:flex-row lg:items-end">
 
                     {/* =================================================
                         SCHOLARSHIP IDENTITY
@@ -461,7 +461,7 @@ function FavoriteCard({
                             }
                         />
 
-                        <div className="hidden min-w-20 sm:block lg:hidden xl:block">
+                        <div className="min-w-20 lg:hidden xl:block">
 
                             <p className="text-[10px] font-bold uppercase tracking-wider text-sky-500">
                                 Profile Match
@@ -631,7 +631,7 @@ function FavoriteCard({
 
 
                         <NavLink
-                            to={`/dashboard/eligibility?opportunity=${opportunity.id}`}
+                            to={`/dashboard/eligibility-analysis`}
                             className="
                                 inline-flex
                                 items-center
@@ -891,7 +891,7 @@ export default function Favorites() {
                         </div>
 
 
-                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-2 xl:grid-cols-4">
 
                             {/* Saved */}
 
