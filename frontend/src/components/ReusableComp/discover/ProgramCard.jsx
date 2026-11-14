@@ -43,7 +43,7 @@ const ProgramCard = ({ program }) => {
             <div className="relative z-10 flex flex-1 flex-col">
 
                 {/* Header */}
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-1">
 
                     <div className="flex items-start gap-3">
 

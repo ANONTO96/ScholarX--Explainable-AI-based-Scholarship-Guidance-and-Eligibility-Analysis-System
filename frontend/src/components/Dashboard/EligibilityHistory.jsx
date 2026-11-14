@@ -9,6 +9,7 @@ import {
   FileText,
   Loader2,
   Languages,
+  Search,
 } from "lucide-react";
 
 const API_BASE_URL = (
@@ -156,6 +157,7 @@ function getDocumentStatus(document) {
   }
 }
 
+
 function isUnreliableLegacyDocumentData(item) {
   // This is the specific old record we previously identified
   // as having corrupted document data.
@@ -186,72 +188,126 @@ function StatusBadge({ status }) {
   );
 }
 
-function EligibilityHistory() {
+const getHistoryKey = (item, historyList = []) =>
+  item.check_uuid || `history-${historyList.indexOf(item)}`;
+
+function EligibilityHistory({ search = "" }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
   const [expandedItems, setExpandedItems] = useState({});
 
-  const fetchHistory = useCallback(async (isRefresh = false) => {
-    try {
-      if (isRefresh) {
-        setRefreshing(true);
-      } else {
-        setLoading(true);
-      }
+  const normalizedSearch = search.trim().toLowerCase();
 
-      setError("");
+const filteredHistory = history.filter((item) => {
+    if (!normalizedSearch) return true;
 
-      const token = localStorage.getItem("token");
+    const searchableFields = [
+        item.scholarship_title,
+        item.title,
+        item.country,
+        item.program_name,
+    ];
 
-      if (!token) {
-        setError("Please log in to view your eligibility history.");
-        setHistory([]);
-        return;
-      }
+    return searchableFields.some((field) =>
+        String(field ?? "")
+            .toLowerCase()
+            .includes(normalizedSearch)
+    );
+});
 
-      const response = await fetch(`${API_BASE_URL}/api/matching/history`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+// API request only — no React state updates here.
+const requestHistory = useCallback(async () => {
+  const token = localStorage.getItem("token");
 
-      if (!response.ok) {
-        throw new Error(
-          `Unable to load history. Server returned ${response.status}.`,
-        );
-      }
+  if (!token) {
+    throw new Error("Please log in to view your eligibility history.");
+  }
 
-      const data = await response.json();
-      const records = Array.isArray(data.history) ? data.history : [];
+  const response = await fetch(`${API_BASE_URL}/api/matching/history`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Unable to load history. Server returned ${response.status}.`
+    );
+  }
+
+  const data = await response.json();
+
+  return Array.isArray(data?.history) ? data.history : [];
+}, []);
+
+// Initial history loading.
+useEffect(() => {
+  let isActive = true;
+
+  requestHistory()
+    .then((records) => {
+      if (!isActive) return;
 
       setHistory(records);
 
-      // Show every saved analysis and its individual document rows on the
-      // overall Eligibility Analysis page immediately after loading.
       setExpandedItems(
-        Object.fromEntries(
-          records.map((item, index) => [
-            item.check_uuid || `history-${index}`,
-            true,
-          ]),
-        ),
-      );
-    } catch (err) {
-      console.error("Eligibility history error:", err);
-      setError(err.message || "Failed to load eligibility history.");
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, []);
+  Object.fromEntries(
+    records.map((item, index) => [
+      item.check_uuid || `history-${index}`,
+      true,
+    ])
+  )
+);
 
-  useEffect(() => {
-    fetchHistory();
-  }, [fetchHistory]);
+      setError("");
+    })
+    .catch((err) => {
+      if (!isActive) return;
+
+      console.error("Error fetching eligibility history:", err);
+      setError(err.message || "Failed to load eligibility history.");
+    })
+    .finally(() => {
+      if (isActive) {
+        setLoading(false);
+      }
+    });
+
+  return () => {
+    isActive = false;
+  };
+}, [requestHistory]);
+
+// Manual refresh.
+const fetchHistory = useCallback(async () => {
+  try {
+    setRefreshing(true);
+    setError("");
+
+    const records = await requestHistory();
+
+    setHistory(records);
+
+    setExpandedItems(
+      Object.fromEntries(
+        records.map((item, index) => [
+          item.check_uuid || `history-${index}`,
+          true,
+        ])
+      )
+    );
+  } catch (err) {
+    console.error("Error refreshing eligibility history:", err);
+    setError(err.message || "Failed to refresh eligibility history.");
+  } finally {
+    setRefreshing(false);
+  }
+}, [requestHistory]);
+
 
   const toggleExpanded = (checkUuid) => {
     setExpandedItems((previous) => ({
@@ -272,14 +328,14 @@ function EligibilityHistory() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-6 p-4 md:p-6">
+    <div className="space-y-6 pt-5">
       {/* Page heading */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
             <History className="text-blue-600" size={28} />
             <h1 className="text-2xl font-bold text-gray-900">
-              Eligibility History
+             Matching History
             </h1>
           </div>
 
@@ -290,35 +346,37 @@ function EligibilityHistory() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {history.length > 0 && (
+          {filteredHistory.length > 0 && (
             <button
               type="button"
               onClick={() => {
-                const shouldExpand = !history.every((item, index) =>
-                  Boolean(expandedItems[item.check_uuid || `history-${index}`]),
-                );
+  const shouldExpand = !filteredHistory.every((item) =>
+    Boolean(expandedItems[getHistoryKey(item, history)])
+  );
 
-                setExpandedItems(
-                  Object.fromEntries(
-                    history.map((item, index) => [
-                      item.check_uuid || `history-${index}`,
-                      shouldExpand,
-                    ]),
-                  ),
-                );
-              }}
+  setExpandedItems((previous) => ({
+    ...previous,
+    ...Object.fromEntries(
+      filteredHistory.map((item) => [
+        getHistoryKey(item, history),
+        shouldExpand,
+      ])
+    ),
+  }));
+}}
               className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
             >
-              {history.every((item, index) =>
-                Boolean(expandedItems[item.check_uuid || `history-${index}`]),
-              )
-                ? "Collapse all"
-                : "Expand all"}
+              {filteredHistory.every((item) =>
+  Boolean(expandedItems[getHistoryKey(item, history)])
+)
+  ? "Collapse all"
+  : "Expand all"}
             </button>
           )}
 
           <button
-            onClick={() => fetchHistory(true)}
+          type="button"
+            onClick={fetchHistory}
             disabled={refreshing}
             className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-50"
           >
@@ -335,25 +393,53 @@ function EligibilityHistory() {
         </div>
       )}
 
-      {/* Empty state */}
-      {!error && history.length === 0 && (
-        <div className="rounded-xl border border-gray-200 bg-white p-10 text-center">
-          <History size={42} className="mx-auto text-gray-400" />
+      {/* =================================================
+    HISTORY CONTENT
+================================================= */}
 
-          <h2 className="mt-4 text-lg font-bold text-gray-800">
-            No eligibility history found
-          </h2>
+{!loading && !error && (
+    <>
+        {/* No history available */}
+        {history.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-sky-500">
+                    <Search className="h-6 w-6" />
+                </div>
 
-          <p className="mt-2 text-sm text-gray-500">
-            Your completed scholarship eligibility checks will appear here.
-          </p>
-        </div>
-      )}
+                <h3 className="mt-4 text-base font-bold text-slate-800">
+                    No eligibility history found
+                </h3>
 
-      {/* History records */}
-      <div className="space-y-5">
-        {history.map((item, index) => {
-          const summary = item.summary || {};
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+                    You haven't saved any scholarship eligibility checks yet.
+                    Run an eligibility analysis to see your results here.
+                </p>
+            </div>
+        )}
+
+        {/* Search returned no results */}
+        {history.length > 0 && filteredHistory.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 text-slate-400">
+                    <Search className="h-6 w-6" />
+                </div>
+
+                <h3 className="mt-4 text-base font-bold text-slate-800">
+                    No matching scholarships found
+                </h3>
+
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+                    We couldn't find any saved eligibility checks matching
+                    "{search}". Try another scholarship name, country, or program.
+                </p>
+            </div>
+        )}
+
+        {/* Matching history records */}
+        {filteredHistory.length > 0 && (
+            <div className="space-y-5">
+                {filteredHistory.map((item) => {
+                    const summary = item.summary || {};
           const eligibilityScore = summary.eligibility_score || {};
 
           const requirements = Array.isArray(item.requirements)
@@ -379,7 +465,7 @@ function EligibilityHistory() {
             documentReadiness.available !== false &&
             !unreliableDocumentData;
 
-          const checkUuid = item.check_uuid || `history-${index}`;
+          const checkUuid = getHistoryKey(item);
 
           const isExpanded = !!expandedItems[checkUuid];
 
@@ -884,8 +970,11 @@ function EligibilityHistory() {
               )}
             </div>
           );
-        })}
-      </div>
+                })}
+            </div>
+        )}
+    </>
+)}
     </div>
   );
 }

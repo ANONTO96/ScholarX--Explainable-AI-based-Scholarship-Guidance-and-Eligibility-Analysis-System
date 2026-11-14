@@ -33,7 +33,20 @@ const AllPrograms = () => {
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pagination, setPagination] = useState({ tab: activeTab, page: 1 });
+  if (pagination.tab !== activeTab) {
+    setPagination({ tab: activeTab, page: 1 });
+  }
+  const currentPage = pagination.page;
+  const setCurrentPage = (nextPage) => {
+    setPagination((previous) => {
+      const current = previous.tab === activeTab ? previous.page : 1;
+      return {
+        tab: activeTab,
+        page: typeof nextPage === "function" ? nextPage(current) : nextPage,
+      };
+    });
+  };
 
   // Database scholarships
   const [scholarships, setScholarships] = useState([]);
@@ -80,11 +93,6 @@ const AllPrograms = () => {
     fetchScholarships();
 
     return () => controller.abort();
-  }, [activeTab]);
-
-  // Reset pagination when switching tabs
-  useEffect(() => {
-    setCurrentPage(1);
   }, [activeTab]);
 
   const cardsPerPage = 12;
@@ -160,7 +168,7 @@ const AllPrograms = () => {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 pt-40">
+      <div className="relative max-w-370 mx-auto px-3 sm:px-6 pt-40">
         {/* Hero */}
         <div className="text-center">
           <h1 className="text-4xl sm:text-5xl font-semibold flex flex-col mx-auto">
@@ -174,7 +182,7 @@ const AllPrograms = () => {
         </div>
 
         {/* Search & Filter */}
-        <div className="max-w-4xl mx-auto mt-8 flex flex-col sm:flex-row gap-3">
+        <div className="max-w-6xl mx-auto mt-8 flex flex-col sm:flex-row gap-3">
           {/* Search */}
           <div className="relative flex-1">
             <Search

@@ -309,9 +309,10 @@ export default function ScholarXChatbot() {
                     sm:bottom-5
                     sm:right-5
                     sm:h-170
-                    sm:w-100
+                    sm:w-115
+                    md:w-130
                     lg:h-190
-                    lg:w-140
+                    lg:w-150
 
                     overflow-hidden
                     rounded-none
@@ -467,7 +468,7 @@ export default function ScholarXChatbot() {
     ),
     table: ({ children }) => (
   <div className="my-3 w-full overflow-x-auto rounded-xl border border-slate-200">
-    <table className="w-full min-w-[520px] border-collapse text-left text-xs">
+    <table className="w-full min-w-130 border-collapse text-left text-xs">
       {children}
     </table>
   </div>
