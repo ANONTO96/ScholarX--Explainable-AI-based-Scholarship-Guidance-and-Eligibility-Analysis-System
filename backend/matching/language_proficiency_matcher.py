@@ -103,11 +103,20 @@ def evaluate_language_proficiency_matches(program_languages, student_data):
         })
 
     total = len(results)
-    percentage = round((matched_count / total) * 100, 2) if total else 0.0
+    points_earned = matched_count * 3
+    points_possible = total * 3
+    percentage = round(
+        (points_earned / points_possible) * 100, 2
+    ) if points_possible else 0.0
 
     return {
-        "score": matched_count,
-        "maximum_score": total,
+        "level": 2,
+        "stage": "language_proficiency_matching",
+        "score": points_earned,
+        "maximum_score": points_possible,
+        "points_earned": points_earned,
+        "points_possible": points_possible,
+        "points_per_requirement": 3,
         "percentage": percentage,
         "matching_percentage": percentage,
         "total_required_languages": total,
