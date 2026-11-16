@@ -172,11 +172,33 @@ def run(scholarship_id: int):
 
 
     # ========================================================
-    # 6. ELIGIBILITY EXTRACTION
+    # 6. PREPARE APPLICATION DOCUMENT SENTENCES
+    #    Shared input for Level 3 PCC extraction and Level 1 documents.
+    # ========================================================
+
+    document_text = build_text(
+        sections,
+        include_titles=[
+            "Application Documents"
+        ]
+    )
+
+    document_text = clean_text(
+        document_text
+    )
+
+    document_sentences = split_sentences(
+        document_text
+    )
+
+
+    # ========================================================
+    # 7. ELIGIBILITY EXTRACTION (LEVEL 3)
     # ========================================================
 
     eligibility = extract_eligibility(
-        eligibility_sentences
+        eligibility_sentences,
+        document_sentences
     )
 
     # print("\nExtracted Eligibility:")
@@ -197,27 +219,9 @@ def run(scholarship_id: int):
 
 
     # ========================================================
-    # 8. REQUIRED DOCUMENT TEXT EXTRACTION
-    # ========================================================
-
-    document_text = build_text(
-        sections,
-        include_titles=[
-            "Application Documents"
-        ]
-    )
-
-    document_text = clean_text(
-        document_text
-    )
-
-    document_sentences = split_sentences(
-        document_text
-    )
-
-
-    # ========================================================
-    # 9. REQUIRED DOCUMENT EXTRACTION
+    # 9. REQUIRED DOCUMENT EXTRACTION (LEVEL 1)
+    #    Reuse document_sentences prepared above; document extraction
+    #    remains a separate Level 1 process.
     # ========================================================
 
     documents = extract_documents(

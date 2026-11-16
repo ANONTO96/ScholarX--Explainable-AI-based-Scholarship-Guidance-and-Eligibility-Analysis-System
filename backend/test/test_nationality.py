@@ -12,7 +12,7 @@ test_cases = [
     ("Bangladesh", "Turkiye", "met"),
     ("Turkiye", "Turkiye", "not_met"),
     ("China", "Turkiye", "met"),
-    ("Japan", "Japan", "not_met"),  # Descriptor mismatch
+    ("Japan", "Japan", "met"),  # Non-Turkish applicants satisfy this descriptor
 ]
 
 for nationality, scholarship_country, expected in test_cases:

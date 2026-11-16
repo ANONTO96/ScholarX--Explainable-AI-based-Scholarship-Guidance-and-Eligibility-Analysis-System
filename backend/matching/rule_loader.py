@@ -19,11 +19,20 @@ def _decode_condition(condition_json):
     return condition_json
 
 
+def _as_bool(value):
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    if isinstance(value, str):
+        return value.strip().casefold() in {"1", "true", "yes", "y", "on"}
+    return False
+
+
 def _normalize_rule(rule):
     """Normalize a database rule without losing its original information."""
-    rule["mandatory"] = bool(rule["mandatory"])
-    rule["condition_json"] = _decode_condition(rule["condition_json"])
-
+    rule["mandatory"] = _as_bool(rule.get("mandatory"))
+    rule["condition_json"] = _decode_condition(rule.get("condition_json"))
     return rule
 
 

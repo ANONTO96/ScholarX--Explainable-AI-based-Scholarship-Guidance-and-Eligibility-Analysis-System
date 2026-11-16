@@ -470,14 +470,32 @@ def get_program_id(scholarship_id, program_name):
 # -----------------------------------------------------------------------------
 # Insert Program Eligibility Rules
 # -----------------------------------------------------------------------------
+
 def insert_scholarship_eligibility(scholarship_id, eligibility):
 
     connection = get_db_connection()
     cursor = connection.cursor()
 
     inserted = 0
-    unchanged = 0
     updated = 0
+    unchanged = 0
+
+    def prepare_rule(rule):
+        condition = rule.get("condition")
+
+        return (
+            scholarship_id,
+            rule.get("program_id"),
+            rule.get("scope", "scholarship"),
+            rule["rule_type"],
+            rule.get("operator"),
+            rule.get("rule_value"),
+            rule.get("category", "academic"),
+            rule.get("study_language"),
+            json.dumps(condition, ensure_ascii=False) if condition else None,
+            rule.get("source_sentence"),
+            int(bool(rule.get("mandatory", True)))
+        )
 
     try:
 
@@ -489,15 +507,21 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
 
         for rule in scholarship_rules:
 
+            values = prepare_rule(rule)
+
             check_query = """
-                SELECT id, mandatory
+                SELECT id, category, study_language,
+                       condition_json, source_sentence, mandatory
                 FROM scholarship_eligibility
                 WHERE scholarship_id = %s
                   AND program_id IS NULL
                   AND scope = 'scholarship'
                   AND rule_type = %s
-                  AND operator = %s
-                  AND rule_value = %s
+                  AND operator <=> %s
+                  AND rule_value <=> %s
+                  AND study_language <=> %s
+                  AND condition_json <=> %s
+                LIMIT 1
             """
 
             cursor.execute(
@@ -505,8 +529,10 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
                 (
                     scholarship_id,
                     rule["rule_type"],
-                    rule["operator"],
-                    rule["rule_value"]
+                    rule.get("operator"),
+                    rule.get("rule_value"),
+                    rule.get("study_language"),
+                    values[8]
                 )
             )
 
@@ -514,21 +540,24 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
 
             if existing:
 
-                if existing[1] != rule["mandatory"]:
+                new_fields = (
+                    values[6], values[7], values[8],
+                    values[9], values[10]
+                )
 
-                    update_query = """
+                old_fields = existing[1:]
+
+                if old_fields != new_fields:
+
+                    cursor.execute("""
                         UPDATE scholarship_eligibility
-                        SET mandatory = %s
+                        SET category = %s,
+                            study_language = %s,
+                            condition_json = %s,
+                            source_sentence = %s,
+                            mandatory = %s
                         WHERE id = %s
-                    """
-
-                    cursor.execute(
-                        update_query,
-                        (
-                            rule["mandatory"],
-                            existing[0]
-                        )
-                    )
+                    """, (*new_fields, existing[0]))
 
                     updated += 1
 
@@ -537,35 +566,38 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
 
             else:
 
-                insert_query = """
-                    INSERT INTO scholarship_eligibility
-                    (
+                cursor.execute("""
+                    INSERT INTO scholarship_eligibility (
                         scholarship_id,
                         program_id,
                         scope,
                         rule_type,
                         operator,
                         rule_value,
+                        category,
+                        study_language,
+                        condition_json,
+                        source_sentence,
                         mandatory
                     )
-                    VALUES (%s, NULL, 'scholarship', %s, %s, %s, %s)
-                """
-
-                cursor.execute(
-                    insert_query,
-                    (
-                        scholarship_id,
-                        rule["rule_type"],
-                        rule["operator"],
-                        rule["rule_value"],
-                        rule["mandatory"]
-                    )
-                )
+                    VALUES (%s, NULL, 'scholarship',
+                            %s, %s, %s, %s, %s, %s, %s, %s)
+                """, (
+                    scholarship_id,
+                    values[3],
+                    values[4],
+                    values[5],
+                    values[6],
+                    values[7],
+                    values[8],
+                    values[9],
+                    values[10]
+                ))
 
                 inserted += 1
 
         # --------------------------------------------------
-        # Program rules
+        # Program-level rules
         # --------------------------------------------------
 
         program_rules = eligibility.get("program_rules", [])
@@ -574,22 +606,13 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
 
             program_name = program_data["program"]
 
-            # Find program ID
-            program_query = """
+            cursor.execute("""
                 SELECT id
                 FROM scholarship_programs
                 WHERE scholarship_id = %s
                   AND program_name = %s
                 LIMIT 1
-            """
-
-            cursor.execute(
-                program_query,
-                (
-                    scholarship_id,
-                    program_name
-                )
-            )
+            """, (scholarship_id, program_name))
 
             program = cursor.fetchone()
 
@@ -600,41 +623,93 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
 
             for rule in program_data.get("rules", []):
 
-                query = """
-                    INSERT INTO scholarship_eligibility
-                    (
-                        scholarship_id,
-                        program_id,
-                        scope,
-                        rule_type,
-                        operator,
-                        rule_value,
-                        mandatory
-                    )
-                    VALUES (%s, %s, 'program', %s, %s, %s, %s)
-
-                    ON DUPLICATE KEY UPDATE
-                        mandatory = VALUES(mandatory)
-                """
-
-                cursor.execute(
-                    query,
-                    (
-                        scholarship_id,
-                        program_id,
-                        rule["rule_type"],
-                        rule["operator"],
-                        rule["rule_value"],
-                        rule["mandatory"]
-                    )
+                values = prepare_rule(rule)
+                values = (
+                    values[0], program_id, "program",
+                    *values[3:]
                 )
 
-                if cursor.rowcount == 1:
-                    inserted += 1
-                elif cursor.rowcount == 2:
-                    updated += 1
+                cursor.execute("""
+                    SELECT id, category, study_language,
+                           condition_json, source_sentence, mandatory
+                    FROM scholarship_eligibility
+                    WHERE scholarship_id = %s
+                      AND program_id = %s
+                      AND scope = 'program'
+                      AND rule_type = %s
+                      AND operator <=> %s
+                      AND rule_value <=> %s
+                      AND study_language <=> %s
+                      AND condition_json <=> %s
+                    LIMIT 1
+                """, (
+                    scholarship_id,
+                    program_id,
+                    rule["rule_type"],
+                    rule.get("operator"),
+                    rule.get("rule_value"),
+                    rule.get("study_language"),
+                    values[8]
+                ))
+
+                existing = cursor.fetchone()
+
+                if existing:
+
+                    new_fields = (
+                        values[6], values[7], values[8],
+                        values[9], values[10]
+                    )
+
+                    if existing[1:] != new_fields:
+
+                        cursor.execute("""
+                            UPDATE scholarship_eligibility
+                            SET category = %s,
+                                study_language = %s,
+                                condition_json = %s,
+                                source_sentence = %s,
+                                mandatory = %s
+                            WHERE id = %s
+                        """, (*new_fields, existing[0]))
+
+                        updated += 1
+
+                    else:
+                        unchanged += 1
+
                 else:
-                    unchanged += 1
+
+                    cursor.execute("""
+                        INSERT INTO scholarship_eligibility (
+                            scholarship_id,
+                            program_id,
+                            scope,
+                            rule_type,
+                            operator,
+                            rule_value,
+                            category,
+                            study_language,
+                            condition_json,
+                            source_sentence,
+                            mandatory
+                        )
+                        VALUES (%s, %s, 'program',
+                                %s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (
+                        scholarship_id,
+                        program_id,
+                        values[3],
+                        values[4],
+                        values[5],
+                        values[6],
+                        values[7],
+                        values[8],
+                        values[9],
+                        values[10]
+                    ))
+
+                    inserted += 1
 
         connection.commit()
 
@@ -646,15 +721,14 @@ def insert_scholarship_eligibility(scholarship_id, eligibility):
             "unchanged": unchanged
         }
 
-    except mysql.connector.Error as err:
-
+    except Exception:
         connection.rollback()
-        raise err
+        raise
 
     finally:
-
         cursor.close()
         connection.close()
+
 
 #insert required_documents
 def insert_scholarship_documents(scholarship_id, documents):

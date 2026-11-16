@@ -1,3 +1,4 @@
+
 import os
 from groq import Groq
 
@@ -23,7 +24,7 @@ def generate_chat_response(messages):
         model=model,
         messages=messages,
         temperature=0.4,
-        max_tokens=2000,
+        max_tokens=1000,
     )
 
     return response.choices[0].message.content

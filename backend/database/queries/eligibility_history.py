@@ -101,6 +101,14 @@ def save_eligibility_history(user_id, scholarship_id, result):
             "language_proficiency_matching"
         ),
 
+        # Level 3: Eligibility Matching (includes language_proficiency rules)
+        "eligibility_matching": result.get("eligibility_matching"),
+        "eligibility_score": result.get("eligibility_score"),
+
+        # Overall score across all available matching levels
+        "overall_matching_score": result.get("overall_matching_score"),
+        "matching_score_summary": result.get("matching_score_summary"),
+
         "total_rules": result.get("total_rules"),
         "selected_study_language": result.get(
             "selected_study_language"

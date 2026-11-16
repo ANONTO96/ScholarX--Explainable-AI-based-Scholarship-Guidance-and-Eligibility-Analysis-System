@@ -17,7 +17,7 @@ def normalize_document_key(value):
     """Normalize case and repeated whitespace for checklist matching."""
     if value is None:
         return ""
-    return re.sub(r"\\s+", " ", str(value).strip()).casefold()
+    return re.sub(r"\s+", " ", str(value).strip()).casefold()
 
 
 def _as_bool(value):
