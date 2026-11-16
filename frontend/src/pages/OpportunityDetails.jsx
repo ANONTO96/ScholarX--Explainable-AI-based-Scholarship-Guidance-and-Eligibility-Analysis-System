@@ -316,7 +316,7 @@ const InfoCard = ({ icon: Icon, label, value, color = "blue" }) => {
             {label}
           </p>
 
-          <p className="mt-1 break-words font-bold text-slate-900">
+          <p className="mt-1 wrap-break-word font-bold text-slate-900">
             {value || "Not specified"}
           </p>
         </div>
@@ -1641,7 +1641,7 @@ const OpportunityDetails = () => {
                           {value}
                         </a>
                       ) : (
-                        <p className="mt-2 break-words font-semibold text-slate-800">
+                        <p className="mt-2 wrap-break-word font-semibold text-slate-800">
                           {value}
                         </p>
                       )}
