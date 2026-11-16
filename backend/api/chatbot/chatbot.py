@@ -2,7 +2,7 @@ import json
 import logging
 
 from typing import Literal
-from groq import RateLimitError
+from groq import APIStatusError, RateLimitError
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
@@ -252,6 +252,7 @@ def chat_with_scholarx(
             "reply": reply,
         }
 
+    
     except HTTPException:
         raise
 
@@ -259,11 +260,28 @@ def chat_with_scholarx(
         logger.warning("Groq rate limit reached")
 
         raise HTTPException(
-        status_code=429,
-        detail=(
-            "The AI assistant is temporarily busy. "
-            "Please wait a moment and try again."
+            status_code=429,
+            detail=(
+                "The AI assistant is temporarily busy. "
+                "Please wait a moment and try again."
+            ),
         )
+
+    except APIStatusError as error:
+        logger.exception("Groq API request failed.")
+
+        if error.status_code == 413:
+            raise HTTPException(
+                status_code=413,
+                detail=(
+                    "The eligibility report is too large to process. "
+                    "Please try a more specific question."
+                ),
+            )
+
+        raise HTTPException(
+            status_code=502,
+            detail="The AI service encountered an API error.",
         )
 
     except RuntimeError as error:
@@ -271,7 +289,7 @@ def chat_with_scholarx(
 
         raise HTTPException(
             status_code=503,
-            detail="The AI assistant is not configured correctly."
+            detail="The AI assistant is not configured correctly.",
         )
 
     except Exception:
@@ -279,5 +297,5 @@ def chat_with_scholarx(
 
         raise HTTPException(
             status_code=502,
-            detail="Unable to generate a response. Please try again."
+            detail="Unable to generate a response. Please try again.",
         )

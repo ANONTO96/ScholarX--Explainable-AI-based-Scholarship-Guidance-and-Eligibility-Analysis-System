@@ -305,43 +305,43 @@ export default function ScholarXChatbot() {
 
       <aside
         className={`
-                    fixed z-999
+    fixed z-999
+    bottom-0 right-0
+    flex flex-col
 
-                    bottom-0 right-0
-                    h-dvh
-                    w-full
+    h-dvh
+    w-full
 
-                    sm:bottom-5
-                    sm:right-5
-                    sm:h-170
-                    sm:w-115
-                    md:w-130
-                    lg:h-190
-                    lg:w-150
+    sm:bottom-5
+    sm:right-5
+    sm:h-[min(82dvh,760px)]
+    sm:w-115
+    md:w-130
+    lg:w-160
 
-                    overflow-hidden
-                    rounded-none
-                    sm:rounded-3xl
+    overflow-hidden
+    rounded-none
+    sm:rounded-3xl
 
-                    border border-sky-200/70
-                    bg-white
+    border border-sky-200/70
+    bg-white
 
-                    shadow-[0_25px_80px_rgba(15,23,42,0.20)]
+    shadow-[0_25px_80px_rgba(15,23,42,0.20)]
 
-                    transition-all duration-300 ease-out
+    transition-all duration-300 ease-out
 
-                    ${
-                      isOpen
-                        ? "translate-x-0 opacity-100"
-                        : "pointer-events-none translate-x-[110%] opacity-0"
-                    }
-                `}
+    ${
+      isOpen
+        ? "translate-x-0 opacity-100"
+        : "pointer-events-none translate-x-[110%] opacity-0"
+    }
+  `}
       >
         {/* ================================================= */}
         {/* HEADER */}
         {/* ================================================= */}
 
-        <div className="relative border-b border-slate-200 bg-linear-to-r from-sky-600 via-sky-500 to-cyan-500 px-4 py-4 text-white">
+        <div className="relative shrink-0 overflow-hidden border-b border-sky-100 bg-linear-to-r from-sky-700 via-sky-600 to-cyan-500 px-4 py-3.5 text-white">
           {/* Decorative glow */}
           <div className="pointer-events-none absolute -right-8 -top-10 h-28 w-28 rounded-full bg-white/15 blur-2xl" />
 
@@ -380,9 +380,11 @@ export default function ScholarXChatbot() {
           </div>
 
           {/* Header description */}
-          <div className="relative mt-4 rounded-2xl border border-white/15 bg-white/10 px-3 py-2.5 text-xs leading-relaxed text-sky-50 backdrop-blur-sm">
-            Ask me about scholarships, eligibility, study destinations, or your
-            ScholarX journey.
+          <div className="relative mt-3 flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs text-sky-50 backdrop-blur-sm">
+            <Sparkles size={13} className="shrink-0 text-cyan-100" />
+            <span>
+              Your AI companion for scholarships and study-abroad guidance.
+            </span>
           </div>
         </div>
 
@@ -390,9 +392,9 @@ export default function ScholarXChatbot() {
         {/* CHAT BODY */}
         {/* ================================================= */}
 
-        <div className="flex h-[calc(100%-184px)] flex-col bg-slate-50">
+        <div className="flex min-h-0 flex-1 flex-col bg-[#F5F9FC]">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-5">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-4 sm:px-4">
             <div className="space-y-4">
               {/* Date / status */}
               <div className="flex justify-center">
@@ -409,28 +411,29 @@ export default function ScholarXChatbot() {
                   }`}
                 >
                   <div
-                    className={`flex max-w-[85%] items-end gap-2 ${
+                    className={`flex max-w-[90%] items-end gap-2 sm:max-w-[88%] ${
                       message.role === "user" ? "flex-row-reverse" : ""
                     }`}
                   >
                     {/* Assistant avatar */}
                     {message.role === "assistant" && (
-                      <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
-                        <Bot size={14} />
-                      </div>
+                      <div className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-sky-100 bg-white text-sky-600 shadow-sm">
+  <Bot size={15} />
+</div>
                     )}
 
                     <div>
                       <div
                         className={`
-        rounded-2xl px-3.5 py-3 text-sm leading-relaxed
+  rounded-2xl px-4 py-3 text-[13px] leading-[1.75] shadow-sm
+  wrap-break-word
 
-        ${
-          message.role === "user"
-            ? "rounded-br-md bg-sky-500 text-white shadow-sm"
-            : "rounded-bl-md border border-slate-200 bg-white text-slate-700 shadow-sm"
-        }
-    `}
+  ${
+    message.role === "user"
+      ? "rounded-br-md bg-linear-to-br from-sky-500 to-sky-600 text-white shadow-sky-200/50"
+      : "rounded-bl-md border border-slate-200/80 bg-white text-slate-700 shadow-slate-200/40"
+  }
+`}
                       >
                         {message.role === "assistant" ? (
                           <div className="space-y-2">
@@ -560,15 +563,14 @@ export default function ScholarXChatbot() {
           {/* ================================================= */}
 
           {!isTyping && (
-            <div className="border-t border-slate-200 bg-white px-4 py-3">
+            <div className="shrink-0 border-t border-slate-100 bg-white px-4 py-2.5">
               {/* Header */}
               <div className="mb-2 flex items-center gap-1.5">
-                <Sparkles size={13} className="text-sky-500" />
-
-                <span className="text-[11px] font-semibold text-slate-500">
-                  Try asking :
-                </span>
-              </div>
+  <Sparkles size={13} className="text-sky-500" />
+  <span className="text-[11px] font-semibold tracking-wide text-slate-500">
+    SUGGESTED QUESTIONS
+  </span>
+</div>
 
               {/* Scrollable Questions */}
               <div
@@ -583,7 +585,6 @@ export default function ScholarXChatbot() {
   gap-2
   overflow-x-auto
   overflow-y-hidden
-  pb-2
   scrollbar-none
   touch-pan-x
   select-none
@@ -606,29 +607,14 @@ export default function ScholarXChatbot() {
                       handleSendMessage(question);
                     }}
                     className="
-                shrink-0
-                whitespace-nowrap
-
-                rounded-full
-                border border-sky-200
-                bg-sky-50
-
-                px-3.5
-                py-1.5
-
-                text-[11px]
-                font-medium
-                text-sky-700
-
-                transition-all
-                duration-200
-
-                hover:border-sky-300
-                hover:bg-sky-100
-                hover:shadow-sm
-
-                active:scale-[0.97]
-            "
+  shrink-0 whitespace-nowrap
+  rounded-full border border-sky-100
+  bg-sky-50/80 px-3.5 py-2
+  text-[11px] font-medium text-sky-700
+  transition-all duration-200
+  hover:border-sky-300 hover:bg-sky-100
+  active:scale-[0.97]
+"
                   >
                     {question}
                   </button>
@@ -641,33 +627,33 @@ export default function ScholarXChatbot() {
           {/* INPUT */}
           {/* ================================================= */}
 
-          <div className="border-t border-slate-200 bg-white p-3">
-            <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5 transition focus-within:border-sky-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-sky-100">
+          <div className="shrink-0 border-t border-slate-100 bg-white px-3 pb-3 pt-2.5 sm:px-4">
+            <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5 transition-all duration-200 focus-within:border-sky-300 focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(14,165,233,0.08)]">
               <textarea
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                rows={1}
-                placeholder="Ask ScholarX AI..."
-                className="max-h-30 min-h-15 flex-1 resize-none bg-transparent px-3 py-2 text-sm text-slate-700 outline-none placeholder:text-slate-400"
-              />
+  ref={inputRef}
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyDown={handleKeyDown}
+  rows={1}
+  placeholder="Message ScholarX AI..."
+  className="max-h-28 min-h-11 flex-1 resize-none bg-transparent px-3 py-2.5 text-sm text-slate-700 outline-none placeholder:text-slate-400"
+/>
 
               <button
-                type="button"
-                onClick={() => handleSendMessage()}
-                disabled={!input.trim() || isTyping}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500 text-white shadow-sm transition hover:bg-sky-600 disabled:cursor-not-allowed disabled:opacity-40"
-                aria-label="Send message"
-              >
-                <Send size={17} />
-              </button>
+  type="button"
+  onClick={() => handleSendMessage()}
+  disabled={!input.trim() || isTyping}
+  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-md shadow-sky-200 transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40"
+  aria-label="Send message"
+>
+  <Send size={17} />
+</button>
             </div>
 
-            <p className="mt-2 text-center text-[9px] text-slate-400">
-              ScholarX AI can make mistakes. Double check any important
-              information.
-            </p>
+            <p className="mt-1.5 text-center text-[9px] leading-relaxed text-slate-400">
+  <span className="font-semibold text-sky-600">ScholarX AI</span>
+  {" "}can make mistakes. Verify important information.
+</p>
           </div>
         </div>
       </aside>
@@ -703,7 +689,8 @@ export default function ScholarXChatbot() {
 
                         hover:-translate-y-1
                         hover:border-sky-400
-                        hover:bg-sky-50
+                        hover:bg-sky-600
+                        hover:text-white
                         hover:shadow-[0_12px_35px_rgba(14,165,233,0.25)]
 
                         ${isOpen ? "bg-sky-50 text-sky-700" : ""}
