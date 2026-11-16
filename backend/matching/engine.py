@@ -6,7 +6,10 @@ from database.queries.eligibility_history import save_eligibility_history
 from matching.profile_loader import load_student_profile
 from matching.program_selector import select_scholarship_program
 from matching.rule_loader import load_scholarship_rules
-from matching.eligibility_scorer import calculate_eligibility_score
+from matching.eligibility_scorer import (
+    calculate_eligibility_score,
+    calculate_overall_matching_score,
+)
 from matching.document_matcher import evaluate_document_matches
 from matching.language_proficiency_matcher import evaluate_language_proficiency_matches
 from matching.recommendation_engine import generate_recommendations
@@ -259,7 +262,17 @@ def analyze_scholarship(
     )
 
     # ---------------------------------------------------------
-    # 11. GENERATE IMPROVEMENT RECOMMENDATIONS
+    # 11. CALCULATE THE OVERALL SCORE ACROSS ALL THREE LEVELS
+    # ---------------------------------------------------------
+
+    overall_matching_score = calculate_overall_matching_score(
+        document_matching=document_matching,
+        language_proficiency_matching=language_proficiency_matching,
+        eligibility_score=eligibility_score,
+    )
+
+    # ---------------------------------------------------------
+    # 12. GENERATE IMPROVEMENT RECOMMENDATIONS
     # ---------------------------------------------------------
 
     recommendations = generate_recommendations(
@@ -279,10 +292,28 @@ def analyze_scholarship(
         "program": program_context,
         "selected_study_language": selected_language,
         "total_rules": len(rules),
+        # Level 3: all scholarship eligibility rules, including
+        # language_proficiency rules evaluated against their rule thresholds.
         "eligibility_score": eligibility_score,
+        "eligibility_matching": {
+            "score": eligibility_score.get("score"),
+            "percentage": eligibility_score.get("score"),
+            "total_rules": eligibility_score.get("total_rules"),
+            "evaluated_rules": eligibility_score.get("evaluated_rules"),
+            "met_rules": eligibility_score.get("met_rules"),
+            "not_met_rules": eligibility_score.get("not_met_rules"),
+            "unknown_rules": eligibility_score.get("unknown_rules"),
+            "not_applicable_rules": eligibility_score.get("not_applicable_rules"),
+            "points_earned": eligibility_score.get("points_earned"),
+            "points_possible": eligibility_score.get("points_possible"),
+            "points_per_requirement": eligibility_score.get("points_per_requirement"),
+            "results": all_rule_results,
+        },
         "document_matching": document_matching,
         "document_matching_score": document_matching["score"],
         "language_proficiency_matching": language_proficiency_matching,
+        "overall_matching_score": overall_matching_score.get("score"),
+        "matching_score_summary": overall_matching_score,
         "academic_results": academic_results,
         "eligibility_results": eligibility_results,
         "recommendations": recommendations,

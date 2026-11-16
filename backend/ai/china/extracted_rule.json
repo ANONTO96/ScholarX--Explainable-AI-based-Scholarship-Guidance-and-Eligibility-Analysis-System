@@ -33,7 +33,7 @@
                 "rule_value": "International",
                 "category": "academic",
                 "mandatory": true,
-                "source_sentence": "1. be a citizen of a country other than the PRC and in good health both mentally and physically"
+                "source_sentence": "be a citizen of a country other than the PRC and in good health both mentally and physically"
             },
             {
                 "rule_type": "health",
@@ -41,7 +41,23 @@
                 "rule_value": "Good",
                 "category": "academic",
                 "mandatory": true,
-                "source_sentence": "1. be a citizen of a country other than the PRC and in good health both mentally and physically"
+                "source_sentence": "be a citizen of a country other than the PRC and in good health both mentally and physically"
+            },
+            {
+                "rule_type": "criminal_record",
+                "operator": "=",
+                "rule_value": "Clean",
+                "category": "academic",
+                "mandatory": true,
+                "source_sentence": "An applicant shall submit a valid Certificate of Non-Criminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application. ----------------------"
+            },
+            {
+                "rule_type": "minimum_gpa",
+                "operator": ">=",
+                "rule_value": 0,
+                "category": "academic",
+                "mandatory": false,
+                "source_sentence": null
             }
         ],
         "program_rules": [
@@ -54,7 +70,7 @@
                         "rule_value": "25",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program"
+                        "source_sentence": "be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program"
                     },
                     {
                         "rule_type": "minimum_degree",
@@ -62,7 +78,7 @@
                         "rule_value": "High School",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program"
+                        "source_sentence": "be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program"
                     },
                     {
                         "rule_type": "entrance_exam",
@@ -70,7 +86,7 @@
                         "rule_value": "CSCA",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "7. take the \"China Scholastic Competency Assessment (short as CSCA)\" and upload a valid score report when applying for bachelor programs (Official website of CSCA: www.csca.cn )"
+                        "source_sentence": "take the \"China Scholastic Competency Assessment (short as CSCA)\" and upload a valid score report when applying for bachelor programs (Official website of CSCA: www.csca.cn )"
                     },
                     {
                         "rule_type": "language_proficiency",
@@ -84,7 +100,7 @@
                             "operator": "!=",
                             "value": "Chinese"
                         },
-                        "source_sentence": "11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
+                        "source_sentence": "meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
                     }
                 ]
             },
@@ -97,7 +113,7 @@
                         "rule_value": "35",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
+                        "source_sentence": "be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
                     },
                     {
                         "rule_type": "minimum_degree",
@@ -105,7 +121,7 @@
                         "rule_value": "Bachelor",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
+                        "source_sentence": "be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
                     },
                     {
                         "rule_type": "language_proficiency",
@@ -119,7 +135,7 @@
                             "operator": "=",
                             "value": "Chinese"
                         },
-                        "source_sentence": "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
+                        "source_sentence": "have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
                     },
                     {
                         "rule_type": "language_proficiency",
@@ -133,7 +149,7 @@
                             "operator": "!=",
                             "value": "Chinese"
                         },
-                        "source_sentence": "11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
+                        "source_sentence": "meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
                     }
                 ]
             },
@@ -146,7 +162,7 @@
                         "rule_value": "40",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
+                        "source_sentence": "be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
                     },
                     {
                         "rule_type": "minimum_degree",
@@ -154,7 +170,7 @@
                         "rule_value": "Master",
                         "category": "academic",
                         "mandatory": true,
-                        "source_sentence": "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
+                        "source_sentence": "be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
                     },
                     {
                         "rule_type": "language_proficiency",
@@ -168,7 +184,7 @@
                             "operator": "=",
                             "value": "Chinese"
                         },
-                        "source_sentence": "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
+                        "source_sentence": "have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
                     },
                     {
                         "rule_type": "language_proficiency",
@@ -182,7 +198,7 @@
                             "operator": "!=",
                             "value": "Chinese"
                         },
-                        "source_sentence": "11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
+                        "source_sentence": "meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------"
                     }
                 ]
             }

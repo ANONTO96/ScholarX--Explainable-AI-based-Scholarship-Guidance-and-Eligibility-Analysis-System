@@ -56,9 +56,25 @@ def get_improvement_suggestion(rule_type, status, rule=None):
             ),
 
             "health": (
-                "Your health information is unavailable. "
-                "Update your health certificate availability in your "
-                "profile and verify the scholarship's medical requirements."
+                "Your health-certificate checklist status is unavailable. "
+                "Add the health certificate to your document checklist and "
+                "mark whether it is available."
+            ),
+
+            "criminal_record": (
+                "Your police-clearance document status is unavailable. "
+                "Add the Police Clearance Certificate (PCC) to your document "
+                "checklist and mark whether it is available."
+            ),
+
+            "criminal_record_certificate": (
+                "Your police-clearance document status is unavailable. "
+                "Update the PCC document checklist availability."
+            ),
+
+            "police_clearance": (
+                "Your police-clearance document status is unavailable. "
+                "Update the PCC document checklist availability."
             ),
 
             "entrance_exam": (
@@ -138,8 +154,23 @@ def get_improvement_suggestion(rule_type, status, rule=None):
             ),
 
             "health": (
-                "Review the scholarship's health requirements and "
-                "consult an appropriate medical professional if needed."
+                "Obtain the required health certificate and mark it as "
+                "available in your student document checklist."
+            ),
+
+            "criminal_record": (
+                "Obtain your Police Clearance Certificate (PCC) and mark it "
+                "as available in your student document checklist."
+            ),
+
+            "criminal_record_certificate": (
+                "Obtain the required police-clearance certificate and mark "
+                "it as available in your document checklist."
+            ),
+
+            "police_clearance": (
+                "Obtain the required police-clearance certificate and mark "
+                "it as available in your document checklist."
             )
         }
 

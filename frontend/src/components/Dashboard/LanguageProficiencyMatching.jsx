@@ -184,6 +184,10 @@ export default function LanguageProficiencyMatching({ result = null }) {
               <p className="mt-1 text-3xl font-black tabular-nums text-violet-950">
                 {formatPercentage(percentage)}
               </p>
+              <p className="mt-1 text-xs font-semibold text-violet-800">
+                {result.points_earned ?? result.score ?? 0} / {result.points_possible ?? result.maximum_score ?? 0} points
+                <span className="font-normal"> · 3 points per matched language</span>
+              </p>
             </div>
 
             <div className="grid grid-cols-3 gap-2 rounded-xl bg-slate-50 p-4 text-center">

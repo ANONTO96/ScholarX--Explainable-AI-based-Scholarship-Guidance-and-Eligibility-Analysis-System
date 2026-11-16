@@ -2,6 +2,7 @@ import json
 import logging
 
 from typing import Literal
+from groq import RateLimitError
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
@@ -187,6 +188,17 @@ COMMUNICATION:
 - Explain technical or academic terms when necessary.
 - Give actionable recommendations rather than generic advice.
 
+INTERNAL IDENTITY PRIVACY:
+
+1. Never display, reveal, repeat, or explain internal user IDs.
+2. Never display database primary keys or internal account identifiers.
+3. Never expose user_id, account_user_id, or similar internal identifiers.
+4. If internal identifiers accidentally appear in supplied context,
+   ignore them completely.
+5. When presenting a student profile, exclude all internal identifiers.
+6. If asked for an internal user ID, politely explain that internal
+   account identifiers are private and cannot be displayed.
+   
 You are an assistant, not the eligibility calculation engine.
 """
 
@@ -199,7 +211,10 @@ def chat_with_scholarx(
     user_id = current_user["user_id"]
 
     try:
-        student_context = build_student_context(user_id)
+        student_context = build_student_context(
+            user_id,
+            request.message
+        )
 
         messages = [
             {
@@ -213,7 +228,7 @@ def chat_with_scholarx(
         ]
 
         # Include only recent conversation turns.
-        for item in request.history[-10:]:
+        for item in request.history[-4:]:
             messages.append({
                 "role": item.role,
                 "content": item.content,
@@ -239,6 +254,17 @@ def chat_with_scholarx(
 
     except HTTPException:
         raise
+
+    except RateLimitError:
+        logger.warning("Groq rate limit reached")
+
+        raise HTTPException(
+        status_code=429,
+        detail=(
+            "The AI assistant is temporarily busy. "
+            "Please wait a moment and try again."
+        )
+        )
 
     except RuntimeError as error:
         logger.error("Chatbot configuration error: %s", error)

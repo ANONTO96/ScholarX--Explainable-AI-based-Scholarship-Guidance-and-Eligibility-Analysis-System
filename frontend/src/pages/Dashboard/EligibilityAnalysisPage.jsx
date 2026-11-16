@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import DocumentMatchingLevel from "../../components/Dashboard/DocumentMatchingLevel";
 import LanguageProficiencyMatching from "../../components/Dashboard/LanguageProficiencyMatching";
+import EligibilityMatchingLevel from "../../components/Dashboard/EligibilityMatchingLevel";
 import Loader from "../../components/ReusableComp/Loader";
 
 const API_BASE_URL = (
@@ -104,47 +105,16 @@ function displayValue(value) {
   return String(value);
 }
 
-function getScoreValue(result) {
-  const candidates = [
-    result?.eligibility_score,
-    result?.summary?.eligibility_score,
-    result?.summary?.score,
-  ];
+function getPercentage(result, fallback = null) {
+  const value =
+    result?.percentage ??
+    result?.matching_percentage ??
+    result?.score ??
+    fallback;
 
-  for (const candidate of candidates) {
-    if (candidate === null || candidate === undefined || candidate === "") {
-      continue;
-    }
-
-    if (typeof candidate === "number" || typeof candidate === "string") {
-      return candidate;
-    }
-
-    if (typeof candidate === "object") {
-      const nested =
-        candidate.percentage ??
-        candidate.score ??
-        candidate.value ??
-        candidate.overall_score ??
-        candidate.eligibility_percentage;
-
-      if (nested !== null && nested !== undefined && nested !== "") {
-        return nested;
-      }
-    }
-  }
-
-  return null;
-}
-
-function formatScore(value) {
-  if (value === null || value === undefined || value === "") {
-    return "—";
-  }
-
-  const numericValue = Number(value);
-
-  return Number.isFinite(numericValue) ? `${numericValue}%` : String(value);
+  if (value === null || value === undefined || value === "") return null;
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
 }
 
 function Recommendations({ items }) {
@@ -375,8 +345,6 @@ export default function EligibilityAnalysisPage() {
     scholarship?.country_name ||
     scholarship?.destination_country;
 
-  const score = getScoreValue(analysisResult);
-
   const checkButtonLabel = analysisLoading
     ? "Analyzing..."
     : analysisResult
@@ -550,46 +518,104 @@ export default function EligibilityAnalysisPage() {
           className="space-y-6"
         >
           <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-sky-600">
-                  Overall eligibility
+                  Matching overview
                 </p>
-
                 <h2 className="mt-1 text-xl font-black text-slate-900">
                   Analysis completed
                 </h2>
-
                 {analysisResult.selected_study_language && (
                   <p className="mt-1 text-sm text-slate-500">
-                    <span>
-                      {`Study language: ${displayValue(
-                        analysisResult.selected_study_language
-                      )}`}
-                    </span>
+                    Study language: {displayValue(analysisResult.selected_study_language)}
                   </p>
                 )}
-
                 {analysisResult.check_uuid && (
                   <p className="mt-1 text-xs text-slate-400">
-                    <span>
-                      {`Analysis reference: ${analysisResult.check_uuid}`}
-                    </span>
+                    Analysis reference: {analysisResult.check_uuid}
                   </p>
                 )}
               </div>
+            </div>
 
-              {score !== undefined && score !== null && (
-                <div className="min-w-32 rounded-xl bg-sky-50 px-5 py-4 text-center">
-                  <p className="text-xs font-semibold text-sky-700">
-                    Eligibility score
+            <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:p-6">
+              <h3 className="text-center text-sm font-black uppercase tracking-[0.16em] text-slate-700 sm:text-base">
+                Match Making Score
+              </h3>
+
+              <div className="mt-4 flex justify-center">
+                <div className="flex h-32 w-32 flex-col items-center justify-center rounded-full border-[5px] border-sky-200 bg-white shadow-sm sm:h-36 sm:w-36">
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                    Overall
+                  </span>
+                  <span className="mt-1 text-3xl font-black tabular-nums text-slate-900 sm:text-4xl">
+                    {getPercentage(
+                      { percentage: analysisResult.matching_score_summary?.percentage },
+                      analysisResult.overall_matching_score
+                    ) ?? 0}%
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-500">
+                    Match score
+                  </span>
+                </div>
+              </div>
+
+              <div className="my-6 border-t border-slate-300" />
+
+              <div className="grid grid-cols-1 divide-y divide-slate-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                <div className="px-3 py-4 text-center sm:px-5">
+                  <p className="text-xs font-black uppercase tracking-wider text-sky-700">
+                    Level 1
                   </p>
-
-                  <p className="mt-1 text-3xl font-black tabular-nums text-sky-900">
-                    {formatScore(score)}
+                  <h4 className="mt-1 text-base font-bold text-slate-900">
+                    Document
+                  </h4>
+                  <p className="mt-2 text-3xl font-black tabular-nums text-sky-800">
+                    {getPercentage(analysisResult.document_matching) ?? 0}%
+                  </p>
+                  <p className="mt-1 text-xs font-semibold text-slate-500">
+                    {analysisResult.document_matching?.score ?? 0} / {analysisResult.document_matching?.maximum_score ?? 0} points
                   </p>
                 </div>
-              )}
+
+                <div className="px-3 py-4 text-center sm:px-5">
+                  <p className="text-xs font-black uppercase tracking-wider text-violet-700">
+                    Level 2
+                  </p>
+                  <h4 className="mt-1 text-base font-bold text-slate-900">
+                    Language
+                  </h4>
+                  <p className="mt-2 text-3xl font-black tabular-nums text-violet-800">
+                    {getPercentage(analysisResult.language_proficiency_matching) ?? 0}%
+                  </p>
+                  <p className="mt-1 text-xs font-semibold text-slate-500">
+                    {analysisResult.language_proficiency_matching?.points_earned ?? analysisResult.language_proficiency_matching?.score ?? 0} / {analysisResult.language_proficiency_matching?.points_possible ?? analysisResult.language_proficiency_matching?.maximum_score ?? 0} points
+                  </p>
+                </div>
+
+                <div className="px-3 py-4 text-center sm:px-5">
+                  <p className="text-xs font-black uppercase tracking-wider text-emerald-700">
+                    Level 3
+                  </p>
+                  <h4 className="mt-1 text-base font-bold text-slate-900">
+                    Eligibility
+                  </h4>
+                  <p className="mt-2 text-3xl font-black tabular-nums text-emerald-800">
+                    {getPercentage(
+                      analysisResult.eligibility_matching,
+                      analysisResult.eligibility_score?.score
+                    ) ?? 0}%
+                  </p>
+                  <p className="mt-1 text-xs font-semibold text-slate-500">
+                    {analysisResult.eligibility_matching?.points_earned ?? analysisResult.eligibility_score?.points_earned ?? 0} / {analysisResult.eligibility_matching?.points_possible ?? analysisResult.eligibility_score?.points_possible ?? 0} points
+                  </p>
+                </div>
+              </div>
+              <p className="mt-3 text-center text-[11px] text-slate-500">
+                Each matched requirement earns 3 points. Failed or unknown requirements earn 0 points.
+                Overall score = (Level 1 + Level 2 + Level 3) ÷ 3.
+              </p>
             </div>
           </section>
 
@@ -600,6 +626,10 @@ export default function EligibilityAnalysisPage() {
 
           <LanguageProficiencyMatching
             result={analysisResult.language_proficiency_matching || null}
+          />
+
+          <EligibilityMatchingLevel
+            result={analysisResult.eligibility_matching || null}
           />
 
           <Recommendations items={analysisResult.recommendations} />

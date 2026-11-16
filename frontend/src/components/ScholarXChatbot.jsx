@@ -25,14 +25,14 @@ const initialMessages = [
 ];
 
 const suggestedQuestions = [
-  "Find scholarships for me",
-  "Am I eligible for scholarships?",
-  "Which country is best for my studies?",
-  "Show me scholarships for Computer Science",
-  "What scholarships can I apply for?",
-  "Help me plan my study abroad journey",
-  "What are the requirements for studying abroad?",
-  "How can I improve my scholarship chances?",
+  "Show me my academic profile",
+  "What information is missing from my profile?",
+  "Explain my latest eligibility analysis",
+  "Which scholarship requirements have I not fulfilled?",
+  "Which documents do I need to upload?",
+  "Does my English proficiency meet scholarship requirements?",
+  "Which countries are suitable for my study goals?",
+  "How can I improve my scholarship opportunities?",
 ];
 
 export default function ScholarXChatbot() {
@@ -123,7 +123,7 @@ export default function ScholarXChatbot() {
       // Exclude the initial welcome message.
       const conversationHistory = messages
         .filter((message) => message.id !== 1)
-        .slice(-10)
+        .slice(-4)
         .map(({ role, content }) => ({
           role,
           content,
@@ -206,78 +206,83 @@ export default function ScholarXChatbot() {
   };
 
   const handlePointerDown = (e) => {
-    const slider = suggestionsRef.current;
+    // Only start dragging for the primary mouse button / touch contact.
+    if (e.button !== 0) return;
 
+    const slider = suggestionsRef.current;
     if (!slider) return;
+
+    cancelAnimationFrame(dragState.current.animationFrame);
 
     dragState.current.startX = e.clientX;
     dragState.current.startScrollLeft = slider.scrollLeft;
     dragState.current.lastX = e.clientX;
     dragState.current.velocity = 0;
-
-    // Reset BEFORE a new interaction starts
     didDrag.current = false;
 
     setIsDragging(true);
 
-    slider.setPointerCapture(e.pointerId);
+    // Capture on the pressed element (usually the chip), not the scroll row.
+    // This keeps the original chip as the click target after pointer release.
+    try {
+      e.target.setPointerCapture(e.pointerId);
+    } catch {
+      // Pointer capture may be unavailable for a particular target.
+    }
   };
 
   const handlePointerMove = (e) => {
     if (!isDragging) return;
 
     const slider = suggestionsRef.current;
-
     if (!slider) return;
 
-    const currentX = e.clientX;
+    const totalDistance = e.clientX - dragState.current.startX;
 
-    const totalDistance = currentX - dragState.current.startX;
-
-    if (Math.abs(totalDistance) > 5) {
+    // A small movement remains a normal click; only larger movement is a drag.
+    if (Math.abs(totalDistance) > 6) {
       didDrag.current = true;
     }
 
-    const distance = currentX - dragState.current.lastX;
+    if (!didDrag.current) return;
 
+    e.preventDefault();
+    const distance = e.clientX - dragState.current.lastX;
     dragState.current.velocity = distance;
-
     slider.scrollLeft -= distance;
-
-    dragState.current.lastX = currentX;
+    dragState.current.lastX = e.clientX;
   };
 
   const handlePointerUp = (e) => {
+    if (!isDragging) return;
+
     const slider = suggestionsRef.current;
-
-    if (!slider) return;
-
     setIsDragging(false);
 
     try {
-      slider.releasePointerCapture(e.pointerId);
+      if (e.target.hasPointerCapture?.(e.pointerId)) {
+        e.target.releasePointerCapture(e.pointerId);
+      }
     } catch {
-      // Ignore errors when releasing pointer capture
+      // Ignore errors when releasing pointer capture.
     }
 
-    // Add momentum
+    // Keep a normal click untouched. Apply momentum only after an actual drag.
+    if (!slider || !didDrag.current) return;
+
     const animate = () => {
       const state = dragState.current;
-
       if (Math.abs(state.velocity) < 0.3) {
         cancelAnimationFrame(state.animationFrame);
         return;
       }
 
       slider.scrollLeft -= state.velocity;
-
       state.velocity *= 0.94;
-
       state.animationFrame = requestAnimationFrame(animate);
     };
 
     cancelAnimationFrame(dragState.current.animationFrame);
-
     dragState.current.animationFrame = requestAnimationFrame(animate);
   };
 
@@ -430,83 +435,83 @@ export default function ScholarXChatbot() {
                         {message.role === "assistant" ? (
                           <div className="space-y-2">
                             <ReactMarkdown
-  remarkPlugins={[remarkGfm]}
-  components={{
-    h2: ({ children }) => (
-      <h3 className="mb-2 text-sm font-bold text-sky-700">
-        {children}
-      </h3>
-    ),
-    h3: ({ children }) => (
-      <h4 className="mb-1 font-semibold text-slate-800">
-        {children}
-      </h4>
-    ),
-    p: ({ children }) => (
-      <p className="mb-2 last:mb-0">{children}</p>
-    ),
-    ul: ({ children }) => (
-      <ul className="mb-2 list-disc space-y-1 pl-5">
-        {children}
-      </ul>
-    ),
-    ol: ({ children }) => (
-      <ol className="mb-2 list-decimal space-y-1 pl-5">
-        {children}
-      </ol>
-    ),
-    li: ({ children }) => (
-      <li className="pl-0.5">{children}</li>
-    ),
-    strong: ({ children }) => (
-      <strong className="font-semibold text-slate-800">
-        {children}
-      </strong>
-    ),
-    em: ({ children }) => (
-      <em className="text-slate-500">{children}</em>
-    ),
-    table: ({ children }) => (
-  <div className="my-3 w-full overflow-x-auto rounded-xl border border-slate-200">
-    <table className="w-full min-w-130 border-collapse text-left text-xs">
-      {children}
-    </table>
-  </div>
-),
+                              remarkPlugins={[remarkGfm]}
+                              components={{
+                                h2: ({ children }) => (
+                                  <h3 className="mb-2 text-sm font-bold text-sky-700">
+                                    {children}
+                                  </h3>
+                                ),
+                                h3: ({ children }) => (
+                                  <h4 className="mb-1 font-semibold text-slate-800">
+                                    {children}
+                                  </h4>
+                                ),
+                                p: ({ children }) => (
+                                  <p className="mb-2 last:mb-0">{children}</p>
+                                ),
+                                ul: ({ children }) => (
+                                  <ul className="mb-2 list-disc space-y-1 pl-5">
+                                    {children}
+                                  </ul>
+                                ),
+                                ol: ({ children }) => (
+                                  <ol className="mb-2 list-decimal space-y-1 pl-5">
+                                    {children}
+                                  </ol>
+                                ),
+                                li: ({ children }) => (
+                                  <li className="pl-0.5">{children}</li>
+                                ),
+                                strong: ({ children }) => (
+                                  <strong className="font-semibold text-slate-800">
+                                    {children}
+                                  </strong>
+                                ),
+                                em: ({ children }) => (
+                                  <em className="text-slate-500">{children}</em>
+                                ),
+                                table: ({ children }) => (
+                                  <div className="my-3 w-full overflow-x-auto rounded-xl border border-slate-200">
+                                    <table className="w-full min-w-130 border-collapse text-left text-xs">
+                                      {children}
+                                    </table>
+                                  </div>
+                                ),
 
-thead: ({ children }) => (
-  <thead className="bg-slate-50 text-slate-700">
-    {children}
-  </thead>
-),
+                                thead: ({ children }) => (
+                                  <thead className="bg-slate-50 text-slate-700">
+                                    {children}
+                                  </thead>
+                                ),
 
-tbody: ({ children }) => (
-  <tbody className="divide-y divide-slate-100">
-    {children}
-  </tbody>
-),
+                                tbody: ({ children }) => (
+                                  <tbody className="divide-y divide-slate-100">
+                                    {children}
+                                  </tbody>
+                                ),
 
-tr: ({ children }) => (
-  <tr className="hover:bg-sky-50/40">
-    {children}
-  </tr>
-),
+                                tr: ({ children }) => (
+                                  <tr className="hover:bg-sky-50/40">
+                                    {children}
+                                  </tr>
+                                ),
 
-th: ({ children }) => (
-  <th className="whitespace-nowrap px-3 py-2.5 font-semibold">
-    {children}
-  </th>
-),
+                                th: ({ children }) => (
+                                  <th className="whitespace-nowrap px-3 py-2.5 font-semibold">
+                                    {children}
+                                  </th>
+                                ),
 
-td: ({ children }) => (
-  <td className="px-3 py-2.5 align-top leading-relaxed text-slate-600">
-    {children}
-  </td>
-),
-  }}
->
-  {message.content}
-</ReactMarkdown>
+                                td: ({ children }) => (
+                                  <td className="px-3 py-2.5 align-top leading-relaxed text-slate-600">
+                                    {children}
+                                  </td>
+                                ),
+                              }}
+                            >
+                              {message.content}
+                            </ReactMarkdown>
                           </div>
                         ) : (
                           message.content
@@ -554,7 +559,7 @@ td: ({ children }) => (
           {/* SUGGESTIONS */}
           {/* ================================================= */}
 
-          {messages.length === 1 && (
+          {!isTyping && (
             <div className="border-t border-slate-200 bg-white px-4 py-3">
               {/* Header */}
               <div className="mb-2 flex items-center gap-1.5">
@@ -573,34 +578,32 @@ td: ({ children }) => (
                 onPointerUp={handlePointerUp}
                 onPointerCancel={handlePointerUp}
                 className={`
-        flex
-        min-w-0
-        gap-2
-        overflow-x-auto
-        pb-1
-
-        scrollbar-none
-
-        touch-pan-x
-        select-none
-
-        ${isDragging ? "cursor-grabbing" : "cursor-grab"}
-    `}
+  flex
+  min-w-0
+  gap-2
+  overflow-x-auto
+  overflow-y-hidden
+  pb-2
+  scrollbar-none
+  touch-pan-x
+  select-none
+  ${isDragging ? "cursor-grabbing" : "cursor-grab"}
+`}
               >
                 {suggestedQuestions.map((question) => (
                   <button
                     key={question}
                     type="button"
-                    onPointerDown={(e) => {
-                      e.stopPropagation();
-                      didDrag.current = false;
-                    }}
+                    disabled={isTyping}
                     onClick={(e) => {
                       e.stopPropagation();
 
-                      if (!didDrag.current) {
-                        handleSendMessage(question);
+                      if (didDrag.current) {
+                        didDrag.current = false;
+                        return;
                       }
+
+                      handleSendMessage(question);
                     }}
                     className="
                 shrink-0

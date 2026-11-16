@@ -2,10 +2,10 @@
 Eligibility evaluator for ScholarX.
 
 Currently supports:
-- age
-- citizenship
-- health certificate checklist
-- language_proficiency (English evidence, IELTS, and HSK)
+- age / minimum_age / maximum_age
+- citizenship and nationality (International checkbox or specific nationality)
+- health certificate and criminal-record / police-clearance checklist availability
+- language_proficiency rule matching (English/MOI, IELTS, and HSK)
 - entrance_exam
 
 Missing or unverified information returns "unknown".
@@ -258,30 +258,108 @@ def get_country_from_rule(rule_value):
     return demonyms.get(value, normalize_country_name(value))
 
 
-def evaluate_health_certificate(rule, student_data):
-    documents = student_data.get("documents_by_checklist_id", {})
-    document = documents.get("health-certificate")
-    required_health = rule.get("rule_value")
+def _as_optional_bool(value):
+    """Return True/False for explicit boolean-like values, otherwise None."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    if isinstance(value, str):
+        normalized = value.strip().casefold()
+        if normalized in {"1", "true", "yes", "y", "on", "checked"}:
+            return True
+        if normalized in {"0", "false", "no", "n", "off", "unchecked"}:
+            return False
+    return None
+
+
+def _get_checklist_document(student_data, checklist_ids):
+    """Find a checklist row by one of its known IDs without guessing availability."""
+    documents = student_data.get("documents_by_checklist_id") or {}
+    if not isinstance(documents, dict):
+        return None
+
+    for checklist_id in checklist_ids:
+        if checklist_id in documents:
+            return documents[checklist_id]
+
+    # Be tolerant of casing/whitespace in the keys returned by the profile service.
+    normalized = {
+        str(key).strip().casefold(): value
+        for key, value in documents.items()
+    }
+    for checklist_id in checklist_ids:
+        if checklist_id.casefold() in normalized:
+            return normalized[checklist_id.casefold()]
+
+    return None
+
+
+def _evaluate_document_availability(rule, student_data, checklist_ids, label):
+    document = _get_checklist_document(student_data, checklist_ids)
 
     if document is None:
         return make_result(
             rule,
             "unknown",
-            "Health certificate information is unavailable.",
-            required_value=required_health
+            f"{label} checklist information is not available.",
+            required_value=rule.get("rule_value"),
         )
 
-    if document.get("has_document"):
+    raw_availability = (
+        document.get("has_document")
+        if isinstance(document, dict)
+        else document
+    )
+    available = _as_optional_bool(raw_availability)
+
+    if available is None:
+        return make_result(
+            rule,
+            "unknown",
+            f"{label} checklist row exists, but its availability is not specified.",
+            required_value=rule.get("rule_value"),
+        )
+
+    if available:
         return make_result(
             rule,
             "met",
-            "Student has marked the health certificate as available.",
+            f"Student has marked the {label.lower()} as available.",
             student_value="Available",
-            required_value=required_health
+            required_value=rule.get("rule_value"),
         )
 
+    return make_result(
+        rule,
+        "not_met",
+        f"Student has marked the {label.lower()} as unavailable.",
+        student_value="Not available",
+        required_value=rule.get("rule_value"),
+    )
 
-        
+
+def evaluate_health_certificate(rule, student_data):
+    """Health eligibility is based only on the student's health-doc checklist row."""
+    return _evaluate_document_availability(
+        rule,
+        student_data,
+        ("health-doc", "health-certificate", "health_certificate"),
+        "Health certificate",
+    )
+
+
+def evaluate_criminal_record(rule, student_data):
+    """Criminal-record eligibility is based only on the PCC checklist row."""
+    return _evaluate_document_availability(
+        rule,
+        student_data,
+        ("pcc-doc", "criminal-record", "criminal_record", "police-clearance"),
+        "Police clearance / criminal record certificate",
+    )
+
+
+
 def evaluate_english_proficiency(rule, student_data):
     """
     Evaluate generic English proficiency using two independent sources.
@@ -296,19 +374,25 @@ def evaluate_english_proficiency(rule, student_data):
     English proficiency requirement.
     """
 
-    documents = student_data.get("documents_by_checklist_id", {})
     languages = student_data.get("languages") or []
 
     required_value = rule.get("rule_value")
 
     # -----------------------------------------------------
-    # 1. Check English certificate availability
+    # 1. Check MOI / English-certificate checklist availability
     # -----------------------------------------------------
 
-    english_document = documents.get("english-test")
+    english_document = _get_checklist_document(
+        student_data,
+        ("moi-doc", "english-test"),
+    )
 
     certificate_available = (
-        english_document.get("has_document")
+        _as_optional_bool(
+            english_document.get("has_document")
+            if isinstance(english_document, dict)
+            else english_document
+        )
         if english_document is not None
         else None
     )
@@ -491,11 +575,89 @@ def get_test_validity(language):
     return "valid"
 
 
-def evaluate_citizenship(rule, profile, scholarship_country):
-    """Evaluate citizenship requirements against the scholarship host country."""
+def _get_international_student_flag(profile):
+    """Read the explicit International-student checkbox; never infer it from nationality."""
+    profile_additional = profile.get("additional")
+    candidates = [
+        profile.get("international_student"),
+        profile.get("internationalStudent"),
+        (
+            profile_additional.get("internationalStudent")
+            if isinstance(profile_additional, dict)
+            else None
+        ),
+        (
+            profile_additional.get("international_student")
+            if isinstance(profile_additional, dict)
+            else None
+        ),
+    ]
 
-    nationality = profile.get("nationality")
+    additional_info = profile.get("additional_information") or {}
+    if isinstance(additional_info, str):
+        try:
+            additional_info = json.loads(additional_info)
+        except (TypeError, ValueError):
+            additional_info = {}
+
+    if isinstance(additional_info, dict):
+        candidates.extend([
+            additional_info.get("internationalStudent"),
+            (additional_info.get("additional") or {}).get("internationalStudent")
+            if isinstance(additional_info.get("additional"), dict)
+            else None,
+        ])
+
+    for candidate in candidates:
+        parsed = _as_optional_bool(candidate)
+        if parsed is not None:
+            return parsed
+
+    return None
+
+
+def evaluate_citizenship(rule, profile, scholarship_country=None):
+    """
+    International requirements use the profile's explicit checkbox.
+    Specific-country citizenship requirements use the nationality field.
+    """
+    personal = profile.get("personal") or {}
+    nationality = profile.get("nationality") or (
+        personal.get("nationality") if isinstance(personal, dict) else None
+    )
     rule_value = str(rule.get("rule_value") or "").strip()
+    required_text = rule_value.casefold()
+
+    if required_text in {"international", "international student"}:
+        international_flag = _get_international_student_flag(profile)
+
+        if international_flag is None:
+            return make_result(
+                rule,
+                "unknown",
+                "The International-student checkbox has not been answered in the profile.",
+                student_value=nationality,
+                required_value=rule_value,
+                operator=rule.get("operator"),
+            )
+
+        return make_result(
+            rule,
+            "met" if international_flag else "not_met",
+            (
+                "The student's International-student checkbox is ticked."
+                if international_flag
+                else "The student's International-student checkbox is not ticked."
+            ),
+            student_value={
+                "nationality": nationality,
+                "international_student": international_flag,
+            },
+            required_value=rule_value,
+            operator=rule.get("operator"),
+            comparison_value=international_flag,
+            comparison_operator="=",
+        )
 
     if not nationality:
         return make_result(
@@ -505,110 +667,51 @@ def evaluate_citizenship(rule, profile, scholarship_country):
             required_value=rule_value,
         )
 
-    if not scholarship_country:
-        return make_result(
-            rule,
-            "unknown",
-            "Scholarship host country is not available.",
-            student_value=nationality,
-            required_value=rule_value,
-        )
-
-    student_country = normalize_country_name(nationality)
-    host_country = normalize_country_name(scholarship_country)
-
-    if not student_country or not host_country:
-        return make_result(
-            rule,
-            "unknown",
-            "Unable to normalize the student nationality or scholarship country.",
-            student_value=nationality,
-            required_value=rule_value,
-            comparison_value=scholarship_country,
-        )
-
     if not rule_value:
         return make_result(
             rule,
             "unknown",
             "Citizenship requirement is not specified.",
             student_value=nationality,
-            comparison_value=scholarship_country,
         )
 
-    required_text = rule_value.casefold()
+    student_country = normalize_country_name(nationality)
+    is_negative = required_text.startswith(("non-", "non "))
+    country_descriptor = (
+        re.sub(r"^non[- ]", "", required_text)
+        if is_negative
+        else required_text
+    )
+    required_country = get_country_from_rule(country_descriptor)
 
-    # Generic international-student requirement.
-    if required_text in {"international", "international student"}:
-        eligible = student_country != host_country
-        comparison_operator = "!="
-
-        reason = (
-            f"The applicant's nationality ({nationality}) "
-            f"{'differs from' if eligible else 'matches'} "
-            f"the scholarship host country ({scholarship_country})."
+    if not student_country or not required_country:
+        return make_result(
+            rule,
+            "unknown",
+            f"Unable to identify the country in the citizenship requirement: {rule_value}.",
+            student_value=nationality,
+            required_value=rule_value,
         )
 
-        if eligible:
-            reason += " The international-student requirement is satisfied."
-        else:
-            reason += " The applicant does not satisfy the international-student requirement."
-
-    else:
-        # Specific citizenship requirement, including negative requirements.
-        is_negative = required_text.startswith(("non-", "non "))
-
-        country_descriptor = (
-            re.sub(r"^non[- ]", "", required_text)
-            if is_negative
-            else required_text
-        )
-
-        required_country = get_country_from_rule(country_descriptor)
-
-        if not required_country:
-            return make_result(
-                rule,
-                "unknown",
-                f"Unable to identify the country in the citizenship requirement: {rule_value}.",
-                student_value=nationality,
-                required_value=rule_value,
-                comparison_value=scholarship_country,
-            )
-
-        if required_country != host_country:
-            return make_result(
-                rule,
-                "unknown",
-                "The country specified in the citizenship requirement "
-                "does not match the scholarship host country.",
-                student_value=nationality,
-                required_value=rule_value,
-                comparison_value=scholarship_country,
-            )
-
-        if is_negative:
-            eligible = student_country != required_country
-            comparison_operator = "!="
-        else:
-            eligible = student_country == required_country
-            comparison_operator = "="
-
-        reason = (
-            f"The applicant's nationality ({nationality}) "
-            f"{'satisfies' if eligible else 'does not satisfy'} "
-            f"the citizenship requirement ({rule_value}) "
-            f"for {scholarship_country}."
-        )
+    eligible = (
+        student_country != required_country
+        if is_negative
+        else student_country == required_country
+    )
+    comparison_operator = "!=" if is_negative else "="
 
     return make_result(
         rule,
         "met" if eligible else "not_met",
-        reason,
+        (
+            f"The applicant's nationality ({nationality}) "
+            f"{'satisfies' if eligible else 'does not satisfy'} "
+            f"the citizenship requirement ({rule_value})."
+        ),
         student_value=nationality,
         required_value=rule_value,
         operator=rule.get("operator"),
-        comparison_value=scholarship_country,
+        comparison_value=required_country,
         comparison_operator=comparison_operator,
     )
 
@@ -632,7 +735,8 @@ def evaluate_language(rule, languages):
         return make_result(
             rule,
             "unknown",
-            "The required language proficiency is not configured."
+            "The required language proficiency is not configured.",
+            required_value=rule.get("rule_value"),
         )
 
     normalized_required = required.lower()
@@ -642,7 +746,8 @@ def evaluate_language(rule, languages):
             rule,
             "unknown",
             "University-specific language admission requirements "
-            "have not been configured."
+            "have not been configured.",
+            required_value=required,
         )
 
     # Identify the required test and its threshold.
@@ -665,14 +770,16 @@ def evaluate_language(rule, languages):
         return make_result(
             rule,
             "unknown",
-            f"Unsupported language requirement: {required}"
+            f"Unsupported language requirement: {required}",
+            required_value=required,
         )
 
     if not languages:
         return make_result(
             rule,
             "unknown",
-            "No language proficiency records are available."
+            "No language proficiency records are available.",
+            required_value=required,
         )
 
     matching_records = []
@@ -694,7 +801,9 @@ def evaluate_language(rule, languages):
         return make_result(
             rule,
             "unknown",
-            f"No {test_type.upper()} test record was found."
+            f"No {test_type.upper()} test record was found.",
+            student_value="No matching test record",
+            required_value=required,
         )
 
     valid_results = []
@@ -773,14 +882,20 @@ def evaluate_language(rule, languages):
                     rule,
                     "met",
                     f"Valid IELTS score ({result['score']}) "
-                    f"satisfies the {operator} {expected_score} requirement."
+                    f"satisfies the {operator} {expected_score} requirement.",
+                    student_value=result["score"],
+                    required_value=expected_score,
+                    operator=operator,
                 )
 
             return make_result(
                 rule,
                 "met",
                 f"Valid HSK level {result['level']} "
-                f"satisfies the HSK {expected_level} requirement."
+                f"satisfies the HSK {expected_level} requirement.",
+                student_value=f"HSK {result['level']}",
+                required_value=f"HSK {expected_level}",
+                operator=">=",
             )
 
     # If another record could change the result, do not claim failure.
@@ -789,7 +904,9 @@ def evaluate_language(rule, languages):
             rule,
             "unknown",
             "A matching language test record exists, but its score "
-            "or validity cannot be verified."
+            "or validity cannot be verified.",
+            student_value="Test record found; score or validity unverified",
+            required_value=required,
         )
 
     if not valid_results and expired_records:
@@ -797,7 +914,9 @@ def evaluate_language(rule, languages):
             rule,
             "unknown",
             "Matching language test records were found, but all "
-            "available records have expired."
+            "available records have expired.",
+            student_value="Expired test record(s)",
+            required_value=required,
         )
 
     if valid_results:
@@ -811,7 +930,10 @@ def evaluate_language(rule, languages):
                 rule,
                 "not_met",
                 f"Best valid IELTS score ({best_score}) "
-                f"does not satisfy the {operator} {expected_score} requirement."
+                f"does not satisfy the {operator} {expected_score} requirement.",
+                student_value=best_score,
+                required_value=expected_score,
+                operator=operator,
             )
 
         best_level = max(
@@ -823,13 +945,17 @@ def evaluate_language(rule, languages):
             rule,
             "not_met",
             f"Best valid HSK level ({best_level}) "
-            f"does not satisfy HSK {expected_level}."
+            f"does not satisfy HSK {expected_level}.",
+            student_value=f"HSK {best_level}",
+            required_value=f"HSK {expected_level}",
+            operator=">=",
         )
 
     return make_result(
         rule,
         "unknown",
-        "Unable to verify the language proficiency requirement."
+        "Unable to verify the language proficiency requirement.",
+        required_value=required,
     )
 
 def evaluate_entrance_exam(rule, student_data):
@@ -980,8 +1106,21 @@ def evaluate_eligibility_rules(
         print("Selected language:", selected_language)
         print("Program context:", program_context)
 
+    def evaluate_language_rule(rule):
+        language_context = str(
+            rule.get("study_language")
+            or program_context.get("study_language")
+            or ""
+        ).strip().casefold()
+
+        if language_context in {"non-chinese", "non chinese", "english"}:
+            return evaluate_english_proficiency(rule, student_data)
+
+        return evaluate_language(rule, languages)
+
     evaluators = {
         "age": lambda rule: evaluate_age(rule, profile),
+        "minimum_age": lambda rule: evaluate_age(rule, profile),
         "maximum_age": lambda rule: evaluate_age(rule, profile),
 
         "citizenship": lambda rule: evaluate_citizenship(
@@ -996,12 +1135,17 @@ def evaluate_eligibility_rules(
             rule, student_data
         ),
 
-        "language_proficiency": lambda rule: (
-            evaluate_english_proficiency(rule, student_data)
-            if str(rule.get("study_language") or "").strip().lower()
-               == "non-chinese"
-            else evaluate_language(rule, languages)
+        "criminal_record": lambda rule: evaluate_criminal_record(
+            rule, student_data
         ),
+        "criminal_record_certificate": lambda rule: evaluate_criminal_record(
+            rule, student_data
+        ),
+        "police_clearance": lambda rule: evaluate_criminal_record(
+            rule, student_data
+        ),
+
+        "language_proficiency": evaluate_language_rule,
 
         "entrance_exam": lambda rule: evaluate_entrance_exam(
             rule, student_data
