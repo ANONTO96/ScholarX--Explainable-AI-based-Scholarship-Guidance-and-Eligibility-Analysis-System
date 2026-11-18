@@ -11,9 +11,13 @@ class ScholarshipProgramInput(BaseModel):
 
 
 class ScholarshipRuleInput(BaseModel):
-    rule_type: str
-    operator: str
-    rule_value: str
+    rule_type: str = Field(min_length=1, max_length=50)
+    operator: str | None = Field(default=None, max_length=10)
+    rule_value: str | None = Field(default=None, max_length=255)
+    category: str = "academic"
+    study_language: str | None = None
+    condition: dict | list | str | None = None
+    source_sentence: str | None = None
     mandatory: bool = True
 
 

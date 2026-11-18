@@ -523,20 +523,31 @@ const fetchHistory = useCallback(async () => {
                   </button>
                 </div>
 
-                {/* Summary metrics */}
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {/* Overall and three-level matching scores */}
+                {/*
+                  These values come from the saved analysis_summary returned
+                  by /api/matching/history. The history page does not recalculate
+                  any score in the browser.
+                */}
+                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
                   <Metric
-                    label="Eligibility Score"
+                    label="Overall Matching Score"
                     value={
-                      eligibilityPercentage != null
-                        ? formatPercentage(eligibilityPercentage)
-                        : "Not available"
+                      (summary.overall_matching_score ??
+                        summary.matching_score_summary?.score ??
+                        summary.matching_score_summary?.percentage) != null
+                        ? formatPercentage(
+                            summary.overall_matching_score ??
+                            summary.matching_score_summary?.score ??
+                            summary.matching_score_summary?.percentage
+                          )
+                        : "Not recorded"
                     }
                     color="text-blue-700"
                   />
 
                   <Metric
-                    label="Document Matching"
+                    label="Level 1 · Document Matching"
                     value={
                       hasDocumentRecords
                         ? formatPercentage(documentReadiness.percentage)
@@ -548,13 +559,29 @@ const fetchHistory = useCallback(async () => {
                   />
 
                   <Metric
-                    label="Language Proficiency"
+                    label="Level 2 · Language Proficiency"
                     value={
-                      languageMatching
+                      languageMatching?.percentage != null
                         ? formatPercentage(languageMatching.percentage)
                         : "Not recorded"
                     }
                     color="text-emerald-700"
+                  />
+
+                  <Metric
+                    label="Level 3 · Eligibility Matching"
+                    value={
+                      (summary.eligibility_matching?.percentage ??
+                        summary.eligibility_matching?.score ??
+                        eligibilityPercentage) != null
+                        ? formatPercentage(
+                            summary.eligibility_matching?.percentage ??
+                            summary.eligibility_matching?.score ??
+                            eligibilityPercentage
+                          )
+                        : "Not recorded"
+                    }
+                    color="text-amber-700"
                   />
                 </div>
               </div>
