@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import RelatedRecordsBuilder from "./RelatedRecordsBuilder";
 import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import {
@@ -24,47 +25,11 @@ const emptyForm = {
 };
 
 const initialRelatedData = {
-  programs: "[]",
-  documents: "[]",
-  coverage: "[]",
-  contacts: "[]",
-};
-
-const relatedHelp = {
-  programs: `[
-  {
-    "program": "Master's",
-    "duration": "2 years",
-    "study_language": ["English"]
-  }
-]`,
-  documents: `[
-  {
-    "document_name": "Passport",
-    "requirement": "Valid passport",
-    "condition_text": null,
-    "mandatory": true,
-    "source_sentence": null
-  }
-]`,
-  coverage: `[
-  {
-    "benefit_type": "Tuition",
-    "description": "Full tuition coverage",
-    "program": null,
-    "amount": null,
-    "currency": null,
-    "period": null,
-    "coverage": "Full",
-    "applicability": null
-  }
-]`,
-  contacts: `[
-  {
-    "contact_type": "Official website",
-    "value": "https://example.com"
-  }
-]`,
+  programs: [],
+  eligibility: { scholarship_rules: [], program_rules: [] },
+  documents: [],
+  coverage: [],
+  contacts: [],
 };
 
 const CreateScholarship = () => {
@@ -79,10 +44,6 @@ const CreateScholarship = () => {
     setFormData((current) => ({ ...current, [name]: value }));
   };
 
-  const handleRelatedChange = (event) => {
-    const { name, value } = event.target;
-    setRelatedData((current) => ({ ...current, [name]: value }));
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -97,25 +58,7 @@ const CreateScholarship = () => {
       return;
     }
 
-    let relatedPayload;
-
-    try {
-      relatedPayload = {
-        programs: JSON.parse(relatedData.programs),
-        documents: JSON.parse(relatedData.documents),
-        coverage: JSON.parse(relatedData.coverage),
-        contacts: JSON.parse(relatedData.contacts),
-      };
-
-      for (const [key, value] of Object.entries(relatedPayload)) {
-        if (!Array.isArray(value)) {
-          throw new Error(`${key} must be a JSON array.`);
-        }
-      }
-    } catch (error) {
-      toast.error(`Invalid related data: ${error.message}`);
-      return;
-    }
+    const relatedPayload = relatedData;
 
     const payload = {
       scholarship_title: formData.scholarship_title.trim(),
@@ -317,37 +260,13 @@ const CreateScholarship = () => {
             <div>
               <h2 className="font-bold text-slate-800">Related Records</h2>
               <p className="mt-1 text-sm text-slate-500">
-                Enter valid JSON arrays using the examples as a guide.
+                Add programs, eligibility rules, documents, coverage, and contacts using the fields below.
               </p>
             </div>
           </div>
 
-          <div className="mt-6 space-y-6">
-            {Object.entries(relatedHelp).map(([key, example]) => (
-              <label key={key} className={`block ${labelClass}`}>
-                {key.charAt(0).toUpperCase() + key.slice(1)}
-                <textarea
-                  name={key}
-                  value={relatedData[key]}
-                  onChange={handleRelatedChange}
-                  rows={7}
-                  spellCheck={false}
-                  className={`${inputClass} resize-y font-mono text-xs`}
-                />
-                <button
-                  type="button"
-                  onClick={() =>
-                    setRelatedData((current) => ({
-                      ...current,
-                      [key]: example,
-                    }))
-                  }
-                  className="mt-2 text-xs font-semibold text-sky-700 hover:text-indigo-700"
-                >
-                  Restore example
-                </button>
-              </label>
-            ))}
+          <div className="mt-6">
+            <RelatedRecordsBuilder value={relatedData} onChange={setRelatedData} />
           </div>
         </section>
 
