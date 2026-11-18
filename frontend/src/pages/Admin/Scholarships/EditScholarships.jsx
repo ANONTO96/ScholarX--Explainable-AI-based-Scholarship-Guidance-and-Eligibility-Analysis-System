@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import RelatedRecordsBuilder from "./RelatedRecordsBuilder";
+import { getDocumentCode } from "../../../components/Admin/Scholarships/documentOptions";
 import { Link, useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import {
@@ -20,6 +22,7 @@ const initialForm = {
   cities: [],
   keywords: [],
   programs: [],
+  eligibility: { scholarship_rules: [], program_rules: [] },
   documents: [],
   coverage: [],
   contacts: [],
@@ -59,7 +62,8 @@ const normalizeRecord = (result) => {
     cities: parseList(record.cities),
     keywords: parseList(record.keywords),
     programs: Array.isArray(record.programs) ? record.programs : [],
-    documents: Array.isArray(record.documents) ? record.documents : [],
+    eligibility: record.eligibility && typeof record.eligibility === "object" ? record.eligibility : { scholarship_rules: [], program_rules: [] },
+    documents: Array.isArray(record.documents) ? record.documents.map((doc) => ({ ...doc, document_name: getDocumentCode(doc.document_name) })) : [],
     coverage: Array.isArray(record.coverage) ? record.coverage : [],
     contacts: Array.isArray(record.contacts) ? record.contacts : [],
   };
@@ -105,7 +109,12 @@ const EditScholarship = () => {
 
         if (!cancelled) {
           setFormData(form);
-          setOriginalData(form);
+          setOriginalData({
+            ...form,
+            documents: Array.isArray((result.data ?? result.scholarship ?? result).documents)
+              ? (result.data ?? result.scholarship ?? result).documents
+              : [],
+          });
         }
       } catch (err) {
         if (!cancelled) {
@@ -182,6 +191,7 @@ const EditScholarship = () => {
 
     for (const field of [
       "programs",
+      "eligibility",
       "documents",
       "coverage",
       "contacts",
@@ -201,8 +211,13 @@ const EditScholarship = () => {
           }
         }
 
-        if (!Array.isArray(value)) {
-          toast.error(`${field} must be a JSON array.`);
+        if (field === "eligibility") {
+          if (!value || typeof value !== "object" || Array.isArray(value)) {
+            toast.error("Eligibility must contain scholarship_rules and program_rules.");
+            return;
+          }
+        } else if (!Array.isArray(value)) {
+          toast.error(`${field} must be an array.`);
           return;
         }
 
@@ -257,28 +272,7 @@ const EditScholarship = () => {
 
   const labelClass = "text-sm font-semibold text-slate-700";
 
-  const jsonFields = [
-    {
-      name: "programs",
-      label: "Programs",
-      description: "JSON array using your backend program schema.",
-    },
-    {
-      name: "documents",
-      label: "Required documents",
-      description: "JSON array using your backend document schema.",
-    },
-    {
-      name: "coverage",
-      label: "Scholarship coverage",
-      description: "JSON array using your backend coverage schema.",
-    },
-    {
-      name: "contacts",
-      label: "Contact information",
-      description: "JSON array using your backend contact schema.",
-    },
-  ];
+
 
   if (loading) {
     return (
@@ -466,37 +460,20 @@ const EditScholarship = () => {
             Related information
           </h2>
           <p className="mt-1 text-sm text-slate-500">
-            Edit these fields as JSON arrays. Only modified fields are sent
-            to the backend.
+            Manage all related scholarship records using structured fields. Only modified sections are sent to the backend.
           </p>
 
-          <div className="mt-4 space-y-5">
-            {jsonFields.map((field) => (
-              <label key={field.name} className={`block ${labelClass}`}>
-                {field.label}
-                <textarea
-                  rows={6}
-                  value={
-                    typeof formData[field.name] === "string"
-                      ? formData[field.name]
-                      : JSON.stringify(formData[field.name], null, 2)
-                  }
-                  onChange={(event) => {
-                    const value = event.target.value;
-
-                    setFormData((current) => ({
-                      ...current,
-                      [field.name]: value,
-                    }));
-                  }}
-                  className={`${inputClass} font-mono text-xs`}
-                  spellCheck={false}
-                />
-                <span className="mt-1 block text-xs font-normal text-slate-500">
-                  {field.description}
-                </span>
-              </label>
-            ))}
+          <div className="mt-4">
+            <RelatedRecordsBuilder
+              value={{
+                programs: formData.programs,
+                eligibility: formData.eligibility,
+                documents: formData.documents,
+                coverage: formData.coverage,
+                contacts: formData.contacts,
+              }}
+              onChange={(next) => setFormData((current) => ({ ...current, ...next }))}
+            />
           </div>
         </section>
 

@@ -233,75 +233,6 @@ CREATE TABLE IF NOT EXISTS users (
 -- End of User Table    
 -- =========================================================
 
--- =========================================================
-CREATE TABLE IF NOT EXISTS student_destinations (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-
-    country_code CHAR(2) NOT NULL,
-    priority_order SMALLINT NULL,
-
-    PRIMARY KEY (id),
-
-    CONSTRAINT fk_student_destination_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE,
-
-    UNIQUE KEY uq_student_destination
-        (user_id, country_code)
-);
-
-CREATE TABLE IF NOT EXISTS student_degrees (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-
-    degree_level VARCHAR(60) NOT NULL,
-    degree_title VARCHAR(150) NULL,
-    field_of_study VARCHAR(150) NULL,
-    institution_name VARCHAR(255) NULL,
-
-    completion_status VARCHAR(30) NOT NULL DEFAULT 'completed',
-    graduation_year SMALLINT NULL,
-    grade_value DECIMAL(6,2) NULL,
-    grade_scale DECIMAL(6,2) NULL,
-
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (id),
-
-    CONSTRAINT fk_student_degree_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE,
-
-    INDEX idx_degrees_user (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS student_profile_attributes (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-
-    attribute_key VARCHAR(100) NOT NULL,
-    attribute_value JSON NULL,
-
-    country_code CHAR(2) NULL,
-    source_type VARCHAR(30) DEFAULT 'student',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (id),
-
-    CONSTRAINT fk_profile_attribute_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE,
-
-    UNIQUE KEY uq_user_attribute_country
-        (user_id, attribute_key, country_code)
-);
-
-
 CREATE TABLE IF NOT EXISTS student_language_proficiencies (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -448,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `oauth_exchange_codes` (
 --  =========================================================
 -- ELibility Checks 
 --  =========================================================
-CREATE TABLE `eligibility_check_results` (
+CREATE TABLE IF NOT EXISTS `eligibility_check_results` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `check_uuid` CHAR(36) NOT NULL,
     `user_id` INT(11) NOT NULL,
@@ -534,3 +465,76 @@ CREATE TABLE IF NOT EXISTS `eligibility_document_check_results` (
     INDEX idx_scholarship_id (scholarship_id),
     UNIQUE KEY unique_document_check (check_uuid, document_id)
 );
+
+
+
+-- Next Target
+
+-- =========================================================
+CREATE TABLE IF NOT EXISTS student_destinations (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    country_code CHAR(2) NOT NULL,
+    priority_order SMALLINT NULL,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_student_destination_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    UNIQUE KEY uq_student_destination
+        (user_id, country_code)
+);
+
+CREATE TABLE IF NOT EXISTS student_degrees (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    degree_level VARCHAR(60) NOT NULL,
+    degree_title VARCHAR(150) NULL,
+    field_of_study VARCHAR(150) NULL,
+    institution_name VARCHAR(255) NULL,
+
+    completion_status VARCHAR(30) NOT NULL DEFAULT 'completed',
+    graduation_year SMALLINT NULL,
+    grade_value DECIMAL(6,2) NULL,
+    grade_scale DECIMAL(6,2) NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_student_degree_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    INDEX idx_degrees_user (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS student_profile_attributes (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+
+    attribute_key VARCHAR(100) NOT NULL,
+    attribute_value JSON NULL,
+
+    country_code CHAR(2) NULL,
+    source_type VARCHAR(30) DEFAULT 'student',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_profile_attribute_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    UNIQUE KEY uq_user_attribute_country
+        (user_id, attribute_key, country_code)
+);
+
