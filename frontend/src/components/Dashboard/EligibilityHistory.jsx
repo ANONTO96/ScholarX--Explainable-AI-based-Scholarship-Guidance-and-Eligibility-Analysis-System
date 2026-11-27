@@ -1,22 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import {
-  History,
-  ChevronDown,
-  RefreshCw,
-  CheckCircle2,
-  CircleAlert,
-  XCircle,
-  FileText,
-  Loader2,
-  Languages,
-  Search,
-} from "lucide-react";
+import DocumentMatchingLevel from "./DocumentMatchingLevel";
+import LanguageProficiencyMatching from "./LanguageProficiencyMatching";
+import EligibilityMatchingLevel from "./EligibilityMatchingLevel";
+import { History, ChevronDown, RefreshCw, Loader2, Search } from "lucide-react";
 
 const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
 ).replace(/\/+$/, "");
 
 function formatPercentage(value) {
+  if (value === null || value === undefined || value === "") return "—";
+
   const number = Number(value);
 
   if (!Number.isFinite(number)) return "—";
@@ -50,143 +44,145 @@ function formatDate(value) {
   });
 }
 
-function getDocumentReadiness(item) {
-  const summary = item.summary || {};
-
-  return summary.document_matching || summary.document_readiness || {};
-}
-
 function getLanguageMatching(item) {
   return item?.summary?.language_proficiency_matching || null;
 }
 
-function getLanguageEvidence(evidence) {
-  if (!Array.isArray(evidence) || evidence.length === 0) {
-    return "No matching evidence found";
+
+// Shape the saved history payload for the same reusable result components
+// rendered by EligibilityAnalysisPage. No new analysis is run here.
+function getSavedDocumentResult(item) {
+  const summary = item?.summary || {};
+  const raw = summary.document_matching || summary.document_readiness || null;
+  const savedDocuments = Array.isArray(item?.documents) ? item.documents : [];
+  const unreliableIds = ["b9543954-3999-45f6-a9ab-6ba1c85af882"];
+
+  if (unreliableIds.includes(item?.check_uuid)) return null;
+  if (!raw && savedDocuments.length === 0) return null;
+
+  const savedResults = Array.isArray(raw?.results) ? raw.results : savedDocuments;
+
+  return {
+    ...(raw || {}),
+    results: savedResults.map((document) => ({
+      ...document,
+      status:
+        document.status === "matched"
+          ? "met"
+          : document.status === "missing"
+            ? "not_met"
+            : document.status,
+      score: document.score ?? document.document_score ?? 0,
+      maximum_score:
+        document.maximum_score ??
+        document.document_max_score ??
+        document.max_score ??
+        0,
+      percentage:
+        document.percentage ?? document.document_percentage ?? null,
+    })),
+    percentage: raw?.percentage ?? raw?.matching_percentage ?? null,
+    score: raw?.score ?? raw?.points_earned ?? null,
+    maximum_score: raw?.maximum_score ?? raw?.points_possible ?? null,
+    matched_documents:
+      raw?.matched_documents ??
+      savedDocuments.filter((doc) => ["matched", "met"].includes(doc.status)).length,
+    missing_documents:
+      raw?.missing_documents ??
+      savedDocuments.filter((doc) => ["missing", "not_met"].includes(doc.status)).length,
+  };
+}
+
+function getSavedEligibilityResult(item) {
+  const summary = item?.summary || {};
+  const raw = summary.eligibility_matching || {};
+  const savedRequirements = Array.isArray(item?.requirements)
+    ? item.requirements
+    : Array.isArray(summary.requirements)
+      ? summary.requirements
+      : [];
+  const results = Array.isArray(raw.results) ? raw.results : savedRequirements;
+  const scoreSummary = summary.eligibility_score || {};
+
+  if (
+    results.length === 0 &&
+    raw.percentage == null &&
+    raw.score == null &&
+    scoreSummary.percentage == null &&
+    scoreSummary.score == null
+  ) {
+    return null;
   }
 
-  return evidence
-    .map((item) => {
-      if (item.type === "moi_document") {
-        return "Medium of Instruction (MOI) document";
-      }
-
-      if (item.type === "proficiency_test") {
-        const details = [
-          item.test_name,
-          item.score != null ? `Score: ${item.score}` : null,
-          item.proficiency_level ? `Level: ${item.proficiency_level}` : null,
-        ].filter(Boolean);
-
-        return details.join(" · ") || "Proficiency test record";
-      }
-
-      return item.type || "Evidence available";
-    })
-    .join("; ");
+  return {
+    ...raw,
+    results: results.map((requirement) => ({
+      ...requirement,
+      rule_type:
+        requirement.rule_type ||
+        requirement.rule_name ||
+        requirement.requirement_name ||
+        requirement.name ||
+        "Requirement",
+      required_value: requirement.required_value ?? requirement.rule_value,
+      student_value: requirement.student_value ?? requirement.actual_value,
+    })),
+    percentage:
+      raw.percentage ??
+      raw.score ??
+      scoreSummary.percentage ??
+      scoreSummary.score ??
+      null,
+    points_earned: raw.points_earned ?? scoreSummary.points_earned ?? null,
+    points_possible: raw.points_possible ?? scoreSummary.points_possible ?? null,
+  };
 }
 
-function getRequirementStatus(status) {
-  switch (status) {
-    case "met":
-      return {
-        label: "Met",
-        color: "text-green-700 bg-green-50",
-        icon: CheckCircle2,
-      };
-
-    case "not_met":
-      return {
-        label: "Not met",
-        color: "text-red-700 bg-red-50",
-        icon: XCircle,
-      };
-
-    case "unknown":
-      return {
-        label: "Unknown",
-        color: "text-yellow-700 bg-yellow-50",
-        icon: CircleAlert,
-      };
-
-    case "not_applicable":
-      return {
-        label: "Not applicable",
-        color: "text-gray-600 bg-gray-100",
-        icon: CircleAlert,
-      };
-
-    default:
-      return {
-        label: status || "Unavailable",
-        color: "text-gray-600 bg-gray-100",
-        icon: CircleAlert,
-      };
-  }
+function getSavedRecommendations(item) {
+  const recommendations =
+    item?.summary?.recommendations ?? item?.recommendations ?? [];
+  return Array.isArray(recommendations)
+    ? recommendations
+    : recommendations
+      ? [recommendations]
+      : [];
 }
 
-function getDocumentStatus(document) {
-  switch (document.status) {
-    case "matched":
-      return {
-        label: "Matched",
-        color: "text-green-700 bg-green-50",
-        icon: CheckCircle2,
-      };
-
-    case "optional_missing":
-      return {
-        label: "Optional missing",
-        color: "text-yellow-700 bg-yellow-50",
-        icon: CircleAlert,
-      };
-
-    case "missing":
-      return {
-        label: "Missing",
-        color: "text-red-700 bg-red-50",
-        icon: XCircle,
-      };
-
-    default:
-      return {
-        label: document.status || "Unknown",
-        color: "text-gray-600 bg-gray-100",
-        icon: CircleAlert,
-      };
-  }
-}
-
-
-function isUnreliableLegacyDocumentData(item) {
-  // This is the specific old record we previously identified
-  // as having corrupted document data.
-  const corruptedLegacyIds = ["b9543954-3999-45f6-a9ab-6ba1c85af882"];
-
-  return corruptedLegacyIds.includes(item.check_uuid);
-}
-
-function Metric({ label, value, color = "text-gray-900" }) {
+function Recommendations({ items }) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4">
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className={`mt-1 text-xl font-bold ${color}`}>{value ?? "—"}</p>
-    </div>
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex items-center gap-2">
+        <h3 className="font-bold text-slate-900">Improvement recommendations</h3>
+      </div>
+      {items.length ? (
+        <ul className="mt-4 space-y-3">
+          {items.map((item, index) => (
+            <li key={item?.id ?? index} className="flex gap-3 text-sm leading-6 text-slate-700">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-50 text-xs font-bold text-amber-700">
+                {index + 1}
+              </span>
+              <span>
+                {typeof item === "string"
+                  ? item
+                  : item?.recommendation ||
+                    item?.suggestion ||
+                    item?.message ||
+                    item?.description ||
+                    item?.reason ||
+                    JSON.stringify(item)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-3 text-sm text-slate-500">
+          No improvement recommendations were returned for this analysis.
+        </p>
+      )}
+    </section>
   );
 }
 
-function StatusBadge({ status }) {
-  const Icon = status.icon;
-
-  return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${status.color}`}
-    >
-      <Icon size={14} />
-      {status.label}
-    </span>
-  );
-}
 
 const getHistoryKey = (item, historyList = []) =>
   item.check_uuid || `history-${historyList.indexOf(item)}`;
@@ -440,49 +436,15 @@ const fetchHistory = useCallback(async () => {
             <div className="space-y-5">
                 {filteredHistory.map((item) => {
                     const summary = item.summary || {};
-          const eligibilityScore = summary.eligibility_score || {};
 
-          const requirements = Array.isArray(item.requirements)
-            ? item.requirements
-            : [];
-
-          const documents = Array.isArray(item.documents) ? item.documents : [];
-
-          const documentReadiness = getDocumentReadiness(item);
-          const languageMatching = getLanguageMatching(item);
-
-          const languageResults = Array.isArray(languageMatching?.languages)
-            ? languageMatching.languages
-            : [];
-
-          const isEvaluated = summary.status === "evaluated";
-
-          const unreliableDocumentData = isUnreliableLegacyDocumentData(item);
-
-          const hasDocumentRecords =
-            isEvaluated &&
-            documents.length > 0 &&
-            documentReadiness.available !== false &&
-            !unreliableDocumentData;
+          const documentMatchingResult = getSavedDocumentResult(item);
+          const languageMatchingResult = getLanguageMatching(item);
+          const eligibilityMatchingResult = getSavedEligibilityResult(item);
+          const recommendations = getSavedRecommendations(item);
 
           const checkUuid = getHistoryKey(item);
 
           const isExpanded = !!expandedItems[checkUuid];
-
-          const eligibilityPercentage =
-            eligibilityScore.percentage ?? eligibilityScore.score;
-
-          function formatDocumentName(name) {
-            if (!name) return "Unnamed Document";
-
-            return String(name)
-              .replace(/[-_]/g, " ")
-              .replace(/\s*doc$/i, "")
-              .trim()
-              .toLowerCase()
-              .replace(/\b\w/g, (char) => char.toUpperCase())
-              .replace(/\b(Pcc|Moi)\b/gi, (word) => word.toUpperCase());
-          }
 
           return (
             <div
@@ -523,476 +485,87 @@ const fetchHistory = useCallback(async () => {
                   </button>
                 </div>
 
-                {/* Overall and three-level matching scores */}
-                {/*
-                  These values come from the saved analysis_summary returned
-                  by /api/matching/history. The history page does not recalculate
-                  any score in the browser.
-                */}
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                  <Metric
-                    label="Overall Matching Score"
-                    value={
-                      (summary.overall_matching_score ??
-                        summary.matching_score_summary?.score ??
-                        summary.matching_score_summary?.percentage) != null
-                        ? formatPercentage(
+                {/* Same matching overview as the single analysis page. */}
+                <section className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:p-6">
+                  <h3 className="text-center text-sm font-black uppercase tracking-[0.16em] text-slate-700 sm:text-base">
+                    Match Making Score
+                  </h3>
+
+                  <div className="mt-4 flex justify-center">
+                    <div className="flex h-32 w-32 flex-col items-center justify-center rounded-full border-[5px] border-sky-200 bg-white shadow-sm sm:h-36 sm:w-36">
+                      <span className="text-[11px] font-bold uppercase tracking-wide text-slate-500">Overall</span>
+                      <span className="mt-1 text-3xl font-black tabular-nums text-slate-900 sm:text-4xl">
+                        {formatPercentage(
+                          summary.matching_score_summary?.percentage ??
                             summary.overall_matching_score ??
-                            summary.matching_score_summary?.score ??
-                            summary.matching_score_summary?.percentage
-                          )
-                        : "Not recorded"
-                    }
-                    color="text-blue-700"
-                  />
+                            summary.matching_score_summary?.score,
+                        )}
+                      </span>
+                      <span className="text-[10px] font-semibold text-slate-500">Match score</span>
+                    </div>
+                  </div>
 
-                  <Metric
-                    label="Level 1 · Document Matching"
-                    value={
-                      hasDocumentRecords
-                        ? formatPercentage(documentReadiness.percentage)
-                        : unreliableDocumentData
-                          ? "Historical data issue"
-                          : "Not recorded"
-                    }
-                    color="text-violet-700"
-                  />
+                  <div className="my-6 border-t border-slate-300" />
 
-                  <Metric
-                    label="Level 2 · Language Proficiency"
-                    value={
-                      languageMatching?.percentage != null
-                        ? formatPercentage(languageMatching.percentage)
-                        : "Not recorded"
-                    }
-                    color="text-emerald-700"
-                  />
+                  <div className="grid grid-cols-1 divide-y divide-slate-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                    <div className="px-3 py-4 text-center sm:px-5">
+                      <p className="text-xs font-black uppercase tracking-wider text-sky-700">Level 1</p>
+                      <h4 className="mt-1 text-base font-bold text-slate-900">Document</h4>
+                      <p className="mt-2 text-3xl font-black tabular-nums text-sky-800">
+                        {formatPercentage(documentMatchingResult?.percentage)}
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-slate-500">
+                        {documentMatchingResult?.score ?? 0} / {documentMatchingResult?.maximum_score ?? 0} points
+                      </p>
+                    </div>
 
-                  <Metric
-                    label="Level 3 · Eligibility Matching"
-                    value={
-                      (summary.eligibility_matching?.percentage ??
-                        summary.eligibility_matching?.score ??
-                        eligibilityPercentage) != null
-                        ? formatPercentage(
-                            summary.eligibility_matching?.percentage ??
-                            summary.eligibility_matching?.score ??
-                            eligibilityPercentage
-                          )
-                        : "Not recorded"
-                    }
-                    color="text-amber-700"
-                  />
-                </div>
+                    <div className="px-3 py-4 text-center sm:px-5">
+                      <p className="text-xs font-black uppercase tracking-wider text-violet-700">Level 2</p>
+                      <h4 className="mt-1 text-base font-bold text-slate-900">Language</h4>
+                      <p className="mt-2 text-3xl font-black tabular-nums text-violet-800">
+                        {formatPercentage(languageMatchingResult?.percentage)}
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-slate-500">
+                        {languageMatchingResult?.points_earned ?? languageMatchingResult?.score ?? 0} / {languageMatchingResult?.points_possible ?? languageMatchingResult?.maximum_score ?? 0} points
+                      </p>
+                    </div>
+
+                    <div className="px-3 py-4 text-center sm:px-5">
+                      <p className="text-xs font-black uppercase tracking-wider text-emerald-700">Level 3</p>
+                      <h4 className="mt-1 text-base font-bold text-slate-900">Eligibility</h4>
+                      <p className="mt-2 text-3xl font-black tabular-nums text-emerald-800">
+                        {formatPercentage(eligibilityMatchingResult?.percentage)}
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-slate-500">
+                        {eligibilityMatchingResult?.points_earned ?? 0} / {eligibilityMatchingResult?.points_possible ?? 0} points
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="mt-3 text-center text-[11px] text-slate-500">
+                    Saved Level 1, Level 2 and Level 3 results from this analysis. Opening history does not run a new analysis.
+                  </p>
+                </section>
               </div>
 
-              {/* Expanded details */}
+              {/* Reuse the same Level 1, Level 2 and Level 3 UI components
+                  that are rendered on EligibilityAnalysisPage. */}
               {isExpanded && (
-                <div className="space-y-7 border-t border-gray-200 bg-gray-50 p-5 md:p-6">
-                  {/* Eligibility requirements */}
-                  <section>
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold text-gray-900">
-                        Eligibility Analysis
-                      </h3>
+                <div className="space-y-6 border-t border-gray-200 bg-gray-50 p-5 md:p-6">
+                  <DocumentMatchingLevel
+                    scholarshipId={item.scholarship_id ?? item.scholarshipId ?? null}
+                    initialResult={documentMatchingResult}
+                  />
 
-                      <p className="mt-1 text-sm text-gray-500">
-                        Saved eligibility rule results for this scholarship
-                        check.
-                      </p>
-                    </div>
+                  <LanguageProficiencyMatching
+                    result={languageMatchingResult}
+                  />
 
-                    {requirements.length === 0 ? (
-                      <p className="rounded-lg bg-white p-4 text-sm text-gray-500">
-                        No eligibility requirement records available.
-                      </p>
-                    ) : (
-                      <div className="space-y-3">
-                        {requirements.map((requirement, reqIndex) => {
-                          const status = getRequirementStatus(
-                            requirement.status,
-                          );
+                  <EligibilityMatchingLevel
+                    result={eligibilityMatchingResult}
+                  />
 
-                          return (
-                            <div
-                              key={requirement.id || reqIndex}
-                              className="rounded-xl border border-gray-200 bg-white p-4"
-                            >
-                              <div className="flex flex-wrap items-center justify-between gap-3">
-                                <div>
-                                  <p className="font-semibold text-gray-800">
-                                    {requirement.rule_name ||
-                                      requirement.requirement_name ||
-                                      requirement.name ||
-                                      `Requirement ${reqIndex + 1}`}
-                                  </p>
-
-                                  {requirement.reason && (
-                                    <p className="mt-1 text-sm text-gray-500">
-                                      {requirement.reason}
-                                    </p>
-                                  )}
-                                </div>
-
-                                <StatusBadge status={status} />
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </section>
-
-                  {/* Document matching */}
-                  <section>
-                    <div className="mb-4">
-                      <div className="flex items-center gap-2">
-                        <FileText size={21} className="text-violet-600" />
-
-                        <h3 className="text-lg font-bold text-gray-900">
-                          Document Matching
-                        </h3>
-                      </div>
-
-                      <p className="mt-1 text-sm text-gray-500">
-                        Previously saved document matching results for this
-                        check.
-                      </p>
-                    </div>
-
-                    {!hasDocumentRecords ? (
-                      <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-4">
-                        <div className="flex items-start gap-3">
-                          <CircleAlert
-                            className="mt-0.5 shrink-0 text-yellow-700"
-                            size={20}
-                          />
-
-                          <div>
-                            <p className="font-semibold text-yellow-900">
-                              {unreliableDocumentData
-                                ? "Historical document data may be inaccurate"
-                                : "Document results not recorded"}
-                            </p>
-
-                            <p className="mt-1 text-sm text-yellow-800">
-                              {unreliableDocumentData
-                                ? "This older record contains inconsistent document information. Its document matching score should not be treated as reliable."
-                                : "Individual document matching results are not available for this history record. This does not mean that all documents were missing."}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <>
-                        {/* Main matching score */}
-                        <div className="mb-4 rounded-xl border border-violet-200 bg-violet-50 p-4">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <div>
-                              <p className="font-bold text-violet-900">
-                                Document Matching Score
-                              </p>
-
-                              <p className="mt-1 text-sm text-violet-700">
-                                Saved document matching result
-                              </p>
-                            </div>
-
-                            <div className="text-right">
-                              <p className="text-2xl font-black text-violet-700">
-                                {formatPercentage(documentReadiness.percentage)}
-                              </p>
-
-                              <p className="text-xs font-semibold text-violet-600">
-                                {documentReadiness.score ?? 0}
-                                {" / "}
-                                {documentReadiness.maximum_score ?? 0}
-                                {" points"}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Document summary */}
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                          <Metric
-                            label="Total Documents"
-                            value={
-                              documentReadiness.total_documents ??
-                              documents.length
-                            }
-                          />
-
-                          <Metric
-                            label="Matched"
-                            value={
-                              documentReadiness.matched_documents ??
-                              documents.filter(
-                                (doc) => doc.status === "matched",
-                              ).length
-                            }
-                            color="text-green-700"
-                          />
-
-                          <Metric
-                            label="Missing Mandatory"
-                            value={
-                              documentReadiness.missing_mandatory ??
-                              documents.filter(
-                                (doc) => doc.status === "missing",
-                              ).length
-                            }
-                            color="text-red-700"
-                          />
-
-                          <Metric
-                            label="Missing Optional"
-                            value={
-                              documentReadiness.missing_optional ??
-                              documents.filter(
-                                (doc) => doc.status === "optional_missing",
-                              ).length
-                            }
-                            color="text-yellow-700"
-                          />
-                        </div>
-
-                        {/* Document counts */}
-                        <div className="mt-3 rounded-xl border border-gray-200 bg-white p-4">
-                          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
-                            <span>
-                              Mandatory:{" "}
-                              <strong>
-                                {documentReadiness.mandatory_documents ?? "—"}
-                              </strong>
-                            </span>
-
-                            <span>
-                              Optional:{" "}
-                              <strong>
-                                {documentReadiness.optional_documents ?? "—"}
-                              </strong>
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Individual document results */}
-                        <div className="mt-5 space-y-3">
-                          <h4 className="font-bold text-gray-900">
-                            Individual Document Results
-                          </h4>
-
-                          {documents.map((document, docIndex) => {
-                            const status = getDocumentStatus(document);
-
-                            return (
-                              <div
-                                key={
-                                  document.id ||
-                                  document.document_id ||
-                                  docIndex
-                                }
-                                className="rounded-xl border border-gray-200 bg-white p-4"
-                              >
-                                <div className="flex flex-wrap items-start justify-between gap-3">
-                                  <div className="min-w-0 flex-1">
-                                    <div className="flex flex-wrap items-center gap-2">
-                                      <FileText
-                                        size={17}
-                                        className="shrink-0 text-gray-400"
-                                      />
-
-                                      <p className="font-semibold text-gray-900">
-                                        {formatDocumentName(
-                                          document.document_name,
-                                        ) || `Document ${docIndex + 1}`}
-                                      </p>
-
-                                      <span
-                                        className={`rounded-full px-2 py-1 text-xs font-semibold ${
-                                          document.mandatory
-                                            ? "bg-blue-50 text-blue-700"
-                                            : "bg-gray-100 text-gray-600"
-                                        }`}
-                                      >
-                                        {document.mandatory
-                                          ? "Mandatory"
-                                          : "Optional"}
-                                      </span>
-                                    </div>
-
-                                    <p className="mt-2 text-sm text-gray-500">
-                                      Student checklist:{" "}
-                                      <strong>
-                                        {document.has_document
-                                          ? "Available"
-                                          : "Not available"}
-                                      </strong>
-                                    </p>
-
-                                    {/* {document.required_value && (
-                                      <p className="mt-1 text-sm text-gray-600">
-                                        Requirement:{" "}
-                                        {document.required_value
-                                          .replace(/-doc$/i, "")
-                                          .replace(/-/g, " ")
-                                          .replace(/\b\w/g, (character) =>
-                                            character.toUpperCase(),
-                                          )}
-                                      </p>
-                                    )} */}
-
-                                    {/* {document.reason && (
-                                      <p className="mt-2 text-sm text-gray-600">
-                                        {document.reason}
-                                      </p>
-                                    )} */}
-
-                                    {document.recommendation && (
-                                      <p className="mt-2 text-sm text-red-700">
-                                        Recommendation:{" "}
-                                        {document.recommendation}
-                                      </p>
-                                    )}
-                                  </div>
-
-                                  <div className="flex shrink-0 flex-col items-end gap-2">
-                                    <StatusBadge status={status} />
-
-                                    <span className="text-xs font-semibold text-gray-500">
-                                      {document.document_score ??
-                                        document.score ??
-                                        0}
-                                      {" / "}
-                                      {document.document_max_score ??
-                                        document.maximum_score ??
-                                        0}
-                                      {" points"}
-                                      {" · "}
-                                      {formatPercentage(
-                                        document.document_percentage ??
-                                          document.percentage,
-                                      )}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </>
-                    )}
-                  </section>
-
-                  {/* Language Proficiency Matching */}
-                  <section>
-                    <div className="mb-4">
-                      <div className="flex items-center gap-2">
-                        <Languages size={21} className="text-emerald-600" />
-
-                        <h3 className="text-lg font-bold text-gray-900">
-                          Language Proficiency Matching
-                        </h3>
-                      </div>
-
-                      <p className="mt-1 text-sm text-gray-500">
-                        Previously saved Level 2 language matching results for
-                        this analysis.
-                      </p>
-                    </div>
-
-                    {!languageMatching ? (
-                      <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-4">
-                        <p className="font-semibold text-yellow-900">
-                          Language results not recorded
-                        </p>
-                        <p className="mt-1 text-sm text-yellow-800">
-                          This analysis was saved without a Level 2 language
-                          matching result. New analyses will store this result
-                          after the backend update.
-                        </p>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                          <Metric
-                            label="Matching Percentage"
-                            value={formatPercentage(
-                              languageMatching.percentage,
-                            )}
-                            color="text-emerald-700"
-                          />
-
-                          <Metric
-                            label="Required Languages"
-                            value={
-                              languageMatching.total_required_languages ?? 0
-                            }
-                          />
-
-                          <Metric
-                            label="Matched"
-                            value={languageMatching.matched_languages ?? 0}
-                            color="text-green-700"
-                          />
-
-                          <Metric
-                            label="Unmatched"
-                            value={languageMatching.unmatched_languages ?? 0}
-                            color="text-red-700"
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          {languageResults.length === 0 ? (
-                            <p className="rounded-lg bg-white p-4 text-sm text-gray-500">
-                              No language requirements were evaluated.
-                            </p>
-                          ) : (
-                            languageResults.map((language, languageIndex) => (
-                              <div
-                                key={`${language.language_name || language.language}-${languageIndex}`}
-                                className="rounded-xl border border-gray-200 bg-white p-4"
-                              >
-                                <div className="flex flex-wrap items-center justify-between gap-3">
-                                  <div>
-                                    <p className="font-semibold text-gray-900">
-                                      {language.language_name ||
-                                        language.language}
-                                    </p>
-
-                                    <p className="mt-1 text-sm text-gray-600">
-                                      Evidence:{" "}
-                                      {getLanguageEvidence(language.evidence)}
-                                    </p>
-                                  </div>
-
-                                  <span
-                                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                                      language.matched
-                                        ? "bg-green-50 text-green-700"
-                                        : "bg-red-50 text-red-700"
-                                    }`}
-                                  >
-                                    {language.matched
-                                      ? "Matched"
-                                      : "Not matched"}
-                                  </span>
-                                </div>
-                              </div>
-                            ))
-                          )}
-                        </div>
-
-                        <p className="mt-4 text-xs leading-5 text-gray-500">
-                          Each required language is counted once. English can be
-                          satisfied by either the MOI document or an English
-                          proficiency test. Having both does not increase the
-                          matching score.
-                        </p>
-                      </>
-                    )}
-                  </section>
+                  <Recommendations items={recommendations} />
                 </div>
               )}
             </div>

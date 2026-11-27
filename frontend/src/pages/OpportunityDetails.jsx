@@ -137,6 +137,25 @@ const getProgramLanguages = (program) => parseArray(program?.languages);
 const getProgramBenefits = (program) =>
   Array.isArray(program?.coverage) ? program.coverage : [];
 
+// Normalize database benefit labels while keeping funding classification
+// at scholarship level (item.coverage), never at program level.
+const normalizeBenefitType = (value) => {
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\\s-]+/g, "_");
+
+  if (["tuition", "tuition_fee", "tuition_fees"].includes(normalized)) {
+    return "tuition_fee";
+  }
+
+  if (["accommodation", "accomodation"].includes(normalized)) {
+    return "accommodation";
+  }
+
+  return normalized;
+};
+
 /* ========================================================= */
 /* DATA NORMALIZATION */
 /* ========================================================= */
@@ -195,7 +214,9 @@ const normalizeDatabaseScholarship = (item) => {
       }))
     : [];
 
-  const generalCoverage = Array.isArray(item.coverage) ? item.coverage : [];
+  // Scholarship-level benefits only. Program coverage is intentionally
+  // kept separate and is not included in the funding classification.
+  const generalCoverage = parseArray(item.coverage);
 
   const documents = Array.isArray(item.documents) ? item.documents : [];
 
@@ -241,6 +262,12 @@ const normalizeDatabaseScholarship = (item) => {
     contacts,
 
     generalCoverage,
+    // Combined benefits belonging to this scholarship ID, regardless of
+    // whether each benefit is general or attached to one of its programs.
+    scholarshipCoverage: [
+      ...generalCoverage,
+      ...programs.flatMap((program) => getProgramBenefits(program)),
+    ],
 
     officialWebsite: item.official_website,
     embassyWebsite: item.bd_ambassy_website,
@@ -492,13 +519,22 @@ const OpportunityDetails = () => {
     ? opportunity.generalCoverage || []
     : opportunity.benefits || [];
 
-  const hasTuitionCoverage = generalBenefits.some(
-    (item) => item.benefit_type === "tuition_fee",
+  // Aggregate every benefit attached to this scholarship ID:
+  // general scholarship coverage + coverage from all its programs.
+  // Classification is performed once for the scholarship, not per program.
+  const scholarshipBenefits = isDatabase
+    ? opportunity.scholarshipCoverage || []
+    : generalBenefits;
+
+  const scholarshipBenefitTypes = new Set(
+    scholarshipBenefits.map((benefit) =>
+      normalizeBenefitType(benefit?.benefit_type)
+    )
   );
 
-  const hasAccommodationCoverage = generalBenefits.some(
-    (item) => item.benefit_type === "accommodation",
-  );
+  const hasTuitionCoverage = scholarshipBenefitTypes.has("tuition_fee");
+  const hasAccommodationCoverage =
+    scholarshipBenefitTypes.has("accommodation");
 
   const isFullyFunded =
     isDatabase && hasTuitionCoverage && hasAccommodationCoverage;
@@ -940,19 +976,47 @@ const OpportunityDetails = () => {
                         </p>
 
                         <div className="mt-3 space-y-3">
-                          {programBenefits.map((benefit) => (
-                            <div
-                              key={benefit.id}
-                              className="flex items-start gap-2 text-sm text-slate-600"
-                            >
-                              <CircleCheck
-                                size={17}
-                                className="mt-0.5 shrink-0 text-emerald-500"
-                              />
+                          {programBenefits.map((benefit, benefitIndex) => {
+                            const benefitName = benefit.benefit_type
+                              ? benefit.benefit_type.replace(/[_-]/g, " ")
+                              : `Benefit ${benefitIndex + 1}`;
+                            const benefitDescription =
+                              benefit.description || benefit.coverage || "Coverage details are not provided.";
+                            const benefitAmount = formatMoney(
+                              benefit.amount,
+                              benefit.currency,
+                              benefit.period
+                            );
 
-                              <span>{getBenefitText(benefit)}</span>
-                            </div>
-                          ))}
+                            return (
+                              <div
+                                key={benefit.id || `${benefitName}-${benefitIndex}`}
+                                className="rounded-2xl border border-slate-100 bg-slate-50 p-4"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                                    <CircleCheck size={17} />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <p className="font-semibold capitalize text-slate-800">
+                                      {benefitName}
+                                    </p>
+                                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                                      {benefitDescription}
+                                    </p>
+                                    <div className="mt-3 inline-flex flex-wrap items-center gap-2 rounded-lg bg-white px-3 py-2 text-xs">
+                                      <span className="font-semibold uppercase tracking-wide text-slate-400">
+                                        Amount
+                                      </span>
+                                      <span className="font-bold text-slate-700">
+                                        {benefitAmount || "Not specified"}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
@@ -1089,36 +1153,62 @@ const OpportunityDetails = () => {
 
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {generalBenefits.map((benefit, index) => {
-                const benefitText = getBenefitText(benefit);
-
                 const icons = [BadgeDollarSign, WalletCards, HeartPulse, Plane];
-
                 const Icon = icons[index % icons.length];
+                const benefitName = benefit.benefit_type
+                  ? benefit.benefit_type.replace(/[_-]/g, " ")
+                  : `Benefit ${String(index + 1).padStart(2, "0")}`;
+                const benefitDescription =
+                  benefit.description || benefit.coverage || "Coverage details are not provided.";
+                const benefitAmount = formatMoney(
+                  benefit.amount,
+                  benefit.currency,
+                  benefit.period
+                );
 
                 return (
                   <div
-                    key={benefit.id || `${benefitText}-${index}`}
-                    className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl"
+                    key={benefit.id || `${benefitName}-${index}`}
+                    className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl"
                   >
-                    <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-emerald-50 opacity-0 transition duration-300 group-hover:opacity-100" />
+                    <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-[5rem] bg-emerald-50/70 transition-colors group-hover:bg-emerald-100/70" />
 
                     <div className="relative">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition duration-500 group-hover:scale-110 group-hover:rotate-4 group-hover:bg-emerald-600 group-hover:text-white">
-                        <Icon size={22} />
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition duration-300 group-hover:bg-emerald-600 group-hover:text-white">
+                          <Icon size={22} />
+                        </div>
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold capitalize text-slate-600">
+                          Benefit {String(index + 1).padStart(2, "0")}
+                        </span>
                       </div>
 
-                      <p className="mt-5 text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Benefit {String(index + 1).padStart(2, "0")}
-                      </p>
-
-                      <h3 className="mt-1 font-bold text-slate-900">
-                        {benefitText}
+                      <h3 className="mt-5 text-lg font-bold capitalize text-slate-900">
+                        {benefitName}
                       </h3>
 
-                      {benefit.applicability && (
-                        <p className="mt-3 text-sm leading-6 text-slate-500">
-                          Applicable to: {benefit.applicability}
+                      <p className="mt-2 min-h-12 text-sm leading-6 text-slate-600">
+                        {benefitDescription}
+                      </p>
+
+                      <div className="mt-5 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4">
+                        <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+                          Coverage amount
                         </p>
+                        <p className="mt-1 text-base font-bold text-slate-900">
+                          {benefitAmount || "Amount not specified"}
+                        </p>
+                      </div>
+
+                      {benefit.applicability && (
+                        <div className="mt-4 border-t border-slate-100 pt-4">
+                          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            Applies to
+                          </p>
+                          <p className="mt-1 text-sm leading-6 text-slate-600">
+                            {benefit.applicability}
+                          </p>
+                        </div>
                       )}
                     </div>
                   </div>

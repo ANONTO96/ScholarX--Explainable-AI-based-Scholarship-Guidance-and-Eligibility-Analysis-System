@@ -1,4 +1,3 @@
-
 import { NavLink, useNavigate } from "react-router";
 import {
   LayoutDashboard,
@@ -6,6 +5,8 @@ import {
   PlusCircle,
   ArrowLeft,
   ShieldCheck,
+  Bell,
+  Terminal,
 } from "lucide-react";
 
 const AdminSidebar = () => {
@@ -27,6 +28,16 @@ const AdminSidebar = () => {
       label: "Add Scholarship",
       path: "/admin/scholarships/create",
       icon: PlusCircle,
+    },
+    {
+      label: "Crawler Management",
+      path: "/admin/crawlers",
+      icon: Terminal,
+    },
+    {
+      label: "Notifications",
+      path: "/admin/notifications",
+      icon: Bell,
     },
   ];
 
