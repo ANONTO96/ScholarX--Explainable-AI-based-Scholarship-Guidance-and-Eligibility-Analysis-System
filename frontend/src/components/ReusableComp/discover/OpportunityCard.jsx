@@ -1,3 +1,4 @@
+
 import {
   ArrowRight,
   CalendarDays,
@@ -17,29 +18,73 @@ const formatCategory = (value) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
-  return words.length === 1 ? `${formattedWords} Scholarship ` : formattedWords;
+  return words.length === 1
+    ? `${formattedWords} Scholarship`
+    : formattedWords;
+};
+
+// Normalize different database labels into consistent benefit types.
+const normalizeBenefitType = (value) => {
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s-]+/g, "_");
+
+  if (["tuition", "tuition_fee", "tuition_fees"].includes(normalized)) {
+    return "tuition_fee";
+  }
+
+  if (["accommodation", "accomodation"].includes(normalized)) {
+    return "accommodation";
+  }
+
+  return normalized;
 };
 
 const OpportunityCard = ({ opportunity }) => {
   const isDatabaseScholarship = opportunity.source === "database";
 
-  const hasTuitionCoverage = opportunity.coverage?.some(
-    (item) => item.benefit_type === "tuition_fee",
+  // Collect all benefits belonging to this scholarship ID.
+  // General benefits and benefits from every program are combined.
+  const scholarshipBenefits = [
+    ...(Array.isArray(opportunity.coverage)
+      ? opportunity.coverage
+      : []),
+
+    ...(Array.isArray(opportunity.programs)
+      ? opportunity.programs.flatMap((program) =>
+          Array.isArray(program.coverage)
+            ? program.coverage
+            : []
+        )
+      : []),
+  ];
+
+  // Classify the entire scholarship, not individual programs.
+  const scholarshipBenefitTypes = new Set(
+    scholarshipBenefits.map((item) =>
+      normalizeBenefitType(item?.benefit_type)
+    )
   );
 
-  const hasAccommodationCoverage = opportunity.coverage?.some(
-    (item) => item.benefit_type === "accommodation",
-  );
+  const hasTuitionCoverage =
+    scholarshipBenefitTypes.has("tuition_fee");
+
+  const hasAccommodationCoverage =
+    scholarshipBenefitTypes.has("accommodation");
 
   const isFullyFunded =
-    isDatabaseScholarship && hasTuitionCoverage && hasAccommodationCoverage;
+    isDatabaseScholarship &&
+    hasTuitionCoverage &&
+    hasAccommodationCoverage;
 
   const fundingLabel = isDatabaseScholarship
     ? isFullyFunded
       ? "Fully Funded"
       : "Partial Funding"
     : opportunity.funding;
-  // Normalize fields from both data sources
+
+  // Normalize fields from both data sources.
   const provider = isDatabaseScholarship
     ? "ScholarX Scholarship"
     : opportunity.provider;
@@ -86,71 +131,71 @@ const OpportunityCard = ({ opportunity }) => {
       />
 
       <div className="relative z-10 flex flex-1 flex-col">
+
         {/* Header */}
-<div className="flex items-start gap-3">
+        <div className="flex items-start gap-3">
 
-  {/* Opportunity Icon + Title */}
-  <div className="flex min-w-0 flex-1 items-start gap-3">
+          <div className="flex min-w-0 flex-1 items-start gap-3">
 
-    {/* Icon */}
-    <div
-      className="
-        flex h-12 w-12 shrink-0
-        items-center justify-center
-        rounded-2xl
-        border border-sky-100
-        bg-sky-50
-        text-sky-600
-        transition-all duration-300
-        group-hover:bg-sky-600
-        group-hover:text-white
-        group-hover:scale-105
-      "
-    >
-      <GraduationCap className="h-6 w-6" />
-    </div>
+            {/* Opportunity Icon */}
+            <div
+              className="
+                flex h-12 w-12 shrink-0
+                items-center justify-center
+                rounded-2xl
+                border border-sky-100
+                bg-sky-50
+                text-sky-600
+                transition-all duration-300
+                group-hover:bg-sky-600
+                group-hover:text-white
+                group-hover:scale-105
+              "
+            >
+              <GraduationCap className="h-6 w-6" />
+            </div>
 
-    {/* Title + Provider */}
-    <div className="min-w-0 flex-1">
-      <h2
-        className="
-          text-xl font-bold
-          leading-snug
-          tracking-tight
-          text-gray-900
-          transition-colors
-          group-hover:text-sky-700
-        "
-      >
-        {opportunity.title}
-      </h2>
+            {/* Title + Provider */}
+            <div className="min-w-0 flex-1">
+              <h2
+                className="
+                  text-xl font-bold
+                  leading-snug
+                  tracking-tight
+                  text-gray-900
+                  transition-colors
+                  group-hover:text-sky-700
+                "
+              >
+                {opportunity.title}
+              </h2>
 
-      <div className="mt-1.5 flex items-center gap-1.5 text-sm text-gray-500">
-        <Landmark className="h-3.5 w-3.5 shrink-0 text-sky-500" />
-        <span className="truncate">{provider}</span>
-      </div>
-    </div>
-  </div>
+              <div className="mt-1.5 flex items-center gap-1.5 text-sm text-gray-500">
+                <Landmark className="h-3.5 w-3.5 shrink-0 text-sky-500" />
+                <span className="truncate">{provider}</span>
+              </div>
+            </div>
+          </div>
 
-  {/* Category */}
-  <span
-    className="
-      hidden sm:inline-flex
-      max-w-30 shrink-0
-      items-center justify-center
-      rounded-full
-      border border-sky-100
-      bg-sky-50
-      px-3 py-1.5
-      text-center text-xs font-semibold
-      leading-tight
-      text-sky-700
-      whitespace-normal
-    "
-  >
-    {formatCategory(category)}
-  </span>
-</div>
+          {/* Category */}
+          <span
+            className="
+              hidden sm:inline-flex
+              max-w-30 shrink-0
+              items-center justify-center
+              rounded-full
+              border border-sky-100
+              bg-sky-50
+              px-3 py-1.5
+              text-center text-xs font-semibold
+              leading-tight
+              text-sky-700
+              whitespace-normal
+            "
+          >
+            {formatCategory(category)}
+          </span>
+        </div>
 
         {/* Mobile category */}
         <span
@@ -164,7 +209,7 @@ const OpportunityCard = ({ opportunity }) => {
             text-sky-700
           "
         >
-          {category}
+          {formatCategory(category)}
         </span>
 
         {/* Divider */}
@@ -197,7 +242,9 @@ const OpportunityCard = ({ opportunity }) => {
           </div>
 
           <div>
-            <p className="text-[11px] text-gray-400">Study Destination</p>
+            <p className="text-[11px] text-gray-400">
+              Study Destination
+            </p>
 
             <p className="text-sm font-semibold text-gray-800">
               {opportunity.country || "Not specified"}
@@ -206,57 +253,88 @@ const OpportunityCard = ({ opportunity }) => {
         </div>
 
         {/* Funding + Deadline */}
-<div className="my-3 grid grid-cols-2 gap-3">
+        <div className="my-3 grid grid-cols-2 gap-3">
 
-  {/* Funding */}
-  <div
-    className="
-      rounded-2xl
-      border border-gray-100
-      bg-gray-50/70
-      p-3.5
-      transition-all duration-300
-      group-hover:border-sky-100
-      group-hover:bg-sky-50/40
-    "
-  >
-    {/* Icon + Label */}
-    <div className="flex items-center gap-2">
-      <CircleDollarSign className="h-4 w-4 shrink-0 text-emerald-600" />
-      <p className="text-xs font-medium text-gray-500">Funding</p>
-    </div>
+          {/* Funding */}
+          <div
+            className="
+              rounded-2xl
+              border border-gray-100
+              bg-gray-50/70
+              p-3.5
+              transition-all duration-300
+              group-hover:border-sky-100
+              group-hover:bg-sky-50/40
+            "
+          >
+            <div className="flex items-center gap-2">
+              <CircleDollarSign
+                className="h-4 w-4 shrink-0 text-emerald-600"
+              />
+              <p className="text-xs font-medium text-gray-500">
+                Funding
+              </p>
+            </div>
 
-    {/* Value */}
-    <p className="mt-2 text-sm font-bold leading-snug text-gray-900">
-      {fundingLabel}
-    </p>
-  </div>
+            {/* Updated funding status UI */}
+            <div className="mt-3">
+              <span
+                className={`
+                  inline-flex items-center gap-1.5
+                  rounded-full px-3 py-1.5
+                  text-xs font-bold
+                  ${
+                    isDatabaseScholarship
+                      ? isFullyFunded
+                        ? "border border-emerald-200 bg-emerald-50 text-emerald-700"
+                        : "border border-amber-200 bg-amber-50 text-amber-700"
+                      : "border border-sky-200 bg-sky-50 text-sky-700"
+                  }
+                `}
+              >
+                <span
+                  className={`
+                    h-1.5 w-1.5 rounded-full
+                    ${
+                      isDatabaseScholarship
+                        ? isFullyFunded
+                          ? "bg-emerald-500"
+                          : "bg-amber-500"
+                        : "bg-sky-500"
+                    }
+                  `}
+                />
+                {fundingLabel || "Not specified"}
+              </span>
+            </div>
+          </div>
 
-  {/* Deadline */}
-  <div
-    className="
-      rounded-2xl
-      border border-gray-100
-      bg-gray-50/70
-      p-3.5
-      transition-all duration-300
-      group-hover:border-sky-100
-      group-hover:bg-sky-50/40
-    "
-  >
-    {/* Icon + Label */}
-    <div className="flex items-center gap-2">
-      <CalendarDays className="h-4 w-4 shrink-0 text-orange-500" />
-      <p className="text-xs font-medium text-gray-500">Deadline</p>
-    </div>
+          {/* Deadline */}
+          <div
+            className="
+              rounded-2xl
+              border border-gray-100
+              bg-gray-50/70
+              p-3.5
+              transition-all duration-300
+              group-hover:border-sky-100
+              group-hover:bg-sky-50/40
+            "
+          >
+            <div className="flex items-center gap-2">
+              <CalendarDays
+                className="h-4 w-4 shrink-0 text-orange-500"
+              />
+              <p className="text-xs font-medium text-gray-500">
+                Deadline
+              </p>
+            </div>
 
-    {/* Value */}
-    <p className="mt-2 text-sm font-bold leading-snug text-gray-900">
-      {deadline}
-    </p>
-  </div>
-
-</div>
+            <p className="mt-2 text-sm font-bold leading-snug text-gray-900">
+              {deadline}
+            </p>
+          </div>
+        </div>
 
         {/* CTA */}
         <NavLink

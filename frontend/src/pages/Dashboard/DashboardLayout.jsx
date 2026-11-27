@@ -20,11 +20,10 @@ import {
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { useState } from "react";
 import { DashboardProvider } from "../../context/Dashboard/DashboardProvider";
-import { useDashboard } from "../../context/Dashboard/useDashboard";
 import ScrollToTop from "../../components/ReusableComp/ScrollToTop";
+import StudentNotificationBell from "../../components/Notifications/StudentNotificationBell";
 
 const DashboardLayout = () => {
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigation = [
@@ -89,8 +88,6 @@ const DashboardLayout = () => {
       <DashboardContent
         navigation={navigation}
         bottomNavigation={bottomNavigation}
-        isNotificationOpen={isNotificationOpen}
-        setIsNotificationOpen={setIsNotificationOpen}
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
@@ -101,25 +98,17 @@ const DashboardLayout = () => {
 const DashboardContent = ({
   navigation,
   bottomNavigation,
-  isNotificationOpen,
-  setIsNotificationOpen,
   sidebarOpen,
   setSidebarOpen,
 }) => {
-  const {
-    notifications,
-    markNotificationRead,
-    markAllNotificationsRead,
-  } = useDashboard();
-
   const navigate = useNavigate();
 
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-  navigate("/", { replace: true });
-};
+    navigate("/", { replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f9fc] text-slate-900">
@@ -141,18 +130,12 @@ const handleLogout = () => {
           bg-white
           transition-transform duration-300
           lg:translate-x-0
-          ${sidebarOpen
-            ? "translate-x-0"
-            : "-translate-x-full"
-          }
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* Logo */}
         <div className="flex h-20 items-center justify-between border-b border-slate-100 px-6">
-          <NavLink
-            to="/"
-            className="flex items-center gap-3"
-          >
+          <NavLink to="/" className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500 shadow-lg shadow-sky-200">
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
@@ -199,9 +182,10 @@ const handleLogout = () => {
                     rounded-xl px-3 py-3
                     text-sm font-medium
                     transition-all duration-200
-                    ${isActive
-                      ? "bg-sky-50 text-sky-600 shadow-sm"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ${
+                      isActive
+                        ? "bg-sky-50 text-sky-600 shadow-sm"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }
                     `
                   }
@@ -212,27 +196,27 @@ const handleLogout = () => {
                         className={`
                           flex h-9 w-9 items-center justify-center rounded-lg
                           transition
-                          ${isActive
-                            ? "bg-sky-500 text-white shadow-md shadow-sky-200"
-                            : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
+                          ${
+                            isActive
+                              ? "bg-sky-500 text-white shadow-md shadow-sky-200"
+                              : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
                           }
                         `}
                       >
                         <Icon className="h-4.5 w-4.5" />
                       </div>
 
-                      <span className="flex-1">
-                        {item.label}
-                      </span>
+                      <span className="flex-1">{item.label}</span>
 
                       {item.badge && (
                         <span
                           className={`
                             rounded-full px-2 py-0.5
                             text-[10px] font-bold
-                            ${isActive
-                              ? "bg-sky-100 text-sky-600"
-                              : "bg-slate-100 text-slate-500"
+                            ${
+                              isActive
+                                ? "bg-sky-100 text-sky-600"
+                                : "bg-slate-100 text-slate-500"
                             }
                           `}
                         >
@@ -240,9 +224,7 @@ const handleLogout = () => {
                         </span>
                       )}
 
-                      {isActive && (
-                        <ChevronRight className="h-4 w-4" />
-                      )}
+                      {isActive && <ChevronRight className="h-4 w-4" />}
                     </>
                   )}
                 </NavLink>
@@ -256,13 +238,11 @@ const handleLogout = () => {
               <Sparkles className="h-5 w-5" />
             </div>
 
-            <h3 className="text-sm font-bold">
-              Need help?
-            </h3>
+            <h3 className="text-sm font-bold">Need help?</h3>
 
             <p className="mt-1 text-xs leading-5 text-sky-50">
-              Ask ScholarX AI about scholarships, eligibility,
-              documents, or applications.
+              Ask ScholarX AI about scholarships, eligibility, documents, or
+              applications.
             </p>
 
             <button
@@ -288,9 +268,10 @@ const handleLogout = () => {
                     `
                     flex items-center gap-3 rounded-xl px-3 py-3
                     text-sm font-medium transition
-                    ${isActive
-                      ? "bg-sky-50 text-sky-600"
-                      : "text-slate-600 hover:bg-slate-50"
+                    ${
+                      isActive
+                        ? "bg-sky-50 text-sky-600"
+                        : "text-slate-600 hover:bg-slate-50"
                     }
                     `
                   }
@@ -322,14 +303,14 @@ const handleLogout = () => {
             </div>
 
             <button
-  type="button"
-  onClick={handleLogout}
-  aria-label="Logout"
-  title="Logout"
-  className="rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-500"
->
-  <LogOut className="h-4 w-4" />
-</button>
+              type="button"
+              onClick={handleLogout}
+              aria-label="Logout"
+              title="Logout"
+              className="rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-500"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </aside>
@@ -360,172 +341,8 @@ const handleLogout = () => {
 
           <div className="flex items-center gap-3">
             {/* Notification */}
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() =>
-                  setIsNotificationOpen((prev) => !prev)
-                }
-                aria-label="Notifications"
-                aria-expanded={isNotificationOpen}
-                className={`
-                  relative flex h-10 w-10 items-center justify-center
-                  rounded-xl border bg-white
-                  transition-all duration-200
-                  ${isNotificationOpen
-                    ? "border-sky-200 bg-sky-50 text-sky-600"
-                    : "border-slate-200 text-slate-500 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600"
-                  }
-                `}
-              >
-                <Bell className="h-4.5 w-4.5" />
-
-                {notifications.some(
-                  (notification) => notification.unread
-                ) && (
-                    <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-sky-500 ring-2 ring-white" />
-                  )}
-              </button>
-
-              {isNotificationOpen && (
-                <div className="absolute right-0 top-14 z-50 w-90 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_15px_50px_rgba(15,23,42,0.12)]">
-                  {/* Header */}
-                  <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900">
-                        Notifications
-                      </h3>
-
-                      <p className="mt-0.5 text-xs text-slate-400">
-                        {
-                          notifications.filter(
-                            (notification) => notification.unread
-                          ).length
-                        }{" "}
-                        unread
-                      </p>
-                    </div>
-
-                    {notifications.some(
-                      (notification) => notification.unread
-                    ) && (
-                        <button
-                          type="button"
-                          onClick={markAllNotificationsRead}
-                          className="text-xs font-semibold text-sky-500 transition hover:text-sky-600"
-                        >
-                          Mark all read
-                        </button>
-                      )}
-                  </div>
-
-                  {/* Notification list */}
-                  <div className="max-h-95 overflow-y-auto">
-                    {notifications.length === 0 ? (
-                      <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-slate-400">
-                          <Bell className="h-5 w-5" />
-                        </div>
-
-                        <h4 className="mt-4 text-sm font-semibold text-slate-700">
-                          No notifications
-                        </h4>
-
-                        <p className="mt-1 max-w-60 text-xs leading-5 text-slate-400">
-                          You're all caught up. We'll notify you when
-                          something important happens.
-                        </p>
-                      </div>
-                    ) : (
-                      notifications.map((notification) => {
-                        const Icon =
-                          notification.type === "deadline"
-                            ? CalendarDays
-                            : notification.type === "match"
-                              ? Target
-                              : notification.type === "application"
-                                ? FileCheck2
-                                : Bell;
-
-                        return (
-                          <NavLink
-                            key={notification.id}
-                            to={
-                              notification.link ||
-                              "/dashboard/notifications"
-                            }
-                            onClick={() => {
-                              markNotificationRead(
-                                notification.id
-                              );
-                              setIsNotificationOpen(false);
-                            }}
-                            className={`
-                              flex w-full gap-3 border-b border-slate-100
-                              px-5 py-4 text-left transition
-                              ${notification.unread
-                                ? "bg-sky-50/50 hover:bg-sky-50"
-                                : "bg-white hover:bg-slate-50"
-                              }
-                            `}
-                          >
-                            {/* Icon */}
-                            <div
-                              className={`
-                                flex h-9 w-9 shrink-0 items-center justify-center
-                                rounded-xl
-                                ${notification.unread
-                                  ? "bg-sky-100 text-sky-600"
-                                  : "bg-slate-100 text-slate-500"
-                                }
-                              `}
-                            >
-                              <Icon className="h-4 w-4" />
-                            </div>
-
-                            {/* Content */}
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-start justify-between gap-2">
-                                <p className="text-sm font-semibold text-slate-800">
-                                  {notification.title}
-                                </p>
-
-                                {notification.unread && (
-                                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-sky-500" />
-                                )}
-                              </div>
-
-                              <p className="mt-1 text-xs leading-5 text-slate-500">
-                                {notification.message}
-                              </p>
-
-                              <p className="mt-2 text-[10px] font-medium text-slate-400">
-                                {notification.time}
-                              </p>
-                            </div>
-                          </NavLink>
-                        );
-                      })
-                    )}
-                  </div>
-
-                  {/* Footer */}
-                  {notifications.length > 0 && (
-                    <div className="border-t border-slate-100 p-3">
-                      <NavLink
-                        to="/dashboard/notifications"
-                        onClick={() =>
-                          setIsNotificationOpen(false)
-                        }
-                        className="flex w-full items-center justify-center rounded-xl bg-slate-50 px-4 py-2.5 text-xs font-bold text-slate-600 transition hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        View all notifications
-                      </NavLink>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+            {/* API-connected Notification Bell */}
+            <StudentNotificationBell />
 
             {/* Profile */}
             <NavLink
@@ -537,13 +354,9 @@ const handleLogout = () => {
               </div>
 
               <div className="text-left">
-                <p className="text-xs font-semibold text-slate-800">
-                  Student
-                </p>
+                <p className="text-xs font-semibold text-slate-800">Student</p>
 
-                <p className="text-[10px] text-slate-400">
-                  My Account
-                </p>
+                <p className="text-[10px] text-slate-400">My Account</p>
               </div>
             </NavLink>
           </div>
@@ -554,7 +367,6 @@ const handleLogout = () => {
           <Outlet />
         </main>
       </div>
-
 
       {/* Floating Dashboard Actions */}
       <div className="fixed bottom-5 right-5 z-40 flex flex-col items-center gap-3 sm:bottom-7 sm:right-7">
@@ -584,7 +396,6 @@ const handleLogout = () => {
           <House className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
         </NavLink>
       </div>
-
     </div>
   );
 };

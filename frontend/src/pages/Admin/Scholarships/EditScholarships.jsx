@@ -460,7 +460,7 @@ const EditScholarship = () => {
             Related information
           </h2>
           <p className="mt-1 text-sm text-slate-500">
-            Manage all related scholarship records using structured fields. Only modified sections are sent to the backend.
+            Manage scholarship-wide rules separately from program-specific requirements (including age limits). Only modified sections are sent to the backend.
           </p>
 
           <div className="mt-4">

@@ -18,6 +18,15 @@ def generate_recommendations(rule_results):
             continue
 
         rule_type = rule.get("rule_type", "general")
+        rule_key = str(rule_type).strip().casefold()
+        if rule_key in {"toefl ibt"}:
+            rule_key = "toefl"
+        elif rule_key in {"duolingo english test", "det"}:
+            rule_key = "duolingo"
+        elif rule_key in {"pte academic"}:
+            rule_key = "pte"
+        elif rule_key in {"work_experience", "work experience"}:
+            rule_key = "work-experience"
 
         recommendation = {
             "rule_id": rule.get("rule_id"),
@@ -28,7 +37,7 @@ def generate_recommendations(rule_results):
             "student_value": rule.get("student_value"),
             "reason": rule.get("reason"),
             "suggestion": get_improvement_suggestion(
-                rule_type,
+                rule_key,
                 status,
                 rule
             )
@@ -88,6 +97,26 @@ def get_improvement_suggestion(rule_type, status, rule=None):
                 "Add your language test details and scores so the system "
                 "can evaluate this requirement."
             ),
+            "ielts": (
+                "Add your IELTS test record and numeric overall score "
+                "to your Language Qualifications profile."
+            ),
+            "toefl": (
+                "Add your TOEFL test record and numeric score "
+                "to your Language Qualifications profile."
+            ),
+            "duolingo": (
+                "Add your Duolingo English Test record and numeric score "
+                "to your Language Qualifications profile."
+            ),
+            "pte": (
+                "Add your PTE Academic test record and numeric score "
+                "to your Language Qualifications profile."
+            ),
+            "work-experience": (
+                "Add your total work experience in months to the "
+                "Experience section of your student profile."
+            ),
 
             "minimum_gpa": (
                 "Your academic performance information is unavailable "
@@ -136,6 +165,26 @@ def get_improvement_suggestion(rule_type, status, rule=None):
             "language_proficiency": (
                 "Prepare for the required language proficiency test "
                 "and work toward achieving the required score."
+            ),
+            "ielts": (
+                "Your IELTS score is below the scholarship threshold. "
+                "Consider retaking IELTS and target the required score."
+            ),
+            "toefl": (
+                "Your TOEFL score is below the scholarship threshold. "
+                "Consider retaking TOEFL and target the required score."
+            ),
+            "duolingo": (
+                "Your Duolingo English Test score is below the scholarship "
+                "threshold. Consider retaking the test and target the required score."
+            ),
+            "pte": (
+                "Your PTE Academic score is below the scholarship threshold. "
+                "Consider retaking the test and target the required score."
+            ),
+            "work-experience": (
+                "You do not yet meet the required work-experience duration. "
+                "Update your profile when you gain additional experience."
             ),
 
             "entrance_exam": (

@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 # Shared nested models used by the admin dashboard.
@@ -19,6 +19,27 @@ class ScholarshipRuleInput(BaseModel):
     condition: dict | list | str | None = None
     source_sentence: str | None = None
     mandatory: bool = True
+
+    @field_validator("rule_type")
+    @classmethod
+    def normalize_supported_rule_type(cls, value: str) -> str:
+        """Store supported direct comparison rules with canonical names."""
+        value = value.strip()
+        key = value.casefold()
+        canonical = {
+            "ielts": "IELTS",
+            "toefl": "TOEFL",
+            "toefl ibt": "TOEFL",
+            "duolingo": "Duolingo",
+            "duolingo english test": "Duolingo",
+            "det": "Duolingo",
+            "pte": "PTE",
+            "pte academic": "PTE",
+            "work-experience": "work-experience",
+            "work_experience": "work-experience",
+            "work experience": "work-experience",
+        }
+        return canonical.get(key, value)
 
 
 class ProgramEligibilityInput(BaseModel):

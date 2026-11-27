@@ -260,7 +260,7 @@ const CreateScholarship = () => {
             <div>
               <h2 className="font-bold text-slate-800">Related Records</h2>
               <p className="mt-1 text-sm text-slate-500">
-                Add programs, eligibility rules, documents, coverage, and contacts using the fields below.
+                Add scholarship-wide rules and program-specific requirements (including age limits), along with documents, coverage, and contacts.
               </p>
             </div>
           </div>

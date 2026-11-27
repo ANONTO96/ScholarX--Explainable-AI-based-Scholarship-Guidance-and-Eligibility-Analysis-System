@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router";
+import StudentNotificationBell from "./Notifications/StudentNotificationBell";
 
 const Navbar = () => {
   // state for mobile dropdown icon
@@ -498,6 +499,7 @@ const Navbar = () => {
         </div>
         {/* user actions */}
         <div className="flex items-center gap-2">
+          {user && <StudentNotificationBell />}
           {!user && (
             <>
               <NavLink

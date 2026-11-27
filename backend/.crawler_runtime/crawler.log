@@ -1,0 +1,201 @@
+
+===== china_crawler started at 2026-11-26T18:38:30.492605+00:00 | job a4e4d58d-e303-4446-b7b4-f3d830d814fc =====
+Chinese Government Scholarship (CGS) / CSC Type A
+Final Data to Insert/Update: 2026-01-10
+Scholarship data updated successfully.
+Scholarship ID: 1
+Scholarship: {'inserted': 0, 'updated': 1, 'unchanged': 0}
+Sections: {'inserted': 0, 'updated': 0, 'unchanged': 4}
+===== finished at 2026-11-26T18:38:32.282942+00:00 | exit code 0 =====
+
+===== china_rules started at 2026-11-26T18:38:53.026609+00:00 | job 47edc8ee-3ea7-42f8-98ca-7c590fa8bf59 =====
+
+========== ELIGIBILITY SENTENCE DEBUG ==========
+
+[1] '1. be a citizen of a country other than the PRC and in good health both mentally and physically'
+
+[2] '2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program'
+
+[3] "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
+
+[4] "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
+
+[5] '5. be a holder of a high school diploma (or higher) under the age of 45 when applying for a general scholar program'
+
+[6] "6. be a master's degree holder or an associate professor (or above) under the age of 50 when applying for a senior scholar program"
+
+[7] '7. take the "China Scholastic Competency Assessment (short as CSCA)" and upload a valid score report when applying for bachelor programs (Official website of CSCA: www.csca.cn )'
+
+[8] '8. have passed the HSK (Level 3) when applying for a Chinese-taught general scholar program (excluding Chinese language majors)'
+
+[9] '9. have passed the HSK (Level 3) when applying for a Chinese-taught senior scholar program'
+
+[10] "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
+
+[11] '11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------'
+
+========== HSK 4 SEARCH ==========
+['8. have passed the HSK (Level 3) when applying for a Chinese-taught general scholar program (excluding Chinese language majors)', '9. have passed the HSK (Level 3) when applying for a Chinese-taught senior scholar program', "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"]
+
+========== END DEBUG ==========
+
+
+Program Database Response:
+{'status': 204, 'message': 'Scholarship programs already up to date.', 'inserted': 0, 'updated': 0, 'unchanged': 3}
+SCHOLARSHIP ID: 1
+SCHOLARSHIP RULES: [{'rule_type': 'citizenship', 'operator': '=', 'rule_value': 'International', 'category': 'academic', 'mandatory': True, 'source_sentence': 'be a citizen of a country other than the PRC and in good health both mentally and physically'}, {'rule_type': 'health', 'operator': '=', 'rule_value': 'Good', 'category': 'academic', 'mandatory': True, 'source_sentence': 'be a citizen of a country other than the PRC and in good health both mentally and physically'}, {'rule_type': 'criminal_record', 'operator': '=', 'rule_value': 'Clean', 'category': 'academic', 'mandatory': True, 'source_sentence': 'An applicant shall submit a valid Certificate of Non-Criminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application. ----------------------'}, {'rule_type': 'minimum_gpa', 'operator': '>=', 'rule_value': 0, 'category': 'academic', 'mandatory': False, 'source_sentence': None}]
+GPA RULE: [{'rule_type': 'minimum_gpa', 'operator': '>=', 'rule_value': 0, 'category': 'academic', 'mandatory': False, 'source_sentence': None}]
+
+Eligibility Database Response:
+{'status': 200, 'message': 'Eligibility rules processed successfully', 'inserted': 0, 'updated': 0, 'unchanged': 16}
+
+Document Database Response:
+{'status': 200, 'message': 'Scholarship documents processed successfully', 'inserted': 0, 'updated': 0, 'unchanged': 11}
+
+Coverage Database Response:
+{'status': 200, 'message': 'Scholarship coverage processed successfully', 'inserted': 0, 'updated': 9, 'skipped': 0}
+
+Contact Database Response:
+{'status': 200, 'message': 'Contacts processed successfully', 'inserted': 0, 'unchanged': 13}
+
+======================================================================
+SCHOLARSHIP EXTRACTION PIPELINE COMPLETED
+======================================================================
+
+Extracted JSON saved to:
+H:\Final Year Project\ScholarX--Explainable-AI-based-Scholarship-Guidance-and-Eligibility-Analysis-System\backend\ai\china\extracted_rule.json
+===== finished at 2026-11-26T18:38:53.587369+00:00 | exit code 0 =====
+
+===== china_crawler started at 2026-11-26T19:02:41.354802+00:00 | job 7ed742e3-3aee-4d08-a6f9-05a1a57dac02 =====
+Chinese Government Scholarship (CGS) / CSC Type A
+Final Data to Insert/Update: 2026-01-10
+Scholarship data updated successfully.
+Scholarship ID: 1
+Scholarship: {'inserted': 0, 'updated': 1, 'unchanged': 0}
+Sections: {'inserted': 0, 'updated': 0, 'unchanged': 4}
+===== finished at 2026-11-26T19:02:41.964796+00:00 | exit code 0 =====
+
+===== china_rules started at 2026-11-26T19:02:55.234519+00:00 | job 347f8274-ca8c-4899-80c3-df4fdbe16d0b =====
+
+========== ELIGIBILITY SENTENCE DEBUG ==========
+
+[1] '1. be a citizen of a country other than the PRC and in good health both mentally and physically'
+
+[2] '2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program'
+
+[3] "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
+
+[4] "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
+
+[5] '5. be a holder of a high school diploma (or higher) under the age of 45 when applying for a general scholar program'
+
+[6] "6. be a master's degree holder or an associate professor (or above) under the age of 50 when applying for a senior scholar program"
+
+[7] '7. take the "China Scholastic Competency Assessment (short as CSCA)" and upload a valid score report when applying for bachelor programs (Official website of CSCA: www.csca.cn )'
+
+[8] '8. have passed the HSK (Level 3) when applying for a Chinese-taught general scholar program (excluding Chinese language majors)'
+
+[9] '9. have passed the HSK (Level 3) when applying for a Chinese-taught senior scholar program'
+
+[10] "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
+
+[11] '11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------'
+
+========== HSK 4 SEARCH ==========
+['8. have passed the HSK (Level 3) when applying for a Chinese-taught general scholar program (excluding Chinese language majors)', '9. have passed the HSK (Level 3) when applying for a Chinese-taught senior scholar program', "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"]
+
+========== END DEBUG ==========
+
+
+Program Database Response:
+{'status': 204, 'message': 'Scholarship programs already up to date.', 'inserted': 0, 'updated': 0, 'unchanged': 3}
+SCHOLARSHIP ID: 1
+SCHOLARSHIP RULES: [{'rule_type': 'citizenship', 'operator': '=', 'rule_value': 'International', 'category': 'academic', 'mandatory': True, 'source_sentence': 'be a citizen of a country other than the PRC and in good health both mentally and physically'}, {'rule_type': 'health', 'operator': '=', 'rule_value': 'Good', 'category': 'academic', 'mandatory': True, 'source_sentence': 'be a citizen of a country other than the PRC and in good health both mentally and physically'}, {'rule_type': 'criminal_record', 'operator': '=', 'rule_value': 'Clean', 'category': 'academic', 'mandatory': True, 'source_sentence': 'An applicant shall submit a valid Certificate of Non-Criminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application. ----------------------'}, {'rule_type': 'minimum_gpa', 'operator': '>=', 'rule_value': 0, 'category': 'academic', 'mandatory': False, 'source_sentence': None}]
+GPA RULE: [{'rule_type': 'minimum_gpa', 'operator': '>=', 'rule_value': 0, 'category': 'academic', 'mandatory': False, 'source_sentence': None}]
+
+Eligibility Database Response:
+{'status': 200, 'message': 'Eligibility rules processed successfully', 'inserted': 0, 'updated': 0, 'unchanged': 16}
+
+Document Database Response:
+{'status': 200, 'message': 'Scholarship documents processed successfully', 'inserted': 0, 'updated': 0, 'unchanged': 11}
+
+Coverage Database Response:
+{'status': 200, 'message': 'Scholarship coverage processed successfully', 'inserted': 0, 'updated': 9, 'skipped': 0}
+
+Contact Database Response:
+{'status': 200, 'message': 'Contacts processed successfully', 'inserted': 0, 'unchanged': 13}
+
+======================================================================
+SCHOLARSHIP EXTRACTION PIPELINE COMPLETED
+======================================================================
+
+Extracted JSON saved to:
+H:\Final Year Project\ScholarX--Explainable-AI-based-Scholarship-Guidance-and-Eligibility-Analysis-System\backend\ai\china\extracted_rule.json
+===== finished at 2026-11-26T19:02:55.597370+00:00 | exit code 0 =====
+
+===== china_crawler started at 2026-11-26T19:18:41.746303+00:00 | job 6befc2eb-dceb-4a2b-988d-25996ed58e9f =====
+Chinese Government Scholarship (CGS) / CSC Type A
+Final Data to Insert/Update: 2026-01-10
+Scholarship data updated successfully.
+Scholarship ID: 1
+Scholarship: {'inserted': 0, 'updated': 1, 'unchanged': 0}
+Sections: {'inserted': 0, 'updated': 0, 'unchanged': 4}
+===== finished at 2026-11-26T19:18:42.360470+00:00 | exit code 0 =====
+
+===== china_rules started at 2026-11-26T19:19:44.355607+00:00 | job ddab59a4-2473-48d7-a36b-b411f8102bf3 =====
+
+========== ELIGIBILITY SENTENCE DEBUG ==========
+
+[1] '1. be a citizen of a country other than the PRC and in good health both mentally and physically'
+
+[2] '2. be an academically excellent holder of high school diploma or its equivalent under the age of 25 when applying for an undergraduate program'
+
+[3] "3. be an academically excellent holder of a Bachelor's degree or its equivalent under the age of 35 when applying for a Master's program"
+
+[4] "4. be an academically excellent holder of a Master's degree or its equivalent under the age of 40 when applying for a doctoral program"
+
+[5] '5. be a holder of a high school diploma (or higher) under the age of 45 when applying for a general scholar program'
+
+[6] "6. be a master's degree holder or an associate professor (or above) under the age of 50 when applying for a senior scholar program"
+
+[7] '7. take the "China Scholastic Competency Assessment (short as CSCA)" and upload a valid score report when applying for bachelor programs (Official website of CSCA: www.csca.cn )'
+
+[8] '8. have passed the HSK (Level 3) when applying for a Chinese-taught general scholar program (excluding Chinese language majors)'
+
+[9] '9. have passed the HSK (Level 3) when applying for a Chinese-taught senior scholar program'
+
+[10] "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"
+
+[11] '11. meet the admission requirements of the university of preference in terms of language proficiency and academic ability, among others, when applying for a program taught in a language other than Chinese. ----------------------'
+
+========== HSK 4 SEARCH ==========
+['8. have passed the HSK (Level 3) when applying for a Chinese-taught general scholar program (excluding Chinese language majors)', '9. have passed the HSK (Level 3) when applying for a Chinese-taught senior scholar program', "10. have passed the HSK (Level 4) when applying for a Chinese-taught master's or doctoral program"]
+
+========== END DEBUG ==========
+
+
+Program Database Response:
+{'status': 204, 'message': 'Scholarship programs already up to date.', 'inserted': 0, 'updated': 0, 'unchanged': 3}
+SCHOLARSHIP ID: 1
+SCHOLARSHIP RULES: [{'rule_type': 'citizenship', 'operator': '=', 'rule_value': 'International', 'category': 'academic', 'mandatory': True, 'source_sentence': 'be a citizen of a country other than the PRC and in good health both mentally and physically'}, {'rule_type': 'health', 'operator': '=', 'rule_value': 'Good', 'category': 'academic', 'mandatory': True, 'source_sentence': 'be a citizen of a country other than the PRC and in good health both mentally and physically'}, {'rule_type': 'criminal_record', 'operator': '=', 'rule_value': 'Clean', 'category': 'academic', 'mandatory': True, 'source_sentence': 'An applicant shall submit a valid Certificate of Non-Criminal Record (or Police Clearance Certificate) issued by the local public security (such as the police station), usually issued within six months prior to the submission date of the application. ----------------------'}, {'rule_type': 'minimum_gpa', 'operator': '>=', 'rule_value': 0, 'category': 'academic', 'mandatory': False, 'source_sentence': None}]
+GPA RULE: [{'rule_type': 'minimum_gpa', 'operator': '>=', 'rule_value': 0, 'category': 'academic', 'mandatory': False, 'source_sentence': None}]
+
+Eligibility Database Response:
+{'status': 200, 'message': 'Eligibility rules processed successfully', 'inserted': 0, 'updated': 0, 'unchanged': 16}
+
+Document Database Response:
+{'status': 200, 'message': 'Scholarship documents processed successfully', 'inserted': 0, 'updated': 0, 'unchanged': 11}
+
+Coverage Database Response:
+{'status': 200, 'message': 'Scholarship coverage processed successfully', 'inserted': 0, 'updated': 9, 'skipped': 0}
+
+Contact Database Response:
+{'status': 200, 'message': 'Contacts processed successfully', 'inserted': 0, 'unchanged': 13}
+
+======================================================================
+SCHOLARSHIP EXTRACTION PIPELINE COMPLETED
+======================================================================
+
+Extracted JSON saved to:
+H:\Final Year Project\ScholarX--Explainable-AI-based-Scholarship-Guidance-and-Eligibility-Analysis-System\backend\ai\china\extracted_rule.json
+===== finished at 2026-11-26T19:19:44.722356+00:00 | exit code 0 =====

@@ -239,7 +239,7 @@ duration-300">
                                         </p>
 
                                         <h4 className="mt-1 font-semibold text-lg">
-                                            support@scholarx.com
+                                            contact@myscholarx.com
                                         </h4>
 
                                         <p className="mt-2 text-sm text-slate-500">
