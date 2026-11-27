@@ -2,7 +2,6 @@ import os
 import smtplib
 from datetime import datetime
 from email.message import EmailMessage
-from turtle import st
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
