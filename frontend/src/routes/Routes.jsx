@@ -50,6 +50,8 @@ import AdminOverview from "../pages/Admin/AdminOverview";
 import ManageScholarships from "../pages/Admin/Scholarships/ManageScholarships";
 import CreateScholarship from "../pages/Admin/Scholarships/CreateScholarship";
 import EditScholarships from "../pages/Admin/Scholarships/EditScholarships";
+import CrawlerManagement from "../pages/Admin/CrawlerManagement";
+import AdminNotifications from "../pages/Admin/AdminNotifications";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 import EligibilityAnalysisPage from "../pages/Dashboard/EligibilityAnalysisPage";
@@ -141,6 +143,8 @@ export const router = createBrowserRouter([
           { index: true, element: <AdminOverview /> },
           { path: "scholarships", element: <ManageScholarships /> },
           { path: "scholarships/create", element: <CreateScholarship /> },
+          { path: "crawlers", element: <CrawlerManagement /> },
+          { path: "notifications", element: <AdminNotifications /> },
           {
             path: "scholarships/:scholarshipId",
             element: <EditScholarships />,

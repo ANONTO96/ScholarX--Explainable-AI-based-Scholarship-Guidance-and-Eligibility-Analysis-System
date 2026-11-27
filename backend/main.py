@@ -11,6 +11,8 @@ from api.admin_scholarships import router as admin_scholarships_router
 from api.student_documents import router as student_documents_router
 from api.matching_routes import router as matching_router
 from api.chatbot.chatbot import router as chatbot_router
+from api.admin_crawler import router as admin_crawler_router
+from api.notifications import router as notifications_router
 
 from database.connection import get_db_connection
 
@@ -70,3 +72,7 @@ app.include_router(admin_scholarships_router)
 app.include_router(matching_router)
 
 app.include_router(chatbot_router)
+
+app.include_router(admin_crawler_router)
+
+app.include_router(notifications_router)

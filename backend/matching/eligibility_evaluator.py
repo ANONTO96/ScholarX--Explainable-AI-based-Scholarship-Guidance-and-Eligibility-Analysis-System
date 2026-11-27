@@ -5,7 +5,9 @@ Currently supports:
 - age / minimum_age / maximum_age
 - citizenship and nationality (International checkbox or specific nationality)
 - health certificate and criminal-record / police-clearance checklist availability
-- language_proficiency rule matching (English/MOI, IELTS, and HSK)
+- language_proficiency matching (existing general qualification matcher)
+- direct test-score rules: IELTS, TOEFL, Duolingo, and PTE
+- work-experience rules using student_profiles.work_experience_months
 - entrance_exam
 
 Missing or unverified information returns "unknown".
@@ -958,6 +960,196 @@ def evaluate_language(rule, languages):
         required_value=required,
     )
 
+
+def _normalize_test_name(value):
+    """Normalize test labels so rule_type and profile test_name can match."""
+    normalized = re.sub(r"[^a-z0-9]+", "", str(value or "").casefold())
+    aliases = {
+        "ieltsacademic": "ielts",
+        "ieltgeneraltraining": "ielts",
+        "toeflibt": "toefl",
+        "toefl": "toefl",
+        "duolingoenglishtest": "duolingo",
+        "det": "duolingo",
+        "pteacademic": "pte",
+        "pte": "pte",
+    }
+    return aliases.get(normalized, normalized)
+
+
+def _normalize_rule_type(value):
+    """Canonicalize direct rule names without changing stored rule_type."""
+    raw = str(value or "").strip().casefold()
+    if raw in {"work-experience", "work_experience", "work experience"}:
+        return "work-experience"
+
+    test_name = _normalize_test_name(raw)
+    if test_name in {"ielts", "toefl", "duolingo", "pte"}:
+        return test_name
+
+    return raw
+
+
+def _parse_work_experience_requirement(value):
+    """
+    Convert a work-experience requirement to months.
+
+    Bare numeric values are months (e.g. 24 means 24 months).
+    Explicit strings such as '2 years' and '24 months' are converted.
+    """
+    if value is None or value == "":
+        return None
+
+    if isinstance(value, (int, float)):
+        return float(value)
+
+    text = str(value).strip().casefold()
+    match = re.fullmatch(r"(\d+(?:\.\d+)?)\s*(years?|yrs?|months?|mos?)?", text)
+    if not match:
+        return None
+
+    amount = float(match.group(1))
+    unit = match.group(2) or "months"
+    if unit.startswith(("year", "yr")):
+        return amount * 12
+    return amount
+
+
+def evaluate_test_score(rule, languages):
+    """Compare a named test rule (IELTS/TOEFL/Duolingo/PTE) to score_numeric."""
+    rule_type = _normalize_rule_type(rule.get("rule_type"))
+    required_score = rule.get("rule_value")
+    operator = rule.get("operator") or ">="
+
+    try:
+        required_score = float(required_score)
+    except (TypeError, ValueError):
+        return make_result(
+            rule, "unknown",
+            f"The required {rule.get('rule_type')} score is missing or invalid.",
+            required_value=rule.get("rule_value"), operator=operator,
+        )
+
+    matching_records = [
+        item for item in (languages or [])
+        if _normalize_test_name(item.get("test_name")) == rule_type
+    ]
+
+    if not matching_records:
+        display_name = str(rule.get("rule_type") or "language test")
+        return make_result(
+            rule, "unknown",
+            f"No {display_name} test record was found in the student profile.",
+            student_value="No matching test record",
+            required_value=required_score, operator=operator,
+        )
+
+    comparable = []
+    missing_score = False
+    expired = []
+
+    for record in matching_records:
+        validity = get_test_validity(record)
+        if validity == "expired":
+            expired.append(record)
+            continue
+
+        score = record.get("score_numeric")
+        if score is None or score == "":
+            missing_score = True
+            continue
+
+        result = compare_values(score, operator, required_score)
+        if result is None:
+            missing_score = True
+            continue
+
+        comparable.append((float(score), result, validity))
+
+    # A single verified passing test record is sufficient.
+    passing = [entry for entry in comparable if entry[1] is True]
+    if passing:
+        score, _, validity = max(passing, key=lambda entry: entry[0])
+        note = (
+            " The test expiry date is not recorded, so expiry could not be verified."
+            if validity == "unknown" else ""
+        )
+        return make_result(
+            rule, "met",
+            f"Student's {rule.get('rule_type')} score ({score:g}) meets the required score ({operator} {required_score:g}).{note}",
+            student_value=score, required_value=required_score, operator=operator,
+        )
+
+    # Do not report a failure when another matching record has no score.
+    if missing_score:
+        return make_result(
+            rule, "unknown",
+            f"A {rule.get('rule_type')} record exists, but its numeric score is missing or invalid.",
+            student_value="Test record found; score unavailable",
+            required_value=required_score, operator=operator,
+        )
+
+    if not comparable and expired:
+        return make_result(
+            rule, "not_met",
+            f"The student's {rule.get('rule_type')} test record has expired; a current valid test score is required.",
+            student_value="Expired test record",
+            required_value=required_score, operator=operator,
+        )
+
+    if comparable:
+        # Show the most informative actual score for the failed comparison.
+        score = max(entry[0] for entry in comparable) if operator in {">", ">="} else min(entry[0] for entry in comparable)
+        return make_result(
+            rule, "not_met",
+            f"Student's {rule.get('rule_type')} score ({score:g}) does not meet the required score ({operator} {required_score:g}).",
+            student_value=score, required_value=required_score, operator=operator,
+        )
+
+    return make_result(
+        rule, "unknown",
+        f"The student's {rule.get('rule_type')} score could not be verified.",
+        required_value=required_score, operator=operator,
+    )
+
+
+def evaluate_work_experience(rule, profile):
+    """Compare work-experience requirement with work_experience_months."""
+    actual_months = profile.get("work_experience_months")
+    required_months = _parse_work_experience_requirement(rule.get("rule_value"))
+    operator = rule.get("operator") or ">="
+
+    if actual_months is None or actual_months == "":
+        return make_result(
+            rule, "unknown",
+            "Student work experience is not available in the profile.",
+            required_value=required_months, operator=operator,
+        )
+
+    if required_months is None:
+        return make_result(
+            rule, "unknown",
+            "The scholarship work-experience requirement is missing or invalid. Use months as the numeric unit (e.g. 24).",
+            student_value=actual_months,
+            required_value=rule.get("rule_value"), operator=operator,
+        )
+
+    result = compare_values(actual_months, operator, required_months)
+    if result is None:
+        return make_result(
+            rule, "unknown",
+            "The work-experience comparison could not be evaluated because the value or operator is invalid.",
+            student_value=actual_months, required_value=required_months, operator=operator,
+        )
+
+    status = "met" if result else "not_met"
+    relation = "meets" if result else "does not meet"
+    return make_result(
+        rule, status,
+        f"Student's work experience ({actual_months} months) {relation} the required experience ({operator} {required_months:g} months).",
+        student_value=actual_months, required_value=required_months, operator=operator,
+    )
+
 def evaluate_entrance_exam(rule, student_data):
     """Evaluate the student's entrance examination records."""
 
@@ -1145,7 +1337,18 @@ def evaluate_eligibility_rules(
             rule, student_data
         ),
 
+        # Existing generic language matcher remains independent from
+        # direct named-test score comparisons below.
         "language_proficiency": evaluate_language_rule,
+
+        "ielts": lambda rule: evaluate_test_score(rule, languages),
+        "toefl": lambda rule: evaluate_test_score(rule, languages),
+        "duolingo": lambda rule: evaluate_test_score(rule, languages),
+        "pte": lambda rule: evaluate_test_score(rule, languages),
+
+        "work-experience": lambda rule: evaluate_work_experience(
+            rule, profile
+        ),
 
         "entrance_exam": lambda rule: evaluate_entrance_exam(
             rule, student_data
@@ -1155,7 +1358,7 @@ def evaluate_eligibility_rules(
     results = []
 
     for rule in rules:
-        rule_type = rule.get("rule_type")
+        rule_type = _normalize_rule_type(rule.get("rule_type"))
 
         if rule_type not in evaluators:
             continue

@@ -1,4 +1,3 @@
-
 import { Link } from "react-router";
 import {
   ArrowRight,
@@ -7,8 +6,10 @@ import {
   Clock3,
   GraduationCap,
   Plus,
-  RefreshCw,
   ShieldCheck,
+  Terminal,
+  Bell,
+  RefreshCw,
 } from "lucide-react";
 
 const stats = [
@@ -58,8 +59,8 @@ const AdminOverview = () => {
           </h1>
 
           <p className="mt-2 max-w-xl text-sm leading-6 text-sky-50 sm:text-base">
-            Manage scholarship information and keep opportunities accurate
-            for students exploring their study-abroad options.
+            Manage scholarship information and keep opportunities accurate for
+            students exploring their study-abroad options.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -107,9 +108,7 @@ const AdminOverview = () => {
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-medium text-slate-500">
-                    {label}
-                  </p>
+                  <p className="text-sm font-medium text-slate-500">{label}</p>
                   <p className="mt-3 text-2xl font-bold text-slate-800">
                     {value}
                   </p>
@@ -184,9 +183,7 @@ const AdminOverview = () => {
               <RefreshCw size={22} />
             </div>
             <div>
-              <h2 className="font-bold text-slate-800">
-                Data & Maintenance
-              </h2>
+              <h2 className="font-bold text-slate-800">Data & Maintenance</h2>
               <p className="text-sm text-slate-500">
                 Keep scholarship information reliable.
               </p>
@@ -211,6 +208,67 @@ const AdminOverview = () => {
             <ArrowRight size={16} />
           </Link>
         </article>
+      </section>
+
+      {/* Admin tools */}
+      <section>
+        <div className="mb-4">
+          <h2 className="text-lg font-bold text-slate-800">Admin Tools</h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Run data collection jobs and communicate important updates to
+            students.
+          </p>
+        </div>
+        <div className="grid gap-5 lg:grid-cols-2">
+          <Link
+            to="/admin/crawlers"
+            className="group rounded-2xl border border-sky-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-300 hover:shadow-md"
+          >
+            <div className="flex items-center justify-between">
+              <div className="rounded-xl bg-sky-50 p-3 text-sky-600">
+                <Terminal size={23} />
+              </div>
+              <ArrowUpRight
+                size={19}
+                className="text-slate-400 group-hover:text-sky-600"
+              />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-slate-800">
+              Crawler Management
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              Run country-specific scholarship crawlers and eligibility parsers,
+              and monitor their execution status.
+            </p>
+            <span className="mt-5 inline-flex rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white">
+              Open Crawler Manager
+            </span>
+          </Link>
+          <Link
+            to="/admin/notifications"
+            className="group rounded-2xl border border-sky-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md"
+          >
+            <div className="flex items-center justify-between">
+              <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
+                <Bell size={23} />
+              </div>
+              <ArrowUpRight
+                size={19}
+                className="text-slate-400 group-hover:text-indigo-600"
+              />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-slate-800">
+              Send Notifications
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              Compose an announcement for the website notification centre and
+              configure delivery channels.
+            </p>
+            <span className="mt-5 inline-flex rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white">
+              Open Notification Centre
+            </span>
+          </Link>
+        </div>
       </section>
 
       {/* Recent activity placeholder */}
