@@ -20,7 +20,9 @@ from database.queries.oauth_queries import (
     consume_oauth_exchange_code,
 )
 from database.queries.auth_queries import get_user_by_id
-
+from database.queries.notification_queries import (
+    create_profile_completion_notification,
+)
 
 JWT_SECRET = os.getenv("JWT_SECRET")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
@@ -209,7 +211,7 @@ def google_callback(code: str, state: str = None):
         )
 
         create_student_profile(user_id)
-
+        create_profile_completion_notification(user_id)
         user = {
             "id": user_id,
             "name": name or "Google User",
