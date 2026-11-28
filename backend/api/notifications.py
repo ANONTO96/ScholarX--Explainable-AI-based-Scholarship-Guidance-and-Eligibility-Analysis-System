@@ -265,12 +265,14 @@ def get_my_notifications(
     try:
         cursor.execute(
             """SELECT un.id AS user_notification_id,
-                      n.id AS notification_id,
-                      n.title,
-                      n.message,
-                      un.is_read,
-                      un.read_at,
-                      un.delivered_at
+       n.id AS notification_id,
+       n.title,
+       n.message,
+       n.type,
+       n.link,
+       un.is_read,
+       un.read_at,
+       un.delivered_at
                FROM user_notifications un
                JOIN notifications n ON n.id = un.notification_id
                WHERE un.user_id = %s

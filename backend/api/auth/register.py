@@ -15,6 +15,10 @@ from database.queries.auth_queries import (
     get_user_by_username,
 )
 
+from database.queries.notification_queries import (
+    create_profile_completion_notification,
+)
+
 
 JWT_SECRET = os.getenv("JWT_SECRET")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
@@ -83,7 +87,7 @@ def register_user(name, email, password):
         )
 
         create_student_profile(user_id)
-
+        create_profile_completion_notification(user_id)
     except RuntimeError as error:
         logger.exception("Registration runtime error")
         return {
